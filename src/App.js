@@ -1,15 +1,25 @@
 import React from 'react';
-import './App.css';
 
 // Components
 import MainContainer from './components/atoms/main-container/main-container.styles';
 import SideMenu from './components/organisms/side-menu/side-menu.component';
 
+// Styles
+import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import theme from './global-mui.theme';
+import './App.scss';
+
 const App = () => {
 	return (
-		<MainContainer>
-			<SideMenu></SideMenu>
-		</MainContainer>
+		<StylesProvider injectFirst>
+			<CssBaseline />
+			<ThemeProvider theme={theme}>
+				<MainContainer>
+					<SideMenu></SideMenu>
+				</MainContainer>
+			</ThemeProvider>
+		</StylesProvider>
 	);
 };
 
