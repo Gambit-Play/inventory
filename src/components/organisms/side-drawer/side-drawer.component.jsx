@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -10,7 +11,7 @@ import { connect } from 'react-redux';
 import { toggleSidemenu } from '../../../redux/ui/ui.actions';
 
 // Side menu list
-import SideMenuList from '../side-menu/side-menu.list';
+import SideDrawerList from './side-drawer.list';
 
 // Mui Components & Icons
 import IconButton from '@material-ui/core/IconButton';
@@ -46,9 +47,14 @@ const SideDrawer = ({ open, toggleSidemenu }) => {
 				</IconButton>
 			</div>
 			<Divider />
-			<SideMenuList />
+			<SideDrawerList />
 		</Drawer>
 	);
+};
+
+SideDrawer.propTypes = {
+	open: PropTypes.bool.isRequired,
+	toggleSidemenu: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

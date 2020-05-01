@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
@@ -89,6 +90,11 @@ const TopBar = props => {
 			</Toolbar>
 		</AppBar>
 	);
+};
+
+TopBar.propTypes = {
+	toggleSidemenu: PropTypes.func.isRequired,
+	open: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

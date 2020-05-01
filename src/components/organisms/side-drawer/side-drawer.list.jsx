@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // Routes
 import * as ROUTES from '../../../routes/routes';
@@ -24,70 +25,62 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 /* ================================================================ */
 
 const MainListItems = props => {
-	// const { location } = props;
+	const { location } = props;
 
-	// const isCurrent = linkLocation => {
-	// 	if (linkLocation === location.pathname) return true;
+	const isCurrent = linkLocation => {
+		if (linkLocation === location.pathname) return true;
 
-	// 	return false;
-	// };
-	// const iconActive = linkLocation => {
-	// 	if (linkLocation === location.pathname) return 'primary';
+		return false;
+	};
+	const iconActive = linkLocation => {
+		if (linkLocation === location.pathname) return 'primary';
 
-	// 	return;
-	// };
+		return;
+	};
 
 	return (
 		<div>
 			<ListItem
-				// selected={isCurrent(ROUTES.LANDING) ? true : false}
+				selected={isCurrent(ROUTES.LANDING) ? true : false}
 				button
 				component={Link}
 				to={ROUTES.LANDING}
 			>
 				<ListItemIcon>
-					<DashboardIcon
-					// color={iconActive(ROUTES.LANDING)}
-					/>
+					<DashboardIcon color={iconActive(ROUTES.LANDING)} />
 				</ListItemIcon>
 				<ListItemText primary='Dashboard' />
 			</ListItem>
 			<ListItem
-				// selected={isCurrent(ROUTES.TABLE) ? true : false}
+				selected={isCurrent(ROUTES.TABLE) ? true : false}
 				button
 				component={Link}
 				to={ROUTES.TABLE}
 			>
 				<ListItemIcon>
-					<ShoppingCartIcon
-					// color={iconActive(ROUTES.TABLE)}
-					/>
+					<ShoppingCartIcon color={iconActive(ROUTES.TABLE)} />
 				</ListItemIcon>
 				<ListItemText primary='Tables' />
 			</ListItem>
 			<ListItem
-				// selected={isCurrent(ROUTES.MENUS_LIST) ? true : false}
+				selected={isCurrent(ROUTES.MENUS_LIST) ? true : false}
 				button
 				component={Link}
 				to={ROUTES.MENUS_LIST}
 			>
 				<ListItemIcon>
-					<PeopleIcon
-					// color={iconActive(ROUTES.MENUS_LIST)}
-					/>
+					<PeopleIcon color={iconActive(ROUTES.MENUS_LIST)} />
 				</ListItemIcon>
 				<ListItemText primary='Menus List' />
 			</ListItem>
 			<ListItem
-				// selected={isCurrent(ROUTES.ITEMS_LIST) ? true : false}
+				selected={isCurrent(ROUTES.ITEMS_LIST) ? true : false}
 				button
 				component={Link}
 				to={ROUTES.ITEMS_LIST}
 			>
 				<ListItemIcon>
-					<BarChartIcon
-					// color={iconActive(ROUTES.ITEMS_LIST)}
-					/>
+					<BarChartIcon color={iconActive(ROUTES.ITEMS_LIST)} />
 				</ListItemIcon>
 				<ListItemText primary='Items List' />
 			</ListItem>
@@ -101,43 +94,51 @@ const MainListItems = props => {
 	);
 };
 
+const MainListWithRouter = withRouter(MainListItems);
+
+MainListItems.propTypes = {
+	location: PropTypes.object.isRequired,
+};
+
 /* ================================================================ */
 /*  Secondary List                                                  */
 /* ================================================================ */
 
-const SecondaryListItems = () => (
-	<div>
-		<ListSubheader inset>Saved reports</ListSubheader>
-		<ListItem button>
-			<ListItemIcon>
-				<AssignmentIcon />
-			</ListItemIcon>
-			<ListItemText primary='--Current month--' />
-		</ListItem>
-		<ListItem button>
-			<ListItemIcon>
-				<AssignmentIcon />
-			</ListItemIcon>
-			<ListItemText primary='--Last quarter--' />
-		</ListItem>
-		<ListItem button>
-			<ListItemIcon>
-				<AssignmentIcon />
-			</ListItemIcon>
-			<ListItemText primary='--Year-end sale--' />
-		</ListItem>
-	</div>
-);
+const SecondaryListItems = () => {
+	return (
+		<div>
+			<ListSubheader inset>Saved reports</ListSubheader>
+			<ListItem button>
+				<ListItemIcon>
+					<AssignmentIcon />
+				</ListItemIcon>
+				<ListItemText primary='--Current month--' />
+			</ListItem>
+			<ListItem button>
+				<ListItemIcon>
+					<AssignmentIcon />
+				</ListItemIcon>
+				<ListItemText primary='--Last quarter--' />
+			</ListItem>
+			<ListItem button>
+				<ListItemIcon>
+					<AssignmentIcon />
+				</ListItemIcon>
+				<ListItemText primary='--Year-end sale--' />
+			</ListItem>
+		</div>
+	);
+};
 
 /* ================================================================ */
 /*  Side menu component                                             */
 /* ================================================================ */
 
-const SideMenuList = () => {
+const SideDrawerList = () => {
 	return (
 		<React.Fragment>
 			<List>
-				<MainListItems />
+				<MainListWithRouter />
 			</List>
 			<Divider />
 			<List>
@@ -147,6 +148,4 @@ const SideMenuList = () => {
 	);
 };
 
-withRouter(MainListItems);
-
-export default SideMenuList;
+export default SideDrawerList;

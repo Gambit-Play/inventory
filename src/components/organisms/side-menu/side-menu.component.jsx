@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import TopBar from '../top-bar/top-bar.component';
@@ -20,5 +21,8 @@ const SideMenu = ({ children }) => {
 		</div>
 	);
 };
+
+// TODO: Add proptypes
+SideMenu.propTypes = {};
 
 export default SideMenu;
