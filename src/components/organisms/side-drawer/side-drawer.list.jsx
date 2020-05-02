@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -41,15 +42,21 @@ const MainListItems = props => {
 	return (
 		<div>
 			<ListItem
-				selected={isCurrent(ROUTES.LANDING) ? true : false}
+				selected={isCurrent(ROUTES.DASHBOARD) ? true : false}
 				button
 				component={Link}
-				to={ROUTES.LANDING}
+				to={ROUTES.DASHBOARD}
 			>
 				<ListItemIcon>
-					<DashboardIcon color={iconActive(ROUTES.LANDING)} />
+					<DashboardIcon color={iconActive(ROUTES.DASHBOARD)} />
 				</ListItemIcon>
-				<ListItemText primary='Dashboard' />
+				<Typography
+					variant='body1'
+					component='h2'
+					color={iconActive(ROUTES.DASHBOARD)}
+				>
+					Dashboard
+				</Typography>
 			</ListItem>
 			<ListItem
 				selected={isCurrent(ROUTES.TABLE) ? true : false}
@@ -60,7 +67,13 @@ const MainListItems = props => {
 				<ListItemIcon>
 					<ShoppingCartIcon color={iconActive(ROUTES.TABLE)} />
 				</ListItemIcon>
-				<ListItemText primary='Tables' />
+				<Typography
+					variant='body1'
+					component='h2'
+					color={iconActive(ROUTES.TABLE)}
+				>
+					Tables
+				</Typography>
 			</ListItem>
 			<ListItem
 				selected={isCurrent(ROUTES.MENUS_LIST) ? true : false}

@@ -12,6 +12,9 @@ import { connect } from 'react-redux';
 import { toggleSidemenu } from '../../../redux/ui/ui.actions';
 // import * as usersActions from '../../../redux/users/users.actions';
 
+// Components
+import TopBarTitle from './top-bar.title';
+
 // Mui Components & Icons
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -35,6 +38,7 @@ const TopBar = props => {
 	const handleToggleSidemenu = () => {
 		toggleSidemenu();
 	};
+
 	return (
 		<AppBar
 			position='absolute'
@@ -60,7 +64,7 @@ const TopBar = props => {
 					noWrap
 					className={classes.title}
 				>
-					Dashboard
+					<TopBarTitle />
 				</Typography>
 				<IconButton color='inherit'>
 					<Badge badgeContent={9} color='secondary'>

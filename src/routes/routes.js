@@ -1,4 +1,4 @@
-export const LANDING = '/';
+export const DASHBOARD = '/';
 export const MENUS_LIST = '/menus-list';
 export const NEW_MENU = 'new-menu';
 export const ITEMS_LIST = '/items-list';
