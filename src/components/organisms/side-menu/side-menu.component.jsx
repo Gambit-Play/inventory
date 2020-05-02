@@ -22,7 +22,4 @@ const SideMenu = ({ children }) => {
 	);
 };
 
-// TODO: Add proptypes
-SideMenu.propTypes = {};
-
 export default SideMenu;

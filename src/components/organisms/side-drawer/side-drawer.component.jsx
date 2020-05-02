@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { toggleSidemenu } from '../../../redux/ui/ui.actions';
 
 // Side menu list
-import SideDrawerList from './side-drawer.list';
+import SideDrawerList from '../side-drawer-list/side-drawer-list.component';
 
 // Mui Components & Icons
 import IconButton from '@material-ui/core/IconButton';
