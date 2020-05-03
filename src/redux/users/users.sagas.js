@@ -1,10 +1,10 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 // Action Types
-import UserActionTypes from './users.types';
+import UsersActionTypes from './users.types';
 
 // Actions
-import * as userActions from './users.actions';
+import * as UsersActions from './users.actions';
 
 // Firebase utils
 import {
@@ -28,13 +28,14 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
         const userSnapshot = yield userRef.get();
         
 		yield put(
-			userActions.fetchCurrentUserSuccess({
+			UsersActions.fetchCurrentUserSuccess({
 				id: userSnapshot.id,
 				...userSnapshot.data(),
 			})
 		);
 	} catch (error) {
-		yield put(userActions.fetchCurrentUserFailure(error));
+        console.log(error.message)
+		yield put(UsersActions.signInFailure(error.message));
 	}
 }
 
@@ -61,8 +62,8 @@ export function* signInWithGoogleStart() {
 		yield getSnapshotFromUserAuth(user, additionalData);
 		yield authStateChangedStart();
 	} catch (error) {
-		// FIXME: Change this with failure redux actions
-		console.log(error.message);
+        console.log(error.message);
+        yield put(UsersActions.signInFailure(error.message));
 	}
 }
 
@@ -74,8 +75,8 @@ export function* authStateChangedStart() {
             
 		});
 	} catch (error) {
-		// FIXME: Change this with failure redux actions
-		console.log(error.message);
+        console.log(error.message);
+        yield put(UsersActions.onAuthStateChangeFailure(error.message));
 	}
 }
 
@@ -90,7 +91,8 @@ export function* signOutFromGoogleStart() {
 	try {
 		yield call(signOutFromGoogle);
 	} catch (error) {
-		console.log(error.message);
+        console.log(error.message);
+        yield put(UsersActions.signOutFailure(error.message));
 	}
 }
 
@@ -100,25 +102,25 @@ export function* signOutFromGoogleStart() {
 
 export function* onGoogleSignInStart() {
 	yield takeLatest(
-		UserActionTypes.GOOGLE_SIGN_IN_START,
+		UsersActionTypes.GOOGLE_SIGN_IN_START,
 		signInWithGoogleStart
 	);
 }
 
 export function* onGoogleSignOutStart() {
-	yield takeLatest(UserActionTypes.SIGN_OUT_START, signOutFromGoogleStart);
+	yield takeLatest(UsersActionTypes.SIGN_OUT_START, signOutFromGoogleStart);
 }
 
 export function* onAuthStateChangedStart() {
 	yield takeLatest(
-		UserActionTypes.USER_LISTENER_START,
+		UsersActionTypes.AUTH_LISTENER_START,
 		authStateChangedStart
 	);
 }
 
 export function* onRemoveAuthListenerStart() {
 	yield takeLatest(
-		UserActionTypes.REMOVE_USER_LISTENER,
+		UsersActionTypes.REMOVE_USER_LISTENER,
 		removeAuthListenerStart
 	);
 }

@@ -8,7 +8,7 @@ export const googleSignInStart = () => ({
 });
 
 export const onAuthStateChangedStart = () => ({
-	type: UsersActionTypes.USER_LISTENER_START,
+	type: UsersActionTypes.AUTH_LISTENER_START,
 });
 
 export const googleLogoutStart = () => ({
@@ -27,8 +27,18 @@ export const fetchCurrentUserSuccess = user => ({
 /*  Process Failure	       	                                        */
 /* ================================================================ */
 
-export const fetchCurrentUserFailure = errorMessage => ({
+export const signInFailure = errorMessage => ({
 	type: UsersActionTypes.SIGN_IN_FAILURE,
+	payload: errorMessage,
+});
+
+export const signOutFailure = errorMessage => ({
+	type: UsersActionTypes.SIGN_OUT_FAILURE,
+	payload: errorMessage,
+});
+
+export const onAuthStateChangeFailure = errorMessage => ({
+	type: UsersActionTypes.AUTH_LISTENER_FAILURE,
 	payload: errorMessage,
 });
 

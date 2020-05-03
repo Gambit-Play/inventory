@@ -7,6 +7,7 @@ const INITIAL_STATE = {
 	errors: {
 		currentUser: undefined,
 		allUsers: undefined,
+		onAuthStateChange: undefined,
 	},
 };
 
@@ -27,6 +28,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				currentUser: action.payload,
 			};
 		case UsersActionTypes.SIGN_IN_FAILURE:
+		case UsersActionTypes.SIGN_OUT_FAILURE:
 			return {
 				...state,
 				isFetching: false,
@@ -41,6 +43,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				errors: {
 					currentUser: undefined,
 					allUsers: undefined,
+					onAuthStateChange: undefined,
 				},
 			};
 		/* ================================================================ */
@@ -62,6 +65,15 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: false,
 				errors: { allUsers: action.payload },
+			};
+		/* ================================================================ */
+		/*  All Users Reducers	                                            */
+		/* ================================================================ */
+		case UsersActionTypes.AUTH_LISTENER_FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				errors: { onAuthStateChange: action.payload },
 			};
 		default:
 			return state;
