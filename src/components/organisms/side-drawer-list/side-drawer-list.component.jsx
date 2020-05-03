@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import MainList from './side-drawer-list.primary';
+import PrimaryList from './side-drawer-list.primary';
 
 // Mui Components
 import Divider from '@material-ui/core/Divider';
@@ -11,10 +11,10 @@ const SideDrawerList = () => {
 	return (
 		<React.Fragment>
 			<List>
-				<MainList />
+				<PrimaryList />
 			</List>
 			<Divider />
-			<List></List>
+			<List>{/* Secondary List */}</List>
 		</React.Fragment>
 	);
 };

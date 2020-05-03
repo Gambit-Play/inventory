@@ -1,7 +1,7 @@
 export const DASHBOARD = '/';
-export const MENUS_LIST = '/menus-list';
+export const MENUS_LIST = '/menus';
 export const NEW_MENU = 'new-menu';
-export const ITEMS_LIST = '/items-list';
+export const ITEMS_LIST = '/items';
 export const NEW_ITEM = 'new-item';
 export const DETAIL = '/detail';
 export const TABLE = '/tables';

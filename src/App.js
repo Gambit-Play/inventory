@@ -1,4 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+// Redux
+import { connect } from 'react-redux';
+import {
+	onAuthStateChangedStart,
+	removeAuthListenerStart,
+} from './redux/users/users.actions';
 
 // Components
 import MainContainer from './components/atoms/main-container/main-container.styles';
@@ -10,7 +17,17 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './global-mui.theme';
 import './App.scss';
 
-const App = () => {
+const App = props => {
+	const { onAuthStateChangedStart, removeAuthListenerStart } = props;
+
+	useEffect(() => {
+		onAuthStateChangedStart();
+		return () => {
+			// Cleanup
+			removeAuthListenerStart();
+		};
+	}, [onAuthStateChangedStart, removeAuthListenerStart]);
+
 	return (
 		<StylesProvider injectFirst>
 			<CssBaseline />
@@ -23,4 +40,9 @@ const App = () => {
 	);
 };
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
+	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
+});
+
+export default connect(null, mapDispatchToProps)(App);

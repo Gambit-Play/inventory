@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Components
 import TopBar from '../top-bar/top-bar.component';

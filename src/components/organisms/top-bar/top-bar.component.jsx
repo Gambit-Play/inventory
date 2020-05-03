@@ -5,12 +5,14 @@ import PropTypes from 'prop-types';
 // Selectors
 import { createStructuredSelector } from 'reselect';
 import { selectSideMenuOpen } from '../../../redux/ui/ui.selectors';
-// import { selectCurrentUser } from '../../../redux/users/users.selectors';
 
 // Redux
 import { connect } from 'react-redux';
 import { toggleSidemenu } from '../../../redux/ui/ui.actions';
-// import * as usersActions from '../../../redux/users/users.actions';
+import {
+	googleSignInStart,
+	userGoogleLogoutStart,
+} from '../../../redux/users/users.actions';
 
 // Components
 import TopBarTitle from './top-bar.title';
@@ -32,7 +34,12 @@ import PowerSettingsIcon from '@material-ui/icons/PowerSettingsNewOutlined';
 import useStyles from './tob-bar.styles';
 
 const TopBar = props => {
-	const { toggleSidemenu, open } = props;
+	const {
+		toggleSidemenu,
+		open,
+		googleSignInStart,
+		userGoogleLogoutStart,
+	} = props;
 	const classes = useStyles();
 
 	const handleToggleSidemenu = () => {
@@ -80,15 +87,12 @@ const TopBar = props => {
 					alt='Remy Sharp'
 					src='https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
 					className={classes.avatar}
-					// onClick={fetchCurrentUserStart}
+					onClick={googleSignInStart}
 				/>
 				<Typography>
 					{/* currentUser && currentUser.displayName */}
 				</Typography>
-				<IconButton
-					color='inherit'
-					// onClick={userGoogleLogoutStart}
-				>
+				<IconButton color='inherit' onClick={userGoogleLogoutStart}>
 					<PowerSettingsIcon />
 				</IconButton>
 			</Toolbar>
@@ -103,13 +107,12 @@ TopBar.propTypes = {
 
 const mapDispatchToProps = dispatch => ({
 	toggleSidemenu: () => dispatch(toggleSidemenu()),
-	// fetchCurrentUserStart: () => dispatch(usersActions.fetchCurrentUserStart()),
-	// userGoogleLogoutStart: () => dispatch(usersActions.userGoogleLogoutStart()),
+	googleSignInStart: () => dispatch(googleSignInStart()),
+	userGoogleLogoutStart: () => dispatch(userGoogleLogoutStart()),
 });
 
 const mapStateToProps = createStructuredSelector({
 	open: selectSideMenuOpen,
-	// currentUser: selectCurrentUser,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopBar);
