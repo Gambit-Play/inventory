@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 // Selectors
 import { createStructuredSelector } from 'reselect';
 import { selectSideMenuOpen } from '../../../redux/ui/ui.selectors';
+import { selectCurrentUser } from '../../../redux/users/users.selectors';
 
 // Redux
 import { connect } from 'react-redux';
 import { toggleSidemenu } from '../../../redux/ui/ui.actions';
 import {
 	googleSignInStart,
-	userGoogleLogoutStart,
+	googleLogoutStart,
 } from '../../../redux/users/users.actions';
 
 // Components
@@ -25,6 +26,7 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
@@ -38,9 +40,18 @@ const TopBar = props => {
 		toggleSidemenu,
 		open,
 		googleSignInStart,
-		userGoogleLogoutStart,
+		googleLogoutStart,
+		currentUser,
 	} = props;
 	const classes = useStyles();
+	const UserName = () => {
+		if (currentUser && currentUser.firstName) return currentUser.firstName;
+		if (currentUser && !currentUser.firstName)
+			return currentUser.displayName;
+		if (!currentUser) return '';
+	};
+
+	console.table(currentUser);
 
 	const handleToggleSidemenu = () => {
 		toggleSidemenu();
@@ -83,18 +94,29 @@ const TopBar = props => {
 					flexItem
 					className={classes.dividerToolbar}
 				/>
-				<Avatar
-					alt='Remy Sharp'
-					src='https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-					className={classes.avatar}
-					onClick={googleSignInStart}
-				/>
-				<Typography>
-					{/* currentUser && currentUser.displayName */}
-				</Typography>
-				<IconButton color='inherit' onClick={userGoogleLogoutStart}>
-					<PowerSettingsIcon />
-				</IconButton>
+				{currentUser ? (
+					<React.Fragment>
+						<Avatar
+							alt='Remy Sharp'
+							src={currentUser.avatar}
+							className={classes.avatar}
+						/>
+						<Typography className={classes.userName}>
+							<UserName />
+						</Typography>
+						<IconButton color='inherit' onClick={googleLogoutStart}>
+							<PowerSettingsIcon />
+						</IconButton>
+					</React.Fragment>
+				) : (
+					<Button
+						variant='outlined'
+						color='inherit'
+						onClick={googleSignInStart}
+					>
+						Login
+					</Button>
+				)}
 			</Toolbar>
 		</AppBar>
 	);
@@ -103,16 +125,20 @@ const TopBar = props => {
 TopBar.propTypes = {
 	toggleSidemenu: PropTypes.func.isRequired,
 	open: PropTypes.bool.isRequired,
+	googleSignInStart: PropTypes.func.isRequired,
+	googleLogoutStart: PropTypes.func.isRequired,
+	currentUser: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({
 	toggleSidemenu: () => dispatch(toggleSidemenu()),
 	googleSignInStart: () => dispatch(googleSignInStart()),
-	userGoogleLogoutStart: () => dispatch(userGoogleLogoutStart()),
+	googleLogoutStart: () => dispatch(googleLogoutStart()),
 });
 
 const mapStateToProps = createStructuredSelector({
 	open: selectSideMenuOpen,
+	currentUser: selectCurrentUser,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopBar);

@@ -25,7 +25,8 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 			userAuth,
 			additionalData
 		);
-		const userSnapshot = yield userRef.get();
+        const userSnapshot = yield userRef.get();
+        
 		yield put(
 			userActions.fetchCurrentUserSuccess({
 				id: userSnapshot.id,
@@ -41,7 +42,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 /*  Actions                                                         */
 /* ================================================================ */
 
-let unsubscribe = null;
+let unsubscribeAuth = null;
 
 export function* signInWithGoogleStart() {
 	try {
@@ -59,29 +60,30 @@ export function* signInWithGoogleStart() {
 		};
 		yield getSnapshotFromUserAuth(user, additionalData);
 		yield authStateChangedStart();
-		console.log('@@ signInWithGoogleStart - unsubscribe', unsubscribe);
 	} catch (error) {
-		// FIXME: Change this with failure reduc actions
+		// FIXME: Change this with failure redux actions
 		console.log(error.message);
 	}
 }
 
 export function* authStateChangedStart() {
 	try {
-		unsubscribe = yield auth.onAuthStateChanged();
+		unsubscribeAuth = yield auth.onAuthStateChanged(userAuth => {
+            /* Code for when auth state changes */
+            console.log('@@ onAuthStateChanged: Something Changed');
+            
+		});
 	} catch (error) {
-		// FIXME: Change this with failure reduc actions
+		// FIXME: Change this with failure redux actions
 		console.log(error.message);
 	}
 }
 
 export function* removeAuthListenerStart() {
-	yield console.log('@@ removeAuthListenerStart - unsubscribe', unsubscribe);
-	if (unsubscribe) {
-		yield call(unsubscribe);
-		unsubscribe = null;
+	if (unsubscribeAuth) {
+		yield call(unsubscribeAuth);
+		unsubscribeAuth = null;
 	}
-	yield console.log('@@ removeAuthListenerStart - unsubscribe', unsubscribe);
 }
 
 export function* signOutFromGoogleStart() {

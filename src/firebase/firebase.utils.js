@@ -111,11 +111,6 @@ export const getCollection = async collectionId => {
 	if (!collectionId) console.error('There is no "collectionId"');
 
 	const collectionRef = firestore.collection(collectionId);
-	// const snapshot = await collectionRef.get();
-	// const data = snapshot.docs.map(doc => {
-	// 	return {id: doc.id, ...doc.data()}
-	// })
-	//  collectionRef.onSnapshot((snapshot) => console.log(snapshot))
 
 	return collectionRef;
 };
@@ -145,6 +140,8 @@ export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 export const signOutFromGoogle = () => auth.signOut();
 
+/* ================================================================ */
+/*  Export Default                                         			*/
 /* ================================================================ */
 
 export default firebase;

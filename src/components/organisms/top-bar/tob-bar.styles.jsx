@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: theme.spacing(3),
 		marginRight: theme.spacing(3),
 	},
+	userName: {
+		marginRight: theme.spacing(3),
+	},
 }));
 
 export default useStyles;
