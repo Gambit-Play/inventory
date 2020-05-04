@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 const usersReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		/* ================================================================ */
-		/*  Current User Reducers                                           */
+		/*  Current User                                                    */
 		/* ================================================================ */
 		case UsersActionTypes.GOOGLE_SIGN_IN_START:
 			return {
@@ -47,7 +47,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				},
 			};
 		/* ================================================================ */
-		/*  All Users Reducers	                                            */
+		/*  All Users                                                       */
 		/* ================================================================ */
 		case UsersActionTypes.FETCH_ALL_USERS_START:
 			return {
@@ -67,7 +67,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				errors: { allUsers: action.payload },
 			};
 		/* ================================================================ */
-		/*  All Users Reducers	                                            */
+		/*  Listeners                                                       */
 		/* ================================================================ */
 		case UsersActionTypes.AUTH_LISTENER_FAILURE:
 			return {

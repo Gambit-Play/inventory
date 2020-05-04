@@ -5,6 +5,7 @@ import UsersActionTypes from './users.types';
 
 // Actions
 import * as UsersActions from './users.actions';
+import * as ItemsActions from '../items/items.actions';
 
 // Firebase utils
 import {
@@ -12,6 +13,7 @@ import {
 	createUserProfileDocument,
 	signOutFromGoogle,
 	auth,
+	getUsersCollection,
 } from '../../firebase/firebase.utils';
 
 /* ================================================================ */
@@ -25,8 +27,8 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 			userAuth,
 			additionalData
 		);
-        const userSnapshot = yield userRef.get();
-        
+		const userSnapshot = yield userRef.get();
+
 		yield put(
 			UsersActions.fetchCurrentUserSuccess({
 				id: userSnapshot.id,
@@ -34,7 +36,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 			})
 		);
 	} catch (error) {
-        console.log(error.message)
+		console.log(error.message);
 		yield put(UsersActions.signInFailure(error.message));
 	}
 }
@@ -61,22 +63,32 @@ export function* signInWithGoogleStart() {
 		};
 		yield getSnapshotFromUserAuth(user, additionalData);
 		yield authStateChangedStart();
+		yield put(ItemsActions.fetchItemsCollectionStart());
+		yield put(UsersActions.fetchAllUsersStart());
 	} catch (error) {
-        console.log(error.message);
-        yield put(UsersActions.signInFailure(error.message));
+		console.log(error.message);
+		yield put(UsersActions.signInFailure(error.message));
 	}
 }
 
 export function* authStateChangedStart() {
 	try {
 		unsubscribeAuth = yield auth.onAuthStateChanged(userAuth => {
-            /* Code for when auth state changes */
-            console.log('@@ onAuthStateChanged: Something Changed');
-            
+			/* Code for when auth state changes */
 		});
 	} catch (error) {
-        console.log(error.message);
-        yield put(UsersActions.onAuthStateChangeFailure(error.message));
+		console.log(error.message);
+		yield put(UsersActions.onAuthStateChangeFailure(error.message));
+	}
+}
+
+export function* fetchAllUsersCollectionAsync() {
+	try {
+		const usersCollection = yield getUsersCollection();
+		yield put(UsersActions.fetchAllUsersSuccess(usersCollection));
+	} catch (error) {
+		console.log(error.message);
+		yield put(UsersActions.fetchAllUsersFailure(error.message));
 	}
 }
 
@@ -90,9 +102,10 @@ export function* removeAuthListenerStart() {
 export function* signOutFromGoogleStart() {
 	try {
 		yield call(signOutFromGoogle);
+		yield put(ItemsActions.clearItemsStart());
 	} catch (error) {
-        console.log(error.message);
-        yield put(UsersActions.signOutFailure(error.message));
+		console.log(error.message);
+		yield put(UsersActions.signOutFailure(error.message));
 	}
 }
 
@@ -120,8 +133,15 @@ export function* onAuthStateChangedStart() {
 
 export function* onRemoveAuthListenerStart() {
 	yield takeLatest(
-		UsersActionTypes.REMOVE_USER_LISTENER,
+		UsersActionTypes.REMOVE_USERS_LISTENER,
 		removeAuthListenerStart
+	);
+}
+
+export function* fetchAllUsersCollectioStart() {
+	yield takeLatest(
+		UsersActionTypes.FETCH_ALL_USERS_START,
+		fetchAllUsersCollectionAsync
 	);
 }
 
@@ -135,5 +155,6 @@ export default function* userSagas() {
 		call(onGoogleSignOutStart),
 		call(onAuthStateChangedStart),
 		call(onRemoveAuthListenerStart),
+		call(fetchAllUsersCollectioStart),
 	]);
 }
