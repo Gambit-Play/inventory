@@ -1,0 +1,9 @@
+const ItemsTableActionTypes = {
+	SET_ORDER_START: 'SET_ORDER_START',
+	SET_ORDER_SUCCESS: 'SET_ORDER_SUCCESS',
+
+	SET_ORDER_BY_START: 'SET_ORDER_BY_START',
+	SET_ORDER_BY_SUCCESS: 'SET_ORDER_BY_SUCCESS',
+};
+
+export default ItemsTableActionTypes;
