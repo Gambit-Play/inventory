@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import PrimaryList from './side-drawer-list.primary';
+import PrimaryList from './menu-list/primary-list.component';
 
 // Mui Components
 import Divider from '@material-ui/core/Divider';

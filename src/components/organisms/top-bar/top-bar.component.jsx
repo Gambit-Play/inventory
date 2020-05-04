@@ -33,7 +33,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import PowerSettingsIcon from '@material-ui/icons/PowerSettingsNewOutlined';
 
 // Styles
-import useStyles from './tob-bar.styles';
+import useStyles from '../side-menu/side-menu.styles';
 
 const TopBar = props => {
 	const {
@@ -48,7 +48,6 @@ const TopBar = props => {
 		if (currentUser && currentUser.firstName) return currentUser.firstName;
 		if (currentUser && !currentUser.firstName)
 			return currentUser.displayName;
-		if (!currentUser) return '';
 	};
 
 	console.table(currentUser);

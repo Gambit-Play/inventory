@@ -7,6 +7,7 @@ import SideDrawer from '../side-drawer/side-drawer.component';
 // Mui Components
 import Box from '@material-ui/core/Box';
 
+// Styles
 import useStyles from './side-menu.styles';
 
 const SideMenu = ({ children }) => {

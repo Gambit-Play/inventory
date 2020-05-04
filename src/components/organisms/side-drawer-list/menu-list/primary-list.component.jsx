@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Routes
-import * as ROUTES from '../../../routes/routes';
+import * as ROUTES from '../../../../routes/routes';
 
 // Components
-import MenuListItem from './side-drawer-list.item';
+import MenuListItem from './menu-list-item.component';
 
 // Mui Components
 import DashboardIcon from '@material-ui/icons/Dashboard';
