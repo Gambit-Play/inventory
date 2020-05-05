@@ -10,8 +10,11 @@ import {
 	selectOrder,
 	selectOrderBy,
 	selectSelected,
-} from '../../../../redux/items-table/items-table.selectors';
-import { setOrderStart } from '../../../../redux/items-table/items-table.actions';
+} from '../../../../redux/handlers/items-table/items-table.selectors';
+import {
+	setOrderStart,
+	setSelectAllStart,
+} from '../../../../redux/handlers/items-table/items-table.actions';
 
 // Headcells
 import { headCells } from './table-head.cells';
@@ -30,40 +33,18 @@ import { updateDataWithUsersName } from '../../../../utils/global-utils';
 import useStyles from '../items-table.styles';
 
 const ItemsTableHead = props => {
-	const { items, order, orderBy, selected, setOrderStart } = props;
+	const {
+		items,
+		order,
+		orderBy,
+		selected,
+		setOrderStart,
+		setSelectAllStart,
+	} = props;
 	const classes = useStyles();
 
 	const numSelected = selected.length;
 	const itemCount = items.length;
-
-	// FIXME: I might need to move the function below to the table body
-	// const rows = () => {
-	// 	const sorter =
-	// 		orderBy === 'price' || orderBy === 'cost'
-	// 			? orderBy
-	// 			: item => {
-	// 					return item[orderBy].toLowerCase();
-	// 			  };
-
-	// 	const updatedItems = items.map(item =>
-	// 		updateDataWithUsersName(allUsers, item)
-	// 	);
-
-	// 	return orderData(updatedItems, [sorter], order);
-	// };
-
-	const handleRequestSort = property => event => {
-		setOrderStart(property);
-	};
-
-	// const handleSelectAllClick = event => {
-	// 	if (event.target.checked) {
-	// 		const newSelecteds = items.map(item => item.name);
-	// 		setSelected(newSelecteds);
-	// 		return;
-	// 	}
-	// 	setSelected([]);
-	// };
 
 	return (
 		<TableHead>
@@ -74,7 +55,9 @@ const ItemsTableHead = props => {
 							numSelected > 0 && numSelected < itemCount
 						}
 						checked={itemCount > 0 && numSelected === itemCount}
-						// onChange={handleSelectAllClick}
+						onChange={event =>
+							setSelectAllStart(event.target.checked)
+						}
 						inputProps={{ 'aria-label': 'select all desserts' }}
 					/>
 				</TableCell>
@@ -88,7 +71,7 @@ const ItemsTableHead = props => {
 						<TableSortLabel
 							active={orderBy === headCell.id}
 							direction={orderBy === headCell.id ? order : 'asc'}
-							onClick={handleRequestSort(headCell.id)}
+							onClick={event => setOrderStart(headCell.id)}
 						>
 							{headCell.label}
 							{orderBy === headCell.id ? (
@@ -107,10 +90,11 @@ const ItemsTableHead = props => {
 };
 
 ItemsTableHead.propTypes = {
-	items: PropTypes.array,
+	items: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
 	selected: PropTypes.array.isRequired,
+	setSelectAllStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -121,7 +105,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapStateToDispatch = dispatch => ({
-	setOrderStart: name => dispatch(setOrderStart(name)),
+	setOrderStart: (event, name) => dispatch(setOrderStart(name)),
+	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
 });
 
 export default connect(mapStateToProps, mapStateToDispatch)(ItemsTableHead);

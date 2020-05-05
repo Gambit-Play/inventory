@@ -6,7 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import uiReducer from './ui/ui.reducer';
 import usersReducer from './users/users.reducer';
 import itemsReducer from './items/items.reducer';
-import itemsTableReducer from './items-table/items-table.reducer';
+import itemsTableReducer from './handlers/items-table/items-table.reducer';
 
 const persistConfig = {
 	key: 'root',

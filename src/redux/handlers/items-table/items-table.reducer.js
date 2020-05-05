@@ -7,6 +7,7 @@ const INITIAL_STATE = {
 	page: 0,
 	dense: false,
 	rowsPerPage: 5,
+	errorMessage: undefined,
 };
 
 const itemsTableReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +21,17 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				orderBy: action.payload,
+			};
+		case ItemsTableActionTypes.SET_SELECT_ALL_SUCCESS:
+			return {
+				...state,
+				selected: action.payload,
+			};
+		case ItemsTableActionTypes.SET_ORDER_FAILURE:
+		case ItemsTableActionTypes.SET_SELECT_ALL_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload,
 			};
 		default:
 			return state;

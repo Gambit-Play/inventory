@@ -7,6 +7,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentItems } from '../../../../redux/items/items.selectors';
+import {
+	selectOrder,
+	selectOrderBy,
+	selectSelected,
+} from '../../../../redux/handlers/items-table/items-table.selectors';
 
 // Routes
 import * as ROUTES from '../../../../routes/routes';
@@ -18,15 +23,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 
 const TableBody = props => {
-	const { items, history, itemsTotal } = props;
-	const [order, setOrder] = useState('asc');
-	const [orderBy, setOrderBy] = useState('name');
-	const [selected, setSelected] = useState([]);
+	const { items, selected } = props;
 	const [page, setPage] = useState(0);
-	const [dense, setDense] = useState(false);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 
-	const isSelected = name => selected.indexOf(name) !== -1;
+	const isSelected = id => selected.indexOf(id) !== -1;
 
 	return (
 		<MuiTableBody>
@@ -37,7 +38,7 @@ const TableBody = props => {
 				  )
 				: items
 			).map((row, index) => {
-				const isItemSelected = isSelected(row.name);
+				const isItemSelected = isSelected(row.id);
 				const labelId = `enhanced-table-checkbox-${index}`;
 
 				return (
@@ -51,7 +52,7 @@ const TableBody = props => {
 						<TableCell padding='checkbox'>
 							<Checkbox
 								checked={isItemSelected}
-								// onClick={event => handleClick(event, row.name)}
+								// onClick={event => handleClick(event, row.id)}
 								inputProps={{
 									'aria-labelledby': labelId,
 								}}
@@ -111,23 +112,14 @@ const TableBody = props => {
 	);
 };
 
-// TableBody.propTypes = {
-// 	order: PropTypes.string.isRequired,
-// 	orderBy: PropTypes.string.isRequired,
-// 	page: PropTypes.number.isRequired,
-// 	dense: PropTypes.bool.isRequired,
-// 	rowsPerPage: PropTypes.number.isRequired,
-// 	rows: PropTypes.array.isRequired,
-// 	selected: PropTypes.array.isRequired,
-// 	setSelected: PropTypes.func.isRequired,
-// 	history: PropTypes.object.isRequired,
-// 	items: PropTypes.bool,
-// 	menus: PropTypes.bool,
-// 	itemsTotal: PropTypes.number.isRequired,
-// };
+TableBody.propTypes = {
+	items: PropTypes.array.isRequired,
+	selected: PropTypes.array.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
 	items: selectCurrentItems,
+	selected: selectSelected,
 });
 
 export default compose(withRouter, connect(mapStateToProps))(TableBody);

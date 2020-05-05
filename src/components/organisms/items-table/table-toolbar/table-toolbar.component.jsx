@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+// Redux
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectSelected } from '../../../../redux/handlers/items-table/items-table.selectors';
+
 // Mui Components & Icons
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -15,9 +20,9 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 // Styles
 import useStyles from '../items-table.styles';
 
-const TableToolbar = props => {
+const TableToolbar = ({ selected }) => {
 	const classes = useStyles();
-	const { numSelected, items, menus } = props;
+	const numSelected = selected.length;
 
 	return (
 		<Toolbar
@@ -34,32 +39,36 @@ const TableToolbar = props => {
 					{numSelected} selected
 				</Typography>
 			) : (
-				<Typography
-					className={classes.title}
-					variant='h6'
-					id='tableTitle'
-				>
-					{items && 'Items'}
-					{menus && 'Menus'}
-				</Typography>
+				<React.Fragment>
+					<Typography
+						className={classes.title}
+						variant='h6'
+						id='tableTitle'
+					>
+						Items
+					</Typography>
+					<TextField
+						id='standard-basic'
+						label='Search'
+						variant='outlined'
+						margin='dense'
+						fullWidth
+						className={classes.searchField}
+					/>
+				</React.Fragment>
 			)}
-			<TextField
-				id='standard-basic'
-				label='Search'
-				variant='outlined'
-				margin='dense'
-				fullWidth
-				className={classes.searchField}
-			/>
+
 			{numSelected > 0 ? (
-				<Tooltip title='Delete'>
-					<IconButton aria-label='delete'>
-						<DeleteIcon />
-					</IconButton>
-				</Tooltip>
+				<div className={classes.filterIcon}>
+					<Tooltip title='Delete'>
+						<IconButton aria-label='delete'>
+							<DeleteIcon />
+						</IconButton>
+					</Tooltip>
+				</div>
 			) : (
 				<div className={classes.filterIcon}>
-					<Tooltip title='Filter list'>
+					<Tooltip title='Filter'>
 						<IconButton aria-label='filter list'>
 							<FilterListIcon />
 						</IconButton>
@@ -71,7 +80,11 @@ const TableToolbar = props => {
 };
 
 TableToolbar.propTypes = {
-	// numSelected: PropTypes.number.isRequired,
+	selected: PropTypes.array.isRequired,
 };
 
-export default TableToolbar;
+const mapStateToProps = createStructuredSelector({
+	selected: selectSelected,
+});
+
+export default connect(mapStateToProps)(TableToolbar);
