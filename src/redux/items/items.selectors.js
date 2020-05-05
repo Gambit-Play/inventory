@@ -3,8 +3,9 @@ import { createSelector } from 'reselect';
 const selectItems = state => state.items;
 
 // Selects items.currentItems from the state
-export const selectCurrentItems = createSelector([selectItems], items =>
-	items.currentItems ? items.currentItems : []
+export const selectCurrentItems = createSelector(
+	[selectItems],
+	items => items.currentItems
 );
 
 // Selects items.isFetching from the state

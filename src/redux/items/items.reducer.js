@@ -1,9 +1,9 @@
 import ItemsActionTypes from './items.types';
 
 const INITIAL_STATE = {
-	currentItems: null,
+	currentItems: [],
 	isFetching: false,
-	errorMessage: undefined,
+	errorMessage: '',
 };
 
 const itemsReducer = (state = INITIAL_STATE, action) => {
@@ -33,9 +33,9 @@ const itemsReducer = (state = INITIAL_STATE, action) => {
 		case ItemsActionTypes.CLEAR_ITEMS_COLLECTIONS:
 			return {
 				...state,
-				currentItems: null,
+				currentItems: [],
 				isFetching: false,
-				errorMessage: undefined,
+				errorMessage: '',
 			};
 		default:
 			return state;
