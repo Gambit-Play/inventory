@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+// Redux
+import { connect } from 'react-redux';
+
+// Selectors
+import { createStructuredSelector } from 'reselect';
+import { selectIsFetching } from '../../../redux/items/items.selectors';
 
 // Components
-// import EnhancedTableHead from '../Lists/EnhancedTable/EnhancedTableHead.Component';
-// import EnhancedTableToolbar from '../Lists/EnhancedTable/EnhancedTableToolbar.Component';
-// import EnhancedTableBody from '../Lists/EnhancedTable/EnhancedTableBody.Component';
 import TableToolbar from './table-toolbar/table-toolbar.component';
 import TableHead from './table-head/table-head.component';
 import TableBody from './table-body/table-body.component';
@@ -17,8 +22,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Styles
 import useStyles from './items-table.styles';
 
-const ItemsTable = () => {
+const ItemsTable = ({ isFetching }) => {
 	const classes = useStyles();
+
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.filterBar}>
@@ -28,21 +34,35 @@ const ItemsTable = () => {
 				/>
 			</Paper>
 			<Paper className={classes.paper}>
-				<TableContainer>
-					<Table
-						className={classes.table}
-						aria-labelledby='tableTitle'
-						// size={dense ? 'small' : 'medium'}
-						aria-label='enhanced table'
-					>
-						<TableHead />
-						<TableBody />
-					</Table>
-				</TableContainer>
+				{isFetching ? (
+					<div className={classes.loaderContainer}>
+						<CircularProgress />
+					</div>
+				) : (
+					<TableContainer>
+						<Table
+							className={classes.table}
+							aria-labelledby='tableTitle'
+							// size={dense ? 'small' : 'medium'}
+							aria-label='enhanced table'
+						>
+							<TableHead />
+							<TableBody />
+						</Table>
+					</TableContainer>
+				)}
 			</Paper>
 			<Paper></Paper>
 		</div>
 	);
 };
 
-export default ItemsTable;
+ItemsTable.propTypes = {
+	isFetching: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+	isFetching: selectIsFetching,
+});
+
+export default connect(mapStateToProps)(ItemsTable);

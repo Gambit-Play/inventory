@@ -1,17 +1,30 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
-// Action Types
-import ItemsActionTypes from './items.types';
-
-// Actions
-import * as actions from './items.actions';
+// Redux
+import { sagaMiddleware } from '../store';
 
 // Firebase utils
 import { getCollection } from '../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../firebase/collections.ids';
 
-// Redux
-import { sagaMiddleware } from '../store';
+// Utils
+import { updateDataWithUsersName } from '../../utils/global-utils';
+
+// Action Types
+import ItemsActionTypes from './items.types';
+
+// Actions
+import {
+	fetchItemsCollectionFailure,
+	fetchItemsCollectionUpdate,
+	fetchItemsCollectionSuccess,
+	convertItemsWithUsersSuccess,
+} from './items.actions';
+import UsersActionTypes from '../users/users.types';
+
+// Selectors
+import { selectCurrentItems } from './items.selectors';
+import { selectAllUsers } from '../users/users.selectors';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -31,17 +44,31 @@ export function* fetchItemsCollectionAsync() {
 			sagaMiddleware.run(fetchCurrentItems, data);
 		});
 	} catch (error) {
-		yield put(actions.fetchItemsCollectionFailure(error.message));
+		yield put(fetchItemsCollectionFailure(error.message));
 	}
 }
 
 export function* fetchCurrentItems(data) {
-	if (!data) yield put(actions.fetchItemsCollectionUpdate());
-	if (data) yield put(actions.fetchItemsCollectionSuccess(data));
+	if (!data) yield put(fetchItemsCollectionUpdate());
+	if (data) yield put(fetchItemsCollectionSuccess(data));
 }
 
 export function* removeItemsCollectionListener() {
 	yield call(unsubscribe);
+}
+
+export function* convertDataWithUsersStart() {
+	try {
+		const allUsers = yield select(selectAllUsers);
+		const currentItems = yield select(selectCurrentItems);
+		const newCollection = yield currentItems.map(item =>
+			updateDataWithUsersName(allUsers, item)
+		);
+		console.table(newCollection);
+		yield put(convertItemsWithUsersSuccess(newCollection));
+	} catch (error) {
+		// console.log(error);
+	}
 }
 
 /* ================================================================ */
@@ -62,10 +89,21 @@ export function* removeListenerStart() {
 	);
 }
 
+export function* onConvertDataWithUsersStart() {
+	yield takeLatest(
+		UsersActionTypes.FETCH_ALL_USERS_SUCCESS,
+		convertDataWithUsersStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* itemsSagas() {
-	yield all([call(fetchItemsCollectionStart), call(removeListenerStart)]);
+	yield all([
+		call(fetchItemsCollectionStart),
+		call(removeListenerStart),
+		call(onConvertDataWithUsersStart),
+	]);
 }

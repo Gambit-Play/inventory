@@ -25,6 +25,11 @@ export const fetchItemsCollectionSuccess = items => ({
 	payload: items,
 });
 
+export const convertItemsWithUsersSuccess = items => ({
+	type: ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_SUCCESS,
+	payload: items,
+});
+
 /* ================================================================ */
 /*  Process Failure	       	                                        */
 /* ================================================================ */

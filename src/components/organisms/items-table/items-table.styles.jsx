@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 		width: 1,
 	},
 	loaderContainer: {
-		minHeight: 446,
+		minHeight: 323,
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',

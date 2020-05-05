@@ -50,12 +50,6 @@ const TopBar = props => {
 			return currentUser.displayName;
 	};
 
-	console.table(currentUser);
-
-	const handleToggleSidemenu = () => {
-		toggleSidemenu();
-	};
-
 	return (
 		<AppBar
 			position='absolute'
@@ -66,7 +60,7 @@ const TopBar = props => {
 					edge='start'
 					color='inherit'
 					aria-label='open drawer'
-					onClick={handleToggleSidemenu}
+					onClick={toggleSidemenu}
 					className={clsx(
 						classes.menuButton,
 						open && classes.menuButtonHidden

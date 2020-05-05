@@ -21,6 +21,11 @@ const itemsReducer = (state = INITIAL_STATE, action) => {
 		case ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_SUCCESS:
 			return {
 				...state,
+				currentItems: action.payload,
+			};
+		case ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_SUCCESS:
+			return {
+				...state,
 				isFetching: false,
 				currentItems: action.payload,
 			};

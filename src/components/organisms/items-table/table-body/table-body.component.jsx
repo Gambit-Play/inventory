@@ -7,11 +7,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentItems } from '../../../../redux/items/items.selectors';
-import {
-	selectOrder,
-	selectOrderBy,
-	selectSelected,
-} from '../../../../redux/handlers/items-table/items-table.selectors';
+import { selectSelected } from '../../../../redux/handlers/items-table/items-table.selectors';
 
 // Routes
 import * as ROUTES from '../../../../routes/routes';
@@ -20,7 +16,6 @@ import MuiTableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
 
 const TableBody = props => {
 	const { items, selected } = props;
