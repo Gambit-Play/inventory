@@ -15,10 +15,12 @@ import ItemsActionTypes from './items.types';
 
 // Actions
 import {
-	fetchItemsCollectionFailure,
 	fetchItemsCollectionUpdate,
 	fetchItemsCollectionSuccess,
+	fetchItemsCollectionFailure,
+	convertItemsWithUsersStart,
 	convertItemsWithUsersSuccess,
+	convertItemsWithUsersFailure,
 } from './items.actions';
 import UsersActionTypes from '../users/users.types';
 
@@ -34,13 +36,10 @@ export function* fetchItemsCollectionAsync() {
 	try {
 		const collectionRef = yield getCollection(COLLECTION_IDS.ITEMS);
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
-			// This 'sagaMiddleware' makes it possible to run sagas within a callback
-			// Calls the 'fetchCollectionsUpdate' function generator when the 'onSnapshot' fires
 			sagaMiddleware.run(fetchCurrentItems);
 
 			const data = snapshot.docs.map(doc => doc.data());
 
-			// Calls the success function generator depending on the 'collectionId'
 			sagaMiddleware.run(fetchCurrentItems, data);
 		});
 	} catch (error) {
@@ -59,15 +58,18 @@ export function* removeItemsCollectionListener() {
 
 export function* convertDataWithUsersStart() {
 	try {
+		yield put(convertItemsWithUsersStart());
+
 		const allUsers = yield select(selectAllUsers);
 		const currentItems = yield select(selectCurrentItems);
 		const newCollection = yield currentItems.map(item =>
 			updateDataWithUsersName(allUsers, item)
 		);
-		console.table(newCollection);
+
 		yield put(convertItemsWithUsersSuccess(newCollection));
 	} catch (error) {
-		// console.log(error);
+		console.log(error);
+		yield put(convertItemsWithUsersFailure(error));
 	}
 }
 

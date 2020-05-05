@@ -28,10 +28,7 @@ const ItemsTable = ({ isFetching }) => {
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.filterBar}>
-				<TableToolbar
-					// numSelected={selected.length}
-					items
-				/>
+				<TableToolbar />
 			</Paper>
 			<Paper className={classes.paper}>
 				{isFetching ? (
@@ -58,7 +55,7 @@ const ItemsTable = ({ isFetching }) => {
 };
 
 ItemsTable.propTypes = {
-	isFetching: PropTypes.number.isRequired,
+	isFetching: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

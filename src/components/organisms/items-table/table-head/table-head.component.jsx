@@ -105,7 +105,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapStateToDispatch = dispatch => ({
-	setOrderStart: (event, name) => dispatch(setOrderStart(name)),
+	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
 	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
 });
 

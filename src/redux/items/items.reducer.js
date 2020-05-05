@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 const itemsReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_START:
+		case ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_START:
 			return {
 				...state,
 				isFetching: true,
@@ -18,18 +19,15 @@ const itemsReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: true,
 			};
-		case ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_SUCCESS:
-			return {
-				...state,
-				currentItems: action.payload,
-			};
 		case ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_SUCCESS:
+		case ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_SUCCESS:
 			return {
 				...state,
 				isFetching: false,
 				currentItems: action.payload,
 			};
 		case ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_FAILURE:
+		case ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_FAILURE:
 			return {
 				...state,
 				isFetching: false,
