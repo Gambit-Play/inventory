@@ -45,7 +45,7 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 /*  Actions                                                         */
 /* ================================================================ */
 
-let unsubscribeAuth = null;
+let unsubscribe = null;
 
 export function* signInWithGoogleStart() {
 	try {
@@ -73,7 +73,7 @@ export function* signInWithGoogleStart() {
 
 export function* authStateChangedStart() {
 	try {
-		unsubscribeAuth = yield auth.onAuthStateChanged(userAuth => {
+		unsubscribe = yield auth.onAuthStateChanged(userAuth => {
 			/* Code for when auth state changes */
 		});
 	} catch (error) {
@@ -93,9 +93,9 @@ export function* fetchAllUsersCollectionAsync() {
 }
 
 export function* removeAuthListenerStart() {
-	if (unsubscribeAuth) {
-		yield call(unsubscribeAuth);
-		unsubscribeAuth = null;
+	if (unsubscribe) {
+		yield call(unsubscribe);
+		unsubscribe = null;
 	}
 }
 

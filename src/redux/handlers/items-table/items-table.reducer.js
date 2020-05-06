@@ -27,8 +27,20 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				selected: action.payload,
 			};
+		case ItemsTableActionTypes.SET_PAGE_SUCCESS:
+			return {
+				...state,
+				page: action.payload,
+			};
+		case ItemsTableActionTypes.SET_ROWS_PER_PAGE_SUCCESS:
+			return {
+				...state,
+				rowsPerPage: action.payload,
+			};
 		case ItemsTableActionTypes.SET_ORDER_FAILURE:
 		case ItemsTableActionTypes.SET_SELECT_ALL_FAILURE:
+		case ItemsTableActionTypes.SET_PAGE_FAILURE:
+		case ItemsTableActionTypes.SET_ROWS_PER_PAGE_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,

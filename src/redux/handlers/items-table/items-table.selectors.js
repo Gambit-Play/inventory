@@ -19,3 +19,15 @@ export const selectSelected = createSelector(
 	[selectItemsTable],
 	itemsTable => itemsTable.selected
 );
+
+// Selects itemsTable.page from the state
+export const selectPage = createSelector(
+	[selectItemsTable],
+	itemsTable => itemsTable.page
+);
+
+// Selects itemsTable.rowsPerPage from the state
+export const selectRowsPerPage = createSelector(
+	[selectItemsTable],
+	itemsTable => itemsTable.rowsPerPage
+);

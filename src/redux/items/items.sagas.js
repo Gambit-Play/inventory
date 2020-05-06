@@ -31,7 +31,9 @@ import { selectAllUsers } from '../users/users.selectors';
 /* ================================================================ */
 /*  Actions                                                         */
 /* ================================================================ */
-let unsubscribe;
+
+let unsubscribe = null;
+
 export function* fetchItemsCollectionAsync() {
 	try {
 		const collectionRef = yield getCollection(COLLECTION_IDS.ITEMS);
@@ -53,7 +55,10 @@ export function* fetchCurrentItems(data) {
 }
 
 export function* removeItemsCollectionListener() {
-	yield call(unsubscribe);
+	if (unsubscribe) {
+		yield call(unsubscribe);
+		unsubscribe = null;
+	}
 }
 
 export function* convertDataWithUsersStart() {

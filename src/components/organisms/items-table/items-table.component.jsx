@@ -12,6 +12,7 @@ import { selectIsFetching } from '../../../redux/items/items.selectors';
 import TableToolbar from './table-toolbar/table-toolbar.component';
 import TableHead from './table-head/table-head.component';
 import TableBody from './table-body/table-body.component';
+import TablePagination from './table-pagination/table-pagination.component';
 
 // Mui Components
 import Paper from '@material-ui/core/Paper';
@@ -49,7 +50,9 @@ const ItemsTable = ({ isFetching }) => {
 					</TableContainer>
 				)}
 			</Paper>
-			<Paper></Paper>
+			<Paper>
+				<TablePagination />
+			</Paper>
 		</div>
 	);
 };

@@ -47,7 +47,7 @@ export function* setSelectAll({ payload: checkedAll }) {
 	}
 }
 
-export function* setOrderDataStart() {
+export function* setOrderByStart() {
 	try {
 		const order = yield select(selectOrder);
 		const orderBy = yield select(selectOrderBy);
@@ -65,6 +65,27 @@ export function* setOrderDataStart() {
 	} catch (error) {}
 }
 
+export function* setPageStart({ payload: page }) {
+	try {
+		yield put(ItemsTableActions.setPageSuccess(page));
+	} catch (error) {
+		console.log(error);
+		yield put(ItemsTableActions.setPageFailure(error));
+	}
+}
+
+export function* setRowsPerPageStart({ payload: rowsPerPage }) {
+	try {
+		yield put(
+			ItemsTableActions.setRowsPerPageSuccess(parseInt(rowsPerPage, 10))
+		);
+		yield put(ItemsTableActions.setPageSuccess(0));
+	} catch (error) {
+		console.log(error);
+		yield put(ItemsTableActions.setRowsPerPageFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -77,10 +98,21 @@ export function* onSetSelectAllStart() {
 	yield takeLatest(ItemsTableActionTypes.SET_SELECT_ALL_START, setSelectAll);
 }
 
-export function* onSetOrderDataStart() {
+export function* onSetOrderByStart() {
 	yield takeLatest(
 		ItemsTableActionTypes.SET_ORDER_BY_SUCCESS,
-		setOrderDataStart
+		setOrderByStart
+	);
+}
+
+export function* onSetPageStart() {
+	yield takeLatest(ItemsTableActionTypes.SET_PAGE_START, setPageStart);
+}
+
+export function* onSetRowsPerPageStart() {
+	yield takeLatest(
+		ItemsTableActionTypes.SET_ROWS_PER_PAGE_START,
+		setRowsPerPageStart
 	);
 }
 
@@ -92,6 +124,8 @@ export default function* itemsTableSagas() {
 	yield all([
 		call(onSetOrderStart),
 		call(onSetSelectAllStart),
-		call(onSetOrderDataStart),
+		call(onSetOrderByStart),
+		call(onSetPageStart),
+		call(onSetRowsPerPageStart),
 	]);
 }

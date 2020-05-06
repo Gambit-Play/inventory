@@ -7,7 +7,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentItems } from '../../../../redux/items/items.selectors';
-import { selectSelected } from '../../../../redux/handlers/items-table/items-table.selectors';
+import {
+	selectSelected,
+	selectPage,
+	selectRowsPerPage,
+} from '../../../../redux/handlers/items-table/items-table.selectors';
 
 // Routes
 import * as ROUTES from '../../../../routes/routes';
@@ -18,9 +22,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const TableBody = props => {
-	const { items, selected } = props;
-	const [page, setPage] = useState(0);
-	const [rowsPerPage, setRowsPerPage] = useState(5);
+	const { items, selected, page, rowsPerPage } = props;
 
 	const isSelected = id => selected.indexOf(id) !== -1;
 
@@ -110,11 +112,15 @@ const TableBody = props => {
 TableBody.propTypes = {
 	items: PropTypes.array.isRequired,
 	selected: PropTypes.array.isRequired,
+	page: PropTypes.number.isRequired,
+	rowsPerPage: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
 	items: selectCurrentItems,
 	selected: selectSelected,
+	page: selectPage,
+	rowsPerPage: selectRowsPerPage,
 });
 
 export default compose(withRouter, connect(mapStateToProps))(TableBody);
