@@ -1,0 +1,9 @@
+const ItemDetailActionTypes = {
+	FETCH_ITEM_START: 'FETCH_ITEM_START',
+	FETCH_ITEM_SUCCESS: 'FETCH_ITEM_SUCCESS',
+	FETCH_ITEM_FAILURE: 'FETCH_ITEM_FAILURE',
+
+	REMOVE_ITEM: 'REMOVE_ITEM',
+};
+
+export default ItemDetailActionTypes;

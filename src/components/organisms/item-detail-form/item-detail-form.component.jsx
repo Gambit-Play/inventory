@@ -1,7 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // Utils
-import { NumberFormatter, PriceFormatter } from '../../../utils/global-utils';
+import {
+	NumberFormatter,
+	PriceFormatter,
+	convertToFloat,
+} from '../../../utils/global-utils';
+
+// Redux
+import { createStructuredSelector } from 'reselect';
+import { selectSingleItem } from '../../../redux/items/items.selectors';
 
 // Mui Components & Icons
 import Grid from '@material-ui/core/Grid';
@@ -18,8 +30,9 @@ import BlockIcon from '@material-ui/icons/Block';
 // Styles
 import useStyles from './item-detail.styles';
 
-const ItemDetailForm = () => {
+const ItemDetailForm = props => {
 	const classes = useStyles();
+	const { item } = props;
 
 	return (
 		<Grid container spacing={3}>
@@ -50,7 +63,7 @@ const ItemDetailForm = () => {
 								id='name'
 								name='name'
 								label='Name'
-								// value={itemDetails.name}
+								value={item.name}
 								fullWidth
 								color='primary'
 								// helperText={errorName}
@@ -63,7 +76,7 @@ const ItemDetailForm = () => {
 								id='price'
 								name='price'
 								label='Price'
-								// value={itemDetails.price}
+								value={item.price}
 								fullWidth
 								color='primary'
 								// helperText={errorPrice}
@@ -79,7 +92,7 @@ const ItemDetailForm = () => {
 								id='quantity'
 								name='quantity'
 								label='Quantity'
-								// value={itemDetails.quantity}
+								value={item.quantity}
 								fullWidth
 								color='primary'
 								// helperText={errorQuantity}
@@ -95,7 +108,7 @@ const ItemDetailForm = () => {
 								id='unit'
 								name='unit'
 								label='Unit'
-								// value={itemDetails.unit}
+								value={item.unit}
 								fullWidth
 								color='primary'
 								// onChange={handleChange}
@@ -137,4 +150,13 @@ const ItemDetailForm = () => {
 	);
 };
 
-export default ItemDetailForm;
+ItemDetailForm.propTypes = {
+	item: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) =>
+	createStructuredSelector({
+		item: selectSingleItem(ownProps.match.params.itemId),
+	});
+
+export default compose(withRouter, connect(mapStateToProps))(ItemDetailForm);

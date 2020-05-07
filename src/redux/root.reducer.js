@@ -7,11 +7,12 @@ import uiReducer from './ui/ui.reducer';
 import usersReducer from './users/users.reducer';
 import itemsReducer from './items/items.reducer';
 import itemsTableReducer from './handlers/items-table/items-table.reducer';
+import itemDetailReducer from './handlers/item-detail/item-detail.reducer';
 
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['ui', 'users', 'items', 'itemsTable'],
+	whitelist: ['ui', 'users', 'items', 'itemsTable', 'itemDetail'],
 };
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 	users: usersReducer,
 	items: itemsReducer,
 	itemsTable: itemsTableReducer,
+	itemDetail: itemDetailReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
