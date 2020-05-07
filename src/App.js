@@ -18,6 +18,7 @@ import { fetchItemsCollectionStart } from './redux/items/items.actions';
 import MainContainer from './components/atoms/main-container/main-container.styles';
 import SideMenu from './components/organisms/side-menu/side-menu.component';
 import ItemsList from './pages/items-pages/items-list/items-list.component';
+import ItemDetail from './pages/items-pages/item-detail/item-detail.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -62,6 +63,10 @@ const App = props => {
 									exact
 									path={ROUTES.ITEMS_LIST}
 									component={ItemsList}
+								/>
+								<Route
+									path={`${ROUTES.ITEMS_LIST}/:itemId`}
+									component={ItemDetail}
 								/>
 							</SideMenu>
 						</MainContainer>

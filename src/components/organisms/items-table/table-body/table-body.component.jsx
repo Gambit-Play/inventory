@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -22,9 +22,13 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const TableBody = props => {
-	const { items, selected, page, rowsPerPage } = props;
+	const { items, selected, page, rowsPerPage, history } = props;
 
 	const isSelected = id => selected.indexOf(id) !== -1;
+
+	const handleRowClick = (event, rowId) => {
+		history.push(`${ROUTES.ITEMS_LIST}/${rowId}`);
+	};
 
 	return (
 		<MuiTableBody>
@@ -60,45 +64,45 @@ const TableBody = props => {
 							id={labelId}
 							scope='row'
 							padding='none'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.name}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							€{parseFloat(row.price).toFixed(2)}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.quantity}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{!isNaN(row.cost) &&
 								`€${parseFloat(row.cost).toFixed(2)}`}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.unit}
 						</TableCell>
 
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.createdBy}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.createdAt}
 						</TableCell>

@@ -1,3 +1,6 @@
+import React from 'react';
+import NumberFormat from 'react-number-format';
+
 // Convert an array to an object
 export const convertArrayToObject = (array, key) => {
 	const initialValue = {};
@@ -53,4 +56,49 @@ export const updateDataWithUsersName = (userCollection, collection) => {
 
 		return createdByDoc;
 	}
+};
+
+// Formats the data from an input to a price.
+export const PriceFormatter = props => {
+	const { inputRef, onChange, ...other } = props;
+
+	return (
+		<NumberFormat
+			{...other}
+			getInputRef={inputRef}
+			onValueChange={values => {
+				onChange({
+					target: {
+						name: props.name,
+						value: values.value,
+					},
+				});
+			}}
+			thousandSeparator
+			isNumericString
+			prefix={`€ `}
+		/>
+	);
+};
+
+// Formats the data from an input to a number.
+export const NumberFormatter = props => {
+	const { inputRef, onChange, ...other } = props;
+
+	return (
+		<NumberFormat
+			{...other}
+			getInputRef={inputRef}
+			onValueChange={values => {
+				onChange({
+					target: {
+						name: props.name,
+						value: values.value,
+					},
+				});
+			}}
+			thousandSeparator
+			isNumericString
+		/>
+	);
 };
