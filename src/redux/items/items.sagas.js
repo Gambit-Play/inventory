@@ -8,7 +8,7 @@ import { getCollection } from '../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../firebase/collections.ids';
 
 // Utils
-import { updateDataWithUsersName } from '../../utils/global-utils';
+import { updateDataWithUsersName } from '../../utils/global.utils';
 
 // Action Types
 import ItemsActionTypes from './items.types';

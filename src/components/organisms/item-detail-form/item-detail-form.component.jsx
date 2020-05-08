@@ -9,12 +9,18 @@ import {
 	NumberFormatter,
 	PriceFormatter,
 	convertToFloat,
-} from '../../../utils/global-utils';
+} from '../../../utils/global.utils';
 
 // Redux
 import { createStructuredSelector } from 'reselect';
 import { selectItem } from '../../../redux/handlers/item-detail/item-detail.selectors';
-import { removeItem } from '../../../redux/handlers/item-detail/item-detail.actions';
+import {
+	removeItem,
+	setItemStart,
+} from '../../../redux/handlers/item-detail/item-detail.actions';
+
+// Component
+import ItemDetailButton from './item-detail-button/item-detail-button.component';
 
 // Mui Components & Icons
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +31,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
 import BlockIcon from '@material-ui/icons/Block';
 
 // Styles
@@ -33,13 +38,18 @@ import useStyles from './item-detail.styles';
 
 const ItemDetailForm = props => {
 	const classes = useStyles();
-	const { item, removeItem } = props;
+	const { item, removeItem, setItemStart, history } = props;
 
 	useEffect(() => {
 		return () => {
 			removeItem();
 		};
 	}, [removeItem]);
+
+	const handleChange = event => {
+		const { name, value } = event.target;
+		setItemStart(name, value);
+	};
 
 	return (
 		<Grid container spacing={3}>
@@ -75,7 +85,7 @@ const ItemDetailForm = props => {
 								color='primary'
 								// helperText={errorName}
 								// error={errorName ? true : false}
-								// onChange={handleChange}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={6}>
@@ -88,7 +98,7 @@ const ItemDetailForm = props => {
 								color='primary'
 								// helperText={errorPrice}
 								// error={errorPrice ? true : false}
-								// onChange={handleChange}
+								onChange={handleChange}
 								InputProps={{
 									inputComponent: PriceFormatter,
 								}}
@@ -104,7 +114,7 @@ const ItemDetailForm = props => {
 								color='primary'
 								// helperText={errorQuantity}
 								// error={errorQuantity ? true : false}
-								// onChange={handleChange}
+								onChange={handleChange}
 								InputProps={{
 									inputComponent: NumberFormatter,
 								}}
@@ -118,35 +128,18 @@ const ItemDetailForm = props => {
 								value={item.unit}
 								fullWidth
 								color='primary'
-								// onChange={handleChange}
+								onChange={handleChange}
 							/>
 						</Grid>
 					</Grid>
 					<Box display='flex' paddingTop={5}>
-						<Button
-							variant='contained'
-							color='primary'
-							size='small'
-							startIcon={<SaveIcon />}
-							// onClick={handleSubmit}
-						>
-							Save
-						</Button>
-						<Button
-							variant='contained'
-							color='primary'
-							size='small'
-							startIcon={<SaveIcon />}
-							// onClick={itemUpdate}
-						>
-							Update
-						</Button>
+						<ItemDetailButton isNew={item.isNew} />
 						<Button
 							variant='contained'
 							className={classes.cancelButton}
 							size='small'
 							startIcon={<BlockIcon />}
-							// onClick={handleCancel}
+							onClick={history.goBack}
 						>
 							Cancel
 						</Button>
@@ -159,6 +152,9 @@ const ItemDetailForm = props => {
 
 ItemDetailForm.propTypes = {
 	item: PropTypes.object.isRequired,
+	removeItem: PropTypes.func.isRequired,
+	setItemStart: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) =>
@@ -168,6 +164,8 @@ const mapStateToProps = (state, ownProps) =>
 
 const mapStateToDispatch = dispatch => ({
 	removeItem: () => dispatch(removeItem()),
+	setItemStart: (inputName, value) =>
+		dispatch(setItemStart(inputName, value)),
 });
 
 export default compose(

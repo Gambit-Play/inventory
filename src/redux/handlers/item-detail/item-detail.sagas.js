@@ -21,7 +21,6 @@ export function* fetchItemStart({ payload: itemId }) {
 	try {
 		const item = yield select(selectSingleItem(itemId));
 		yield put(fetchItemSuccess(item));
-		yield console.table(item);
 	} catch (error) {
 		console.log(error);
 	}

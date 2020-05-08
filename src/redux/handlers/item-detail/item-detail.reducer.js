@@ -1,21 +1,22 @@
 import ItemDetailActionTypes from './item-detail.types';
 
 const INITIAL_STATE = {
-	item: {
-		id: '',
-		name: '',
-		quantity: null,
-		unit: '',
-		price: null,
-		createdAt: '',
-		createdBy: '',
-	},
+	id: '',
+	name: '',
+	quantity: null,
+	unit: '',
+	price: null,
+	createdAt: '',
+	createdBy: '',
+
 	error: {
 		name: '',
 		price: '',
 		quantity: '',
 		unit: '',
 	},
+
+	isNew: false,
 };
 
 const itemDetailReducer = (state = INITIAL_STATE, action) => {
@@ -29,28 +30,30 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetching: true,
-				item: {
-					id: action.payload.id,
-					name: action.payload.name,
-					quantity: action.payload.quantity,
-					unit: action.payload.unit,
-					price: action.payload.price,
-					createdAt: action.payload.createdAt,
-					createdBy: action.payload.createdBy,
-				},
+
+				id: action.payload.id,
+				name: action.payload.name,
+				quantity: action.payload.quantity,
+				unit: action.payload.unit,
+				price: action.payload.price,
+				createdAt: action.payload.createdAt,
+				createdBy: action.payload.createdBy,
+			};
+		case ItemDetailActionTypes.SET_ITEM_START:
+			return {
+				...state,
+				[action.payload.inputName]: action.payload.value,
 			};
 		case ItemDetailActionTypes.REMOVE_ITEM:
 			return {
 				...state,
-				item: {
-					id: '',
-					name: '',
-					quantity: null,
-					unit: '',
-					price: null,
-					createdAt: '',
-					createdBy: '',
-				},
+				id: '',
+				name: '',
+				quantity: null,
+				unit: '',
+				price: null,
+				createdAt: '',
+				createdBy: '',
 				error: {
 					name: '',
 					price: '',

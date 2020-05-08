@@ -9,6 +9,11 @@ export const fetchItemStart = itemId => ({
 	payload: itemId,
 });
 
+export const setItemStart = (inputName, value) => ({
+	type: ItemDetailActionTypes.SET_ITEM_START,
+	payload: { inputName, value },
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */

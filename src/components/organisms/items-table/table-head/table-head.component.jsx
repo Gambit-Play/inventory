@@ -27,7 +27,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 // Global Utils
-import { updateDataWithUsersName } from '../../../../utils/global-utils';
+import { updateDataWithUsersName } from '../../../../utils/global.utils';
 
 // Styles
 import useStyles from '../items-table.styles';
