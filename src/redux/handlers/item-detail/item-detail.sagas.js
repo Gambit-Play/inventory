@@ -19,7 +19,9 @@ import { selectSingleItem } from '../../items/items.selectors';
 
 export function* fetchItemStart({ payload: itemId }) {
 	try {
-		yield console.log('@@ fetchItemStart - itemId', itemId);
+		const item = yield select(selectSingleItem(itemId));
+		yield put(fetchItemSuccess(item));
+		yield console.table(item);
 	} catch (error) {
 		console.log(error);
 	}

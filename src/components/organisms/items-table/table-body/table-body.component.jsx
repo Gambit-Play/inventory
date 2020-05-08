@@ -12,6 +12,7 @@ import {
 	selectPage,
 	selectRowsPerPage,
 } from '../../../../redux/handlers/items-table/items-table.selectors';
+import { fetchItemStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
 
 // Routes
 import * as ROUTES from '../../../../routes/routes';
@@ -22,11 +23,19 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const TableBody = props => {
-	const { items, selected, page, rowsPerPage, history } = props;
+	const {
+		items,
+		selected,
+		page,
+		rowsPerPage,
+		history,
+		fetchItemStart,
+	} = props;
 
 	const isSelected = id => selected.indexOf(id) !== -1;
 
 	const handleRowClick = (event, rowId) => {
+		fetchItemStart(rowId);
 		history.push(`${ROUTES.ITEMS_LIST}/${rowId}`);
 	};
 
@@ -127,4 +136,11 @@ const mapStateToProps = createStructuredSelector({
 	rowsPerPage: selectRowsPerPage,
 });
 
-export default compose(withRouter, connect(mapStateToProps))(TableBody);
+const mapStateToDispatch = dispatch => ({
+	fetchItemStart: rowId => dispatch(fetchItemStart(rowId)),
+});
+
+export default compose(
+	withRouter,
+	connect(mapStateToProps, mapStateToDispatch)
+)(TableBody);

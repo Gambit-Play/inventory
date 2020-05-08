@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -13,7 +13,8 @@ import {
 
 // Redux
 import { createStructuredSelector } from 'reselect';
-import { selectSingleItem } from '../../../redux/items/items.selectors';
+import { selectItem } from '../../../redux/handlers/item-detail/item-detail.selectors';
+import { removeItem } from '../../../redux/handlers/item-detail/item-detail.actions';
 
 // Mui Components & Icons
 import Grid from '@material-ui/core/Grid';
@@ -32,7 +33,13 @@ import useStyles from './item-detail.styles';
 
 const ItemDetailForm = props => {
 	const classes = useStyles();
-	const { item } = props;
+	const { item, removeItem } = props;
+
+	useEffect(() => {
+		return () => {
+			removeItem();
+		};
+	}, [removeItem]);
 
 	return (
 		<Grid container spacing={3}>
@@ -156,7 +163,14 @@ ItemDetailForm.propTypes = {
 
 const mapStateToProps = (state, ownProps) =>
 	createStructuredSelector({
-		item: selectSingleItem(ownProps.match.params.itemId),
+		item: selectItem,
 	});
 
-export default compose(withRouter, connect(mapStateToProps))(ItemDetailForm);
+const mapStateToDispatch = dispatch => ({
+	removeItem: () => dispatch(removeItem()),
+});
+
+export default compose(
+	withRouter,
+	connect(mapStateToProps, mapStateToDispatch)
+)(ItemDetailForm);
