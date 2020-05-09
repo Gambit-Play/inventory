@@ -8,10 +8,6 @@ export const fetchItemsCollectionStart = () => ({
 	type: ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_START,
 });
 
-export const convertItemsWithUsersStart = () => ({
-	type: ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_START,
-});
-
 /* ================================================================ */
 /*  Process Update	                                                */
 /* ================================================================ */
@@ -29,22 +25,12 @@ export const fetchItemsCollectionSuccess = items => ({
 	payload: items,
 });
 
-export const convertItemsWithUsersSuccess = items => ({
-	type: ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_SUCCESS,
-	payload: items,
-});
-
 /* ================================================================ */
 /*  Process Failure	       	                                        */
 /* ================================================================ */
 
 export const fetchItemsCollectionFailure = errorMessage => ({
 	type: ItemsActionTypes.FETCH_ITEMS_COLLECTIONS_SUCCESS,
-	payload: errorMessage,
-});
-
-export const convertItemsWithUsersFailure = errorMessage => ({
-	type: ItemsActionTypes.CONVERT_ITEMS_WITH_USERS_FAILURE,
 	payload: errorMessage,
 });
 

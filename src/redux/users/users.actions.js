@@ -16,10 +16,6 @@ export const googleLogoutStart = () => ({
 	type: UsersActionTypes.SIGN_OUT_START,
 });
 
-export const fetchAllUsersStart = () => ({
-	type: UsersActionTypes.FETCH_ALL_USERS_START,
-});
-
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -27,11 +23,6 @@ export const fetchAllUsersStart = () => ({
 export const fetchCurrentUserSuccess = user => ({
 	type: UsersActionTypes.SIGN_IN_SUCCUSS,
 	payload: user,
-});
-
-export const fetchAllUsersSuccess = users => ({
-	type: UsersActionTypes.FETCH_ALL_USERS_SUCCESS,
-	payload: users,
 });
 
 /* ================================================================ */
@@ -50,11 +41,6 @@ export const signOutFailure = errorMessage => ({
 
 export const onAuthStateChangeFailure = errorMessage => ({
 	type: UsersActionTypes.AUTH_LISTENER_FAILURE,
-	payload: errorMessage,
-});
-
-export const fetchAllUsersFailure = errorMessage => ({
-	type: UsersActionTypes.FETCH_ALL_USERS_FAILURE,
 	payload: errorMessage,
 });
 

@@ -2,7 +2,6 @@ import UsersActionTypes from './users.types';
 
 const INITIAL_STATE = {
 	currentUser: null,
-	allUsers: null,
 	isFetching: false,
 	errors: {
 		currentUser: undefined,
@@ -45,26 +44,6 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 					allUsers: undefined,
 					onAuthStateChange: undefined,
 				},
-			};
-		/* ================================================================ */
-		/*  All Users                                                       */
-		/* ================================================================ */
-		case UsersActionTypes.FETCH_ALL_USERS_START:
-			return {
-				...state,
-				isFetching: true,
-			};
-		case UsersActionTypes.FETCH_ALL_USERS_SUCCESS:
-			return {
-				...state,
-				isFetching: false,
-				allUsers: action.payload,
-			};
-		case UsersActionTypes.FETCH_ALL_USERS_FAILURE:
-			return {
-				...state,
-				isFetching: false,
-				errors: { allUsers: action.payload },
 			};
 		/* ================================================================ */
 		/*  Listeners                                                       */

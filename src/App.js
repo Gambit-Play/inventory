@@ -2,6 +2,13 @@ import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+// Firebase // TODO: Remove
+import { createCollectionAndDocument } from './firebase/firebase.utils';
+import * as COLLECTION_IDS from './firebase/collections.ids';
+
+// Data // TODO: Remove
+import { ItemsData } from './data/database.schema';
+
 // Routes
 import * as ROUTES from './routes/routes';
 
@@ -10,7 +17,6 @@ import { connect } from 'react-redux';
 import {
 	onAuthStateChangedStart,
 	removeAuthListenerStart,
-	fetchAllUsersStart,
 } from './redux/users/users.actions';
 import { fetchItemsCollectionStart } from './redux/items/items.actions';
 
@@ -31,13 +37,11 @@ const App = props => {
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
 		fetchItemsCollectionStart,
-		fetchAllUsersStart,
 	} = props;
 
 	useEffect(() => {
 		onAuthStateChangedStart();
 		fetchItemsCollectionStart();
-		fetchAllUsersStart();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -47,8 +51,10 @@ const App = props => {
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
 		fetchItemsCollectionStart,
-		fetchAllUsersStart,
 	]);
+
+	// TODO: Remove
+	// createCollectionAndDocument(COLLECTION_IDS.ITEMS, ItemsData);
 
 	return (
 		<StylesProvider injectFirst>
@@ -81,14 +87,12 @@ App.propTypes = {
 	onAuthStateChangedStart: PropTypes.func.isRequired,
 	removeAuthListenerStart: PropTypes.func.isRequired,
 	fetchItemsCollectionStart: PropTypes.func.isRequired,
-	fetchAllUsersStart: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
 	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
 	fetchItemsCollectionStart: () => dispatch(fetchItemsCollectionStart()),
-	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

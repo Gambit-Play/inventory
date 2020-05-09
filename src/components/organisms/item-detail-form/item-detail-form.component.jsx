@@ -133,7 +133,7 @@ const ItemDetailForm = props => {
 						</Grid>
 					</Grid>
 					<Box display='flex' paddingTop={5}>
-						<ItemDetailButton isNew={item.isNew} />
+						<ItemDetailButton />
 						<Button
 							variant='contained'
 							className={classes.cancelButton}

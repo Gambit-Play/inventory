@@ -13,7 +13,6 @@ import {
 	createUserProfileDocument,
 	signOutFromGoogle,
 	auth,
-	getUsersCollection,
 } from '../../firebase/firebase.utils';
 
 /* ================================================================ */
@@ -64,7 +63,6 @@ export function* signInWithGoogleStart() {
 		yield getSnapshotFromUserAuth(user, additionalData);
 		yield authStateChangedStart();
 		yield put(ItemsActions.fetchItemsCollectionStart());
-		yield put(UsersActions.fetchAllUsersStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.signInFailure(error.message));
@@ -79,16 +77,6 @@ export function* authStateChangedStart() {
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.onAuthStateChangeFailure(error.message));
-	}
-}
-
-export function* fetchAllUsersCollectionAsync() {
-	try {
-		const usersCollection = yield getUsersCollection();
-		yield put(UsersActions.fetchAllUsersSuccess(usersCollection));
-	} catch (error) {
-		console.log(error.message);
-		yield put(UsersActions.fetchAllUsersFailure(error.message));
 	}
 }
 
@@ -138,13 +126,6 @@ export function* onRemoveAuthListenerStart() {
 	);
 }
 
-export function* fetchAllUsersCollectioStart() {
-	yield takeLatest(
-		UsersActionTypes.FETCH_ALL_USERS_START,
-		fetchAllUsersCollectionAsync
-	);
-}
-
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -155,6 +136,5 @@ export default function* userSagas() {
 		call(onGoogleSignOutStart),
 		call(onAuthStateChangedStart),
 		call(onRemoveAuthListenerStart),
-		call(fetchAllUsersCollectioStart),
 	]);
 }

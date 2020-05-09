@@ -14,6 +14,10 @@ export const setItemStart = (inputName, value) => ({
 	payload: { inputName, value },
 });
 
+export const updateItemStart = () => ({
+	type: ItemDetailActionTypes.UPDATE_ITEM_START,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -23,12 +27,21 @@ export const fetchItemSuccess = item => ({
 	payload: item,
 });
 
+export const updateItemSuccess = () => ({
+	type: ItemDetailActionTypes.UPDATE_ITEM_SUCCESS,
+});
+
 /* ================================================================ */
 /*  Process Failure	       	                                        */
 /* ================================================================ */
 
 export const fetchItemFailure = errorMessage => ({
 	type: ItemDetailActionTypes.FETCH_ITEM_FAILURE,
+	payload: errorMessage,
+});
+
+export const updateItemFailure = errorMessage => ({
+	type: ItemDetailActionTypes.UPDATE_ITEM_FAILURE,
 	payload: errorMessage,
 });
 

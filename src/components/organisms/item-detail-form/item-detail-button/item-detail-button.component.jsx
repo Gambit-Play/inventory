@@ -1,12 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+// Redux
+import { createStructuredSelector } from 'reselect';
+import { selectItem } from '../../../../redux/handlers/item-detail/item-detail.selectors';
+import { updateItemStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
 
 // Mui Components & Icons
 import Button from '@material-ui/core/Button';
 
 import SaveIcon from '@material-ui/icons/Save';
 
-const ItemDetailButton = ({ isNew }) => {
+const ItemDetailButton = props => {
+	const {
+		item: { isNew },
+		updateItemStart,
+		history,
+	} = props;
+
+	const handleUpdate = event => {
+		event.preventDefault();
+
+		updateItemStart();
+		history.goBack();
+	};
+
 	if (isNew) {
 		return (
 			<Button
@@ -27,7 +48,7 @@ const ItemDetailButton = ({ isNew }) => {
 				color='primary'
 				size='small'
 				startIcon={<SaveIcon />}
-				// onClick={handleSubmit}
+				onClick={handleUpdate}
 			>
 				Update
 			</Button>
@@ -36,7 +57,20 @@ const ItemDetailButton = ({ isNew }) => {
 };
 
 ItemDetailButton.propTypes = {
-	isNew: PropTypes.bool.isRequired,
+	item: PropTypes.shape({
+		isNew: PropTypes.bool.isRequired,
+	}),
 };
 
-export default ItemDetailButton;
+const mapStateToProps = createStructuredSelector({
+	item: selectItem,
+});
+
+const mapStateToDispatch = dispatch => ({
+	updateItemStart: () => dispatch(updateItemStart()),
+});
+
+export default compose(
+	withRouter,
+	connect(mapStateToProps, mapStateToDispatch)
+)(ItemDetailButton);

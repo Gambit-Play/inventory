@@ -68,14 +68,10 @@ export const updateDocument = async (collectionId, documentId, data) => {
 	if (!collectionId || !documentId)
 		console.error('Please provide all the inputs');
 
-	const res = await firestore
-		.collection(collectionId)
-		.doc(documentId)
-		.set(data);
-	console.log('@@ updarteDocument - res: ', res);
+	await firestore.collection(collectionId).doc(documentId).set(data);
 };
 
-export const addCollectionAndDocument = async (collectionId, documents) => {
+export const createCollectionAndDocument = async (collectionId, documents) => {
 	const collectionRef = firestore.collection(collectionId);
 	const batch = firestore.batch();
 
