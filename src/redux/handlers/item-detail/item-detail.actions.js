@@ -18,6 +18,14 @@ export const updateItemStart = () => ({
 	type: ItemDetailActionTypes.UPDATE_ITEM_START,
 });
 
+export const createItemStart = () => ({
+	type: ItemDetailActionTypes.CREATE_ITEM_START,
+});
+
+export const isNew = () => ({
+	type: ItemDetailActionTypes.IS_NEW,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -29,6 +37,10 @@ export const fetchItemSuccess = item => ({
 
 export const updateItemSuccess = () => ({
 	type: ItemDetailActionTypes.UPDATE_ITEM_SUCCESS,
+});
+
+export const createItemSuccess = () => ({
+	type: ItemDetailActionTypes.CREATE_ITEM_SUCCESS,
 });
 
 /* ================================================================ */
@@ -43,6 +55,16 @@ export const fetchItemFailure = errorMessage => ({
 export const updateItemFailure = errorMessage => ({
 	type: ItemDetailActionTypes.UPDATE_ITEM_FAILURE,
 	payload: errorMessage,
+});
+
+export const createItemFailure = errorMessage => ({
+	type: ItemDetailActionTypes.CREATE_ITEM_FAILURE,
+	payload: errorMessage,
+});
+
+export const inputFailure = (errorType, errorMessage) => ({
+	type: ItemDetailActionTypes.INPUT_FAILURE,
+	payload: { errorType, errorMessage },
 });
 
 /* ================================================================ */

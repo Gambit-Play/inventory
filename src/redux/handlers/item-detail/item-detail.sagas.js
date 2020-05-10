@@ -1,7 +1,10 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
 // Firebase
-import { updateDocument } from '../../../firebase/firebase.utils';
+import {
+	updateDocument,
+	createCollectionAndDocument,
+} from '../../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 
 // Utils
@@ -16,6 +19,8 @@ import {
 	fetchItemFailure,
 	updateItemSuccess,
 	updateItemFailure,
+	createItemSuccess,
+	createItemFailure,
 } from './item-detail.actions';
 
 // Selectors
@@ -56,11 +61,39 @@ export function* updateItemStart() {
 			updateddById: currentUser.id,
 		};
 
-		yield updateDocument(COLLECTION_IDS.ITEMS, item.id, updatedItem);
+		yield call(updateDocument, COLLECTION_IDS.ITEMS, item.id, updatedItem);
 		yield put(updateItemSuccess());
 	} catch (error) {
 		console.log(error);
 		yield put(updateItemFailure());
+	}
+}
+
+export function* createItemStart() {
+	try {
+		const item = yield select(selectItem);
+		const currentUser = yield select(selectCurrentUser);
+
+		const newItem = [
+			{
+				name: item.name,
+				price: item.price ? convertToFloat(item.price) : 0,
+				quantity: item.quantity ? parseFloat(item.quantity) : 0,
+				unit: item.unit,
+				createdAt: new Date().toISOString(),
+				createdBy: currentUser.displayName,
+				createdById: currentUser.id,
+				cost: item.price * item.quantity,
+				updatedAt: '',
+				updatedBy: '',
+				updateddById: '',
+			},
+		];
+		yield call(createCollectionAndDocument, COLLECTION_IDS.ITEMS, newItem);
+		yield put(createItemSuccess());
+	} catch (error) {
+		console.log(error);
+		yield put(createItemFailure(error));
 	}
 }
 
@@ -76,10 +109,18 @@ export function* onUpdateItemStart() {
 	yield takeLatest(ItemDetailActionTypes.UPDATE_ITEM_START, updateItemStart);
 }
 
+export function* onCreateItemStart() {
+	yield takeLatest(ItemDetailActionTypes.CREATE_ITEM_START, createItemStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* itemDetailSagas() {
-	yield all([call(onFetchItemStart), call(onUpdateItemStart)]);
+	yield all([
+		call(onFetchItemStart),
+		call(onUpdateItemStart),
+		call(onCreateItemStart),
+	]);
 }

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import orderData from 'lodash/orderBy';
 import { createStructuredSelector } from 'reselect';
 
 // Redux
@@ -25,9 +24,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
-// Global Utils
-import { updateDataWithUsersName } from '../../../../utils/global.utils';
 
 // Styles
 import useStyles from '../items-table.styles';
@@ -94,6 +90,7 @@ ItemsTableHead.propTypes = {
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
 	selected: PropTypes.array.isRequired,
+	setOrderStart: PropTypes.func.isRequired,
 	setSelectAllStart: PropTypes.func.isRequired,
 };
 

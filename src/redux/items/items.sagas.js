@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call, select } from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 // Redux
 import { sagaMiddleware } from '../store';
@@ -25,7 +25,7 @@ let unsubscribe = null;
 
 export function* fetchItemsCollectionAsync() {
 	try {
-		const collectionRef = yield getCollection(COLLECTION_IDS.ITEMS);
+		const collectionRef = yield call(getCollection, COLLECTION_IDS.ITEMS);
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
 			sagaMiddleware.run(fetchCurrentItems);
 

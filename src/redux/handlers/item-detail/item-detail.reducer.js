@@ -61,6 +61,11 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Create Item                                                     */
 		/* ================================================================ */
+		case ItemDetailActionTypes.IS_NEW:
+			return {
+				...state,
+				isNew: true,
+			};
 		case ItemDetailActionTypes.CREATE_ITEM_SUCCESS:
 			return {
 				...state,
@@ -71,6 +76,13 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isSaveSuccess: false,
 				errorMessage: action.payload,
+			};
+		case ItemDetailActionTypes.INPUT_FAILURE:
+			return {
+				...state,
+				error: {
+					[action.payload.errorType]: action.payload.errorMessage,
+				},
 			};
 		/* ================================================================ */
 		/*  Update Item                                                     */

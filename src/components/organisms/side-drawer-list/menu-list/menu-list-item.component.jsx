@@ -22,6 +22,7 @@ const MenuListItem = props => {
 };
 
 MenuListItem.propTypes = {
+	children: PropTypes.object.isRequired,
 	selected: PropTypes.bool.isRequired,
 	to: PropTypes.string.isRequired,
 	labelColor: PropTypes.string,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import TopBar from '../top-bar/top-bar.component';
@@ -20,6 +21,10 @@ const SideMenu = ({ children }) => {
 			<Box className={classes.content}>{children}</Box>
 		</div>
 	);
+};
+
+SideMenu.propTypes = {
+	children: PropTypes.array.isRequired,
 };
 
 export default SideMenu;

@@ -5,11 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // Utils
-import {
-	NumberFormatter,
-	PriceFormatter,
-	convertToFloat,
-} from '../../../utils/global.utils';
+import { NumberFormatter, PriceFormatter } from '../../../utils/global.utils';
 
 // Redux
 import { createStructuredSelector } from 'reselect';

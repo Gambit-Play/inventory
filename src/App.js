@@ -2,13 +2,6 @@ import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// Firebase // TODO: Remove
-import { createCollectionAndDocument } from './firebase/firebase.utils';
-import * as COLLECTION_IDS from './firebase/collections.ids';
-
-// Data // TODO: Remove
-import { ItemsData } from './data/database.schema';
-
 // Routes
 import * as ROUTES from './routes/routes';
 
@@ -44,7 +37,6 @@ const App = props => {
 		fetchItemsCollectionStart();
 		return () => {
 			// Cleanup
-			// TODO: Add more actions to remove listeners
 			removeAuthListenerStart();
 		};
 	}, [
@@ -52,9 +44,6 @@ const App = props => {
 		removeAuthListenerStart,
 		fetchItemsCollectionStart,
 	]);
-
-	// TODO: Remove
-	// createCollectionAndDocument(COLLECTION_IDS.ITEMS, ItemsData);
 
 	return (
 		<StylesProvider injectFirst>

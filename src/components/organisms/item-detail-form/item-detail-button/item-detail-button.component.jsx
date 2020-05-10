@@ -7,7 +7,11 @@ import { withRouter } from 'react-router-dom';
 // Redux
 import { createStructuredSelector } from 'reselect';
 import { selectItem } from '../../../../redux/handlers/item-detail/item-detail.selectors';
-import { updateItemStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
+import {
+	updateItemStart,
+	createItemStart,
+	inputFailure,
+} from '../../../../redux/handlers/item-detail/item-detail.actions';
 
 // Mui Components & Icons
 import Button from '@material-ui/core/Button';
@@ -16,8 +20,10 @@ import SaveIcon from '@material-ui/icons/Save';
 
 const ItemDetailButton = props => {
 	const {
-		item: { isNew },
+		item: { isNew, name },
 		updateItemStart,
+		createItemStart,
+		inputFailure,
 		history,
 	} = props;
 
@@ -28,6 +34,13 @@ const ItemDetailButton = props => {
 		history.goBack();
 	};
 
+	const handleCreate = event => {
+		event.preventDefault();
+		if (name === '') return inputFailure('name', 'Item name is required!');
+
+		createItemStart();
+	};
+
 	if (isNew) {
 		return (
 			<Button
@@ -35,7 +48,7 @@ const ItemDetailButton = props => {
 				color='primary'
 				size='small'
 				startIcon={<SaveIcon />}
-				// onClick={handleSubmit}
+				onClick={handleCreate}
 			>
 				Save
 			</Button>
@@ -59,7 +72,12 @@ const ItemDetailButton = props => {
 ItemDetailButton.propTypes = {
 	item: PropTypes.shape({
 		isNew: PropTypes.bool.isRequired,
+		name: PropTypes.string.isRequired,
 	}),
+	updateItemStart: PropTypes.func.isRequired,
+	createItemStart: PropTypes.func.isRequired,
+	inputFailure: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -68,6 +86,9 @@ const mapStateToProps = createStructuredSelector({
 
 const mapStateToDispatch = dispatch => ({
 	updateItemStart: () => dispatch(updateItemStart()),
+	createItemStart: () => dispatch(createItemStart()),
+	inputFailure: (errorType, errorMessage) =>
+		dispatch(inputFailure(errorType, errorMessage)),
 });
 
 export default compose(

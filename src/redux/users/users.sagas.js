@@ -60,7 +60,7 @@ export function* signInWithGoogleStart() {
 			company: '',
 			role: '',
 		};
-		yield getSnapshotFromUserAuth(user, additionalData);
+		yield call(getSnapshotFromUserAuth, user, additionalData);
 		yield authStateChangedStart();
 		yield put(ItemsActions.fetchItemsCollectionStart());
 	} catch (error) {
