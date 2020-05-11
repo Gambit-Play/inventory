@@ -13,6 +13,7 @@ import {
 	selectRowsPerPage,
 } from '../../../../redux/handlers/items-table/items-table.selectors';
 import { fetchItemStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
+import { setSelectStart } from '../../../../redux/handlers/items-table/items-table.actions';
 
 // Routes
 import * as ROUTES from '../../../../routes/routes';
@@ -30,6 +31,7 @@ const TableBody = props => {
 		rowsPerPage,
 		history,
 		fetchItemStart,
+		setSelectStart,
 	} = props;
 
 	const isSelected = id => selected.indexOf(id) !== -1;
@@ -62,7 +64,7 @@ const TableBody = props => {
 						<TableCell padding='checkbox'>
 							<Checkbox
 								checked={isItemSelected}
-								// onClick={event => handleClick(event, row.id)}
+								onClick={event => setSelectStart(row.id)}
 								inputProps={{
 									'aria-labelledby': labelId,
 								}}
@@ -127,6 +129,8 @@ TableBody.propTypes = {
 	selected: PropTypes.array.isRequired,
 	page: PropTypes.number.isRequired,
 	rowsPerPage: PropTypes.number.isRequired,
+	fetchItemStart: PropTypes.func.isRequired,
+	setSelectStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -138,6 +142,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapStateToDispatch = dispatch => ({
 	fetchItemStart: rowId => dispatch(fetchItemStart(rowId)),
+	setSelectStart: selectedId => dispatch(setSelectStart(selectedId)),
 });
 
 export default compose(

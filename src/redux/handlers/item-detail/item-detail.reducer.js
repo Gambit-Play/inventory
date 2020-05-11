@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 	updatedAt: '',
 	updatedBy: '',
 	updatedById: '',
-	// Create & Update confirmation
+	// Create, Delete and Update confirmation
 	isUpdateSuccess: false,
 	isCreateSuccess: false,
 	isDeleteSuccess: false,
@@ -96,7 +96,7 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Update Item                                                     */
+		/*  Delete Item                                                     */
 		/* ================================================================ */
 		case ItemDetailActionTypes.DELETE_ITEM_SUCCESS:
 			return {

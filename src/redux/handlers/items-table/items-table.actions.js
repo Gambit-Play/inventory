@@ -14,6 +14,11 @@ export const setSelectAllStart = checkedAll => ({
 	payload: checkedAll,
 });
 
+export const setSelectStart = selectedId => ({
+	type: ItemsTableActionTypes.SET_SELECT_START,
+	payload: selectedId,
+});
+
 export const setPageStart = page => ({
 	type: ItemsTableActionTypes.SET_PAGE_START,
 	payload: page,
@@ -43,6 +48,11 @@ export const setSelectAllSuccess = selected => ({
 	payload: selected,
 });
 
+export const setSelectSuccess = selected => ({
+	type: ItemsTableActionTypes.SET_SELECT_SUCCESS,
+	payload: selected,
+});
+
 export const setPageSuccess = page => ({
 	type: ItemsTableActionTypes.SET_PAGE_SUCCESS,
 	payload: page,
@@ -64,6 +74,11 @@ export const setOrderFailure = errorMessage => ({
 
 export const setSelectAllFailure = errorMessage => ({
 	type: ItemsTableActionTypes.SET_SELECT_ALL_FAILURE,
+	payload: errorMessage,
+});
+
+export const setSelectFailure = errorMessage => ({
+	type: ItemsTableActionTypes.SET_SELECT_FAILURE,
 	payload: errorMessage,
 });
 

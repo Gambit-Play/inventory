@@ -12,6 +12,9 @@ const INITIAL_STATE = {
 
 const itemsTableReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
+		/* ================================================================ */
+		/*  Success Process                                                 */
+		/* ================================================================ */
 		case ItemsTableActionTypes.SET_ORDER_SUCCESS:
 			return {
 				...state,
@@ -23,6 +26,7 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				orderBy: action.payload,
 			};
 		case ItemsTableActionTypes.SET_SELECT_ALL_SUCCESS:
+		case ItemsTableActionTypes.SET_SELECT_SUCCESS:
 			return {
 				...state,
 				selected: action.payload,
@@ -37,6 +41,9 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				rowsPerPage: action.payload,
 			};
+		/* ================================================================ */
+		/*  Failure Process                                                 */
+		/* ================================================================ */
 		case ItemsTableActionTypes.SET_ORDER_FAILURE:
 		case ItemsTableActionTypes.SET_SELECT_ALL_FAILURE:
 		case ItemsTableActionTypes.SET_PAGE_FAILURE:

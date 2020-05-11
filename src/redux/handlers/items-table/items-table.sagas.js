@@ -9,7 +9,11 @@ import * as ItemsTableActions from './items-table.actions';
 import * as ItemsActions from '../../items/items.actions';
 
 // Selectors
-import { selectOrder, selectOrderBy } from './items-table.selectors';
+import {
+	selectOrder,
+	selectOrderBy,
+	selectSelected,
+} from './items-table.selectors';
 import { selectCurrentItems } from '../../items/items.selectors';
 
 /* ================================================================ */
@@ -86,6 +90,33 @@ export function* setRowsPerPageStart({ payload: rowsPerPage }) {
 	}
 }
 
+export function* setSelect({ payload: selectedId }) {
+	try {
+		const selected = yield select(selectSelected);
+		const selectedIndex = selected.indexOf(selectedId);
+
+		let newSelected = [];
+
+		if (selectedIndex === -1) {
+			newSelected = newSelected.concat(selected, selectedId);
+		} else if (selectedIndex === 0) {
+			newSelected = newSelected.concat(selected.slice(1));
+		} else if (selectedIndex === selected.length - 1) {
+			newSelected = newSelected.concat(selected.slice(0, -1));
+		} else if (selectedIndex > 0) {
+			newSelected = newSelected.concat(
+				selected.slice(0, selectedIndex),
+				selected.slice(selectedIndex + 1)
+			);
+		}
+
+		yield put(ItemsTableActions.setSelectSuccess(newSelected));
+	} catch (error) {
+		console.log(error);
+		yield put(ItemsTableActions.setSelectFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -96,6 +127,10 @@ export function* onSetOrderStart() {
 
 export function* onSetSelectAllStart() {
 	yield takeLatest(ItemsTableActionTypes.SET_SELECT_ALL_START, setSelectAll);
+}
+
+export function* onSetSelectStart() {
+	yield takeLatest(ItemsTableActionTypes.SET_SELECT_START, setSelect);
 }
 
 export function* onSetOrderByStart() {
@@ -124,6 +159,7 @@ export default function* itemsTableSagas() {
 	yield all([
 		call(onSetOrderStart),
 		call(onSetSelectAllStart),
+		call(onSetSelectStart),
 		call(onSetOrderByStart),
 		call(onSetPageStart),
 		call(onSetRowsPerPageStart),
