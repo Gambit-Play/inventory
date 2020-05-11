@@ -35,7 +35,7 @@ export const fetchItemsCollectionFailure = errorMessage => ({
 });
 
 /* ================================================================ */
-/*  Process Remove Start                                            */
+/*  Process Remove                                                  */
 /* ================================================================ */
 
 export const removeItemsCollectionListener = () => ({

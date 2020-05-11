@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectSelected } from '../../../../redux/handlers/items-table/items-table.selectors';
+import { deleteMultipleItemsStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
+import {} from '../../../../redux/items/items.actions';
 
 // Mui Components & Icons
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,8 +22,9 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 // Styles
 import useStyles from '../items-table.styles';
 
-const TableToolbar = ({ selected }) => {
+const TableToolbar = props => {
 	const classes = useStyles();
+	const { selected, deleteMultipleItemsStart } = props;
 	const numSelected = selected.length;
 
 	return (
@@ -61,7 +64,10 @@ const TableToolbar = ({ selected }) => {
 			{numSelected > 0 ? (
 				<div className={classes.filterIcon}>
 					<Tooltip title='Delete'>
-						<IconButton aria-label='delete'>
+						<IconButton
+							aria-label='delete'
+							onClick={deleteMultipleItemsStart}
+						>
 							<DeleteIcon />
 						</IconButton>
 					</Tooltip>
@@ -81,10 +87,15 @@ const TableToolbar = ({ selected }) => {
 
 TableToolbar.propTypes = {
 	selected: PropTypes.array.isRequired,
+	deleteMultipleItemsStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
 	selected: selectSelected,
 });
 
-export default connect(mapStateToProps)(TableToolbar);
+const mapDispatchToProps = dispatch => ({
+	deleteMultipleItemsStart: () => dispatch(deleteMultipleItemsStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableToolbar);

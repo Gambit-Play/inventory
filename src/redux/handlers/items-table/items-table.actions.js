@@ -91,3 +91,11 @@ export const setRowsPerPageFailure = errorMessage => ({
 	type: ItemsTableActionTypes.SET_ROWS_PER_PAGE_FAILURE,
 	payload: errorMessage,
 });
+
+/* ================================================================ */
+/*  Process Remove                                                  */
+/* ================================================================ */
+
+export const removeSelected = () => ({
+	type: ItemsTableActionTypes.REMOVE_SELECTED,
+});

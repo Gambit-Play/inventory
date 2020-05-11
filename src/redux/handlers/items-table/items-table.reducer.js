@@ -52,6 +52,14 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				errorMessage: action.payload,
 			};
+		/* ================================================================ */
+		/*  Remove Process                                                  */
+		/* ================================================================ */
+		case ItemsTableActionTypes.REMOVE_SELECTED:
+			return {
+				...state,
+				selected: [],
+			};
 		default:
 			return state;
 	}

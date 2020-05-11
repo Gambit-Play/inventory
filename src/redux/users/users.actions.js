@@ -45,7 +45,7 @@ export const onAuthStateChangeFailure = errorMessage => ({
 });
 
 /* ================================================================ */
-/*  Process Remove Start                                            */
+/*  Process Remove                                                  */
 /* ================================================================ */
 
 export const removeAuthListenerStart = () => ({

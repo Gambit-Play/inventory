@@ -14,9 +14,9 @@ const INITIAL_STATE = {
 	updatedBy: '',
 	updatedById: '',
 	// Create, Delete and Update confirmation
-	isUpdateSuccess: false,
-	isCreateSuccess: false,
-	isDeleteSuccess: false,
+	isUpdateSuccess: undefined,
+	isCreateSuccess: undefined,
+	isDeleteSuccess: undefined,
 	// Create & Update error message
 	errorMessage: '',
 	// Input error message
@@ -99,11 +99,13 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 		/*  Delete Item                                                     */
 		/* ================================================================ */
 		case ItemDetailActionTypes.DELETE_ITEM_SUCCESS:
+		case ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_SUCCESS:
 			return {
 				...state,
 				isDeleteSuccess: true,
 			};
 		case ItemDetailActionTypes.DELETE_ITEM_FAILURE:
+		case ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_FAILURE:
 			return {
 				...state,
 				isDeleteSuccess: false,
@@ -126,9 +128,9 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedAt: '',
 				updatedBy: '',
 				updatedById: '',
-				isUpdateSuccess: false,
-				isCreateSuccess: false,
-				isDeleteSuccess: false,
+				isUpdateSuccess: undefined,
+				isCreateSuccess: undefined,
+				isDeleteSuccess: undefined,
 				errorMessage: '',
 				errorName: '',
 				isNew: false,

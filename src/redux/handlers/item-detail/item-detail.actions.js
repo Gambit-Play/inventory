@@ -26,6 +26,10 @@ export const deleteItemStart = () => ({
 	type: ItemDetailActionTypes.DELETE_ITEM_START,
 });
 
+export const deleteMultipleItemsStart = () => ({
+	type: ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_START,
+});
+
 export const isNew = () => ({
 	type: ItemDetailActionTypes.IS_NEW,
 });
@@ -49,6 +53,10 @@ export const createItemSuccess = () => ({
 
 export const deleteItemSuccess = () => ({
 	type: ItemDetailActionTypes.DELETE_ITEM_SUCCESS,
+});
+
+export const deleteMultipleItemsSuccess = () => ({
+	type: ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_SUCCESS,
 });
 
 /* ================================================================ */
@@ -75,13 +83,18 @@ export const deleteItemFailure = errorMessage => ({
 	payload: errorMessage,
 });
 
+export const deleteMultipleItemsFailure = errorMessage => ({
+	type: ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_FAILURE,
+	payload: errorMessage,
+});
+
 export const inputFailure = (errorType, errorMessage) => ({
 	type: ItemDetailActionTypes.INPUT_FAILURE,
 	payload: { errorType, errorMessage },
 });
 
 /* ================================================================ */
-/*  Process Remove Start                                            */
+/*  Process Remove                                                  */
 /* ================================================================ */
 
 export const removeItem = () => ({

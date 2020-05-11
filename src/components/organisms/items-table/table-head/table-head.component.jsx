@@ -54,7 +54,7 @@ const ItemsTableHead = props => {
 						onChange={event =>
 							setSelectAllStart(event.target.checked)
 						}
-						inputProps={{ 'aria-label': 'select all desserts' }}
+						inputProps={{ 'aria-label': 'select all items' }}
 					/>
 				</TableCell>
 				{headCells.map(headCell => (

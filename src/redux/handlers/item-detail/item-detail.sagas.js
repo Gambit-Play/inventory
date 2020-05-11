@@ -15,6 +15,7 @@ import { convertToFloat } from '../../../utils/global.utils';
 import ItemDetailActionTypes from './item-detail.types';
 
 // Actions
+import { removeSelected } from '../items-table/items-table.actions';
 import {
 	fetchItemSuccess,
 	fetchItemFailure,
@@ -30,6 +31,21 @@ import {
 import { selectSingleItem } from '../../items/items.selectors';
 import { selectCurrentUser } from '../../users/users.selectors';
 import { selectItem } from './item-detail.selectors';
+import { selectSelected } from '../items-table/items-table.selectors';
+
+/* ================================================================ */
+/*  Reusable Actions                                                */
+/* ================================================================ */
+
+export function* deleteDocumentsFromCollection(deleteItems) {
+	try {
+		yield call(deleteDocuments, COLLECTION_IDS.ITEMS, deleteItems);
+		yield put(deleteItemSuccess());
+	} catch (error) {
+		console.log(error);
+		yield put(deleteItemFailure());
+	}
+}
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -103,13 +119,20 @@ export function* createItemStart() {
 export function* deleteItemStart() {
 	try {
 		const item = yield select(selectItem);
-		const deleteItem = [
-			{
-				id: item.id,
-			},
-		];
-		yield call(deleteDocuments, COLLECTION_IDS.ITEMS, deleteItem);
-		yield put(deleteItemSuccess());
+		const deleteItem = [item.id];
+		yield deleteDocumentsFromCollection(deleteItem);
+	} catch (error) {
+		console.log(error);
+		yield put(deleteItemFailure());
+	}
+}
+
+export function* deleteMultipleItemsStart() {
+	try {
+		const selected = yield select(selectSelected);
+
+		yield deleteDocumentsFromCollection(selected);
+		yield put(removeSelected());
 	} catch (error) {
 		console.log(error);
 		yield put(deleteItemFailure());
@@ -136,6 +159,13 @@ export function* onDeleteItemStart() {
 	yield takeLatest(ItemDetailActionTypes.DELETE_ITEM_START, deleteItemStart);
 }
 
+export function* onDeleteMultipleItemsStart() {
+	yield takeLatest(
+		ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_START,
+		deleteMultipleItemsStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -146,5 +176,6 @@ export default function* itemDetailSagas() {
 		call(onUpdateItemStart),
 		call(onCreateItemStart),
 		call(onDeleteItemStart),
+		call(onDeleteMultipleItemsStart),
 	]);
 }
