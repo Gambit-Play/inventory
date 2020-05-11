@@ -22,6 +22,10 @@ export const createItemStart = () => ({
 	type: ItemDetailActionTypes.CREATE_ITEM_START,
 });
 
+export const deleteItemStart = () => ({
+	type: ItemDetailActionTypes.DELETE_ITEM_START,
+});
+
 export const isNew = () => ({
 	type: ItemDetailActionTypes.IS_NEW,
 });
@@ -43,6 +47,10 @@ export const createItemSuccess = () => ({
 	type: ItemDetailActionTypes.CREATE_ITEM_SUCCESS,
 });
 
+export const deleteItemSuccess = () => ({
+	type: ItemDetailActionTypes.DELETE_ITEM_SUCCESS,
+});
+
 /* ================================================================ */
 /*  Process Failure	       	                                        */
 /* ================================================================ */
@@ -59,6 +67,11 @@ export const updateItemFailure = errorMessage => ({
 
 export const createItemFailure = errorMessage => ({
 	type: ItemDetailActionTypes.CREATE_ITEM_FAILURE,
+	payload: errorMessage,
+});
+
+export const deleteItemFailure = errorMessage => ({
+	type: ItemDetailActionTypes.DELETE_ITEM_FAILURE,
 	payload: errorMessage,
 });
 

@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 
-const selectItemDetail = state => state.itemDetail;
+const selectItemDetailStore = state => state.itemDetail;
 
 // Selects itemDetail.item from the state
 export const selectItem = createSelector(
-	[selectItemDetail],
+	[selectItemDetailStore],
 	itemDetail => itemDetail
 );

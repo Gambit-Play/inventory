@@ -13,6 +13,7 @@ import { selectItem } from '../../../redux/handlers/item-detail/item-detail.sele
 import {
 	removeItem,
 	setItemStart,
+	deleteItemStart,
 } from '../../../redux/handlers/item-detail/item-detail.actions';
 
 // Component
@@ -34,7 +35,7 @@ import useStyles from './item-detail.styles';
 
 const ItemDetailForm = props => {
 	const classes = useStyles();
-	const { item, removeItem, setItemStart, history } = props;
+	const { item, removeItem, setItemStart, deleteItemStart, history } = props;
 
 	useEffect(() => {
 		return () => {
@@ -45,6 +46,11 @@ const ItemDetailForm = props => {
 	const handleChange = event => {
 		const { name, value } = event.target;
 		setItemStart(name, value);
+	};
+
+	const handleDelete = () => {
+		deleteItemStart();
+		history.goBack();
 	};
 
 	return (
@@ -66,6 +72,7 @@ const ItemDetailForm = props => {
 							size='small'
 							className={classes.deleteButton}
 							startIcon={<DeleteIcon />}
+							onClick={handleDelete}
 						>
 							Delete
 						</Button>
@@ -79,8 +86,8 @@ const ItemDetailForm = props => {
 								value={item.name}
 								fullWidth
 								color='primary'
-								// helperText={errorName}
-								// error={errorName ? true : false}
+								helperText={item.errorName}
+								error={item.errorName ? true : false}
 								onChange={handleChange}
 							/>
 						</Grid>
@@ -92,8 +99,6 @@ const ItemDetailForm = props => {
 								value={item.price}
 								fullWidth
 								color='primary'
-								// helperText={errorPrice}
-								// error={errorPrice ? true : false}
 								onChange={handleChange}
 								InputProps={{
 									inputComponent: PriceFormatter,
@@ -108,8 +113,6 @@ const ItemDetailForm = props => {
 								value={item.quantity}
 								fullWidth
 								color='primary'
-								// helperText={errorQuantity}
-								// error={errorQuantity ? true : false}
 								onChange={handleChange}
 								InputProps={{
 									inputComponent: NumberFormatter,
@@ -150,6 +153,7 @@ ItemDetailForm.propTypes = {
 	item: PropTypes.object.isRequired,
 	removeItem: PropTypes.func.isRequired,
 	setItemStart: PropTypes.func.isRequired,
+	deleteItemStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 };
 
@@ -162,6 +166,7 @@ const mapStateToDispatch = dispatch => ({
 	removeItem: () => dispatch(removeItem()),
 	setItemStart: (inputName, value) =>
 		dispatch(setItemStart(inputName, value)),
+	deleteItemStart: () => dispatch(deleteItemStart()),
 });
 
 export default compose(

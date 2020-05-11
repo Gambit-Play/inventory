@@ -1,6 +1,7 @@
 import ItemDetailActionTypes from './item-detail.types';
 
 const INITIAL_STATE = {
+	// Item Detail
 	id: '',
 	name: '',
 	quantity: null,
@@ -12,18 +13,15 @@ const INITIAL_STATE = {
 	updatedAt: '',
 	updatedBy: '',
 	updatedById: '',
-
+	// Create & Update confirmation
 	isUpdateSuccess: false,
-	isSaveSuccess: false,
-
+	isCreateSuccess: false,
+	isDeleteSuccess: false,
+	// Create & Update error message
 	errorMessage: '',
-	error: {
-		name: '',
-		price: '',
-		quantity: '',
-		unit: '',
-	},
-
+	// Input error message
+	errorName: '',
+	// Checks if item is new or an existing one
 	isNew: false,
 };
 
@@ -56,6 +54,7 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				createdBy: action.payload.createdBy,
 				createdById: action.payload.createdById,
 				updatedAt: action.payload.updatedAt,
+				updatedBy: action.payload.updatedBy,
 				updatedById: action.payload.updatedById,
 			};
 		/* ================================================================ */
@@ -69,20 +68,18 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 		case ItemDetailActionTypes.CREATE_ITEM_SUCCESS:
 			return {
 				...state,
-				isSaveSuccess: true,
+				isCreateSuccess: true,
 			};
 		case ItemDetailActionTypes.CREATE_ITEM_FAILURE:
 			return {
 				...state,
-				isSaveSuccess: false,
+				isCreateSuccess: false,
 				errorMessage: action.payload,
 			};
 		case ItemDetailActionTypes.INPUT_FAILURE:
 			return {
 				...state,
-				error: {
-					[action.payload.errorType]: action.payload.errorMessage,
-				},
+				[action.payload.errorType]: action.payload.errorMessage,
 			};
 		/* ================================================================ */
 		/*  Update Item                                                     */
@@ -96,6 +93,20 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isUpdateSuccess: false,
+				errorMessage: action.payload,
+			};
+		/* ================================================================ */
+		/*  Update Item                                                     */
+		/* ================================================================ */
+		case ItemDetailActionTypes.DELETE_ITEM_SUCCESS:
+			return {
+				...state,
+				isDeleteSuccess: true,
+			};
+		case ItemDetailActionTypes.DELETE_ITEM_FAILURE:
+			return {
+				...state,
+				isDeleteSuccess: false,
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
@@ -116,14 +127,10 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedBy: '',
 				updatedById: '',
 				isUpdateSuccess: false,
-				isSaveSuccess: false,
+				isCreateSuccess: false,
+				isDeleteSuccess: false,
 				errorMessage: '',
-				error: {
-					name: '',
-					price: '',
-					quantity: '',
-					unit: '',
-				},
+				errorName: '',
 				isNew: false,
 			};
 		default:

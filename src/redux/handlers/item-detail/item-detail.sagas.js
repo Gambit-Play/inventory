@@ -4,6 +4,7 @@ import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 import {
 	updateDocument,
 	createCollectionAndDocument,
+	deleteDocuments,
 } from '../../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 
@@ -21,6 +22,8 @@ import {
 	updateItemFailure,
 	createItemSuccess,
 	createItemFailure,
+	deleteItemSuccess,
+	deleteItemFailure,
 } from './item-detail.actions';
 
 // Selectors
@@ -86,7 +89,7 @@ export function* createItemStart() {
 				cost: item.price * item.quantity,
 				updatedAt: '',
 				updatedBy: '',
-				updateddById: '',
+				updatedById: '',
 			},
 		];
 		yield call(createCollectionAndDocument, COLLECTION_IDS.ITEMS, newItem);
@@ -94,6 +97,22 @@ export function* createItemStart() {
 	} catch (error) {
 		console.log(error);
 		yield put(createItemFailure(error));
+	}
+}
+
+export function* deleteItemStart() {
+	try {
+		const item = yield select(selectItem);
+		const deleteItem = [
+			{
+				id: item.id,
+			},
+		];
+		yield call(deleteDocuments, COLLECTION_IDS.ITEMS, deleteItem);
+		yield put(deleteItemSuccess());
+	} catch (error) {
+		console.log(error);
+		yield put(deleteItemFailure());
 	}
 }
 
@@ -113,6 +132,10 @@ export function* onCreateItemStart() {
 	yield takeLatest(ItemDetailActionTypes.CREATE_ITEM_START, createItemStart);
 }
 
+export function* onDeleteItemStart() {
+	yield takeLatest(ItemDetailActionTypes.DELETE_ITEM_START, deleteItemStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -122,5 +145,6 @@ export default function* itemDetailSagas() {
 		call(onFetchItemStart),
 		call(onUpdateItemStart),
 		call(onCreateItemStart),
+		call(onDeleteItemStart),
 	]);
 }

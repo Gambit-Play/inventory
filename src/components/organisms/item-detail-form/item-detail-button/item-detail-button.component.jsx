@@ -36,9 +36,11 @@ const ItemDetailButton = props => {
 
 	const handleCreate = event => {
 		event.preventDefault();
-		if (name === '') return inputFailure('name', 'Item name is required!');
+		if (name === '')
+			return inputFailure('errorName', 'Item name is required!');
 
 		createItemStart();
+		history.goBack();
 	};
 
 	if (isNew) {

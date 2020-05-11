@@ -1,8 +1,11 @@
 import { createSelector } from 'reselect';
 
-const selectUi = state => state.ui;
+const selectUiStore = state => state.ui;
 
-export const selectSideMenu = createSelector([selectUi], ui => ui.sideMenu);
+export const selectSideMenu = createSelector(
+	[selectUiStore],
+	ui => ui.sideMenu
+);
 
 export const selectSideMenuOpen = createSelector(
 	[selectSideMenu],

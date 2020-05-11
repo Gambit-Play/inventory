@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect';
 
-const selectItems = state => state.items;
+const selectItemsStore = state => state.items;
 
 // Selects items.currentItems from the state
 export const selectCurrentItems = createSelector(
-	[selectItems],
+	[selectItemsStore],
 	items => items.currentItems
 );
 
 // Selects items.isFetching from the state
 export const selectIsFetching = createSelector(
-	[selectItems],
+	[selectItemsStore],
 	items => items.isFetching
 );
 

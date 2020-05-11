@@ -39,6 +39,18 @@ firebase.initializeApp(config);
 /*  Firebase Actions                                                */
 /* ================================================================ */
 
+export const deleteDocuments = async (collectionId, documents) => {
+	const batch = firestore.batch();
+	documents.forEach(doc => {
+		const documentRef = firestore.collection(collectionId).doc(doc.id);
+		console.log(documentRef);
+
+		batch.delete(documentRef);
+	});
+
+	return await batch.commit();
+};
+
 export const createUserProfileDocument = async (userAuth, otherData) => {
 	if (!userAuth) return;
 
