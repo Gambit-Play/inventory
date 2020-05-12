@@ -30,6 +30,7 @@ export function* fetchItemsCollectionAsync() {
 	try {
 		const collectionRef = yield call(getCollection, COLLECTION_IDS.ITEMS);
 		const allUsers = yield select(selectAllUsers);
+
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
 			sagaMiddleware.run(fetchCurrentItems);
 
@@ -42,7 +43,6 @@ export function* fetchItemsCollectionAsync() {
 						? allUsers[result.updatedBy].displayName
 						: '',
 				};
-				console.log(newData);
 				return newData;
 			});
 

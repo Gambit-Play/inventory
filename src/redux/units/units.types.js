@@ -1,0 +1,7 @@
+const UnitsActionTypes = {
+	FETCH_UNITS_START: 'FETCH_UNITS_START',
+	FETCH_UNITS_SUCCESS: 'FETCH_UNITS_SUCCESS',
+	FETCH_UNITS_FAILURE: 'FETCH_UNITS_FAILURE',
+};
+
+export default UnitsActionTypes;

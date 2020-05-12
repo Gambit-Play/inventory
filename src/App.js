@@ -19,6 +19,7 @@ import {
 	removeAuthListenerStart,
 } from './redux/users/users.actions';
 import { fetchItemsCollectionStart } from './redux/items/items.actions';
+import { fetchUnitsStart } from './redux/units/units.actions';
 
 // Components
 import MainContainer from './components/atoms/main-container/main-container.styles';
@@ -37,10 +38,12 @@ const App = props => {
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
 		fetchItemsCollectionStart,
+		fetchUnitsStart,
 	} = props;
 
 	useEffect(() => {
 		onAuthStateChangedStart();
+		fetchUnitsStart();
 		fetchItemsCollectionStart();
 		return () => {
 			// Cleanup
@@ -51,6 +54,7 @@ const App = props => {
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
 		fetchItemsCollectionStart,
+		fetchUnitsStart,
 	]);
 
 	// TODO: Remove
@@ -87,12 +91,14 @@ App.propTypes = {
 	onAuthStateChangedStart: PropTypes.func.isRequired,
 	removeAuthListenerStart: PropTypes.func.isRequired,
 	fetchItemsCollectionStart: PropTypes.func.isRequired,
+	fetchUnitsStart: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
 	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
 	fetchItemsCollectionStart: () => dispatch(fetchItemsCollectionStart()),
+	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(App);
