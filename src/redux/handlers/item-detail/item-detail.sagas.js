@@ -73,11 +73,9 @@ export function* updateItemStart() {
 			unit: item.unit,
 			createdAt: item.createdAt,
 			createdBy: item.createdBy,
-			createdById: item.createdById,
 			cost: item.price * item.quantity,
 			updatedAt: new Date().toISOString(),
 			updatedBy: currentUser.displayName,
-			updateddById: currentUser.id,
 		};
 
 		yield call(updateDocument, COLLECTION_IDS.ITEMS, item.id, updatedItem);
@@ -101,11 +99,9 @@ export function* createItemStart() {
 				unit: item.unit,
 				createdAt: new Date().toISOString(),
 				createdBy: currentUser.displayName,
-				createdById: currentUser.id,
 				cost: item.price * item.quantity,
 				updatedAt: '',
 				updatedBy: '',
-				updatedById: '',
 			},
 		];
 		yield call(createCollectionAndDocument, COLLECTION_IDS.ITEMS, newItem);

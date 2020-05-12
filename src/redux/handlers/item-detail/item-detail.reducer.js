@@ -9,10 +9,10 @@ const INITIAL_STATE = {
 	price: null,
 	createdAt: '',
 	createdBy: '',
-	createdById: '',
+	createdByName: '',
 	updatedAt: '',
 	updatedBy: '',
-	updatedById: '',
+	updatedByName: '',
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -52,10 +52,10 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				price: action.payload.price,
 				createdAt: action.payload.createdAt,
 				createdBy: action.payload.createdBy,
-				createdById: action.payload.createdById,
+				createdByName: action.payload.createdByName,
 				updatedAt: action.payload.updatedAt,
 				updatedBy: action.payload.updatedBy,
-				updatedById: action.payload.updatedById,
+				updatedByName: action.payload.updatedByName,
 			};
 		/* ================================================================ */
 		/*  Create Item                                                     */
@@ -124,10 +124,10 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				price: null,
 				createdAt: '',
 				createdBy: '',
-				createdById: '',
+				createdByName: '',
 				updatedAt: '',
 				updatedBy: '',
-				updatedById: '',
+				updatedByName: '',
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

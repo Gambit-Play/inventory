@@ -1,5 +1,8 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
+// Utils
+import { convertArrayToObject } from '../../utils/global.utils';
+
 // Action Types
 import UsersActionTypes from './users.types';
 
@@ -13,6 +16,7 @@ import {
 	createUserProfileDocument,
 	signOutFromGoogle,
 	auth,
+	getUsersCollection,
 } from '../../firebase/firebase.utils';
 
 /* ================================================================ */
@@ -63,6 +67,7 @@ export function* signInWithGoogleStart() {
 		yield call(getSnapshotFromUserAuth, user, additionalData);
 		yield authStateChangedStart();
 		yield put(ItemsActions.fetchItemsCollectionStart());
+		yield put(UsersActions.fetchAllUsersStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.signInFailure(error.message));
@@ -77,6 +82,20 @@ export function* authStateChangedStart() {
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.onAuthStateChangeFailure(error.message));
+	}
+}
+
+export function* fetchAllUsersCollectionAsync() {
+	try {
+		const usersCollection = yield getUsersCollection();
+		const newUsersCollection = yield convertArrayToObject(
+			usersCollection,
+			'id'
+		);
+		yield put(UsersActions.fetchAllUsersSuccess(newUsersCollection));
+	} catch (error) {
+		console.log(error.message);
+		yield put(UsersActions.fetchAllUsersFailure(error.message));
 	}
 }
 
@@ -126,6 +145,13 @@ export function* onRemoveAuthListenerStart() {
 	);
 }
 
+export function* fetchAllUsersCollectioStart() {
+	yield takeLatest(
+		UsersActionTypes.FETCH_ALL_USERS_START,
+		fetchAllUsersCollectionAsync
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -136,5 +162,6 @@ export default function* userSagas() {
 		call(onGoogleSignOutStart),
 		call(onAuthStateChangedStart),
 		call(onRemoveAuthListenerStart),
+		call(fetchAllUsersCollectioStart),
 	]);
 }

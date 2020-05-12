@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
 // Redux
 import { sagaMiddleware } from '../store';
@@ -6,6 +6,9 @@ import { sagaMiddleware } from '../store';
 // Firebase utils
 import { getCollection } from '../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../firebase/collections.ids';
+
+// Selectors
+import { selectAllUsers } from '../users/users.selectors';
 
 // Action Types
 import ItemsActionTypes from './items.types';
@@ -26,10 +29,22 @@ let unsubscribe = null;
 export function* fetchItemsCollectionAsync() {
 	try {
 		const collectionRef = yield call(getCollection, COLLECTION_IDS.ITEMS);
+		const allUsers = yield select(selectAllUsers);
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
 			sagaMiddleware.run(fetchCurrentItems);
 
-			const data = snapshot.docs.map(doc => doc.data());
+			const data = snapshot.docs.map(doc => {
+				const result = doc.data();
+				const newData = {
+					...result,
+					createdByName: allUsers[result.createdBy].displayName,
+					updatedByName: allUsers.hasOwnProperty(result.updatedBy)
+						? allUsers[result.updatedBy].displayName
+						: '',
+				};
+				console.log(newData);
+				return newData;
+			});
 
 			sagaMiddleware.run(fetchCurrentItems, data);
 		});
