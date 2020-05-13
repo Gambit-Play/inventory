@@ -6,8 +6,8 @@ import clsx from 'clsx';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectSelected } from '../../../../redux/handlers/items-table/items-table.selectors';
+import { setSearchFieldStart } from '../../../../redux/handlers/items-table/items-table.actions';
 import { deleteMultipleItemsStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
-import {} from '../../../../redux/items/items.actions';
 
 // Mui Components & Icons
 import Toolbar from '@material-ui/core/Toolbar';
@@ -24,8 +24,13 @@ import useStyles from '../items-table.styles';
 
 const TableToolbar = props => {
 	const classes = useStyles();
-	const { selected, deleteMultipleItemsStart } = props;
+	const { selected, deleteMultipleItemsStart, setSearchFieldStart } = props;
 	const numSelected = selected.length;
+
+	const handleChange = event => {
+		console.log(event.target.value);
+		setSearchFieldStart(event.target.value);
+	};
 
 	return (
 		<Toolbar
@@ -42,25 +47,16 @@ const TableToolbar = props => {
 					{numSelected} selected
 				</Typography>
 			) : (
-				<React.Fragment>
-					<Typography
-						className={classes.title}
-						variant='h6'
-						id='tableTitle'
-					>
-						Items
-					</Typography>
-					<TextField
-						id='standard-basic'
-						label='Search'
-						variant='outlined'
-						margin='dense'
-						fullWidth
-						className={classes.searchField}
-					/>
-				</React.Fragment>
+				<TextField
+					id='standard-basic'
+					type='search'
+					label='Search by name'
+					margin='dense'
+					onChange={handleChange}
+					fullWidth
+					className={classes.searchField}
+				/>
 			)}
-
 			{numSelected > 0 ? (
 				<div className={classes.filterIcon}>
 					<Tooltip title='Delete'>
@@ -88,6 +84,7 @@ const TableToolbar = props => {
 TableToolbar.propTypes = {
 	selected: PropTypes.array.isRequired,
 	deleteMultipleItemsStart: PropTypes.func.isRequired,
+	setSearchFieldStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -96,6 +93,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	deleteMultipleItemsStart: () => dispatch(deleteMultipleItemsStart()),
+	setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableToolbar);

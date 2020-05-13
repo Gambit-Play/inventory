@@ -4,10 +4,13 @@ const INITIAL_STATE = {
 	order: 'asc',
 	orderBy: '',
 	selected: [],
+	filteredItems: [],
 	page: 0,
 	dense: false,
 	rowsPerPage: 5,
 	errorMessage: undefined,
+	searchField: '',
+	filterdItems: [],
 };
 
 const itemsTableReducer = (state = INITIAL_STATE, action) => {
@@ -20,7 +23,7 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				order: action.payload,
 			};
-		case ItemsTableActionTypes.SET_ORDER_BY_SUCCESS:
+		case ItemsTableActionTypes.SET_ORDER_BY:
 			return {
 				...state,
 				orderBy: action.payload,
@@ -41,6 +44,16 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				rowsPerPage: action.payload,
 			};
+		case ItemsTableActionTypes.SET_SEARCH_FIELD:
+			return {
+				...state,
+				searchField: action.payload,
+			};
+		case ItemsTableActionTypes.SET_FILTERED_ITEMS_SUCCESS:
+			return {
+				...state,
+				filteredItems: action.payload,
+			};
 		/* ================================================================ */
 		/*  Failure Process                                                 */
 		/* ================================================================ */
@@ -48,6 +61,7 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 		case ItemsTableActionTypes.SET_SELECT_ALL_FAILURE:
 		case ItemsTableActionTypes.SET_PAGE_FAILURE:
 		case ItemsTableActionTypes.SET_ROWS_PER_PAGE_FAILURE:
+		case ItemsTableActionTypes.SET_FILTERED_ITEMS_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,

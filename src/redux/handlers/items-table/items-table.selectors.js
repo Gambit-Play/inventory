@@ -31,3 +31,15 @@ export const selectRowsPerPage = createSelector(
 	[selectItemsTable],
 	itemsTable => itemsTable.rowsPerPage
 );
+
+// Selects itemsTable.searchField from the state
+export const selectSearchField = createSelector(
+	[selectItemsTable],
+	itemsTable => itemsTable.searchField
+);
+
+// Selects itemsTable.filteredItems from the state
+export const selectFilteredItems = createSelector(
+	[selectItemsTable],
+	itemsTable => itemsTable.filteredItems
+);

@@ -13,6 +13,8 @@ import {
 	selectOrder,
 	selectOrderBy,
 	selectSelected,
+	selectSearchField,
+	selectFilteredItems,
 } from './items-table.selectors';
 import { selectCurrentItems } from '../../items/items.selectors';
 
@@ -55,7 +57,7 @@ export function* setOrderByStart() {
 	try {
 		const order = yield select(selectOrder);
 		const orderBy = yield select(selectOrderBy);
-		const items = yield select(selectCurrentItems);
+		const items = yield select(selectFilteredItems);
 		const sorter =
 			orderBy === 'price' || orderBy === 'cost' || orderBy === 'quantity'
 				? orderBy
@@ -64,7 +66,7 @@ export function* setOrderByStart() {
 				  };
 		const newItems = yield orderData(items, [sorter], order);
 
-		yield put(ItemsActions.fetchItemsCollectionSuccess(newItems));
+		yield put(ItemsTableActions.setFilteredItemsSuccess(newItems));
 	} catch (error) {}
 }
 
@@ -116,6 +118,24 @@ export function* setSelect({ payload: selectedId }) {
 	}
 }
 
+export function* setFilteredItemsStart() {
+	try {
+		const searchField = yield select(selectSearchField);
+		const currentItems = yield select(selectCurrentItems);
+		const filteredItems = searchField
+			? currentItems.filter(item =>
+					item.name.toLowerCase().includes(searchField.toLowerCase())
+			  )
+			: currentItems;
+		console.log(filteredItems);
+
+		yield put(ItemsTableActions.setFilteredItemsSuccess(filteredItems));
+	} catch (error) {
+		console.log(error);
+		yield put(ItemsTableActions.setFilteredItemsFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -133,10 +153,7 @@ export function* onSetSelectStart() {
 }
 
 export function* onSetOrderByStart() {
-	yield takeLatest(
-		ItemsTableActionTypes.SET_ORDER_BY_SUCCESS,
-		setOrderByStart
-	);
+	yield takeLatest(ItemsTableActionTypes.SET_ORDER_BY, setOrderByStart);
 }
 
 export function* onSetPageStart() {
@@ -147,6 +164,20 @@ export function* onSetRowsPerPageStart() {
 	yield takeLatest(
 		ItemsTableActionTypes.SET_ROWS_PER_PAGE_START,
 		setRowsPerPageStart
+	);
+}
+
+export function* onSetSearchFieldStart() {
+	yield takeLatest(
+		ItemsTableActionTypes.SET_SEARCH_FIELD,
+		setFilteredItemsStart
+	);
+}
+
+export function* onSetFilteredItemsStart() {
+	yield takeLatest(
+		ItemsTableActionTypes.SET_FILTERED_ITEMS_START,
+		setFilteredItemsStart
 	);
 }
 
@@ -162,5 +193,7 @@ export default function* itemsTableSagas() {
 		call(onSetOrderByStart),
 		call(onSetPageStart),
 		call(onSetRowsPerPageStart),
+		call(onSetSearchFieldStart),
+		call(onSetFilteredItemsStart),
 	]);
 }

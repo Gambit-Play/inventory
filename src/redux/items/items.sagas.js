@@ -20,6 +20,7 @@ import {
 	fetchItemsCollectionSuccess,
 	fetchItemsCollectionFailure,
 } from './items.actions';
+import { setFilteredItemsStart } from '../handlers/items-table/items-table.actions';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -60,7 +61,10 @@ export function* fetchItemsCollectionAsync() {
 
 export function* fetchCurrentItems(data) {
 	if (!data) yield put(fetchItemsCollectionUpdate());
-	if (data) yield put(fetchItemsCollectionSuccess(data));
+	if (data) {
+		yield put(fetchItemsCollectionSuccess(data));
+		yield put(setFilteredItemsStart());
+	}
 }
 
 export function* removeItemsCollectionListener() {

@@ -43,6 +43,7 @@ const ItemDetailForm = props => {
 			removeItem();
 		};
 	}, [removeItem]);
+	console.log(item);
 
 	const handleChange = event => {
 		const { name, value } = event.target;
@@ -67,16 +68,18 @@ const ItemDetailForm = props => {
 						>
 							Basic Info
 						</Typography>
-						<Button
-							variant='contained'
-							color='secondary'
-							size='small'
-							className={classes.deleteButton}
-							startIcon={<DeleteIcon />}
-							onClick={handleDelete}
-						>
-							Delete
-						</Button>
+						{!item.isNew && (
+							<Button
+								variant='contained'
+								color='secondary'
+								size='small'
+								className={classes.deleteButton}
+								startIcon={<DeleteIcon />}
+								onClick={handleDelete}
+							>
+								Delete
+							</Button>
+						)}
 					</Box>
 					<Grid container spacing={3}>
 						<Grid item xs={6}>

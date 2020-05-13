@@ -11,6 +11,7 @@ import {
 	selectSelected,
 	selectPage,
 	selectRowsPerPage,
+	selectFilteredItems,
 } from '../../../../redux/handlers/items-table/items-table.selectors';
 import { fetchItemStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
 import { setSelectStart } from '../../../../redux/handlers/items-table/items-table.actions';
@@ -134,7 +135,7 @@ TableBody.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-	items: selectCurrentItems,
+	items: selectFilteredItems,
 	selected: selectSelected,
 	page: selectPage,
 	rowsPerPage: selectRowsPerPage,

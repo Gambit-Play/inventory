@@ -29,6 +29,15 @@ export const setRowsPerPageStart = rowsPerPage => ({
 	payload: rowsPerPage,
 });
 
+export const setSearchFieldStart = search => ({
+	type: ItemsTableActionTypes.SET_SEARCH_FIELD,
+	payload: search,
+});
+
+export const setFilteredItemsStart = () => ({
+	type: ItemsTableActionTypes.SET_FILTERED_ITEMS_START,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -39,7 +48,7 @@ export const setOrderSuccess = order => ({
 });
 
 export const setOrderBySuccess = orderBy => ({
-	type: ItemsTableActionTypes.SET_ORDER_BY_SUCCESS,
+	type: ItemsTableActionTypes.SET_ORDER_BY,
 	payload: orderBy,
 });
 
@@ -61,6 +70,11 @@ export const setPageSuccess = page => ({
 export const setRowsPerPageSuccess = rowsPerPage => ({
 	type: ItemsTableActionTypes.SET_ROWS_PER_PAGE_SUCCESS,
 	payload: rowsPerPage,
+});
+
+export const setFilteredItemsSuccess = list => ({
+	type: ItemsTableActionTypes.SET_FILTERED_ITEMS_SUCCESS,
+	payload: list,
 });
 
 /* ================================================================ */
@@ -89,6 +103,11 @@ export const setPageFailure = errorMessage => ({
 
 export const setRowsPerPageFailure = errorMessage => ({
 	type: ItemsTableActionTypes.SET_ROWS_PER_PAGE_FAILURE,
+	payload: errorMessage,
+});
+
+export const setFilteredItemsFailure = errorMessage => ({
+	type: ItemsTableActionTypes.SET_FILTERED_ITEMS_FAILURE,
 	payload: errorMessage,
 });
 
