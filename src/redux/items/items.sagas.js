@@ -9,6 +9,7 @@ import * as COLLECTION_IDS from '../../firebase/collections.ids';
 
 // Selectors
 import { selectAllUsers } from '../users/users.selectors';
+import { selectCurrentUnits } from '../units/units.selectors';
 
 // Action Types
 import ItemsActionTypes from './items.types';
@@ -28,6 +29,7 @@ let unsubscribe = null;
 
 export function* fetchItemsCollectionAsync() {
 	try {
+		const currentUnits = yield select(selectCurrentUnits);
 		const collectionRef = yield call(getCollection, COLLECTION_IDS.ITEMS);
 		const allUsers = yield select(selectAllUsers);
 
@@ -41,6 +43,9 @@ export function* fetchItemsCollectionAsync() {
 					createdByName: allUsers[result.createdBy].displayName,
 					updatedByName: allUsers.hasOwnProperty(result.updatedBy)
 						? allUsers[result.updatedBy].displayName
+						: '',
+					unitName: currentUnits.hasOwnProperty(result.unit)
+						? currentUnits[result.unit].unit
 						: '',
 				};
 				return newData;

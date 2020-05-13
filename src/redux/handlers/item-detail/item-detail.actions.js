@@ -14,6 +14,11 @@ export const setItemStart = (inputName, value) => ({
 	payload: { inputName, value },
 });
 
+export const setUnit = (unit, unitName) => ({
+	type: ItemDetailActionTypes.SET_UNIT,
+	payload: { unit, unitName },
+});
+
 export const updateItemStart = () => ({
 	type: ItemDetailActionTypes.UPDATE_ITEM_START,
 });

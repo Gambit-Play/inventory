@@ -17,8 +17,8 @@ import { connect } from 'react-redux';
 import {
 	onAuthStateChangedStart,
 	removeAuthListenerStart,
+	fetchAllUsersStart,
 } from './redux/users/users.actions';
-import { fetchItemsCollectionStart } from './redux/items/items.actions';
 import { fetchUnitsStart } from './redux/units/units.actions';
 
 // Components
@@ -37,14 +37,14 @@ const App = props => {
 	const {
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
-		fetchItemsCollectionStart,
 		fetchUnitsStart,
+		fetchAllUsersStart,
 	} = props;
 
 	useEffect(() => {
 		onAuthStateChangedStart();
 		fetchUnitsStart();
-		fetchItemsCollectionStart();
+		fetchAllUsersStart();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -53,8 +53,8 @@ const App = props => {
 	}, [
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
-		fetchItemsCollectionStart,
 		fetchUnitsStart,
+		fetchAllUsersStart,
 	]);
 
 	// TODO: Remove
@@ -90,15 +90,15 @@ const App = props => {
 App.propTypes = {
 	onAuthStateChangedStart: PropTypes.func.isRequired,
 	removeAuthListenerStart: PropTypes.func.isRequired,
-	fetchItemsCollectionStart: PropTypes.func.isRequired,
 	fetchUnitsStart: PropTypes.func.isRequired,
+	fetchAllUsersStart: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
 	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
-	fetchItemsCollectionStart: () => dispatch(fetchItemsCollectionStart()),
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
+	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

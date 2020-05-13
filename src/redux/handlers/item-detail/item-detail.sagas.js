@@ -75,7 +75,7 @@ export function* updateItemStart() {
 			createdBy: item.createdBy,
 			cost: item.price * item.quantity,
 			updatedAt: new Date().toISOString(),
-			updatedBy: currentUser.displayName,
+			updatedBy: currentUser.id,
 		};
 
 		yield call(updateDocument, COLLECTION_IDS.ITEMS, item.id, updatedItem);
@@ -98,7 +98,7 @@ export function* createItemStart() {
 				quantity: item.quantity ? parseFloat(item.quantity) : 0,
 				unit: item.unit,
 				createdAt: new Date().toISOString(),
-				createdBy: currentUser.displayName,
+				createdBy: currentUser.id,
 				cost: item.price * item.quantity,
 				updatedAt: '',
 				updatedBy: '',

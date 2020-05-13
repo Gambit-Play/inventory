@@ -18,6 +18,7 @@ import {
 
 // Component
 import ItemDetailButton from './item-detail-button/item-detail-button.component';
+import ItemDetailDropdown from './item-detail-dropdown/item-detail-dropdown.component';
 
 // Mui Components & Icons
 import Grid from '@material-ui/core/Grid';
@@ -120,15 +121,7 @@ const ItemDetailForm = props => {
 							/>
 						</Grid>
 						<Grid item xs={6}>
-							<TextField
-								id='unit'
-								name='unit'
-								label='Unit'
-								value={item.unit}
-								fullWidth
-								color='primary'
-								onChange={handleChange}
-							/>
+							<ItemDetailDropdown />
 						</Grid>
 					</Grid>
 					<Box display='flex' paddingTop={5}>

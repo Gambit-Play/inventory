@@ -102,7 +102,7 @@ const TableBody = props => {
 							align='right'
 							onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.unit}
+							{row.unitName}
 						</TableCell>
 
 						<TableCell

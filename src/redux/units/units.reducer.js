@@ -1,7 +1,7 @@
 import UnitsActionTypes from './units.types';
 
 const INITIAL_STATE = {
-	units: null,
+	currentUnits: null,
 	errorMessage: '',
 };
 
@@ -13,7 +13,7 @@ const unitsReducer = (state = INITIAL_STATE, action) => {
 		case UnitsActionTypes.FETCH_UNITS_SUCCESS:
 			return {
 				...state,
-				units: action.payload,
+				currentUnits: action.payload,
 			};
 		/* ================================================================ */
 		/*  Process Failure                                                 */

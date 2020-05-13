@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 	name: '',
 	quantity: null,
 	unit: '',
+	unitName: '',
 	price: null,
 	createdAt: '',
 	createdBy: '',
@@ -49,6 +50,7 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				name: action.payload.name,
 				quantity: action.payload.quantity,
 				unit: action.payload.unit,
+				unitName: action.payload.unitName,
 				price: action.payload.price,
 				createdAt: action.payload.createdAt,
 				createdBy: action.payload.createdBy,
@@ -56,6 +58,15 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedAt: action.payload.updatedAt,
 				updatedBy: action.payload.updatedBy,
 				updatedByName: action.payload.updatedByName,
+			};
+		/* ================================================================ */
+		/*  Create Item                                                     */
+		/* ================================================================ */
+		case ItemDetailActionTypes.SET_UNIT:
+			return {
+				...state,
+				unit: action.payload.unit,
+				unitName: action.payload.unitName,
 			};
 		/* ================================================================ */
 		/*  Create Item                                                     */
@@ -121,6 +132,7 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				name: '',
 				quantity: null,
 				unit: '',
+				unitName: '',
 				price: null,
 				createdAt: '',
 				createdBy: '',

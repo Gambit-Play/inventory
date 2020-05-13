@@ -66,8 +66,6 @@ export function* signInWithGoogleStart() {
 		};
 		yield call(getSnapshotFromUserAuth, user, additionalData);
 		yield authStateChangedStart();
-		yield put(ItemsActions.fetchItemsCollectionStart());
-		yield put(UsersActions.fetchAllUsersStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.signInFailure(error.message));
@@ -93,6 +91,7 @@ export function* fetchAllUsersCollectionAsync() {
 			'id'
 		);
 		yield put(UsersActions.fetchAllUsersSuccess(newUsersCollection));
+		yield put(ItemsActions.fetchItemsCollectionStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.fetchAllUsersFailure(error.message));
