@@ -24,15 +24,15 @@ export const convertToFloat = input => {
 	return formattedNumber;
 };
 
-// Changes the property 'createdBy' from user id to displayName
+// Changes the property 'createdById' from user id to displayName
 export const updateDataWithUsersName = (userCollection, collection) => {
 	if (!userCollection || !collection)
 		console.error('Please provide all the inputs');
 
-	const hasUpdatedBy = collection.hasOwnProperty('updatedBy');
-	if (hasUpdatedBy) {
+	const hasUpdatedById = collection.hasOwnProperty('updatedById');
+	if (hasUpdatedById) {
 		const idUser = user => {
-			return user.id === collection.updatedBy;
+			return user.id === collection.updatedById;
 		};
 		const user = userCollection.find(idUser);
 		const updatedByDoc = {
@@ -44,9 +44,9 @@ export const updateDataWithUsersName = (userCollection, collection) => {
 		return updatedByDoc;
 	}
 
-	if (!hasUpdatedBy) {
+	if (!hasUpdatedById) {
 		const idUser = user => {
-			return user.id === collection.createdBy;
+			return user.id === collection.createdById;
 		};
 		const user = userCollection.find(idUser);
 		const createdByDoc = {

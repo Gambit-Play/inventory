@@ -62,7 +62,6 @@ export function* setOrderByStart() {
 				: item => {
 						return item[orderBy].toLowerCase();
 				  };
-
 		const newItems = yield orderData(items, [sorter], order);
 
 		yield put(ItemsActions.fetchItemsCollectionSuccess(newItems));

@@ -102,14 +102,14 @@ const TableBody = props => {
 							align='right'
 							onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.unitName}
+							{row.unit}
 						</TableCell>
 
 						<TableCell
 							align='right'
 							onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.createdByName}
+							{row.createdBy}
 						</TableCell>
 						<TableCell
 							align='right'

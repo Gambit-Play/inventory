@@ -70,12 +70,12 @@ export function* updateItemStart() {
 			name: item.name,
 			price: item.price,
 			quantity: parseFloat(item.quantity),
-			unit: item.unit,
+			unitId: item.unitId,
 			createdAt: item.createdAt,
-			createdBy: item.createdBy,
+			createdById: item.createdById,
 			cost: item.price * item.quantity,
 			updatedAt: new Date().toISOString(),
-			updatedBy: currentUser.id,
+			updatedById: currentUser.id,
 		};
 
 		yield call(updateDocument, COLLECTION_IDS.ITEMS, item.id, updatedItem);
@@ -96,12 +96,12 @@ export function* createItemStart() {
 				name: item.name,
 				price: item.price ? convertToFloat(item.price) : 0,
 				quantity: item.quantity ? parseFloat(item.quantity) : 0,
-				unit: item.unit,
+				unitId: item.unitId,
 				createdAt: new Date().toISOString(),
-				createdBy: currentUser.id,
+				createdById: currentUser.id,
 				cost: item.price * item.quantity,
 				updatedAt: '',
-				updatedBy: '',
+				updatedById: '',
 			},
 		];
 		yield call(createCollectionAndDocument, COLLECTION_IDS.ITEMS, newItem);

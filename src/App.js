@@ -20,6 +20,7 @@ import {
 	fetchAllUsersStart,
 } from './redux/users/users.actions';
 import { fetchUnitsStart } from './redux/units/units.actions';
+import { removeOrderBy } from './redux/handlers/items-table/items-table.actions';
 
 // Components
 import MainContainer from './components/atoms/main-container/main-container.styles';
@@ -39,12 +40,14 @@ const App = props => {
 		removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
+		removeOrderBy,
 	} = props;
 
 	useEffect(() => {
 		onAuthStateChangedStart();
 		fetchUnitsStart();
 		fetchAllUsersStart();
+		removeOrderBy();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -55,6 +58,7 @@ const App = props => {
 		removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
+		removeOrderBy,
 	]);
 
 	// TODO: Remove
@@ -92,6 +96,7 @@ App.propTypes = {
 	removeAuthListenerStart: PropTypes.func.isRequired,
 	fetchUnitsStart: PropTypes.func.isRequired,
 	fetchAllUsersStart: PropTypes.func.isRequired,
+	removeOrderBy: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -99,6 +104,7 @@ const mapDispatchToProps = dispatch => ({
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
+	removeOrderBy: () => dispatch(removeOrderBy()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

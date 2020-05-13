@@ -2,7 +2,7 @@ import ItemsTableActionTypes from './items-table.types';
 
 const INITIAL_STATE = {
 	order: 'asc',
-	orderBy: 'name',
+	orderBy: '',
 	selected: [],
 	page: 0,
 	dense: false,
@@ -59,6 +59,11 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				selected: [],
+			};
+		case ItemsTableActionTypes.REMOVE_ORDER_BY:
+			return {
+				...state,
+				orderBy: '',
 			};
 		default:
 			return state;

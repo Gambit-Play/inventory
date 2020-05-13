@@ -40,12 +40,12 @@ export function* fetchItemsCollectionAsync() {
 				const result = doc.data();
 				const newData = {
 					...result,
-					createdByName: allUsers[result.createdBy].displayName,
-					updatedByName: allUsers.hasOwnProperty(result.updatedBy)
-						? allUsers[result.updatedBy].displayName
+					createdBy: allUsers[result.createdById].displayName,
+					updatedBy: allUsers.hasOwnProperty(result.updatedById)
+						? allUsers[result.updatedById].displayName
 						: '',
-					unitName: currentUnits.hasOwnProperty(result.unit)
-						? currentUnits[result.unit].unit
+					unit: currentUnits.hasOwnProperty(result.unitId)
+						? currentUnits[result.unitId].unit
 						: '',
 				};
 				return newData;

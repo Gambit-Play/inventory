@@ -57,7 +57,7 @@ export function* signInWithGoogleStart() {
 			user,
 		} = yield call(signInWithGoogle);
 
-		let additionalData = {
+		const additionalData = {
 			firstName: profile.given_name,
 			lastName: profile.family_name,
 			avatar: profile.picture,

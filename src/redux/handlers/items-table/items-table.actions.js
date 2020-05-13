@@ -99,3 +99,7 @@ export const setRowsPerPageFailure = errorMessage => ({
 export const removeSelected = () => ({
 	type: ItemsTableActionTypes.REMOVE_SELECTED,
 });
+
+export const removeOrderBy = () => ({
+	type: ItemsTableActionTypes.REMOVE_ORDER_BY,
+});

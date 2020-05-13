@@ -16,7 +16,6 @@ import Select from '@material-ui/core/Select';
 
 const ItemDetailDropdown = props => {
 	const { currentUnits, item, setUnit } = props;
-	console.log(currentUnits);
 	const unitsArray = Object.values(currentUnits);
 
 	const handleChange = event => {
@@ -31,7 +30,7 @@ const ItemDetailDropdown = props => {
 			<Select
 				labelId='select-label'
 				id='select'
-				value={item.unit}
+				value={item.unitId}
 				onChange={handleChange}
 			>
 				{unitsArray.map(unitArr => (
@@ -56,7 +55,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-	setUnit: (unit, unitName) => dispatch(setUnit(unit, unitName)),
+	setUnit: (unitId, unit) => dispatch(setUnit(unitId, unit)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemDetailDropdown);

@@ -5,15 +5,15 @@ const INITIAL_STATE = {
 	id: '',
 	name: '',
 	quantity: null,
+	unitId: '',
 	unit: '',
-	unitName: '',
 	price: null,
 	createdAt: '',
+	createdById: '',
 	createdBy: '',
-	createdByName: '',
 	updatedAt: '',
+	updatedById: '',
 	updatedBy: '',
-	updatedByName: '',
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -49,15 +49,15 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				id: action.payload.id,
 				name: action.payload.name,
 				quantity: action.payload.quantity,
+				unitId: action.payload.unitId,
 				unit: action.payload.unit,
-				unitName: action.payload.unitName,
 				price: action.payload.price,
 				createdAt: action.payload.createdAt,
+				createdById: action.payload.createdById,
 				createdBy: action.payload.createdBy,
-				createdByName: action.payload.createdByName,
 				updatedAt: action.payload.updatedAt,
+				updatedById: action.payload.updatedById,
 				updatedBy: action.payload.updatedBy,
-				updatedByName: action.payload.updatedByName,
 			};
 		/* ================================================================ */
 		/*  Create Item                                                     */
@@ -65,8 +65,8 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 		case ItemDetailActionTypes.SET_UNIT:
 			return {
 				...state,
+				unitId: action.payload.unitId,
 				unit: action.payload.unit,
-				unitName: action.payload.unitName,
 			};
 		/* ================================================================ */
 		/*  Create Item                                                     */
@@ -131,15 +131,15 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				id: '',
 				name: '',
 				quantity: null,
+				unitId: '',
 				unit: '',
-				unitName: '',
 				price: null,
 				createdAt: '',
+				createdById: '',
 				createdBy: '',
-				createdByName: '',
 				updatedAt: '',
+				updatedById: '',
 				updatedBy: '',
-				updatedByName: '',
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

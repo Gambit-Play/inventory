@@ -9,7 +9,7 @@ export const headCells = [
 		id: 'price',
 		numeric: true,
 		disablePadding: false,
-		label: 'Price',
+		label: 'Price per Unit',
 	},
 	{
 		id: 'quantity',
@@ -30,7 +30,7 @@ export const headCells = [
 		label: 'Unit',
 	},
 	{
-		id: 'createdBy',
+		id: 'createdById',
 		numeric: true,
 		disablePadding: false,
 		label: 'Created By',
