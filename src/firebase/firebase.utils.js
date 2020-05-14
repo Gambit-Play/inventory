@@ -43,7 +43,6 @@ export const deleteDocuments = async (collectionId, documents) => {
 	const batch = firestore.batch();
 	documents.forEach(doc => {
 		const documentRef = firestore.collection(collectionId).doc(doc);
-		console.log(documentRef);
 
 		batch.delete(documentRef);
 	});

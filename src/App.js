@@ -7,7 +7,7 @@ import { createCollectionAndDocument } from './firebase/firebase.utils';
 import * as COLLECTION_IDS from './firebase/collections.ids';
 
 // Data // TODO: Remove
-import { ItemsData } from './data/database.schema';
+import { ItemsData, MenusData } from './data/database.schema';
 
 // Routes
 import * as ROUTES from './routes/routes';
@@ -27,6 +27,7 @@ import MainContainer from './components/atoms/main-container/main-container.styl
 import SideMenu from './components/organisms/side-menu/side-menu.component';
 import ItemsList from './pages/items-pages/items-list/items-list.component';
 import ItemDetail from './pages/items-pages/item-detail/item-detail.component';
+import MenusList from './pages/menus-pages/menus-list/menus-list.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -62,7 +63,7 @@ const App = props => {
 	]);
 
 	// TODO: Remove
-	// createCollectionAndDocument(COLLECTION_IDS.ITEMS, ItemsData);
+	// createCollectionAndDocument(COLLECTION_IDS.MENUS, MenusData);
 
 	return (
 		<StylesProvider injectFirst>
@@ -81,6 +82,11 @@ const App = props => {
 								<Route
 									path={`${ROUTES.ITEMS_LIST}/:itemId`}
 									component={ItemDetail}
+								/>
+								<Route
+									exact
+									path={ROUTES.MENUS_LIST}
+									component={MenusList}
 								/>
 							</SideMenu>
 						</MainContainer>

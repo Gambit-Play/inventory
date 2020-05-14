@@ -9,8 +9,6 @@ const useStyles = makeStyles(theme => ({
 		paddingRight: theme.spacing(1),
 	},
 	filterBar: {
-		paddingTop: theme.spacing(3),
-		paddingBottom: theme.spacing(3),
 		marginBottom: theme.spacing(2),
 	},
 	highlight:

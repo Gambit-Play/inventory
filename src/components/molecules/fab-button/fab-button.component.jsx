@@ -18,15 +18,15 @@ import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const FabButton = props => {
-	const { history, isNew } = props;
+	const { history, isNew, url, title } = props;
 
 	const handleClick = () => {
 		isNew();
-		history.push(`${ROUTES.ITEMS_LIST}/${ROUTES.NEW_ITEM}`);
+		history.push(url);
 	};
 
 	return (
-		<Tooltip title='Create new item'>
+		<Tooltip title={title}>
 			<Fab color='secondary' aria-label='add' onClick={handleClick}>
 				<AddIcon />
 			</Fab>

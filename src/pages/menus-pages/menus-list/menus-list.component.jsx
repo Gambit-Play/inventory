@@ -7,16 +7,16 @@ import * as ROUTES from '../../../routes/routes';
 import Table from '../../../components/organisms/table/table.component';
 import FabButton from '../../../components/molecules/fab-button/fab-button.component';
 
-const ItemsList = () => {
+const MenusList = () => {
 	return (
 		<React.Fragment>
-			<Table items />
+			<Table menus />
 			<FabButton
-				url={`${ROUTES.ITEMS_LIST}/${ROUTES.NEW_ITEM}`}
-				title='Create a new item'
+				url={`${ROUTES.MENUS_LIST}/${ROUTES.NEW_MENU}`}
+				title='Create a new menu'
 			/>
 		</React.Fragment>
 	);
 };
 
-export default ItemsList;
+export default MenusList;

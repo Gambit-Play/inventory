@@ -127,7 +127,6 @@ export function* setFilteredItemsStart() {
 					item.name.toLowerCase().includes(searchField.toLowerCase())
 			  )
 			: currentItems;
-		console.log(filteredItems);
 
 		yield put(ItemsTableActions.setFilteredItemsSuccess(filteredItems));
 	} catch (error) {
