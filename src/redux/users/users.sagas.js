@@ -9,6 +9,7 @@ import UsersActionTypes from './users.types';
 // Actions
 import * as UsersActions from './users.actions';
 import * as ItemsActions from '../items/items.actions';
+import * as MenusActions from '../menus/menus.actions';
 
 // Firebase utils
 import {
@@ -92,6 +93,7 @@ export function* fetchAllUsersCollectionAsync() {
 		);
 		yield put(UsersActions.fetchAllUsersSuccess(newUsersCollection));
 		yield put(ItemsActions.fetchItemsCollectionStart());
+		yield put(MenusActions.fetchMenusCollectionStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.fetchAllUsersFailure(error.message));
