@@ -1,41 +1,41 @@
-import ItemsTableActionTypes from './items-table.types';
+import MenusTableActionTypes from './menus-table.types';
 
 /* ================================================================ */
 /*  Process Start  	                                                */
 /* ================================================================ */
 
 export const setOrderStart = order => ({
-	type: ItemsTableActionTypes.SET_ORDER_ITEMS_START,
+	type: MenusTableActionTypes.SET_ORDER_MENUS_START,
 	payload: order,
 });
 
 export const setSelectAllStart = checkedAll => ({
-	type: ItemsTableActionTypes.SET_SELECT_ALL_ITEMS_START,
+	type: MenusTableActionTypes.SET_SELECT_ALL_MENUS_START,
 	payload: checkedAll,
 });
 
 export const setSelectStart = selectedId => ({
-	type: ItemsTableActionTypes.SET_SELECT_ITEMS_START,
+	type: MenusTableActionTypes.SET_SELECT_MENUS_START,
 	payload: selectedId,
 });
 
 export const setPageStart = page => ({
-	type: ItemsTableActionTypes.SET_PAGE_ITEMS_START,
+	type: MenusTableActionTypes.SET_PAGE_MENUS_START,
 	payload: page,
 });
 
 export const setRowsPerPageStart = rowsPerPage => ({
-	type: ItemsTableActionTypes.SET_ROWS_PER_PAGE_ITEMS_START,
+	type: MenusTableActionTypes.SET_ROWS_PER_PAGE_MENUS_START,
 	payload: rowsPerPage,
 });
 
 export const setSearchFieldStart = search => ({
-	type: ItemsTableActionTypes.SET_ITEMS_SEARCH_FIELD,
+	type: MenusTableActionTypes.SET_MENUS_SEARCH_FIELD,
 	payload: search,
 });
 
-export const setFilteredItemsStart = () => ({
-	type: ItemsTableActionTypes.SET_FILTERED_ITEMS_START,
+export const setFilteredMenusStart = () => ({
+	type: MenusTableActionTypes.SET_FILTERED_MENUS_START,
 });
 
 /* ================================================================ */
@@ -43,37 +43,37 @@ export const setFilteredItemsStart = () => ({
 /* ================================================================ */
 
 export const setOrderSuccess = order => ({
-	type: ItemsTableActionTypes.SET_ORDER_ITEMS_SUCCESS,
+	type: MenusTableActionTypes.SET_ORDER_MENUS_SUCCESS,
 	payload: order,
 });
 
 export const setOrderBySuccess = orderBy => ({
-	type: ItemsTableActionTypes.SET_ITEMS_ORDER_BY,
+	type: MenusTableActionTypes.SET_MENUS_ORDER_BY,
 	payload: orderBy,
 });
 
 export const setSelectAllSuccess = selected => ({
-	type: ItemsTableActionTypes.SET_SELECT_ALL_ITEMS_SUCCESS,
+	type: MenusTableActionTypes.SET_SELECT_ALL_MENUS_SUCCESS,
 	payload: selected,
 });
 
 export const setSelectSuccess = selected => ({
-	type: ItemsTableActionTypes.SET_SELECT_ITEMS_SUCCESS,
+	type: MenusTableActionTypes.SET_SELECT_MENUS_SUCCESS,
 	payload: selected,
 });
 
 export const setPageSuccess = page => ({
-	type: ItemsTableActionTypes.SET_PAGE_ITEMS_SUCCESS,
+	type: MenusTableActionTypes.SET_PAGE_MENUS_SUCCESS,
 	payload: page,
 });
 
 export const setRowsPerPageSuccess = rowsPerPage => ({
-	type: ItemsTableActionTypes.SET_ROWS_PER_PAGE_ITEMS_SUCCESS,
+	type: MenusTableActionTypes.SET_ROWS_PER_PAGE_MENUS_SUCCESS,
 	payload: rowsPerPage,
 });
 
-export const setFilteredItemsSuccess = list => ({
-	type: ItemsTableActionTypes.SET_FILTERED_ITEMS_SUCCESS,
+export const setFilteredMenusSuccess = list => ({
+	type: MenusTableActionTypes.SET_FILTERED_MENUS_SUCCESS,
 	payload: list,
 });
 
@@ -82,32 +82,32 @@ export const setFilteredItemsSuccess = list => ({
 /* ================================================================ */
 
 export const setOrderFailure = errorMessage => ({
-	type: ItemsTableActionTypes.SET_ORDER_ITEMS_FAILURE,
+	type: MenusTableActionTypes.SET_ORDER_MENUS_FAILURE,
 	payload: errorMessage,
 });
 
 export const setSelectAllFailure = errorMessage => ({
-	type: ItemsTableActionTypes.SET_SELECT_ALL_ITEMS_FAILURE,
+	type: MenusTableActionTypes.SET_SELECT_ALL_MENUS_FAILURE,
 	payload: errorMessage,
 });
 
 export const setSelectFailure = errorMessage => ({
-	type: ItemsTableActionTypes.SET_SELECT_ITEMS_FAILURE,
+	type: MenusTableActionTypes.SET_SELECT_MENUS_FAILURE,
 	payload: errorMessage,
 });
 
 export const setPageFailure = errorMessage => ({
-	type: ItemsTableActionTypes.SET_PAGE_ITEMS_FAILURE,
+	type: MenusTableActionTypes.SET_PAGE_MENUS_FAILURE,
 	payload: errorMessage,
 });
 
 export const setRowsPerPageFailure = errorMessage => ({
-	type: ItemsTableActionTypes.SET_ROWS_PER_PAGE_ITEMS_FAILURE,
+	type: MenusTableActionTypes.SET_ROWS_PER_PAGE_MENUS_FAILURE,
 	payload: errorMessage,
 });
 
-export const setFilteredItemsFailure = errorMessage => ({
-	type: ItemsTableActionTypes.SET_FILTERED_ITEMS_FAILURE,
+export const setFilteredMenusFailure = errorMessage => ({
+	type: MenusTableActionTypes.SET_FILTERED_MENUS_FAILURE,
 	payload: errorMessage,
 });
 
@@ -116,13 +116,13 @@ export const setFilteredItemsFailure = errorMessage => ({
 /* ================================================================ */
 
 export const removeSelected = () => ({
-	type: ItemsTableActionTypes.REMOVE_SELECTED_ITEMS,
+	type: MenusTableActionTypes.REMOVE_SELECTED_MENUS,
 });
 
 export const removeOrderBy = () => ({
-	type: ItemsTableActionTypes.REMOVE_ITEMS_ORDER_BY,
+	type: MenusTableActionTypes.REMOVE_MENUS_ORDER_BY,
 });
 
 export const removeSearchField = () => ({
-	type: ItemsTableActionTypes.REMOVE_ITEMS_SEARCH_FIELD,
+	type: MenusTableActionTypes.REMOVE_MENUS_SEARCH_FIELD,
 });

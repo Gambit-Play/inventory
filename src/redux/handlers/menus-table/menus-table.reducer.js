@@ -1,10 +1,10 @@
-import ItemsTableActionTypes from './items-table.types';
+import MenusTableActionTypes from './menus-table.types';
 
 const INITIAL_STATE = {
 	order: 'asc',
 	orderBy: '',
 	selected: [],
-	filteredItems: [],
+	filteredMenus: [],
 	page: 0,
 	dense: false,
 	rowsPerPage: 5,
@@ -12,55 +12,55 @@ const INITIAL_STATE = {
 	searchField: '',
 };
 
-const itemsTableReducer = (state = INITIAL_STATE, action) => {
+const menusTableReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		/* ================================================================ */
 		/*  Success Process                                                 */
 		/* ================================================================ */
-		case ItemsTableActionTypes.SET_ORDER_ITEMS_SUCCESS:
+		case MenusTableActionTypes.SET_ORDER_MENUS_SUCCESS:
 			return {
 				...state,
 				order: action.payload,
 			};
-		case ItemsTableActionTypes.SET_ITEMS_ORDER_BY:
+		case MenusTableActionTypes.SET_MENUS_ORDER_BY:
 			return {
 				...state,
 				orderBy: action.payload,
 			};
-		case ItemsTableActionTypes.SET_SELECT_ALL_ITEMS_SUCCESS:
-		case ItemsTableActionTypes.SET_SELECT_ITEMS_SUCCESS:
+		case MenusTableActionTypes.SET_SELECT_ALL_MENUS_SUCCESS:
+		case MenusTableActionTypes.SET_SELECT_MENUS_SUCCESS:
 			return {
 				...state,
 				selected: action.payload,
 			};
-		case ItemsTableActionTypes.SET_PAGE_ITEMS_SUCCESS:
+		case MenusTableActionTypes.SET_PAGE_MENUS_SUCCESS:
 			return {
 				...state,
 				page: action.payload,
 			};
-		case ItemsTableActionTypes.SET_ROWS_PER_PAGE_ITEMS_SUCCESS:
+		case MenusTableActionTypes.SET_ROWS_PER_PAGE_MENUS_SUCCESS:
 			return {
 				...state,
 				rowsPerPage: action.payload,
 			};
-		case ItemsTableActionTypes.SET_ITEMS_SEARCH_FIELD:
+		case MenusTableActionTypes.SET_MENUS_SEARCH_FIELD:
 			return {
 				...state,
 				searchField: action.payload,
 			};
-		case ItemsTableActionTypes.SET_FILTERED_ITEMS_SUCCESS:
+		case MenusTableActionTypes.SET_FILTERED_MENUS_SUCCESS:
 			return {
 				...state,
-				filteredItems: action.payload,
+				filteredMenus: action.payload,
 			};
 		/* ================================================================ */
 		/*  Failure Process                                                 */
 		/* ================================================================ */
-		case ItemsTableActionTypes.SET_ORDER_ITEMS_FAILURE:
-		case ItemsTableActionTypes.SET_SELECT_ALL_ITEMS_FAILURE:
-		case ItemsTableActionTypes.SET_PAGE_ITEMS_FAILURE:
-		case ItemsTableActionTypes.SET_ROWS_PER_PAGE_ITEMS_FAILURE:
-		case ItemsTableActionTypes.SET_FILTERED_ITEMS_FAILURE:
+		case MenusTableActionTypes.SET_ORDER_MENUS_FAILURE:
+		case MenusTableActionTypes.SET_SELECT_ALL_MENUS_FAILURE:
+		case MenusTableActionTypes.SET_PAGE_MENUS_FAILURE:
+		case MenusTableActionTypes.SET_ROWS_PER_PAGE_MENUS_FAILURE:
+		case MenusTableActionTypes.SET_FILTERED_MENUS_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,
@@ -68,17 +68,17 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Remove Process                                                  */
 		/* ================================================================ */
-		case ItemsTableActionTypes.REMOVE_SELECTED_ITEMS:
+		case MenusTableActionTypes.REMOVE_SELECTED_MENUS:
 			return {
 				...state,
 				selected: [],
 			};
-		case ItemsTableActionTypes.REMOVE_ITEMS_ORDER_BY:
+		case MenusTableActionTypes.REMOVE_MENUS_ORDER_BY:
 			return {
 				...state,
 				orderBy: '',
 			};
-		case ItemsTableActionTypes.REMOVE_ITEMS_SEARCH_FIELD:
+		case MenusTableActionTypes.REMOVE_MENUS_SEARCH_FIELD:
 			return {
 				...state,
 				searchField: '',
@@ -88,4 +88,4 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 	}
 };
 
-export default itemsTableReducer;
+export default menusTableReducer;

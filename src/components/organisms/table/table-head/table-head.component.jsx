@@ -9,7 +9,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 // Styles
-import useStyles from '../../items-table/items-table.styles';
+import useStyles from '../table.styles';
 
 const TableHead = ({
 	data,

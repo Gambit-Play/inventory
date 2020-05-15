@@ -2,10 +2,10 @@ import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 import orderData from 'lodash/orderBy';
 
 // Types
-import ItemsTableActionTypes from './items-table.types';
+import MenusTableActionTypes from './menus-table.types';
 
 // Actions
-import * as ItemsTableActions from './items-table.actions';
+import * as MenusTableActions from './menus-table.actions';
 
 // Selectors
 import {
@@ -13,9 +13,9 @@ import {
 	selectOrderBy,
 	selectSelected,
 	selectSearchField,
-	selectFilteredItems,
-} from './items-table.selectors';
-import { selectCurrentItems } from '../../items/items.selectors';
+	selectFilteredMenus,
+} from './menus-table.selectors';
+import { selectCurrentMenus } from '../../menus/menus.selectors';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -27,28 +27,28 @@ export function* setOrder({ payload: columnName }) {
 		const orderBy = yield select(selectOrderBy);
 		const isAsc = yield orderBy === columnName && order === 'asc';
 
-		yield put(ItemsTableActions.setOrderSuccess(isAsc ? 'desc' : 'asc'));
-		yield put(ItemsTableActions.setOrderBySuccess(columnName));
+		yield put(MenusTableActions.setOrderSuccess(isAsc ? 'desc' : 'asc'));
+		yield put(MenusTableActions.setOrderBySuccess(columnName));
 	} catch (error) {
 		console.log(error);
-		yield put(ItemsTableActions.setOrderFailure(error));
+		yield put(MenusTableActions.setOrderFailure(error));
 	}
 }
 
 export function* setSelectAll({ payload: checkedAll }) {
 	try {
 		if (checkedAll) {
-			const items = yield select(selectCurrentItems);
-			const newSelecteds = yield items.map(item => item.id);
+			const menus = yield select(selectCurrentMenus);
+			const newSelecteds = yield menus.map(menu => menu.id);
 
-			yield put(ItemsTableActions.setSelectAllSuccess(newSelecteds));
+			yield put(MenusTableActions.setSelectAllSuccess(newSelecteds));
 		}
 		if (!checkedAll) {
-			yield put(ItemsTableActions.setSelectAllSuccess([]));
+			yield put(MenusTableActions.setSelectAllSuccess([]));
 		}
 	} catch (error) {
 		console.log(error);
-		yield put(ItemsTableActions.setSelectAllFailure(error));
+		yield put(MenusTableActions.setSelectAllFailure(error));
 	}
 }
 
@@ -56,37 +56,37 @@ export function* setOrderByStart() {
 	try {
 		const order = yield select(selectOrder);
 		const orderBy = yield select(selectOrderBy);
-		const items = yield select(selectFilteredItems);
+		const menus = yield select(selectFilteredMenus);
 		const sorter =
 			orderBy === 'price' || orderBy === 'cost' || orderBy === 'quantity'
 				? orderBy
-				: item => {
-						return item[orderBy].toLowerCase();
+				: menu => {
+						return menu[orderBy].toLowerCase();
 				  };
-		const newItems = yield orderData(items, [sorter], order);
+		const newMenus = yield orderData(menus, [sorter], order);
 
-		yield put(ItemsTableActions.setFilteredItemsSuccess(newItems));
+		yield put(MenusTableActions.setFilteredMenusSuccess(newMenus));
 	} catch (error) {}
 }
 
 export function* setPageStart({ payload: page }) {
 	try {
-		yield put(ItemsTableActions.setPageSuccess(page));
+		yield put(MenusTableActions.setPageSuccess(page));
 	} catch (error) {
 		console.log(error);
-		yield put(ItemsTableActions.setPageFailure(error));
+		yield put(MenusTableActions.setPageFailure(error));
 	}
 }
 
 export function* setRowsPerPageStart({ payload: rowsPerPage }) {
 	try {
 		yield put(
-			ItemsTableActions.setRowsPerPageSuccess(parseInt(rowsPerPage, 10))
+			MenusTableActions.setRowsPerPageSuccess(parseInt(rowsPerPage, 10))
 		);
-		yield put(ItemsTableActions.setPageSuccess(0));
+		yield put(MenusTableActions.setPageSuccess(0));
 	} catch (error) {
 		console.log(error);
-		yield put(ItemsTableActions.setRowsPerPageFailure(error));
+		yield put(MenusTableActions.setRowsPerPageFailure(error));
 	}
 }
 
@@ -110,27 +110,27 @@ export function* setSelect({ payload: selectedId }) {
 			);
 		}
 
-		yield put(ItemsTableActions.setSelectSuccess(newSelected));
+		yield put(MenusTableActions.setSelectSuccess(newSelected));
 	} catch (error) {
 		console.log(error);
-		yield put(ItemsTableActions.setSelectFailure(error));
+		yield put(MenusTableActions.setSelectFailure(error));
 	}
 }
 
-export function* setFilteredItemsStart() {
+export function* setFilteredMenusStart() {
 	try {
 		const searchField = yield select(selectSearchField);
-		const currentItems = yield select(selectCurrentItems);
-		const filteredItems = searchField
-			? currentItems.filter(item =>
-					item.name.toLowerCase().includes(searchField.toLowerCase())
+		const currentMenus = yield select(selectCurrentMenus);
+		const filteredMenus = searchField
+			? currentMenus.filter(menu =>
+					menu.name.toLowerCase().includes(searchField.toLowerCase())
 			  )
-			: currentItems;
+			: currentMenus;
 
-		yield put(ItemsTableActions.setFilteredItemsSuccess(filteredItems));
+		yield put(MenusTableActions.setFilteredMenusSuccess(filteredMenus));
 	} catch (error) {
 		console.log(error);
-		yield put(ItemsTableActions.setFilteredItemsFailure(error));
+		yield put(MenusTableActions.setFilteredMenusFailure(error));
 	}
 }
 
@@ -139,46 +139,46 @@ export function* setFilteredItemsStart() {
 /* ================================================================ */
 
 export function* onSetOrderStart() {
-	yield takeLatest(ItemsTableActionTypes.SET_ORDER_ITEMS_START, setOrder);
+	yield takeLatest(MenusTableActionTypes.SET_ORDER_MENUS_START, setOrder);
 }
 
 export function* onSetSelectAllStart() {
 	yield takeLatest(
-		ItemsTableActionTypes.SET_SELECT_ALL_ITEMS_START,
+		MenusTableActionTypes.SET_SELECT_ALL_MENUS_START,
 		setSelectAll
 	);
 }
 
 export function* onSetSelectStart() {
-	yield takeLatest(ItemsTableActionTypes.SET_SELECT_ITEMS_START, setSelect);
+	yield takeLatest(MenusTableActionTypes.SET_SELECT_MENUS_START, setSelect);
 }
 
 export function* onSetOrderByStart() {
-	yield takeLatest(ItemsTableActionTypes.SET_ITEMS_ORDER_BY, setOrderByStart);
+	yield takeLatest(MenusTableActionTypes.SET_MENUS_ORDER_BY, setOrderByStart);
 }
 
 export function* onSetPageStart() {
-	yield takeLatest(ItemsTableActionTypes.SET_PAGE_ITEMS_START, setPageStart);
+	yield takeLatest(MenusTableActionTypes.SET_PAGE_MENUS_START, setPageStart);
 }
 
 export function* onSetRowsPerPageStart() {
 	yield takeLatest(
-		ItemsTableActionTypes.SET_ROWS_PER_PAGE_ITEMS_START,
+		MenusTableActionTypes.SET_ROWS_PER_PAGE_MENUS_START,
 		setRowsPerPageStart
 	);
 }
 
 export function* onSetSearchFieldStart() {
 	yield takeLatest(
-		ItemsTableActionTypes.SET_ITEMS_SEARCH_FIELD,
-		setFilteredItemsStart
+		MenusTableActionTypes.SET_MENUS_SEARCH_FIELD,
+		setFilteredMenusStart
 	);
 }
 
-export function* onSetFilteredItemsStart() {
+export function* onSetFilteredMenusStart() {
 	yield takeLatest(
-		ItemsTableActionTypes.SET_FILTERED_ITEMS_START,
-		setFilteredItemsStart
+		MenusTableActionTypes.SET_FILTERED_MENUS_START,
+		setFilteredMenusStart
 	);
 }
 
@@ -186,7 +186,7 @@ export function* onSetFilteredItemsStart() {
 /*  Root Saga                                                       */
 /* ================================================================ */
 
-export default function* itemsTableSagas() {
+export default function* menusTableSagas() {
 	yield all([
 		call(onSetOrderStart),
 		call(onSetSelectAllStart),
@@ -195,6 +195,6 @@ export default function* itemsTableSagas() {
 		call(onSetPageStart),
 		call(onSetRowsPerPageStart),
 		call(onSetSearchFieldStart),
-		call(onSetFilteredItemsStart),
+		call(onSetFilteredMenusStart),
 	]);
 }

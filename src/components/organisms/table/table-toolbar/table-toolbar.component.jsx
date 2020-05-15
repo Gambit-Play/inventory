@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 // Styles
-import useStyles from '../../items-table/items-table.styles';
+import useStyles from '../table.styles';
 
 const TableToolbar = ({
 	selected,
