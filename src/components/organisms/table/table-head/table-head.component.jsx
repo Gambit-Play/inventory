@@ -1,49 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createStructuredSelector } from 'reselect';
-
-// Redux
-import { connect } from 'react-redux';
-import { selectCurrentItems } from '../../../../redux/items/items.selectors';
-import {
-	selectOrder,
-	selectOrderBy,
-	selectSelected,
-} from '../../../../redux/handlers/items-table/items-table.selectors';
-import {
-	setOrderStart,
-	setSelectAllStart,
-} from '../../../../redux/handlers/items-table/items-table.actions';
-
-// Headcells
-import { headCells } from './table-head.cells';
 
 // Mui Components
-import TableHead from '@material-ui/core/TableHead';
+import MuiTableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 // Styles
-import useStyles from '../items-table.styles';
+import useStyles from '../../items-table/items-table.styles';
 
-const ItemsTableHead = props => {
-	const {
-		items,
-		order,
-		orderBy,
-		selected,
-		setOrderStart,
-		setSelectAllStart,
-	} = props;
+const TableHead = ({
+	data,
+	order,
+	orderBy,
+	selected,
+	setOrderStart,
+	setSelectAllStart,
+	headCells,
+}) => {
 	const classes = useStyles();
 
 	const numSelected = selected.length;
-	const itemCount = items.length;
+	const itemCount = data.length;
 
 	return (
-		<TableHead>
+		<MuiTableHead>
 			<TableRow>
 				<TableCell padding='checkbox'>
 					<Checkbox
@@ -81,12 +64,12 @@ const ItemsTableHead = props => {
 					</TableCell>
 				))}
 			</TableRow>
-		</TableHead>
+		</MuiTableHead>
 	);
 };
 
-ItemsTableHead.propTypes = {
-	items: PropTypes.array.isRequired,
+TableHead.propTypes = {
+	data: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
 	selected: PropTypes.array.isRequired,
@@ -94,16 +77,4 @@ ItemsTableHead.propTypes = {
 	setSelectAllStart: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-	items: selectCurrentItems,
-	order: selectOrder,
-	orderBy: selectOrderBy,
-	selected: selectSelected,
-});
-
-const mapStateToDispatch = dispatch => ({
-	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
-	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
-});
-
-export default connect(mapStateToProps, mapStateToDispatch)(ItemsTableHead);
+export default TableHead;

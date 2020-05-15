@@ -43,7 +43,6 @@ const ItemDetailForm = props => {
 			removeItem();
 		};
 	}, [removeItem]);
-	console.log(item);
 
 	const handleChange = event => {
 		const { name, value } = event.target;

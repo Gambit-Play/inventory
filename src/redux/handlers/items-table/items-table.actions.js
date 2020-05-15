@@ -122,3 +122,7 @@ export const removeSelected = () => ({
 export const removeOrderBy = () => ({
 	type: ItemsTableActionTypes.REMOVE_ORDER_BY,
 });
+
+export const removeSearchField = () => ({
+	type: ItemsTableActionTypes.REMOVE_SEARCH_FIELD,
+});

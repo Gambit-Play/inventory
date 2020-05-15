@@ -29,6 +29,7 @@ const ItemsTableActionTypes = {
 
 	REMOVE_SELECTED: 'REMOVE_SELECTED',
 	REMOVE_ORDER_BY: 'REMOVE_ORDER_BY',
+	REMOVE_SEARCH_FIELD: 'REMOVE_SEARCH_FIELD',
 };
 
 export default ItemsTableActionTypes;

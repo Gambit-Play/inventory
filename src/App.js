@@ -20,7 +20,10 @@ import {
 	fetchAllUsersStart,
 } from './redux/users/users.actions';
 import { fetchUnitsStart } from './redux/units/units.actions';
-import { removeOrderBy } from './redux/handlers/items-table/items-table.actions';
+import {
+	removeOrderBy,
+	removeSearchField,
+} from './redux/handlers/items-table/items-table.actions';
 
 // Components
 import MainContainer from './components/atoms/main-container/main-container.styles';
@@ -42,13 +45,15 @@ const App = props => {
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		removeOrderBy,
+		removeSearchField,
 	} = props;
 
 	useEffect(() => {
+		removeSearchField();
+		removeOrderBy();
 		onAuthStateChangedStart();
 		fetchUnitsStart();
 		fetchAllUsersStart();
-		removeOrderBy();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -60,6 +65,7 @@ const App = props => {
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		removeOrderBy,
+		removeSearchField,
 	]);
 
 	// TODO: Remove
@@ -103,6 +109,7 @@ App.propTypes = {
 	fetchUnitsStart: PropTypes.func.isRequired,
 	fetchAllUsersStart: PropTypes.func.isRequired,
 	removeOrderBy: PropTypes.func.isRequired,
+	removeSearchField: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -111,6 +118,7 @@ const mapDispatchToProps = dispatch => ({
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
 	removeOrderBy: () => dispatch(removeOrderBy()),
+	removeSearchField: () => dispatch(removeSearchField()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

@@ -2,13 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-// Redux
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectSelected } from '../../../../redux/handlers/items-table/items-table.selectors';
-import { setSearchFieldStart } from '../../../../redux/handlers/items-table/items-table.actions';
-import { deleteMultipleItemsStart } from '../../../../redux/handlers/item-detail/item-detail.actions';
-
 // Mui Components & Icons
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -20,16 +13,19 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 // Styles
-import useStyles from '../items-table.styles';
+import useStyles from '../../items-table/items-table.styles';
 
-const TableToolbar = props => {
+const TableToolbar = ({
+	selected,
+	handleDeleteSelected,
+	handleSearch,
+	label,
+}) => {
 	const classes = useStyles();
-	const { selected, deleteMultipleItemsStart, setSearchFieldStart } = props;
 	const numSelected = selected.length;
 
 	const handleChange = event => {
-		console.log(event.target.value);
-		setSearchFieldStart(event.target.value);
+		handleSearch(event.target.value);
 	};
 
 	return (
@@ -50,7 +46,7 @@ const TableToolbar = props => {
 				<TextField
 					id='standard-basic'
 					type='search'
-					label='Search by name'
+					label={label}
 					margin='dense'
 					onChange={handleChange}
 					fullWidth
@@ -62,7 +58,7 @@ const TableToolbar = props => {
 					<Tooltip title='Delete'>
 						<IconButton
 							aria-label='delete'
-							onClick={deleteMultipleItemsStart}
+							onClick={handleDeleteSelected}
 						>
 							<DeleteIcon />
 						</IconButton>
@@ -83,17 +79,9 @@ const TableToolbar = props => {
 
 TableToolbar.propTypes = {
 	selected: PropTypes.array.isRequired,
-	deleteMultipleItemsStart: PropTypes.func.isRequired,
-	setSearchFieldStart: PropTypes.func.isRequired,
+	handleDeleteSelected: PropTypes.func.isRequired,
+	handleSearch: PropTypes.func.isRequired,
+	label: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-	selected: selectSelected,
-});
-
-const mapDispatchToProps = dispatch => ({
-	deleteMultipleItemsStart: () => dispatch(deleteMultipleItemsStart()),
-	setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TableToolbar);
+export default TableToolbar;

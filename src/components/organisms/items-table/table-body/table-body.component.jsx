@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentItems } from '../../../../redux/items/items.selectors';
 import {
 	selectSelected,
 	selectPage,

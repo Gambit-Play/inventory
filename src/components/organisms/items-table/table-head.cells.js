@@ -3,7 +3,7 @@ export const headCells = [
 		id: 'name',
 		numeric: false,
 		disablePadding: true,
-		label: 'Item',
+		label: 'Name',
 	},
 	{
 		id: 'price',

@@ -79,6 +79,11 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				orderBy: '',
 			};
+		case ItemsTableActionTypes.REMOVE_SEARCH_FIELD:
+			return {
+				...state,
+				searchField: '',
+			};
 		default:
 			return state;
 	}
