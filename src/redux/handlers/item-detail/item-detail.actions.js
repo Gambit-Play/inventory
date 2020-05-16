@@ -15,7 +15,7 @@ export const setItemStart = (inputName, value) => ({
 });
 
 export const setUnit = (unitId, unit) => ({
-	type: ItemDetailActionTypes.SET_UNIT,
+	type: ItemDetailActionTypes.SET_ITEM_UNIT,
 	payload: { unitId, unit },
 });
 
@@ -36,7 +36,7 @@ export const deleteMultipleItemsStart = () => ({
 });
 
 export const isNew = () => ({
-	type: ItemDetailActionTypes.IS_NEW,
+	type: ItemDetailActionTypes.IS_NEW_ITEM,
 });
 
 /* ================================================================ */
@@ -94,7 +94,7 @@ export const deleteMultipleItemsFailure = errorMessage => ({
 });
 
 export const inputFailure = (errorType, errorMessage) => ({
-	type: ItemDetailActionTypes.INPUT_FAILURE,
+	type: ItemDetailActionTypes.INPUT_ITEM_FAILURE,
 	payload: { errorType, errorMessage },
 });
 

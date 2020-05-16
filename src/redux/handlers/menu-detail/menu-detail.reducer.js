@@ -1,13 +1,11 @@
-import ItemDetailActionTypes from './item-detail.types';
+import MenuDetailActionTypes from './menu-detail.types';
 
 const INITIAL_STATE = {
-	// Item Detail
+	// Menu Detail
 	id: '',
 	name: '',
-	quantity: null,
-	unitId: '',
-	unit: '',
 	price: null,
+	description: '',
 	createdAt: '',
 	createdById: '',
 	createdBy: '',
@@ -22,36 +20,34 @@ const INITIAL_STATE = {
 	errorMessage: '',
 	// Input error message
 	errorName: '',
-	// Checks if item is new or an existing one
+	// Checks if menu is new or an existing one
 	isNew: false,
 };
 
-const itemDetailReducer = (state = INITIAL_STATE, action) => {
+const menuDetailReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		/* ================================================================ */
-		/*  Current Item                                                    */
+		/*  Current Menu                                                    */
 		/* ================================================================ */
-		case ItemDetailActionTypes.FETCH_ITEM_START:
+		case MenuDetailActionTypes.FETCH_MENU_START:
 			return {
 				...state,
 				isFetching: true,
 			};
-		case ItemDetailActionTypes.SET_ITEM_START:
+		case MenuDetailActionTypes.SET_MENU_START:
 			return {
 				...state,
 				[action.payload.inputName]: action.payload.value,
 			};
-		case ItemDetailActionTypes.FETCH_ITEM_SUCCESS:
+		case MenuDetailActionTypes.FETCH_MENU_SUCCESS:
 			return {
 				...state,
 				isFetching: true,
 
 				id: action.payload.id,
 				name: action.payload.name,
-				quantity: action.payload.quantity,
-				unitId: action.payload.unitId,
-				unit: action.payload.unit,
 				price: action.payload.price,
+				description: action.payload.description,
 				createdAt: action.payload.createdAt,
 				createdById: action.payload.createdById,
 				createdBy: action.payload.createdBy,
@@ -60,80 +56,69 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedBy: action.payload.updatedBy,
 			};
 		/* ================================================================ */
-		/*  Create Item                                                     */
+		/*  Create Menu                                                     */
 		/* ================================================================ */
-		case ItemDetailActionTypes.SET_ITEM_UNIT:
-			return {
-				...state,
-				unitId: action.payload.unitId,
-				unit: action.payload.unit,
-			};
-		/* ================================================================ */
-		/*  Create Item                                                     */
-		/* ================================================================ */
-		case ItemDetailActionTypes.IS_NEW_ITEM:
+		case MenuDetailActionTypes.IS_NEW_MENU:
 			return {
 				...state,
 				isNew: true,
 			};
-		case ItemDetailActionTypes.CREATE_ITEM_SUCCESS:
+		case MenuDetailActionTypes.CREATE_MENU_SUCCESS:
 			return {
 				...state,
 				isCreateSuccess: true,
 			};
-		case ItemDetailActionTypes.CREATE_ITEM_FAILURE:
+		case MenuDetailActionTypes.CREATE_MENU_FAILURE:
 			return {
 				...state,
 				isCreateSuccess: false,
 				errorMessage: action.payload,
 			};
-		case ItemDetailActionTypes.INPUT_ITEM_FAILURE:
+		case MenuDetailActionTypes.INPUT_MENU_FAILURE:
 			return {
 				...state,
 				[action.payload.errorType]: action.payload.errorMessage,
 			};
 		/* ================================================================ */
-		/*  Update Item                                                     */
+		/*  Update Menu                                                     */
 		/* ================================================================ */
-		case ItemDetailActionTypes.UPDATE_ITEM_SUCCESS:
+		case MenuDetailActionTypes.UPDATE_MENU_SUCCESS:
 			return {
 				...state,
 				isUpdateSuccess: true,
 			};
-		case ItemDetailActionTypes.UPDATE_ITEM_FAILURE:
+		case MenuDetailActionTypes.UPDATE_MENU_FAILURE:
 			return {
 				...state,
 				isUpdateSuccess: false,
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Delete Item                                                     */
+		/*  Delete Menu                                                     */
 		/* ================================================================ */
-		case ItemDetailActionTypes.DELETE_ITEM_SUCCESS:
-		case ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_SUCCESS:
+		case MenuDetailActionTypes.DELETE_MENU_SUCCESS:
+		case MenuDetailActionTypes.DELETE_MULTIPLE_MENUS_SUCCESS:
 			return {
 				...state,
 				isDeleteSuccess: true,
 			};
-		case ItemDetailActionTypes.DELETE_ITEM_FAILURE:
-		case ItemDetailActionTypes.DELETE_MULTIPLE_ITEMS_FAILURE:
+		case MenuDetailActionTypes.DELETE_MENU_FAILURE:
+		case MenuDetailActionTypes.DELETE_MULTIPLE_MENUS_FAILURE:
 			return {
 				...state,
 				isDeleteSuccess: false,
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Remove Item                                                     */
+		/*  Remove Menu                                                     */
 		/* ================================================================ */
-		case ItemDetailActionTypes.REMOVE_ITEM:
+		case MenuDetailActionTypes.REMOVE_MENU:
 			return {
 				...state,
 				id: '',
 				name: '',
-				quantity: null,
-				unitId: '',
-				unit: '',
 				price: null,
+				description: '',
 				createdAt: '',
 				createdById: '',
 				createdBy: '',
@@ -152,4 +137,4 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 	}
 };
 
-export default itemDetailReducer;
+export default menuDetailReducer;

@@ -58,7 +58,7 @@ export function* setOrderByStart() {
 		const orderBy = yield select(selectOrderBy);
 		const menus = yield select(selectFilteredMenus);
 		const sorter =
-			orderBy === 'price' || orderBy === 'cost' || orderBy === 'quantity'
+			orderBy === 'price'
 				? orderBy
 				: menu => {
 						return menu[orderBy].toLowerCase();
