@@ -9,6 +9,7 @@ import {
 	fetchMenusCollectionFailure,
 	fetchMenusCollectionUpdate,
 } from './menus.actions';
+import { setFilteredMenusStart } from '../handlers/menus-table/menus-table.actions';
 
 // Firebase utils
 import { getCollection } from '../../firebase/firebase.utils';
@@ -53,7 +54,10 @@ export function* fetchMenusCollectionAsync() {
 
 export function* fetchCurrentMenus(data) {
 	if (!data) yield put(fetchMenusCollectionUpdate());
-	if (data) yield put(fetchMenusCollectionSuccess(data));
+	if (data) {
+		yield put(fetchMenusCollectionSuccess(data));
+		yield put(setFilteredMenusStart());
+	}
 }
 
 export function* removeCollectionListener() {

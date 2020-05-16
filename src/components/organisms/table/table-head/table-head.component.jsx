@@ -23,7 +23,7 @@ const TableHead = ({
 	const classes = useStyles();
 
 	const numSelected = selected.length;
-	const itemCount = data.length;
+	const dataCount = data.length;
 
 	return (
 		<MuiTableHead>
@@ -31,13 +31,13 @@ const TableHead = ({
 				<TableCell padding='checkbox'>
 					<Checkbox
 						indeterminate={
-							numSelected > 0 && numSelected < itemCount
+							numSelected > 0 && numSelected < dataCount
 						}
-						checked={itemCount > 0 && numSelected === itemCount}
+						checked={dataCount > 0 && numSelected === dataCount}
 						onChange={event =>
 							setSelectAllStart(event.target.checked)
 						}
-						inputProps={{ 'aria-label': 'select all items' }}
+						inputProps={{ 'aria-label': 'select all' }}
 					/>
 				</TableCell>
 				{headCells.map(headCell => (

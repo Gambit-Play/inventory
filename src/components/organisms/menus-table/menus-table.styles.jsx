@@ -1,4 +1,4 @@
-import { makeStyles, lighten } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -7,19 +7,6 @@ const useStyles = makeStyles(theme => ({
 	filterBar: {
 		marginBottom: theme.spacing(2),
 	},
-	highlight:
-		theme.palette.type === 'light'
-			? {
-					color: theme.palette.secondary.main,
-					backgroundColor: lighten(
-						theme.palette.secondary.light,
-						0.85
-					),
-			  }
-			: {
-					color: theme.palette.text.primary,
-					backgroundColor: theme.palette.secondary.dark,
-			  },
 	paper: {
 		width: '100%',
 		marginBottom: theme.spacing(2),
@@ -32,6 +19,9 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	rowDescription: {
+		width: '50%',
 	},
 }));
 

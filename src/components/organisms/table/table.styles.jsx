@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, lighten } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
 	toolbar: {
@@ -28,6 +28,19 @@ const useStyles = makeStyles(theme => ({
 		top: 20,
 		width: 1,
 	},
+	highlight:
+		theme.palette.type === 'light'
+			? {
+					color: theme.palette.secondary.main,
+					backgroundColor: lighten(
+						theme.palette.secondary.light,
+						0.85
+					),
+			  }
+			: {
+					color: theme.palette.text.primary,
+					backgroundColor: theme.palette.secondary.dark,
+			  },
 }));
 
 export default useStyles;

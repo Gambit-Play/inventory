@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 // Components
 import ItemsTable from '../items-table/items-table.component';
+import MenusTable from '../menus-table/menus-table.component';
 
 const Table = ({ items, menus }) => {
 	if (items) return <ItemsTable />;
-	// if (menus) return <MenusTable />;
+	if (menus) return <MenusTable />;
 };
 
 Table.propTypes = {

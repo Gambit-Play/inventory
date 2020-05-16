@@ -43,7 +43,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyles from './items-table.styles';
 
 const ItemsTable = props => {
-	const classes = useStyles();
 	const {
 		isFetching,
 		setSearchFieldStart,
@@ -59,6 +58,7 @@ const ItemsTable = props => {
 		setPageStart,
 		setRowsPerPageStart,
 	} = props;
+	const classes = useStyles();
 
 	return (
 		<div className={classes.root}>
