@@ -12,7 +12,7 @@ import {
 	selectRowsPerPage,
 	selectFilteredMenus,
 } from '../../../../redux/handlers/menus-table/menus-table.selectors';
-// import { fetchMenuStart } from '../../../../redux/handlers/menu-detail/menu-detail.actions';
+import { fetchMenuStart } from '../../../../redux/handlers/menu-detail/menu-detail.actions';
 import { setSelectStart } from '../../../../redux/handlers/menus-table/menus-table.actions';
 
 // Routes
@@ -40,10 +40,10 @@ const TableBody = props => {
 
 	const isSelected = id => selected.indexOf(id) !== -1;
 
-	// const handleRowClick = (event, rowId) => {
-	// 	fetchMenuStart(rowId);
-	// 	history.push(`${ROUTES.MENUS_LIST}/${rowId}`);
-	// };
+	const handleRowClick = (event, rowId) => {
+		fetchMenuStart(rowId);
+		history.push(`${ROUTES.MENUS_LIST}/${rowId}`);
+	};
 
 	return (
 		<MuiTableBody>
@@ -79,31 +79,31 @@ const TableBody = props => {
 							id={labelId}
 							scope='row'
 							padding='none'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.name}
 						</TableCell>
 						<TableCell
 							className={classes.rowDescription}
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.description}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							€{parseFloat(row.price).toFixed(2)}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.createdBy}
 						</TableCell>
 						<TableCell
 							align='right'
-							// onClick={event => handleRowClick(event, row.id)}
+							onClick={event => handleRowClick(event, row.id)}
 						>
 							{row.createdAt}
 						</TableCell>
@@ -119,7 +119,7 @@ TableBody.propTypes = {
 	selected: PropTypes.array.isRequired,
 	page: PropTypes.number.isRequired,
 	rowsPerPage: PropTypes.number.isRequired,
-	// fetchMenuStart: PropTypes.func.isRequired,
+	fetchMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	setSelectStart: PropTypes.func.isRequired,
 };
@@ -132,7 +132,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapStateToDispatch = dispatch => ({
-	// fetchMenuStart: rowId => dispatch(fetchMenuStart(rowId)),
+	fetchMenuStart: rowId => dispatch(fetchMenuStart(rowId)),
 	setSelectStart: selectedId => dispatch(setSelectStart(selectedId)),
 });
 

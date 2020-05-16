@@ -4,9 +4,6 @@ import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// Redux
-import { isNew } from '../../../redux/handlers/item-detail/item-detail.actions';
-
 // Routes
 import * as ROUTES from '../../../routes/routes';
 
@@ -37,13 +34,8 @@ const FabButton = props => {
 FabButton.propTypes = {
 	history: PropTypes.object.isRequired,
 	isNew: PropTypes.func.isRequired,
+	url: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-	isNew: () => dispatch(isNew()),
-});
-
-export default compose(
-	withRouter,
-	connect(null, mapDispatchToProps)
-)(FabButton);
+export default FabButton;

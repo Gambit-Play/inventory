@@ -9,16 +9,15 @@ import { NumberFormatter, PriceFormatter } from '../../../utils/global.utils';
 
 // Redux
 import { createStructuredSelector } from 'reselect';
-import { selectItem } from '../../../redux/handlers/item-detail/item-detail.selectors';
+import { selectMenu } from '../../../redux/handlers/menu-detail/menu-detail.selectors';
 import {
-	removeItem,
-	setItemStart,
-	deleteItemStart,
-} from '../../../redux/handlers/item-detail/item-detail.actions';
+	removeMenu,
+	setMenuStart,
+	deleteMenuStart,
+} from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Component
-import ItemDetailButton from './item-detail-button/item-detail-button.component';
-import ItemDetailDropdown from './item-detail-dropdown/item-detail-dropdown.component';
+import MenuDetailButton from './menu-detail-button/menu-detail-button.component';
 
 // Mui Components & Icons
 import Grid from '@material-ui/core/Grid';
@@ -32,25 +31,25 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
 
 // Styles
-import useStyles from './item-detail-form.styles';
+import useStyles from './menu-detail-form.styles';
 
-const ItemDetailForm = props => {
+const MenuDetailForm = props => {
 	const classes = useStyles();
-	const { item, removeItem, setItemStart, deleteItemStart, history } = props;
+	const { menu, removeMenu, setMenuStart, deleteMenuStart, history } = props;
 
 	useEffect(() => {
 		return () => {
-			removeItem();
+			removeMenu();
 		};
-	}, [removeItem]);
+	}, [removeMenu]);
 
 	const handleChange = event => {
 		const { name, value } = event.target;
-		setItemStart(name, value);
+		setMenuStart(name, value);
 	};
 
 	const handleDelete = () => {
-		deleteItemStart();
+		deleteMenuStart();
 		history.goBack();
 	};
 
@@ -67,7 +66,7 @@ const ItemDetailForm = props => {
 						>
 							Basic Info
 						</Typography>
-						{!item.isNew && (
+						{!menu.isNew && (
 							<Button
 								variant='contained'
 								color='secondary'
@@ -86,11 +85,11 @@ const ItemDetailForm = props => {
 								id='name'
 								name='name'
 								label='Name'
-								value={item.name}
+								value={menu.name}
 								fullWidth
 								color='primary'
-								helperText={item.errorName}
-								error={item.errorName ? true : false}
+								helperText={menu.errorName}
+								error={menu.errorName ? true : false}
 								onChange={handleChange}
 							/>
 						</Grid>
@@ -99,7 +98,7 @@ const ItemDetailForm = props => {
 								id='price'
 								name='price'
 								label='Price'
-								value={item.price}
+								value={menu.price}
 								fullWidth
 								color='primary'
 								onChange={handleChange}
@@ -110,24 +109,20 @@ const ItemDetailForm = props => {
 						</Grid>
 						<Grid item xs={6}>
 							<TextField
-								id='quantity'
-								name='quantity'
-								label='Quantity'
-								value={item.quantity}
+								id='description'
+								name='description'
+								label='Description'
+								value={menu.description}
 								fullWidth
 								color='primary'
+								multiline
+								rows='6'
 								onChange={handleChange}
-								InputProps={{
-									inputComponent: NumberFormatter,
-								}}
 							/>
-						</Grid>
-						<Grid item xs={6}>
-							<ItemDetailDropdown />
 						</Grid>
 					</Grid>
 					<Box display='flex' paddingTop={5}>
-						<ItemDetailButton />
+						<MenuDetailButton />
 						<Button
 							variant='contained'
 							className={classes.cancelButton}
@@ -144,27 +139,27 @@ const ItemDetailForm = props => {
 	);
 };
 
-ItemDetailForm.propTypes = {
-	item: PropTypes.object.isRequired,
-	removeItem: PropTypes.func.isRequired,
-	setItemStart: PropTypes.func.isRequired,
-	deleteItemStart: PropTypes.func.isRequired,
+MenuDetailForm.propTypes = {
+	menu: PropTypes.object.isRequired,
+	removeMenu: PropTypes.func.isRequired,
+	setMenuStart: PropTypes.func.isRequired,
+	deleteMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) =>
 	createStructuredSelector({
-		item: selectItem,
+		menu: selectMenu,
 	});
 
 const mapStateToDispatch = dispatch => ({
-	removeItem: () => dispatch(removeItem()),
-	setItemStart: (inputName, value) =>
-		dispatch(setItemStart(inputName, value)),
-	deleteItemStart: () => dispatch(deleteItemStart()),
+	removeMenu: () => dispatch(removeMenu()),
+	setMenuStart: (inputName, value) =>
+		dispatch(setMenuStart(inputName, value)),
+	deleteMenuStart: () => dispatch(deleteMenuStart()),
 });
 
 export default compose(
 	withRouter,
 	connect(mapStateToProps, mapStateToDispatch)
-)(ItemDetailForm);
+)(MenuDetailForm);

@@ -22,7 +22,7 @@ import {
 	selectPage,
 	selectRowsPerPage,
 } from '../../../redux/handlers/menus-table/menus-table.selectors';
-// import { deleteMultipleMenusStart } from '../../../redux/handlers/menu-detail/menu-detail.actions';
+import { deleteMultipleMenusStart } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Headcells
 import { headCells } from './table-head.cells';
@@ -120,7 +120,7 @@ const MenusTable = props => {
 MenusTable.propTypes = {
 	isFetching: PropTypes.bool.isRequired,
 	setSearchFieldStart: PropTypes.func.isRequired,
-	// deleteMultipleMenusStart: PropTypes.func.isRequired,
+	deleteMultipleMenusStart: PropTypes.func.isRequired,
 	selected: PropTypes.array.isRequired,
 	menus: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
@@ -145,7 +145,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
-	// deleteMultipleMenusStart: () => dispatch(deleteMultipleMenusStart()),
+	deleteMultipleMenusStart: () => dispatch(deleteMultipleMenusStart()),
 	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
 	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
 	setPageStart: (event, page) => dispatch(setPageStart(page)),
