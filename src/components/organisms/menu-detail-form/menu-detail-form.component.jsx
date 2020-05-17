@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // Utils
-import { NumberFormatter, PriceFormatter } from '../../../utils/global.utils';
+import { PriceFormatter } from '../../../utils/global.utils';
 
 // Redux
 import { createStructuredSelector } from 'reselect';
 import { selectMenu } from '../../../redux/handlers/menu-detail/menu-detail.selectors';
+import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
+import { selectCurrentItems } from '../../../redux/items/items.selectors';
 import {
 	removeMenu,
 	setMenuStart,
@@ -18,6 +20,7 @@ import {
 
 // Component
 import MenuDetailButton from './menu-detail-button/menu-detail-button.component';
+import MultiChoiceDropdown from '../../molecules/multi-choice-dropdown/multi-choice-dropdown.component';
 
 // Mui Components & Icons
 import Grid from '@material-ui/core/Grid';
@@ -35,7 +38,14 @@ import useStyles from './menu-detail-form.styles';
 
 const MenuDetailForm = props => {
 	const classes = useStyles();
-	const { menu, removeMenu, setMenuStart, deleteMenuStart, history } = props;
+	const {
+		menu,
+		items,
+		removeMenu,
+		setMenuStart,
+		deleteMenuStart,
+		history,
+	} = props;
 
 	useEffect(() => {
 		return () => {
@@ -108,6 +118,9 @@ const MenuDetailForm = props => {
 							/>
 						</Grid>
 						<Grid item xs={6}>
+							<MultiChoiceDropdown data={items} />
+						</Grid>
+						<Grid item xs={12}>
 							<TextField
 								id='description'
 								name='description'
@@ -141,16 +154,17 @@ const MenuDetailForm = props => {
 
 MenuDetailForm.propTypes = {
 	menu: PropTypes.object.isRequired,
+	items: PropTypes.object.isRequired,
 	removeMenu: PropTypes.func.isRequired,
 	setMenuStart: PropTypes.func.isRequired,
 	deleteMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) =>
-	createStructuredSelector({
-		menu: selectMenu,
-	});
+const mapStateToProps = createStructuredSelector({
+	menu: selectMenu,
+	items: selectCurrentItems,
+});
 
 const mapStateToDispatch = dispatch => ({
 	removeMenu: () => dispatch(removeMenu()),

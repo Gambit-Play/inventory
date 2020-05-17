@@ -152,10 +152,9 @@ ItemDetailForm.propTypes = {
 	history: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) =>
-	createStructuredSelector({
-		item: selectItem,
-	});
+const mapStateToProps = createStructuredSelector({
+	item: selectItem,
+});
 
 const mapStateToDispatch = dispatch => ({
 	removeItem: () => dispatch(removeItem()),
