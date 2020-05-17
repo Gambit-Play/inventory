@@ -1,6 +1,9 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 import orderData from 'lodash/orderBy';
 
+// Utils
+import { createArrayFromSelected } from '../../../utils/global.utils';
+
 // Types
 import MenusTableActionTypes from './menus-table.types';
 
@@ -92,23 +95,9 @@ export function* setRowsPerPageStart({ payload: rowsPerPage }) {
 
 export function* setSelect({ payload: selectedId }) {
 	try {
+		console.log('WWWWWWWWWWW', selectedId);
 		const selected = yield select(selectSelected);
-		const selectedIndex = selected.indexOf(selectedId);
-
-		let newSelected = [];
-
-		if (selectedIndex === -1) {
-			newSelected = newSelected.concat(selected, selectedId);
-		} else if (selectedIndex === 0) {
-			newSelected = newSelected.concat(selected.slice(1));
-		} else if (selectedIndex === selected.length - 1) {
-			newSelected = newSelected.concat(selected.slice(0, -1));
-		} else if (selectedIndex > 0) {
-			newSelected = newSelected.concat(
-				selected.slice(0, selectedIndex),
-				selected.slice(selectedIndex + 1)
-			);
-		}
+		const newSelected = yield createArrayFromSelected(selected, selectedId);
 
 		yield put(MenusTableActions.setSelectSuccess(newSelected));
 	} catch (error) {

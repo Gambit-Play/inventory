@@ -12,6 +12,7 @@ const INITIAL_STATE = {
 	updatedAt: '',
 	updatedById: '',
 	updatedBy: '',
+	itemsId: [],
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -110,6 +111,19 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
+		/*  Set Menus Ingridients                                           */
+		/* ================================================================ */
+		case MenuDetailActionTypes.SET_MENU_INGRIDIENTS_SUCCESS:
+			return {
+				...state,
+				itemsId: action.payload,
+			};
+		case MenuDetailActionTypes.SET_MENU_INGRIDIENTS_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload,
+			};
+		/* ================================================================ */
 		/*  Remove Menu                                                     */
 		/* ================================================================ */
 		case MenuDetailActionTypes.REMOVE_MENU:
@@ -125,6 +139,7 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedAt: '',
 				updatedById: '',
 				updatedBy: '',
+				itemsId: [],
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

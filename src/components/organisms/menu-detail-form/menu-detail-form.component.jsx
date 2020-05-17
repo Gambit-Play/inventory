@@ -16,6 +16,7 @@ import {
 	removeMenu,
 	setMenuStart,
 	deleteMenuStart,
+	setMenuIngridientsStart,
 } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Component
@@ -45,6 +46,7 @@ const MenuDetailForm = props => {
 		setMenuStart,
 		deleteMenuStart,
 		history,
+		setMenuIngridientsStart,
 	} = props;
 
 	useEffect(() => {
@@ -118,7 +120,12 @@ const MenuDetailForm = props => {
 							/>
 						</Grid>
 						<Grid item xs={6}>
-							<MultiChoiceDropdown data={items} />
+							<MultiChoiceDropdown
+								data={items}
+								setMenuIngridientsStart={
+									setMenuIngridientsStart
+								}
+							/>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -154,11 +161,12 @@ const MenuDetailForm = props => {
 
 MenuDetailForm.propTypes = {
 	menu: PropTypes.object.isRequired,
-	items: PropTypes.object.isRequired,
+	items: PropTypes.array.isRequired,
 	removeMenu: PropTypes.func.isRequired,
 	setMenuStart: PropTypes.func.isRequired,
 	deleteMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
+	setMenuIngridientsStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -171,6 +179,8 @@ const mapStateToDispatch = dispatch => ({
 	setMenuStart: (inputName, value) =>
 		dispatch(setMenuStart(inputName, value)),
 	deleteMenuStart: () => dispatch(deleteMenuStart()),
+	setMenuIngridientsStart: selectedId =>
+		dispatch(setMenuIngridientsStart(selectedId)),
 });
 
 export default compose(

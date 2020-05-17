@@ -25,6 +25,7 @@ import {
 	createMenuFailure,
 	deleteMenuSuccess,
 	deleteMenuFailure,
+	setMenuIngridientsSuccess,
 } from './menu-detail.actions';
 
 // Selectors
@@ -74,6 +75,7 @@ export function* updateMenuStart() {
 			createdById: menu.createdById,
 			updatedAt: new Date().toISOString(),
 			updatedById: currentUser.id,
+			itemsId: menu.itemsId,
 		};
 
 		yield call(updateDocument, COLLECTION_IDS.MENUS, menu.id, updatedMenu);
@@ -98,6 +100,7 @@ export function* createMenuStart() {
 				createdById: currentUser.id,
 				updatedAt: '',
 				updatedById: '',
+				itemsId: menu.itemsId,
 			},
 		];
 		yield call(createCollectionAndDocument, COLLECTION_IDS.MENUS, newMenu);
@@ -131,6 +134,13 @@ export function* deleteMultipleMenusStart() {
 	}
 }
 
+export function* setMenuIngridientsStart({ payload: selectedId }) {
+	try {
+		yield console.log(selectedId);
+		yield put(setMenuIngridientsSuccess(selectedId));
+	} catch (error) {}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -158,6 +168,13 @@ export function* onDeleteMultipleMenusStart() {
 	);
 }
 
+export function* onSetMenuIngridientsStart() {
+	yield takeLatest(
+		MenuDetailActionTypes.SET_MENU_INGRIDIENTS_START,
+		setMenuIngridientsStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -169,5 +186,6 @@ export default function* menuDetailSagas() {
 		call(onCreateMenuStart),
 		call(onDeleteMenuStart),
 		call(onDeleteMultipleMenusStart),
+		call(onSetMenuIngridientsStart),
 	]);
 }

@@ -1,6 +1,9 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 import orderData from 'lodash/orderBy';
 
+// Utils
+import { createArrayFromSelected } from '../../../utils/global.utils';
+
 // Types
 import ItemsTableActionTypes from './items-table.types';
 
@@ -39,9 +42,9 @@ export function* setSelectAll({ payload: checkedAll }) {
 	try {
 		if (checkedAll) {
 			const items = yield select(selectCurrentItems);
-			const newSelecteds = yield items.map(item => item.id);
+			const newSelected = yield items.map(item => item.id);
 
-			yield put(ItemsTableActions.setSelectAllSuccess(newSelecteds));
+			yield put(ItemsTableActions.setSelectAllSuccess(newSelected));
 		}
 		if (!checkedAll) {
 			yield put(ItemsTableActions.setSelectAllSuccess([]));
@@ -93,22 +96,7 @@ export function* setRowsPerPageStart({ payload: rowsPerPage }) {
 export function* setSelect({ payload: selectedId }) {
 	try {
 		const selected = yield select(selectSelected);
-		const selectedIndex = selected.indexOf(selectedId);
-
-		let newSelected = [];
-
-		if (selectedIndex === -1) {
-			newSelected = newSelected.concat(selected, selectedId);
-		} else if (selectedIndex === 0) {
-			newSelected = newSelected.concat(selected.slice(1));
-		} else if (selectedIndex === selected.length - 1) {
-			newSelected = newSelected.concat(selected.slice(0, -1));
-		} else if (selectedIndex > 0) {
-			newSelected = newSelected.concat(
-				selected.slice(0, selectedIndex),
-				selected.slice(selectedIndex + 1)
-			);
-		}
+		const newSelected = yield createArrayFromSelected(selected, selectedId);
 
 		yield put(ItemsTableActions.setSelectSuccess(newSelected));
 	} catch (error) {

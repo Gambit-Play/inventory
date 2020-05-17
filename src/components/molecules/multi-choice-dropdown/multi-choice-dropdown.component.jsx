@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Mui Components & Icons
 import Checkbox from '@material-ui/core/Checkbox';
@@ -8,12 +9,13 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
-const MultiChoiceDropdown = ({ data }) => {
+const MultiChoiceDropdown = ({ data, setMenuIngridientsStart }) => {
 	const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 	const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
 	const handleChange = (event, value) => {
-		console.log('@@ MultiChoiceDropdown - onChange: ', value);
+		const res = value.map(item => item.id);
+		setMenuIngridientsStart(res);
 	};
 
 	return (
@@ -45,6 +47,11 @@ const MultiChoiceDropdown = ({ data }) => {
 			)}
 		/>
 	);
+};
+
+MultiChoiceDropdown.propTypes = {
+	data: PropTypes.array.isRequired,
+	setMenuIngridientsStart: PropTypes.func.isRequired,
 };
 
 export default MultiChoiceDropdown;

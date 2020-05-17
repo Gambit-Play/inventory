@@ -14,6 +14,11 @@ export const setMenuStart = (inputName, value) => ({
 	payload: { inputName, value },
 });
 
+export const setMenuIngridientsStart = SelectedId => ({
+	type: MenuDetailActionTypes.SET_MENU_INGRIDIENTS_START,
+	payload: SelectedId,
+});
+
 export const updateMenuStart = () => ({
 	type: MenuDetailActionTypes.UPDATE_MENU_START,
 });
@@ -43,6 +48,11 @@ export const fetchMenuSuccess = menu => ({
 	payload: menu,
 });
 
+export const setMenuIngridientsSuccess = SelectedId => ({
+	type: MenuDetailActionTypes.SET_MENU_INGRIDIENTS_SUCCESS,
+	payload: SelectedId,
+});
+
 export const updateMenuSuccess = () => ({
 	type: MenuDetailActionTypes.UPDATE_MENU_SUCCESS,
 });
@@ -65,6 +75,11 @@ export const deleteMultipleMenusSuccess = () => ({
 
 export const fetchMenuFailure = errorMessage => ({
 	type: MenuDetailActionTypes.FETCH_MENU_FAILURE,
+	payload: errorMessage,
+});
+
+export const setMenuIngridientsFailure = errorMessage => ({
+	type: MenuDetailActionTypes.SET_MENU_INGRIDIENTS_FAILURE,
 	payload: errorMessage,
 });
 
