@@ -57,6 +57,7 @@ export const MenusData = [
 		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 		updatedAt: '2020-03-17T01:17:15.657Z',
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		itemsId: [],
 	},
 	{
 		name: 'Hamburger Menu',
@@ -67,6 +68,7 @@ export const MenusData = [
 		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 		updatedAt: '2020-03-17T03:17:15.657Z',
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		itemsId: [],
 	},
 	{
 		name: 'Chicken Burger Menu',
@@ -77,6 +79,7 @@ export const MenusData = [
 		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 		updatedAt: '2020-03-17T02:17:15.657Z',
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		itemsId: [],
 	},
 	{
 		name: 'Kapsalon Menu',
@@ -87,6 +90,7 @@ export const MenusData = [
 		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 		updatedAt: '2020-03-17T03:17:15.657Z',
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		itemsId: [],
 	},
 ];
 

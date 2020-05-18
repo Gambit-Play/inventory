@@ -95,7 +95,6 @@ export function* setRowsPerPageStart({ payload: rowsPerPage }) {
 
 export function* setSelect({ payload: selectedId }) {
 	try {
-		console.log('WWWWWWWWWWW', selectedId);
 		const selected = yield select(selectSelected);
 		const newSelected = yield createArrayFromSelected(selected, selectedId);
 

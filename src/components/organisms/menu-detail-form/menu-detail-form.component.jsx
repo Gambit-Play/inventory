@@ -5,18 +5,18 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // Utils
-import { PriceFormatter } from '../../../utils/global.utils';
+import { PriceFormatter, filterArrayFromId } from '../../../utils/global.utils';
 
 // Redux
 import { createStructuredSelector } from 'reselect';
 import { selectMenu } from '../../../redux/handlers/menu-detail/menu-detail.selectors';
-import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
 import { selectCurrentItems } from '../../../redux/items/items.selectors';
 import {
 	removeMenu,
 	setMenuStart,
 	deleteMenuStart,
-	setMenuIngridientsStart,
+	setselectedItemsIdStart,
+	setItemsIdStart,
 } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Component
@@ -33,12 +33,12 @@ import Box from '@material-ui/core/Box';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import BlockIcon from '@material-ui/icons/Block';
+import AddIcon from '@material-ui/icons/Add';
 
 // Styles
 import useStyles from './menu-detail-form.styles';
 
 const MenuDetailForm = props => {
-	const classes = useStyles();
 	const {
 		menu,
 		items,
@@ -46,8 +46,13 @@ const MenuDetailForm = props => {
 		setMenuStart,
 		deleteMenuStart,
 		history,
-		setMenuIngridientsStart,
+		setselectedItemsIdStart,
+		setItemsIdStart,
 	} = props;
+	const classes = useStyles();
+	const data = menu.itemsId.length
+		? filterArrayFromId(items, menu.itemsId)
+		: items;
 
 	useEffect(() => {
 		return () => {
@@ -121,11 +126,24 @@ const MenuDetailForm = props => {
 						</Grid>
 						<Grid item xs={6}>
 							<MultiChoiceDropdown
-								data={items}
-								setMenuIngridientsStart={
-									setMenuIngridientsStart
+								data={data}
+								value={menu.selectedItemsId}
+								setselectedItemsIdStart={
+									setselectedItemsIdStart
 								}
 							/>
+						</Grid>
+						<Grid container item xs={6} alignContent='flex-end'>
+							<Button
+								disabled={menu.selectedItemsId === ''}
+								variant='contained'
+								color='primary'
+								size='small'
+								startIcon={<AddIcon />}
+								onClick={setItemsIdStart}
+							>
+								Add
+							</Button>
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -166,7 +184,8 @@ MenuDetailForm.propTypes = {
 	setMenuStart: PropTypes.func.isRequired,
 	deleteMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
-	setMenuIngridientsStart: PropTypes.func.isRequired,
+	setselectedItemsIdStart: PropTypes.func.isRequired,
+	setItemsIdStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -179,8 +198,9 @@ const mapStateToDispatch = dispatch => ({
 	setMenuStart: (inputName, value) =>
 		dispatch(setMenuStart(inputName, value)),
 	deleteMenuStart: () => dispatch(deleteMenuStart()),
-	setMenuIngridientsStart: selectedId =>
-		dispatch(setMenuIngridientsStart(selectedId)),
+	setselectedItemsIdStart: selectedId =>
+		dispatch(setselectedItemsIdStart(selectedId)),
+	setItemsIdStart: () => dispatch(setItemsIdStart()),
 });
 
 export default compose(

@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 	updatedById: '',
 	updatedBy: '',
 	itemsId: [],
+	selectedItemsId: '',
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -55,6 +56,7 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedAt: action.payload.updatedAt,
 				updatedById: action.payload.updatedById,
 				updatedBy: action.payload.updatedBy,
+				itemsId: action.payload.itemsId,
 			};
 		/* ================================================================ */
 		/*  Create Menu                                                     */
@@ -111,21 +113,34 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Set Menus Ingridients                                           */
+		/*  Set itemsId                                                  */
 		/* ================================================================ */
-		case MenuDetailActionTypes.SET_MENU_INGRIDIENTS_SUCCESS:
+		case MenuDetailActionTypes.SET_ITEMS_ID_SUCCESS:
 			return {
 				...state,
 				itemsId: action.payload,
 			};
-		case MenuDetailActionTypes.SET_MENU_INGRIDIENTS_FAILURE:
+		case MenuDetailActionTypes.SET_ITEMS_ID_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Remove Menu                                                     */
+		/*  Set Menus Ingridients                                           */
 		/* ================================================================ */
+		case MenuDetailActionTypes.SET_SELECTED_ITEMS_ID:
+			return {
+				...state,
+				selectedItemsId: action.payload,
+			};
+		/* ================================================================ */
+		/*  Process Remove                                                  */
+		/* ================================================================ */
+		case MenuDetailActionTypes.REMOVE_SELECTED_ITEMS_ID:
+			return {
+				...state,
+				selectedItemsId: '',
+			};
 		case MenuDetailActionTypes.REMOVE_MENU:
 			return {
 				...state,
@@ -140,6 +155,7 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedById: '',
 				updatedBy: '',
 				itemsId: [],
+				selectedItemsId: '',
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

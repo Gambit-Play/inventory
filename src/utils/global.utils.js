@@ -123,3 +123,11 @@ export const createArrayFromSelected = (selected, selectedId) => {
 
 	return newSelected;
 };
+
+export const filterArrayFromId = (array, filter) => {
+	const myArrayFiltered = array.filter(data => {
+		return !filter.includes(data.id);
+	});
+
+	return myArrayFiltered;
+};

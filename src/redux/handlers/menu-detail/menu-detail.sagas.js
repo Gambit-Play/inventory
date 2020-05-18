@@ -9,7 +9,10 @@ import {
 import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 
 // Utils
-import { convertToFloat } from '../../../utils/global.utils';
+import {
+	convertToFloat,
+	createArrayFromSelected,
+} from '../../../utils/global.utils';
 
 // Action Types
 import MenuDetailActionTypes from './menu-detail.types';
@@ -25,7 +28,9 @@ import {
 	createMenuFailure,
 	deleteMenuSuccess,
 	deleteMenuFailure,
-	setMenuIngridientsSuccess,
+	setItemsIdSuccess,
+	setItemsIdFailure,
+	removeSelectedItemsId,
 } from './menu-detail.actions';
 
 // Selectors
@@ -134,11 +139,20 @@ export function* deleteMultipleMenusStart() {
 	}
 }
 
-export function* setMenuIngridientsStart({ payload: selectedId }) {
+export function* setNewItemsIdStart() {
 	try {
-		yield console.log(selectedId);
-		yield put(setMenuIngridientsSuccess(selectedId));
-	} catch (error) {}
+		const { itemsId, selectedItemsId } = yield select(selectMenu);
+		const newItemsId = yield createArrayFromSelected(
+			itemsId,
+			selectedItemsId
+		).filter(itemsId => itemsId !== '');
+
+		yield put(setItemsIdSuccess(newItemsId));
+		yield put(removeSelectedItemsId());
+	} catch (error) {
+		console.log(error);
+		yield put(setItemsIdFailure(error));
+	}
 }
 
 /* ================================================================ */
@@ -168,10 +182,10 @@ export function* onDeleteMultipleMenusStart() {
 	);
 }
 
-export function* onSetMenuIngridientsStart() {
+export function* onSetNewItemsIdStart() {
 	yield takeLatest(
-		MenuDetailActionTypes.SET_MENU_INGRIDIENTS_START,
-		setMenuIngridientsStart
+		MenuDetailActionTypes.SET_ITEMS_ID_START,
+		setNewItemsIdStart
 	);
 }
 
@@ -186,6 +200,6 @@ export default function* menuDetailSagas() {
 		call(onCreateMenuStart),
 		call(onDeleteMenuStart),
 		call(onDeleteMultipleMenusStart),
-		call(onSetMenuIngridientsStart),
+		call(onSetNewItemsIdStart),
 	]);
 }
