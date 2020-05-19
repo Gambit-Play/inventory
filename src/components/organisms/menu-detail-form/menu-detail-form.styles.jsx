@@ -5,8 +5,7 @@ const useStyles = makeStyles(theme => ({
 		padding: theme.spacing(3),
 	},
 	divider: {
-		marginTop: theme.spacing(4),
-		marginBottom: theme.spacing(4),
+		marginTop: theme.spacing(2),
 	},
 	deleteButton: {
 		marginLeft: 'auto',

@@ -124,9 +124,17 @@ export const createArrayFromSelected = (selected, selectedId) => {
 	return newSelected;
 };
 
-export const filterArrayFromId = (array, filter) => {
+export const filterArrayExclude = (array, filter) => {
 	const arrayFiltered = array.filter(data => {
 		return !filter.includes(data.id);
+	});
+
+	return arrayFiltered;
+};
+
+export const filterArrayInclude = (array, filter) => {
+	const arrayFiltered = array.filter(data => {
+		return filter.includes(data.id);
 	});
 
 	return arrayFiltered;

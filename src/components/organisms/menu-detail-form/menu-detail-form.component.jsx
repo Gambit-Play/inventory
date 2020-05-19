@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // Utils
-import { PriceFormatter, filterArrayFromId } from '../../../utils/global.utils';
+import {
+	PriceFormatter,
+	filterArrayExclude,
+	filterArrayInclude,
+} from '../../../utils/global.utils';
 
 // Redux
 import { createStructuredSelector } from 'reselect';
@@ -21,6 +25,7 @@ import {
 
 // Component
 import MenuDetailButton from './menu-detail-button/menu-detail-button.component';
+import MenuDetailItemsList from './menu-detail-items-list/menu-detail-items-list.component';
 import MultiChoiceDropdown from '../../molecules/multi-choice-dropdown/multi-choice-dropdown.component';
 
 // Mui Components & Icons
@@ -50,9 +55,10 @@ const MenuDetailForm = props => {
 		setItemsIdStart,
 	} = props;
 	const classes = useStyles();
-	const data = menu.itemsId.length
-		? filterArrayFromId(items, menu.itemsId)
+	const filteredItems = menu.itemsId.length
+		? filterArrayExclude(items, menu.itemsId)
 		: items;
+	const selectedItems = filterArrayInclude(items, menu.itemsId);
 
 	useEffect(() => {
 		return () => {
@@ -126,7 +132,7 @@ const MenuDetailForm = props => {
 						</Grid>
 						<Grid item xs={6}>
 							<MultiChoiceDropdown
-								data={data}
+								data={filteredItems}
 								value={menu.selectedItemsId}
 								setselectedData={setselectedItemsIdStart}
 							/>
@@ -170,6 +176,9 @@ const MenuDetailForm = props => {
 						</Button>
 					</Box>
 				</Paper>
+			</Grid>
+			<Grid item xs={4}>
+				<MenuDetailItemsList selectedItems={selectedItems} />
 			</Grid>
 		</Grid>
 	);
