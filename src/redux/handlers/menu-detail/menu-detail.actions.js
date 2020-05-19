@@ -43,6 +43,11 @@ export const isNew = () => ({
 	type: MenuDetailActionTypes.IS_NEW_MENU,
 });
 
+export const removeItemsIdStart = itemId => ({
+	type: MenuDetailActionTypes.REMOVE_ITEMS_ID_START,
+	payload: itemId,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -71,6 +76,11 @@ export const deleteMenuSuccess = () => ({
 
 export const deleteMultipleMenusSuccess = () => ({
 	type: MenuDetailActionTypes.DELETE_MULTIPLE_MENUS_SUCCESS,
+});
+
+export const removeItemsIdSuccess = itemsId => ({
+	type: MenuDetailActionTypes.REMOVE_ITEMS_ID_SUCCESS,
+	payload: itemsId,
 });
 
 /* ================================================================ */
@@ -110,6 +120,11 @@ export const deleteMultipleMenusFailure = errorMessage => ({
 export const inputFailure = (errorType, errorMessage) => ({
 	type: MenuDetailActionTypes.INPUT_MENU_FAILURE,
 	payload: { errorType, errorMessage },
+});
+
+export const removeItemsIdFailure = errorMessage => ({
+	type: MenuDetailActionTypes.REMOVE_ITEMS_ID_FAILURE,
+	payload: errorMessage,
 });
 
 /* ================================================================ */

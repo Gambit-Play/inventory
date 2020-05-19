@@ -31,6 +31,8 @@ import {
 	setItemsIdSuccess,
 	setItemsIdFailure,
 	removeSelectedItemsId,
+	removeItemsIdSuccess,
+	removeItemsIdFailure,
 } from './menu-detail.actions';
 
 // Selectors
@@ -154,6 +156,17 @@ export function* setNewItemsIdStart() {
 	}
 }
 
+export function* removeItemIdStart({ payload: itemId }) {
+	try {
+		const { itemsId } = yield select(selectMenu);
+		const newItemsId = itemsId.filter(item => item !== itemId);
+		yield put(removeItemsIdSuccess(newItemsId));
+	} catch (error) {
+		console.log(error);
+		yield put(removeItemsIdFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -188,6 +201,13 @@ export function* onSetNewItemsIdStart() {
 	);
 }
 
+export function* onRemoveItemFromListStart() {
+	yield takeLatest(
+		MenuDetailActionTypes.REMOVE_ITEMS_ID_START,
+		removeItemIdStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -200,5 +220,6 @@ export default function* menuDetailSagas() {
 		call(onDeleteMenuStart),
 		call(onDeleteMultipleMenusStart),
 		call(onSetNewItemsIdStart),
+		call(onRemoveItemFromListStart),
 	]);
 }

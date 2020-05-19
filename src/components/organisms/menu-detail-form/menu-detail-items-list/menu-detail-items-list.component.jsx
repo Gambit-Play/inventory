@@ -16,7 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // Styles
 import useStyles from '../menu-detail-form.styles';
 
-const MenuDetailItemsList = ({ selectedItems }) => {
+const MenuDetailItemsList = ({ selectedItems, removeItem }) => {
 	const classes = useStyles();
 
 	return (
@@ -34,6 +34,7 @@ const MenuDetailItemsList = ({ selectedItems }) => {
 									color='secondary'
 									edge='end'
 									aria-label='delete'
+									onClick={event => removeItem(item.id)}
 								>
 									<DeleteIcon />
 								</IconButton>
@@ -51,6 +52,7 @@ const MenuDetailItemsList = ({ selectedItems }) => {
 
 MenuDetailItemsList.propTypes = {
 	selectedItems: PropTypes.array.isRequired,
+	removeItem: PropTypes.func.isRequired,
 };
 
 export default MenuDetailItemsList;

@@ -134,6 +134,19 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				selectedItemsId: action.payload,
 			};
 		/* ================================================================ */
+		/*  Remove Item from itemsId                                        */
+		/* ================================================================ */
+		case MenuDetailActionTypes.REMOVE_ITEMS_ID_SUCCESS:
+			return {
+				...state,
+				itemsId: action.payload,
+			};
+		case MenuDetailActionTypes.REMOVE_ITEMS_ID_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload,
+			};
+		/* ================================================================ */
 		/*  Process Remove                                                  */
 		/* ================================================================ */
 		case MenuDetailActionTypes.REMOVE_SELECTED_ITEMS_ID:

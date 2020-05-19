@@ -1,11 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-// Routes
-import * as ROUTES from '../../../routes/routes';
 
 // Components
 import Fab from './fab-button.styles';

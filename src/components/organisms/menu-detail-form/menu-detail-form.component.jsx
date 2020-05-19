@@ -21,6 +21,7 @@ import {
 	deleteMenuStart,
 	setselectedItemsIdStart,
 	setItemsIdStart,
+	removeItemsIdStart,
 } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Component
@@ -53,6 +54,7 @@ const MenuDetailForm = props => {
 		history,
 		setselectedItemsIdStart,
 		setItemsIdStart,
+		removeItemsIdStart,
 	} = props;
 	const classes = useStyles();
 	const filteredItems = menu.itemsId.length
@@ -178,7 +180,10 @@ const MenuDetailForm = props => {
 				</Paper>
 			</Grid>
 			<Grid item xs={4}>
-				<MenuDetailItemsList selectedItems={selectedItems} />
+				<MenuDetailItemsList
+					selectedItems={selectedItems}
+					removeItem={removeItemsIdStart}
+				/>
 			</Grid>
 		</Grid>
 	);
@@ -193,6 +198,7 @@ MenuDetailForm.propTypes = {
 	history: PropTypes.object.isRequired,
 	setselectedItemsIdStart: PropTypes.func.isRequired,
 	setItemsIdStart: PropTypes.func.isRequired,
+	removeItemsIdStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -208,6 +214,7 @@ const mapStateToDispatch = dispatch => ({
 	setselectedItemsIdStart: selectedId =>
 		dispatch(setselectedItemsIdStart(selectedId)),
 	setItemsIdStart: () => dispatch(setItemsIdStart()),
+	removeItemsIdStart: itemId => dispatch(removeItemsIdStart(itemId)),
 });
 
 export default compose(
