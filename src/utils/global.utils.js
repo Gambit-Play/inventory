@@ -125,9 +125,9 @@ export const createArrayFromSelected = (selected, selectedId) => {
 };
 
 export const filterArrayFromId = (array, filter) => {
-	const myArrayFiltered = array.filter(data => {
+	const arrayFiltered = array.filter(data => {
 		return !filter.includes(data.id);
 	});
 
-	return myArrayFiltered;
+	return arrayFiltered;
 };

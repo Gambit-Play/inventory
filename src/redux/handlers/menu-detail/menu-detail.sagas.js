@@ -145,8 +145,7 @@ export function* setNewItemsIdStart() {
 		const newItemsId = yield createArrayFromSelected(
 			itemsId,
 			selectedItemsId
-		).filter(itemsId => itemsId !== '');
-
+		);
 		yield put(setItemsIdSuccess(newItemsId));
 		yield put(removeSelectedItemsId());
 	} catch (error) {

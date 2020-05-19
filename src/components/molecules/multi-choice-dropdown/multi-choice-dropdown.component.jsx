@@ -4,19 +4,39 @@ import PropTypes from 'prop-types';
 // Mui Components & Icons
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Checkbox from '@material-ui/core/Checkbox';
 
-const MultiChoiceDropdown = ({ data, setselectedItemsIdStart }) => {
-	const handleChange = (event, value) => {
-		setselectedItemsIdStart(value ? value.id : '');
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+
+const MultiChoiceDropdown = ({ data, setselectedData }) => {
+	const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
+	const checkedIcon = <CheckBoxIcon fontSize='small' />;
+
+	const handleChange = (event, values) => {
+		setselectedData(values.map(value => value.id));
 	};
 
 	return (
 		<Autocomplete
+			multiple
 			id='checkboxes-tags-demo'
 			key={data}
 			options={data}
+			disableCloseOnSelect
 			onChange={handleChange}
 			getOptionLabel={option => option.name}
+			renderOption={(option, { selected }) => (
+				<React.Fragment>
+					<Checkbox
+						icon={icon}
+						checkedIcon={checkedIcon}
+						style={{ marginRight: 8 }}
+						checked={selected}
+					/>
+					{option.name}
+				</React.Fragment>
+			)}
 			renderInput={params => (
 				<TextField
 					{...params}
@@ -31,7 +51,7 @@ const MultiChoiceDropdown = ({ data, setselectedItemsIdStart }) => {
 
 MultiChoiceDropdown.propTypes = {
 	data: PropTypes.array.isRequired,
-	setselectedItemsIdStart: PropTypes.func.isRequired,
+	setselectedData: PropTypes.func.isRequired,
 };
 
 export default MultiChoiceDropdown;

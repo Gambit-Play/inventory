@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 	updatedById: '',
 	updatedBy: '',
 	itemsId: [],
-	selectedItemsId: '',
+	selectedItemsId: [],
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -139,7 +139,7 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 		case MenuDetailActionTypes.REMOVE_SELECTED_ITEMS_ID:
 			return {
 				...state,
-				selectedItemsId: '',
+				selectedItemsId: [],
 			};
 		case MenuDetailActionTypes.REMOVE_MENU:
 			return {
@@ -155,7 +155,7 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedById: '',
 				updatedBy: '',
 				itemsId: [],
-				selectedItemsId: '',
+				selectedItemsId: [],
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

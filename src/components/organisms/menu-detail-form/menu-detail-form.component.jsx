@@ -128,14 +128,12 @@ const MenuDetailForm = props => {
 							<MultiChoiceDropdown
 								data={data}
 								value={menu.selectedItemsId}
-								setselectedItemsIdStart={
-									setselectedItemsIdStart
-								}
+								setselectedData={setselectedItemsIdStart}
 							/>
 						</Grid>
 						<Grid container item xs={6} alignContent='flex-end'>
 							<Button
-								disabled={menu.selectedItemsId === ''}
+								disabled={menu.selectedItemsId.length === 0}
 								variant='contained'
 								color='primary'
 								size='small'
