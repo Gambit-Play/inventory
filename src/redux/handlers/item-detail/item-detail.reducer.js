@@ -60,7 +60,7 @@ const itemDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedBy: action.payload.updatedBy,
 			};
 		/* ================================================================ */
-		/*  Create Item                                                     */
+		/*  Set item unit                                                   */
 		/* ================================================================ */
 		case ItemDetailActionTypes.SET_ITEM_UNIT:
 			return {

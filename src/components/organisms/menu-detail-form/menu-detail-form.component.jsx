@@ -21,6 +21,7 @@ import {
 	deleteMenuStart,
 	setselectedItemsIdStart,
 	setItemsIdStart,
+	setItemsIdQuantityStart,
 	removeItemsIdStart,
 } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
@@ -55,26 +56,26 @@ const MenuDetailForm = props => {
 		setselectedItemsIdStart,
 		setItemsIdStart,
 		removeItemsIdStart,
+		setItemsIdQuantityStart,
 	} = props;
 	const classes = useStyles();
 	const filteredItems = menu.itemsId.length
 		? filterArrayExclude(items, menu.itemsId)
 		: items;
-	const selectedItems = filterArrayInclude(items, menu.itemsId);
+	const selectedItems = menu.itemsId.map(item => {
+		const res = items.find(el => el.id === item.id);
+		return {
+			id: item.id,
+			name: res.name,
+			quantity: item.quantity,
+			unit: res.unit,
+		};
+	});
+	console.log(selectedItems);
 
-	// console.log('@@ MenuDetailForm menu:');
-
-	// console.log(
-	// 	items.filter(item => {
-	// 		return !menu.itemsId.some(itemId => itemId.id === item.id);
-	// 	})
-	// );
-
-	// items.forEach(item => {
-	// 	console.log(/* item.id ===  */ menu.itemsId.map(itemId => itemId.id));
-	// });
-
-	// console.log('@@ selectedItems:', selectedItems);
+	// console.log('@@ MenuDetailForm - menu.itemsId:', menu.itemsId);
+	// console.log('@@ MenuDetailForm - filteredItems:', filteredItems);
+	// console.log('@@ MenuDetailForm - selectedItems:', selectedItems);
 
 	useEffect(() => {
 		return () => {
@@ -197,6 +198,7 @@ const MenuDetailForm = props => {
 				<MenuDetailItemsList
 					selectedItems={selectedItems}
 					removeItem={removeItemsIdStart}
+					setQuantity={setItemsIdQuantityStart}
 				/>
 			</Grid>
 		</Grid>
@@ -213,6 +215,7 @@ MenuDetailForm.propTypes = {
 	setselectedItemsIdStart: PropTypes.func.isRequired,
 	setItemsIdStart: PropTypes.func.isRequired,
 	removeItemsIdStart: PropTypes.func.isRequired,
+	setItemsIdQuantityStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -229,6 +232,8 @@ const mapStateToDispatch = dispatch => ({
 		dispatch(setselectedItemsIdStart(selectedId)),
 	setItemsIdStart: () => dispatch(setItemsIdStart()),
 	removeItemsIdStart: itemId => dispatch(removeItemsIdStart(itemId)),
+	setItemsIdQuantityStart: (itemId, quantity) =>
+		dispatch(setItemsIdQuantityStart(itemId, quantity)),
 });
 
 export default compose(

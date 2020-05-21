@@ -11,7 +11,6 @@ import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 // Utils
 import {
 	convertToFloat,
-	createArrayFromSelected,
 	filterArrayExclude,
 } from '../../../utils/global.utils';
 
@@ -31,6 +30,8 @@ import {
 	deleteMenuFailure,
 	setItemsIdSuccess,
 	setItemsIdFailure,
+	setItemsIdQuantitySuccess,
+	setItemsIdQuantityFailure,
 	removeSelectedItemsId,
 	removeItemsIdSuccess,
 	removeItemsIdFailure,
@@ -43,7 +44,7 @@ import { selectMenu } from './menu-detail.selectors';
 import { selectSelected } from '../menus-table/menus-table.selectors';
 
 /* ================================================================ */
-/*  Reusable Actions                                                */
+/*  Reusable Function Generators                                    */
 /* ================================================================ */
 
 export function* deleteDocumentsFromCollection(deleteMenus) {
@@ -166,6 +167,19 @@ export function* removeItemIdStart({ payload: itemId }) {
 	}
 }
 
+export function* setItemsIdQuantityStart({ payload: { index, quantity } }) {
+	try {
+		const { itemsId } = yield select(selectMenu);
+		const newArray = [...itemsId];
+		newArray[index].quantity = quantity;
+
+		yield put(setItemsIdQuantitySuccess(newArray));
+	} catch (error) {
+		console.log(error);
+		yield put(setItemsIdQuantityFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -200,6 +214,13 @@ export function* onSetNewItemsIdStart() {
 	);
 }
 
+export function* onSetItemsIdQuantityStart() {
+	yield takeLatest(
+		MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_START,
+		setItemsIdQuantityStart
+	);
+}
+
 export function* onRemoveItemFromListStart() {
 	yield takeLatest(
 		MenuDetailActionTypes.REMOVE_ITEMS_ID_START,
@@ -219,6 +240,7 @@ export default function* menuDetailSagas() {
 		call(onDeleteMenuStart),
 		call(onDeleteMultipleMenusStart),
 		call(onSetNewItemsIdStart),
+		call(onSetItemsIdQuantityStart),
 		call(onRemoveItemFromListStart),
 	]);
 }

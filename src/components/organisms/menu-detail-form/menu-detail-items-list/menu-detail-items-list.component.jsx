@@ -20,8 +20,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // Styles
 import useStyles from '../menu-detail-form.styles';
 
-const MenuDetailItemsList = ({ selectedItems, removeItem }) => {
+const MenuDetailItemsList = ({ selectedItems, removeItem, setQuantity }) => {
 	const classes = useStyles();
+
+	const handleChange = (event, index) => {
+		const { value } = event.target;
+		setQuantity(index, parseFloat(value));
+	};
 
 	return (
 		selectedItems.length !== 0 && (
@@ -34,13 +39,13 @@ const MenuDetailItemsList = ({ selectedItems, removeItem }) => {
 						<ListItem className={classes.itemsList}>
 							<ListItemText primary={item.name} />
 							<TextField
-								id={item.unit}
-								name={item.unit}
+								id={item.id}
+								name={item.name}
 								label={`Quantity (${item.unit})`}
-								// value={item.quantity}
+								value={item.quantity}
 								className={classes.quantity}
 								color='primary'
-								// onChange={handleChange}
+								onChange={event => handleChange(event, index)}
 								InputProps={{
 									inputComponent: NumberFormatter,
 								}}
@@ -69,6 +74,7 @@ const MenuDetailItemsList = ({ selectedItems, removeItem }) => {
 MenuDetailItemsList.propTypes = {
 	selectedItems: PropTypes.array.isRequired,
 	removeItem: PropTypes.func.isRequired,
+	setQuantity: PropTypes.func.isRequired,
 };
 
 export default MenuDetailItemsList;

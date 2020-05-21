@@ -125,6 +125,18 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				errorMessage: action.payload,
 			};
+
+		// 	...itemsId,
+		// (itemsId[index].quantity = quantity),
+
+		/* ================================================================ */
+		/*  Set itemsId.quantity                                            */
+		/* ================================================================ */
+		case MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_SUCCESS:
+			return {
+				...state,
+				itemsId: action.payload,
+			};
 		/* ================================================================ */
 		/*  Set Menus Ingridients                                           */
 		/* ================================================================ */

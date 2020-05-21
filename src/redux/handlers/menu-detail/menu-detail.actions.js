@@ -14,6 +14,11 @@ export const setMenuStart = (inputName, value) => ({
 	payload: { inputName, value },
 });
 
+export const setItemsIdQuantityStart = (index, quantity) => ({
+	type: MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_START,
+	payload: { index, quantity },
+});
+
 export const setselectedItemsIdStart = SelectedId => ({
 	type: MenuDetailActionTypes.SET_SELECTED_ITEMS_ID,
 	payload: SelectedId,
@@ -62,6 +67,11 @@ export const setItemsIdSuccess = itemsId => ({
 	payload: itemsId,
 });
 
+export const setItemsIdQuantitySuccess = newItemsId => ({
+	type: MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_SUCCESS,
+	payload: newItemsId,
+});
+
 export const updateMenuSuccess = () => ({
 	type: MenuDetailActionTypes.UPDATE_MENU_SUCCESS,
 });
@@ -94,6 +104,11 @@ export const fetchMenuFailure = errorMessage => ({
 
 export const setItemsIdFailure = errorMessage => ({
 	type: MenuDetailActionTypes.SET_ITEMS_ID_FAILURE,
+	payload: errorMessage,
+});
+
+export const setItemsIdQuantityFailure = errorMessage => ({
+	type: MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_FAILURE,
 	payload: errorMessage,
 });
 

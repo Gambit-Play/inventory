@@ -14,9 +14,13 @@ const MultiChoiceDropdown = ({ data, setselectedData }) => {
 	const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
 	const handleChange = (event, values) => {
+		console.log('@@ handleChange - values:', values);
 		setselectedData(
 			values.map(value => {
-				return { id: value.id, quantity: 0 };
+				return {
+					id: value.id,
+					quantity: 0,
+				};
 			})
 		);
 	};
