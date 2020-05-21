@@ -57,7 +57,16 @@ export const MenusData = [
 		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 		updatedAt: '2020-03-17T01:17:15.657Z',
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
-		itemsId: [],
+		itemsId: [
+			{
+				id: 'OmGjAwVujx5q4YerE2O1',
+				quantity: 5,
+			},
+			{
+				id: 'SGrquI6Ebfe3cb8Fof4s',
+				quantity: 5,
+			},
+		],
 	},
 	{
 		name: 'Hamburger Menu',

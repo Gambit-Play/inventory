@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Utils
+import { NumberFormatter } from '../../../../utils/global.utils';
+
 // Mui Components & Icons
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -9,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -27,8 +31,20 @@ const MenuDetailItemsList = ({ selectedItems, removeItem }) => {
 				</Typography>
 				{selectedItems.map((item, index) => (
 					<List key={item.id}>
-						<ListItem>
+						<ListItem className={classes.itemsList}>
 							<ListItemText primary={item.name} />
+							<TextField
+								id={item.unit}
+								name={item.unit}
+								label={`Quantity (${item.unit})`}
+								// value={item.quantity}
+								className={classes.quantity}
+								color='primary'
+								// onChange={handleChange}
+								InputProps={{
+									inputComponent: NumberFormatter,
+								}}
+							/>
 							<ListItemSecondaryAction>
 								<IconButton
 									color='secondary'

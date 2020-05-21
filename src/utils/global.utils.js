@@ -76,6 +76,8 @@ export const PriceFormatter = props => {
 			}}
 			thousandSeparator
 			isNumericString
+			decimalScale={2}
+			fixedDecimalScale
 			prefix={`€ `}
 		/>
 	);
@@ -126,7 +128,7 @@ export const createArrayFromSelected = (selected, selectedId) => {
 
 export const filterArrayExclude = (array, filter) => {
 	const arrayFiltered = array.filter(data => {
-		return !filter.includes(data.id);
+		return !filter.some(element => element.id === data.id);
 	});
 
 	return arrayFiltered;
@@ -134,7 +136,7 @@ export const filterArrayExclude = (array, filter) => {
 
 export const filterArrayInclude = (array, filter) => {
 	const arrayFiltered = array.filter(data => {
-		return filter.includes(data.id);
+		return filter.some(element => element.id === data.id);
 	});
 
 	return arrayFiltered;

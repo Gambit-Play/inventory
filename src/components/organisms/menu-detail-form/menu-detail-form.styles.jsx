@@ -13,6 +13,13 @@ const useStyles = makeStyles(theme => ({
 	cancelButton: {
 		marginLeft: theme.spacing(3),
 	},
+	quantity: {
+		width: '40%',
+		marginRight: theme.spacing(2),
+	},
+	itemsList: {
+		alignItems: 'flex-end',
+	},
 }));
 
 export default useStyles;

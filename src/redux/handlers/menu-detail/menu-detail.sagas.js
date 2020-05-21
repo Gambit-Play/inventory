@@ -12,6 +12,7 @@ import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 import {
 	convertToFloat,
 	createArrayFromSelected,
+	filterArrayExclude,
 } from '../../../utils/global.utils';
 
 // Action Types
@@ -76,7 +77,7 @@ export function* updateMenuStart() {
 		const updatedMenu = {
 			id: menu.id,
 			name: menu.name,
-			price: menu.price,
+			price: convertToFloat(menu.price),
 			description: menu.description,
 			createdAt: menu.createdAt,
 			createdById: menu.createdById,
@@ -144,10 +145,8 @@ export function* deleteMultipleMenusStart() {
 export function* setNewItemsIdStart() {
 	try {
 		const { itemsId, selectedItemsId } = yield select(selectMenu);
-		const newItemsId = yield createArrayFromSelected(
-			itemsId,
-			selectedItemsId
-		);
+		const newItemsId = yield itemsId.concat(selectedItemsId);
+
 		yield put(setItemsIdSuccess(newItemsId));
 		yield put(removeSelectedItemsId());
 	} catch (error) {
@@ -159,7 +158,7 @@ export function* setNewItemsIdStart() {
 export function* removeItemIdStart({ payload: itemId }) {
 	try {
 		const { itemsId } = yield select(selectMenu);
-		const newItemsId = itemsId.filter(item => item !== itemId);
+		const newItemsId = filterArrayExclude(itemsId, [{ id: itemId }]);
 		yield put(removeItemsIdSuccess(newItemsId));
 	} catch (error) {
 		console.log(error);

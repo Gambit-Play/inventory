@@ -62,6 +62,20 @@ const MenuDetailForm = props => {
 		: items;
 	const selectedItems = filterArrayInclude(items, menu.itemsId);
 
+	// console.log('@@ MenuDetailForm menu:');
+
+	// console.log(
+	// 	items.filter(item => {
+	// 		return !menu.itemsId.some(itemId => itemId.id === item.id);
+	// 	})
+	// );
+
+	// items.forEach(item => {
+	// 	console.log(/* item.id ===  */ menu.itemsId.map(itemId => itemId.id));
+	// });
+
+	// console.log('@@ selectedItems:', selectedItems);
+
 	useEffect(() => {
 		return () => {
 			removeMenu();

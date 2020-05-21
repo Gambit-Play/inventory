@@ -68,7 +68,7 @@ export function* updateItemStart() {
 		const updatedItem = {
 			id: item.id,
 			name: item.name,
-			price: item.price,
+			price: convertToFloat(item.price),
 			quantity: parseFloat(item.quantity),
 			unitId: item.unitId,
 			createdAt: item.createdAt,
