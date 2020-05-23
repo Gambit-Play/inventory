@@ -7,7 +7,7 @@ import { createCollectionAndDocument } from './firebase/firebase.utils';
 import * as COLLECTION_IDS from './firebase/collections.ids';
 
 // Data // TODO: Remove
-import { ItemsData, MenusData } from './data/database.schema';
+import { ItemsData, MenusData, CategoriesData } from './data/database.schema';
 
 // Routes
 import * as ROUTES from './routes/routes';
@@ -20,6 +20,7 @@ import {
 	fetchAllUsersStart,
 } from './redux/users/users.actions';
 import { fetchUnitsStart } from './redux/units/units.actions';
+import { fetchCategoriesStart } from './redux/categories/categories.actions';
 import {
 	removeOrderBy,
 	removeSearchField,
@@ -32,6 +33,7 @@ import ItemsList from './pages/items-pages/items-list/items-list.component';
 import ItemDetail from './pages/items-pages/item-detail/item-detail.component';
 import MenusList from './pages/menus-pages/menus-list/menus-list.component';
 import MenuDetail from './pages/menus-pages/menu-detail/menu-detail.component';
+import CategoriesList from './pages/categories-pages/categories-list/categories-list.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -45,6 +47,7 @@ const App = props => {
 		removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
+		fetchCategoriesStart,
 		removeOrderBy,
 		removeSearchField,
 	} = props;
@@ -55,6 +58,7 @@ const App = props => {
 		onAuthStateChangedStart();
 		fetchUnitsStart();
 		fetchAllUsersStart();
+		fetchCategoriesStart();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -65,12 +69,13 @@ const App = props => {
 		removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
+		fetchCategoriesStart,
 		removeOrderBy,
 		removeSearchField,
 	]);
 
 	// TODO: Remove
-	// createCollectionAndDocument(COLLECTION_IDS.MENUS, MenusData);
+	// createCollectionAndDocument(COLLECTION_IDS.CATEGORIES, CategoriesData);
 
 	return (
 		<StylesProvider injectFirst>
@@ -99,6 +104,11 @@ const App = props => {
 									path={`${ROUTES.MENUS_LIST}/:menuId`}
 									component={MenuDetail}
 								/>
+								<Route
+									exact
+									path={ROUTES.CATEGORIES_LIST}
+									component={CategoriesList}
+								/>
 							</SideMenu>
 						</MainContainer>
 					</React.Fragment>
@@ -113,6 +123,7 @@ App.propTypes = {
 	removeAuthListenerStart: PropTypes.func.isRequired,
 	fetchUnitsStart: PropTypes.func.isRequired,
 	fetchAllUsersStart: PropTypes.func.isRequired,
+	fetchCategoriesStart: PropTypes.func.isRequired,
 	removeOrderBy: PropTypes.func.isRequired,
 	removeSearchField: PropTypes.func.isRequired,
 };
@@ -122,6 +133,7 @@ const mapDispatchToProps = dispatch => ({
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
+	fetchCategoriesStart: () => dispatch(fetchCategoriesStart()),
 	removeOrderBy: () => dispatch(removeOrderBy()),
 	removeSearchField: () => dispatch(removeSearchField()),
 });

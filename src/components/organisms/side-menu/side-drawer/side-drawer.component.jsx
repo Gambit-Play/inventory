@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
-import { selectSideMenuOpen } from '../../../redux/ui/ui.selectors';
+import { selectSideMenuOpen } from '../../../../redux/ui/ui.selectors';
 
 // Redux
 import { connect } from 'react-redux';
-import { toggleSidemenu } from '../../../redux/ui/ui.actions';
+import { toggleSidemenu } from '../../../../redux/ui/ui.actions';
 
 // Side menu list
 import SideDrawerList from './side-drawer-list/side-drawer-list.component';

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import TopBar from '../top-bar/top-bar.component';
-import SideDrawer from '../side-drawer/side-drawer.component';
+import TopBar from './top-bar/top-bar.component';
+import SideDrawer from './side-drawer/side-drawer.component';
 
 // Mui Components
 import Box from '@material-ui/core/Box';

@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 
 // Selectors
 import { createStructuredSelector } from 'reselect';
-import { selectSideMenuOpen } from '../../../redux/ui/ui.selectors';
-import { selectCurrentUser } from '../../../redux/users/users.selectors';
+import { selectSideMenuOpen } from '../../../../redux/ui/ui.selectors';
+import { selectCurrentUser } from '../../../../redux/users/users.selectors';
 
 // Redux
 import { connect } from 'react-redux';
-import { toggleSidemenu } from '../../../redux/ui/ui.actions';
+import { toggleSidemenu } from '../../../../redux/ui/ui.actions';
 import {
 	googleSignInStart,
 	googleLogoutStart,
-} from '../../../redux/users/users.actions';
+} from '../../../../redux/users/users.actions';
 
 // Components
 import TopBarTitle from './top-bar.title';
@@ -33,7 +33,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import PowerSettingsIcon from '@material-ui/icons/PowerSettingsNewOutlined';
 
 // Styles
-import useStyles from '../side-menu/side-menu.styles';
+import useStyles from '../side-menu.styles';
 
 const TopBar = props => {
 	const {

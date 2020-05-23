@@ -141,3 +141,27 @@ export const ItemsData = [
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 ];
+
+/* ================================================================ */
+/*  Categories collection data schema                               */
+/* ================================================================ */
+export const CategoriesData = [
+	{
+		name: 'Menus',
+	},
+	{
+		name: 'Drinks',
+	},
+	{
+		name: 'Desserts',
+	},
+	{
+		name: 'Burgers',
+	},
+	{
+		name: 'Fries',
+	},
+	{
+		name: 'Wraps',
+	},
+];

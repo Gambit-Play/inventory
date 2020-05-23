@@ -125,10 +125,6 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				errorMessage: action.payload,
 			};
-
-		// 	...itemsId,
-		// (itemsId[index].quantity = quantity),
-
 		/* ================================================================ */
 		/*  Set itemsId.quantity                                            */
 		/* ================================================================ */

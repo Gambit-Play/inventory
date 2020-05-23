@@ -62,20 +62,15 @@ const MenuDetailForm = props => {
 	const filteredItems = menu.itemsId.length
 		? filterArrayExclude(items, menu.itemsId)
 		: items;
-	const selectedItems = menu.itemsId.map(item => {
-		const res = items.find(el => el.id === item.id);
+	const selectedItems = menu.itemsId.map(itemId => {
+		const result = items.find(item => item.id === itemId.id);
 		return {
-			id: item.id,
-			name: res.name,
-			quantity: item.quantity,
-			unit: res.unit,
+			id: itemId.id,
+			name: result.name,
+			quantity: itemId.quantity,
+			unit: result.unit,
 		};
 	});
-	console.log(selectedItems);
-
-	// console.log('@@ MenuDetailForm - menu.itemsId:', menu.itemsId);
-	// console.log('@@ MenuDetailForm - filteredItems:', filteredItems);
-	// console.log('@@ MenuDetailForm - selectedItems:', selectedItems);
 
 	useEffect(() => {
 		return () => {
