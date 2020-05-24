@@ -4,6 +4,12 @@ const INITIAL_STATE = {
 	// Category Detail
 	id: '',
 	name: '',
+	createdAt: '',
+	createdById: '',
+	createdBy: '',
+	updatedAt: '',
+	updatedById: '',
+	updatedBy: '',
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -38,6 +44,12 @@ const categoryDetailReducer = (state = INITIAL_STATE, action) => {
 
 				id: action.payload.id,
 				name: action.payload.name,
+				createdAt: action.payload.createdAt,
+				createdById: action.payload.createdById,
+				createdBy: action.payload.createdBy,
+				updatedAt: action.payload.updatedAt,
+				updatedById: action.payload.updatedById,
+				updatedBy: action.payload.updatedBy,
 			};
 		/* ================================================================ */
 		/*  Create Category                                                 */
@@ -101,6 +113,12 @@ const categoryDetailReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				id: '',
 				name: '',
+				createdAt: '',
+				createdById: '',
+				createdBy: '',
+				updatedAt: '',
+				updatedById: '',
+				updatedBy: '',
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

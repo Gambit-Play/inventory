@@ -27,7 +27,7 @@ export const deleteCategoryStart = () => ({
 });
 
 export const deleteMultipleCategoriesStart = () => ({
-	type: CategoryDetailActionTypes.DELETE_MULTIPLE_CATEGORYS_START,
+	type: CategoryDetailActionTypes.DELETE_MULTIPLE_CATEGORIES_START,
 });
 
 export const isNew = () => ({
@@ -56,7 +56,7 @@ export const deleteCategorySuccess = () => ({
 });
 
 export const deleteMultipleCategorysSuccess = () => ({
-	type: CategoryDetailActionTypes.DELETE_MULTIPLE_CATEGORYS_SUCCESS,
+	type: CategoryDetailActionTypes.DELETE_MULTIPLE_CATEGORIES_SUCCESS,
 });
 
 /* ================================================================ */
@@ -84,7 +84,7 @@ export const deleteCategoryFailure = errorMessage => ({
 });
 
 export const deleteMultipleCategorysFailure = errorMessage => ({
-	type: CategoryDetailActionTypes.DELETE_MULTIPLE_CATEGORYS_FAILURE,
+	type: CategoryDetailActionTypes.DELETE_MULTIPLE_CATEGORIES_FAILURE,
 	payload: errorMessage,
 });
 

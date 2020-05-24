@@ -11,7 +11,15 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Success                                                 */
 		/* ================================================================ */
-		case CategoriesActionTypes.FETCH_CATEGORIES_START:
+		case CategoriesActionTypes.FETCH_CATEGORIES_COLLECTIONS_START:
+			return {
+				...state,
+				isFetching: true,
+			};
+		/* ================================================================ */
+		/*  Process Update                                                  */
+		/* ================================================================ */
+		case CategoriesActionTypes.FETCH_CATEGORIES_COLLECTIONS_UPDATE:
 			return {
 				...state,
 				isFetching: true,
@@ -19,7 +27,7 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Success                                                 */
 		/* ================================================================ */
-		case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS:
+		case CategoriesActionTypes.FETCH_CATEGORIES_COLLECTIONS_SUCCESS:
 			return {
 				...state,
 				isFetching: false,
@@ -28,11 +36,21 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Failure                                                 */
 		/* ================================================================ */
-		case CategoriesActionTypes.FETCH_CATEGORIES_FAILURE:
+		case CategoriesActionTypes.FETCH_CATEGORIES_COLLECTIONS_COLLECTIONS_FAILURE:
 			return {
 				...state,
 				isFetching: false,
 				errorMessage: action.payload,
+			};
+		/* ================================================================ */
+		/*  Clear Categories                                                */
+		/* ================================================================ */
+		case CategoriesActionTypes.CLEAR_CATEGORIES_COLLECTIONS:
+			return {
+				...state,
+				currentCategories: [],
+				isFetching: false,
+				errorMessage: '',
 			};
 		default:
 			return state;

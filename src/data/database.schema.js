@@ -148,20 +148,44 @@ export const ItemsData = [
 export const CategoriesData = [
 	{
 		name: 'Menus',
+		createdAt: '2020-03-16T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-16T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 	{
 		name: 'Drinks',
+		createdAt: '2020-03-17T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-17T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 	{
 		name: 'Desserts',
+		createdAt: '2020-03-18T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-18T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 	{
 		name: 'Burgers',
+		createdAt: '2020-03-19T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-19T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 	{
 		name: 'Fries',
+		createdAt: '2020-03-20T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-20T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 	{
 		name: 'Wraps',
+		createdAt: '2020-03-21T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-21T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 ];

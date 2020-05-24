@@ -5,4 +5,16 @@ export const headCells = [
 		disablePadding: false,
 		label: 'Name',
 	},
+	{
+		id: 'createdById',
+		numeric: true,
+		disablePadding: false,
+		label: 'Created By',
+	},
+	{
+		id: 'createdAt',
+		numeric: true,
+		disablePadding: false,
+		label: 'Created At',
+	},
 ];

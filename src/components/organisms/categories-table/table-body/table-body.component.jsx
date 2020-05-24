@@ -83,6 +83,18 @@ const TableBody = props => {
 						>
 							{row.name}
 						</TableCell>
+						<TableCell
+							align='right'
+							onClick={event => handleRowClick(event, row.id)}
+						>
+							{row.createdBy}
+						</TableCell>
+						<TableCell
+							align='right'
+							onClick={event => handleRowClick(event, row.id)}
+						>
+							{row.createdAt}
+						</TableCell>
 					</TableRow>
 				);
 			})}

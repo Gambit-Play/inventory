@@ -13,7 +13,10 @@ import {
 	fetchAllUsersStart,
 } from './redux/users/users.actions';
 import { fetchUnitsStart } from './redux/units/units.actions';
-import { fetchCategoriesStart } from './redux/categories/categories.actions';
+import {
+	fetchCategoriesCollectionStart,
+	removeCategoriesCollectionListener,
+} from './redux/categories/categories.actions';
 import {
 	removeCategoriesOrderBy,
 	removeCategoriesSearchField,
@@ -35,6 +38,7 @@ import ItemDetail from './pages/items-pages/item-detail/item-detail.component';
 import MenusList from './pages/menus-pages/menus-list/menus-list.component';
 import MenuDetail from './pages/menus-pages/menu-detail/menu-detail.component';
 import CategoriesList from './pages/categories-pages/categories-list/categories-list.component';
+import CategoryDetail from './pages/categories-pages/category-detail/category-detail.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -48,13 +52,14 @@ const App = props => {
 		removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
-		fetchCategoriesStart,
+		fetchCategoriesCollectionStart,
 		removeItemsOrderBy,
 		removeItemsSearchField,
 		removeCategoriesOrderBy,
 		removeCategoriesSearchField,
 		removeMenusOrderBy,
 		removeMenusSearchField,
+		removeCategoriesCollectionListener,
 	} = props;
 
 	useEffect(() => {
@@ -67,24 +72,26 @@ const App = props => {
 		onAuthStateChangedStart();
 		fetchUnitsStart();
 		fetchAllUsersStart();
-		fetchCategoriesStart();
+		fetchCategoriesCollectionStart();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
 			removeAuthListenerStart();
+			removeCategoriesCollectionListener();
 		};
 	}, [
 		onAuthStateChangedStart,
 		removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
-		fetchCategoriesStart,
+		fetchCategoriesCollectionStart,
 		removeItemsOrderBy,
 		removeItemsSearchField,
 		removeCategoriesOrderBy,
 		removeCategoriesSearchField,
 		removeMenusOrderBy,
 		removeMenusSearchField,
+		removeCategoriesCollectionListener,
 	]);
 
 	return (
@@ -119,6 +126,10 @@ const App = props => {
 									path={ROUTES.CATEGORIES_LIST}
 									component={CategoriesList}
 								/>
+								<Route
+									path={`${ROUTES.CATEGORIES_LIST}/:categoryId`}
+									component={CategoryDetail}
+								/>
 							</SideMenu>
 						</MainContainer>
 					</React.Fragment>
@@ -133,13 +144,14 @@ App.propTypes = {
 	removeAuthListenerStart: PropTypes.func.isRequired,
 	fetchUnitsStart: PropTypes.func.isRequired,
 	fetchAllUsersStart: PropTypes.func.isRequired,
-	fetchCategoriesStart: PropTypes.func.isRequired,
+	fetchCategoriesCollectionStart: PropTypes.func.isRequired,
 	removeItemsOrderBy: PropTypes.func.isRequired,
 	removeItemsSearchField: PropTypes.func.isRequired,
 	removeCategoriesOrderBy: PropTypes.func.isRequired,
 	removeCategoriesSearchField: PropTypes.func.isRequired,
 	removeMenusOrderBy: PropTypes.func.isRequired,
 	removeMenusSearchField: PropTypes.func.isRequired,
+	removeCategoriesCollectionListener: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -147,11 +159,14 @@ const mapDispatchToProps = dispatch => ({
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
-	fetchCategoriesStart: () => dispatch(fetchCategoriesStart()),
+	fetchCategoriesCollectionStart: () =>
+		dispatch(fetchCategoriesCollectionStart()),
 	removeItemsOrderBy: () => dispatch(removeItemsOrderBy()),
 	removeItemsSearchField: () => dispatch(removeItemsSearchField()),
 	removeCategoriesOrderBy: () => dispatch(removeCategoriesOrderBy()),
 	removeCategoriesSearchField: () => dispatch(removeCategoriesSearchField()),
+	removeCategoriesCollectionListener: () =>
+		dispatch(removeCategoriesCollectionListener()),
 	removeMenusOrderBy: () => dispatch(removeMenusOrderBy()),
 	removeMenusSearchField: () => dispatch(removeMenusSearchField()),
 });

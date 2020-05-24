@@ -28,6 +28,7 @@ import {
 import { selectSingleCategory } from '../../categories/categories.selectors';
 import { selectCategory } from './category-detail.selectors';
 import { selectSelected } from '../categories-table/categories-table.selectors';
+import { selectCurrentUser } from '../../users/users.selectors';
 
 /* ================================================================ */
 /*  Reusable Actions                                                */
@@ -64,9 +65,14 @@ export function* fetchCategoryStart({ payload: categoryId }) {
 export function* updateCategoryStart() {
 	try {
 		const category = yield select(selectCategory);
+		const currentUser = yield select(selectCurrentUser);
 		const updatedCategory = {
 			id: category.id,
 			name: category.name,
+			createdAt: category.createdAt,
+			createdById: category.createdById,
+			updatedAt: new Date().toISOString(),
+			updatedById: currentUser.id,
 		};
 
 		yield call(
@@ -85,9 +91,14 @@ export function* updateCategoryStart() {
 export function* createCategoryStart() {
 	try {
 		const category = yield select(selectCategory);
+		const currentUser = yield select(selectCurrentUser);
 		const newCategory = [
 			{
 				name: category.name,
+				createdAt: new Date().toISOString(),
+				createdById: currentUser.id,
+				updatedAt: '',
+				updatedById: '',
 			},
 		];
 
