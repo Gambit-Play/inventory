@@ -1,8 +1,5 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 
-// Utils
-import { convertArrayToObject } from '../../utils/global.utils';
-
 // Firebase utils
 import { getCollection } from '../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../firebase/collections.ids';

@@ -18,7 +18,7 @@ import {
 import MenuDetailActionTypes from './menu-detail.types';
 
 // Actions
-import { removeSelected } from '../menus-table/menus-table.actions';
+import { removeSelectedMenus } from '../menus-table/menus-table.actions';
 import {
 	fetchMenuSuccess,
 	fetchMenuFailure,
@@ -136,7 +136,7 @@ export function* deleteMultipleMenusStart() {
 		const selected = yield select(selectSelected);
 
 		yield deleteDocumentsFromCollection(selected);
-		yield put(removeSelected());
+		yield put(removeSelectedMenus());
 	} catch (error) {
 		console.log(error);
 		yield put(deleteMenuFailure());

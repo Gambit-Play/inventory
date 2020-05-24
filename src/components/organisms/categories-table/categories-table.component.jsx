@@ -23,7 +23,7 @@ import {
 	selectRowsPerPage,
 	selectSearchField,
 } from '../../../redux/handlers/categories-table/categories-table.selectors';
-// import { deleteMultipleCategoriesStart } from '../../../redux/handlers/category-detail/category-detail.actions';
+import { deleteMultipleCategoriesStart } from '../../../redux/handlers/category-detail/category-detail.actions';
 
 // Headcells
 import { headCells } from './table-head.cells';
@@ -47,7 +47,7 @@ const CategoriesTable = props => {
 	const {
 		isFetching,
 		setSearchFieldStart,
-		// deleteMultipleCategoriesStart,
+		deleteMultipleCategoriesStart,
 		selected,
 		categories,
 		order,
@@ -76,7 +76,7 @@ const CategoriesTable = props => {
 					selected={selected}
 					handleSearch={setSearchFieldStart}
 					searchField={searchField}
-					// handleDeleteSelected={deleteMultipleCategoriesStart}
+					handleDeleteSelected={deleteMultipleCategoriesStart}
 				/>
 			</Paper>
 			<Paper className={classes.paper}>
@@ -129,7 +129,7 @@ const CategoriesTable = props => {
 CategoriesTable.propTypes = {
 	isFetching: PropTypes.bool.isRequired,
 	setSearchFieldStart: PropTypes.func.isRequired,
-	// deleteMultipleCategoriesStart: PropTypes.func.isRequired,
+	deleteMultipleCategoriesStart: PropTypes.func.isRequired,
 	selected: PropTypes.array.isRequired,
 	categories: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
@@ -156,8 +156,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
-	// deleteMultipleCategoriesStart: () =>
-	// dispatch(deleteMultipleCategoriesStart()),
+	deleteMultipleCategoriesStart: () =>
+		dispatch(deleteMultipleCategoriesStart()),
 	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
 	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
 	setPageStart: (event, page) => dispatch(setPageStart(page)),

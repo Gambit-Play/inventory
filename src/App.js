@@ -15,8 +15,16 @@ import {
 import { fetchUnitsStart } from './redux/units/units.actions';
 import { fetchCategoriesStart } from './redux/categories/categories.actions';
 import {
-	removeOrderBy,
-	removeSearchField,
+	removeCategoriesOrderBy,
+	removeCategoriesSearchField,
+} from './redux/handlers/categories-table/categories-table.actions';
+import {
+	removeMenusOrderBy,
+	removeMenusSearchField,
+} from './redux/handlers/menus-table/menus-table.actions';
+import {
+	removeItemsOrderBy,
+	removeItemsSearchField,
 } from './redux/handlers/items-table/items-table.actions';
 
 // Components
@@ -41,13 +49,21 @@ const App = props => {
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		fetchCategoriesStart,
-		removeOrderBy,
-		removeSearchField,
+		removeItemsOrderBy,
+		removeItemsSearchField,
+		removeCategoriesOrderBy,
+		removeCategoriesSearchField,
+		removeMenusOrderBy,
+		removeMenusSearchField,
 	} = props;
 
 	useEffect(() => {
-		removeSearchField();
-		removeOrderBy();
+		removeItemsSearchField();
+		removeItemsOrderBy();
+		removeCategoriesOrderBy();
+		removeCategoriesSearchField();
+		removeMenusOrderBy();
+		removeMenusSearchField();
 		onAuthStateChangedStart();
 		fetchUnitsStart();
 		fetchAllUsersStart();
@@ -63,8 +79,12 @@ const App = props => {
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		fetchCategoriesStart,
-		removeOrderBy,
-		removeSearchField,
+		removeItemsOrderBy,
+		removeItemsSearchField,
+		removeCategoriesOrderBy,
+		removeCategoriesSearchField,
+		removeMenusOrderBy,
+		removeMenusSearchField,
 	]);
 
 	return (
@@ -114,8 +134,12 @@ App.propTypes = {
 	fetchUnitsStart: PropTypes.func.isRequired,
 	fetchAllUsersStart: PropTypes.func.isRequired,
 	fetchCategoriesStart: PropTypes.func.isRequired,
-	removeOrderBy: PropTypes.func.isRequired,
-	removeSearchField: PropTypes.func.isRequired,
+	removeItemsOrderBy: PropTypes.func.isRequired,
+	removeItemsSearchField: PropTypes.func.isRequired,
+	removeCategoriesOrderBy: PropTypes.func.isRequired,
+	removeCategoriesSearchField: PropTypes.func.isRequired,
+	removeMenusOrderBy: PropTypes.func.isRequired,
+	removeMenusSearchField: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -124,8 +148,12 @@ const mapDispatchToProps = dispatch => ({
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
 	fetchCategoriesStart: () => dispatch(fetchCategoriesStart()),
-	removeOrderBy: () => dispatch(removeOrderBy()),
-	removeSearchField: () => dispatch(removeSearchField()),
+	removeItemsOrderBy: () => dispatch(removeItemsOrderBy()),
+	removeItemsSearchField: () => dispatch(removeItemsSearchField()),
+	removeCategoriesOrderBy: () => dispatch(removeCategoriesOrderBy()),
+	removeCategoriesSearchField: () => dispatch(removeCategoriesSearchField()),
+	removeMenusOrderBy: () => dispatch(removeMenusOrderBy()),
+	removeMenusSearchField: () => dispatch(removeMenusSearchField()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

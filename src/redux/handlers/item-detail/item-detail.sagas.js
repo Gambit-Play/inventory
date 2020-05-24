@@ -15,7 +15,7 @@ import { convertToFloat } from '../../../utils/global.utils';
 import ItemDetailActionTypes from './item-detail.types';
 
 // Actions
-import { removeSelected } from '../items-table/items-table.actions';
+import { removeSelectedItems } from '../items-table/items-table.actions';
 import {
 	fetchItemSuccess,
 	fetchItemFailure,
@@ -128,7 +128,7 @@ export function* deleteMultipleItemsStart() {
 		const selected = yield select(selectSelected);
 
 		yield deleteDocumentsFromCollection(selected);
-		yield put(removeSelected());
+		yield put(removeSelectedItems());
 	} catch (error) {
 		console.log(error);
 		yield put(deleteItemFailure());

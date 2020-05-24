@@ -12,7 +12,7 @@ import {
 	selectRowsPerPage,
 	selectFilteredCategories,
 } from '../../../../redux/handlers/categories-table/categories-table.selectors';
-// import { fetchCategoryStart } from '../../../../redux/handlers/category-detail/category-detail.actions';
+import { fetchCategoryStart } from '../../../../redux/handlers/category-detail/category-detail.actions';
 import { setSelectStart } from '../../../../redux/handlers/categories-table/categories-table.actions';
 
 // Routes
@@ -33,7 +33,7 @@ const TableBody = props => {
 		page,
 		rowsPerPage,
 		history,
-		// fetchCategoryStart,
+		fetchCategoryStart,
 		setSelectStart,
 	} = props;
 	const classes = useStyles();
@@ -41,7 +41,7 @@ const TableBody = props => {
 	const isSelected = id => selected.indexOf(id) !== -1;
 
 	const handleRowClick = (event, rowId) => {
-		// fetchCategoryStart(rowId);
+		fetchCategoryStart(rowId);
 		history.push(`${ROUTES.CATEGORIES_LIST}/${rowId}`);
 	};
 
@@ -75,6 +75,7 @@ const TableBody = props => {
 							/>
 						</TableCell>
 						<TableCell
+							className={classes.name}
 							component='th'
 							id={labelId}
 							scope='row'
@@ -94,7 +95,7 @@ TableBody.propTypes = {
 	selected: PropTypes.array.isRequired,
 	page: PropTypes.number.isRequired,
 	rowsPerPage: PropTypes.number.isRequired,
-	// fetchCategoryStart: PropTypes.func.isRequired,
+	fetchCategoryStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	setSelectStart: PropTypes.func.isRequired,
 };
@@ -107,7 +108,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapStateToDispatch = dispatch => ({
-	// fetchCategoryStart: rowId => dispatch(fetchCategoryStart(rowId)),
+	fetchCategoryStart: rowId => dispatch(fetchCategoryStart(rowId)),
 	setSelectStart: selectedId => dispatch(setSelectStart(selectedId)),
 });
 

@@ -115,14 +115,14 @@ export const setFilteredCategoriesFailure = errorMessage => ({
 /*  Process Remove                                                  */
 /* ================================================================ */
 
-export const removeSelected = () => ({
+export const removeSelectedCategories = () => ({
 	type: CategoriesTableActionTypes.REMOVE_SELECTED_CATEGORIES,
 });
 
-export const removeOrderBy = () => ({
+export const removeCategoriesOrderBy = () => ({
 	type: CategoriesTableActionTypes.REMOVE_CATEGORIES_ORDER_BY,
 });
 
-export const removeSearchField = () => ({
+export const removeCategoriesSearchField = () => ({
 	type: CategoriesTableActionTypes.REMOVE_CATEGORIES_SEARCH_FIELD,
 });

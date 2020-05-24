@@ -14,6 +14,7 @@ import itemDetailReducer from './handlers/item-detail/item-detail.reducer';
 import menusTableReducer from './handlers/menus-table/menus-table.reducer';
 import menuDetailReducer from './handlers/menu-detail/menu-detail.reducer';
 import categoriesTableReducer from './handlers/categories-table/categories-table.reducer';
+import categoryDetailReducer from './handlers/category-detail/category-detail.reducer';
 
 const persistConfig = {
 	key: 'root',
@@ -30,6 +31,7 @@ const persistConfig = {
 		'menuDetail',
 		'categories',
 		'categoriesTable',
+		'categoryDetail',
 	],
 };
 
@@ -47,6 +49,7 @@ const rootReducer = combineReducers({
 	menusTable: menusTableReducer,
 	menuDetail: menuDetailReducer,
 	categoriesTable: categoriesTableReducer,
+	categoryDetail: categoryDetailReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -115,14 +115,14 @@ export const setFilteredMenusFailure = errorMessage => ({
 /*  Process Remove                                                  */
 /* ================================================================ */
 
-export const removeSelected = () => ({
+export const removeSelectedMenus = () => ({
 	type: MenusTableActionTypes.REMOVE_SELECTED_MENUS,
 });
 
-export const removeOrderBy = () => ({
+export const removeMenusOrderBy = () => ({
 	type: MenusTableActionTypes.REMOVE_MENUS_ORDER_BY,
 });
 
-export const removeSearchField = () => ({
+export const removeMenusSearchField = () => ({
 	type: MenusTableActionTypes.REMOVE_MENUS_SEARCH_FIELD,
 });

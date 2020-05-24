@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
+	name: {
+		paddingLeft: 0,
+	},
 }));
 
 export default useStyles;

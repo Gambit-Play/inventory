@@ -8,14 +8,14 @@ import { connect } from 'react-redux';
 import * as ROUTES from '../../../routes/routes';
 
 // Redux
-// import { isNew } from '../../../redux/handlers/category-detail/category-detail.actions';
+import { isNew } from '../../../redux/handlers/category-detail/category-detail.actions';
 
 // Components
 import Table from '../../../components/organisms/table/table.component';
 import FabButton from '../../../components/molecules/fab-button/fab-button.component';
 
 const CategoriesList = props => {
-	const { history /* isNew */ } = props;
+	const { history, isNew } = props;
 
 	return (
 		<React.Fragment>
@@ -24,7 +24,7 @@ const CategoriesList = props => {
 				url={`${ROUTES.CATEGORIES_LIST}/${ROUTES.NEW_CATEGORY}`}
 				title='Create a new category'
 				history={history}
-				// isNew={isNew}
+				isNew={isNew}
 			/>
 		</React.Fragment>
 	);
@@ -32,14 +32,14 @@ const CategoriesList = props => {
 
 CategoriesList.propTypes = {
 	history: PropTypes.object.isRequired,
-	// isNew: PropTypes.func.isRequired,
+	isNew: PropTypes.func.isRequired,
 };
 
-// const mapDispatchToProps = dispatch => ({
-// 	isNew: () => dispatch(isNew()),
-// });
+const mapDispatchToProps = dispatch => ({
+	isNew: () => dispatch(isNew()),
+});
 
 export default compose(
-	withRouter
-	// connect(null, mapDispatchToProps)
+	withRouter,
+	connect(null, mapDispatchToProps)
 )(CategoriesList);
