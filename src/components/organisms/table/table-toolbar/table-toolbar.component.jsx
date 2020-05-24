@@ -20,6 +20,7 @@ const TableToolbar = ({
 	handleDeleteSelected,
 	handleSearch,
 	label,
+	searchField,
 }) => {
 	const classes = useStyles();
 	const numSelected = selected.length;
@@ -51,6 +52,7 @@ const TableToolbar = ({
 					onChange={handleChange}
 					fullWidth
 					className={classes.searchField}
+					value={searchField}
 				/>
 			)}
 			{numSelected > 0 ? (
@@ -82,6 +84,7 @@ TableToolbar.propTypes = {
 	handleDeleteSelected: PropTypes.func.isRequired,
 	handleSearch: PropTypes.func.isRequired,
 	label: PropTypes.string.isRequired,
+	searchField: PropTypes.string.isRequired,
 };
 
 export default TableToolbar;

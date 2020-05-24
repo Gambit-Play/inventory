@@ -2,6 +2,13 @@ import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
+// Firebase // TODO: Remove
+import { createCollectionAndDocument } from '../../../../firebase/firebase.utils';
+import * as COLLECTION_IDS from '../../../../firebase/collections.ids';
+
+// Data // TODO: Remove
+import * as Data from '../../../../data/database.schema';
+
 // Selectors
 import { createStructuredSelector } from 'reselect';
 import { selectSideMenuOpen } from '../../../../redux/ui/ui.selectors';
@@ -49,6 +56,12 @@ const TopBar = props => {
 		if (currentUser && !currentUser.firstName)
 			return currentUser.displayName;
 	};
+	const handleCreateData = () => {
+		createCollectionAndDocument(
+			COLLECTION_IDS.CATEGORIES,
+			Data.CategoriesData
+		);
+	};
 
 	return (
 		<AppBar
@@ -77,6 +90,18 @@ const TopBar = props => {
 				>
 					<TopBarTitle />
 				</Typography>
+				<Button
+					variant='outlined'
+					color='inherit'
+					onClick={handleCreateData}
+				>
+					Create Data
+				</Button>
+				<Divider
+					orientation='vertical'
+					flexItem
+					className={classes.dividerToolbar}
+				/>
 				<IconButton color='inherit'>
 					<Badge badgeContent={9} color='secondary'>
 						<NotificationsIcon />

@@ -2,6 +2,7 @@ import CategoriesActionTypes from './categories.types';
 
 const INITIAL_STATE = {
 	currentCategories: null,
+	isFetching: false,
 	errorMessage: '',
 };
 
@@ -10,9 +11,18 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Success                                                 */
 		/* ================================================================ */
+		case CategoriesActionTypes.FETCH_CATEGORIES_START:
+			return {
+				...state,
+				isFetching: true,
+			};
+		/* ================================================================ */
+		/*  Process Success                                                 */
+		/* ================================================================ */
 		case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS:
 			return {
 				...state,
+				isFetching: false,
 				currentCategories: action.payload,
 			};
 		/* ================================================================ */
@@ -21,6 +31,7 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
 		case CategoriesActionTypes.FETCH_CATEGORIES_FAILURE:
 			return {
 				...state,
+				isFetching: false,
 				errorMessage: action.payload,
 			};
 		default:

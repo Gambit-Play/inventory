@@ -8,7 +8,6 @@ import { withRouter } from 'react-router-dom';
 import {
 	PriceFormatter,
 	filterArrayExclude,
-	filterArrayInclude,
 } from '../../../utils/global.utils';
 
 // Redux

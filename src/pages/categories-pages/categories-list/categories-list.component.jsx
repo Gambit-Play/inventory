@@ -16,17 +16,18 @@ import FabButton from '../../../components/molecules/fab-button/fab-button.compo
 
 const CategoriesList = props => {
 	const { history /* isNew */ } = props;
-	// <React.Fragment>
-	// 	<Table categories />
-	// 	<FabButton
-	// 		url={`${ROUTES.CATEGORIES_LIST}/${ROUTES.NEW_CATEGORY}`}
-	// 		title='Create a new category'
-	// 		history={history}
-	// 		isNew={isNew}
-	// 	/>
-	// </React.Fragment>
 
-	return <h1>Categories List</h1>;
+	return (
+		<React.Fragment>
+			<Table categories />
+			<FabButton
+				url={`${ROUTES.CATEGORIES_LIST}/${ROUTES.NEW_CATEGORY}`}
+				title='Create a new category'
+				history={history}
+				// isNew={isNew}
+			/>
+		</React.Fragment>
+	);
 };
 
 CategoriesList.propTypes = {
@@ -34,11 +35,11 @@ CategoriesList.propTypes = {
 	// isNew: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-	// isNew: () => dispatch(isNew()),
-});
+// const mapDispatchToProps = dispatch => ({
+// 	isNew: () => dispatch(isNew()),
+// });
 
 export default compose(
-	withRouter,
-	connect(null, mapDispatchToProps)
+	withRouter
+	// connect(null, mapDispatchToProps)
 )(CategoriesList);

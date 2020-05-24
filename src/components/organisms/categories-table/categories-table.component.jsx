@@ -6,16 +6,15 @@ import { createStructuredSelector } from 'reselect';
 // Redux
 import {
 	selectIsFetching,
-	selectCurrentItems,
-} from '../../../redux/items/items.selectors';
+	selectCurrentCategories,
+} from '../../../redux/categories/categories.selectors';
 import {
 	setSearchFieldStart,
 	setOrderStart,
 	setSelectAllStart,
 	setPageStart,
 	setRowsPerPageStart,
-} from '../../../redux/handlers/items-table/items-table.actions';
-import { deleteMultipleItemsStart } from '../../../redux/handlers/item-detail/item-detail.actions';
+} from '../../../redux/handlers/categories-table/categories-table.actions';
 import {
 	selectSelected,
 	selectOrder,
@@ -23,7 +22,8 @@ import {
 	selectPage,
 	selectRowsPerPage,
 	selectSearchField,
-} from '../../../redux/handlers/items-table/items-table.selectors';
+} from '../../../redux/handlers/categories-table/categories-table.selectors';
+// import { deleteMultipleCategoriesStart } from '../../../redux/handlers/category-detail/category-detail.actions';
 
 // Headcells
 import { headCells } from './table-head.cells';
@@ -41,15 +41,15 @@ import Table from '@material-ui/core/Table';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Styles
-import useStyles from './items-table.styles';
+import useStyles from './categories-table.styles';
 
-const ItemsTable = props => {
+const CategoriesTable = props => {
 	const {
 		isFetching,
 		setSearchFieldStart,
-		deleteMultipleItemsStart,
+		// deleteMultipleCategoriesStart,
 		selected,
-		items,
+		categories,
 		order,
 		orderBy,
 		setOrderStart,
@@ -62,6 +62,12 @@ const ItemsTable = props => {
 	} = props;
 	const classes = useStyles();
 
+	// {categories.map((category, index) => (
+	//     <h2 id={`category-${index}`} key={category.id}>
+	//         {category.name}
+	//     </h2>
+	// ))}
+
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.filterBar}>
@@ -69,8 +75,8 @@ const ItemsTable = props => {
 					label='Search by name'
 					selected={selected}
 					handleSearch={setSearchFieldStart}
-					handleDeleteSelected={deleteMultipleItemsStart}
 					searchField={searchField}
+					// handleDeleteSelected={deleteMultipleCategoriesStart}
 				/>
 			</Paper>
 			<Paper className={classes.paper}>
@@ -87,7 +93,7 @@ const ItemsTable = props => {
 							aria-label='enhanced table'
 						>
 							<TableHead
-								data={items}
+								data={categories}
 								order={order}
 								orderBy={orderBy}
 								selected={selected}
@@ -109,7 +115,7 @@ const ItemsTable = props => {
 						{ label: 'All', value: -1 },
 					]}
 					component='div'
-					count={items.length}
+					count={categories.length}
 					rowsPerPage={rowsPerPage}
 					page={page}
 					onChangePage={setPageStart}
@@ -120,12 +126,12 @@ const ItemsTable = props => {
 	);
 };
 
-ItemsTable.propTypes = {
+CategoriesTable.propTypes = {
 	isFetching: PropTypes.bool.isRequired,
 	setSearchFieldStart: PropTypes.func.isRequired,
-	deleteMultipleItemsStart: PropTypes.func.isRequired,
+	// deleteMultipleCategoriesStart: PropTypes.func.isRequired,
 	selected: PropTypes.array.isRequired,
-	items: PropTypes.array.isRequired,
+	categories: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
 	setOrderStart: PropTypes.func.isRequired,
@@ -140,7 +146,7 @@ ItemsTable.propTypes = {
 const mapStateToProps = createStructuredSelector({
 	isFetching: selectIsFetching,
 	selected: selectSelected,
-	items: selectCurrentItems,
+	categories: selectCurrentCategories,
 	order: selectOrder,
 	orderBy: selectOrderBy,
 	page: selectPage,
@@ -150,7 +156,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
-	deleteMultipleItemsStart: () => dispatch(deleteMultipleItemsStart()),
+	// deleteMultipleCategoriesStart: () =>
+	// dispatch(deleteMultipleCategoriesStart()),
 	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
 	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
 	setPageStart: (event, page) => dispatch(setPageStart(page)),
@@ -158,4 +165,4 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(setRowsPerPageStart(event.target.value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesTable);

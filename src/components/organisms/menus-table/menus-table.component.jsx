@@ -21,6 +21,7 @@ import {
 	selectOrderBy,
 	selectPage,
 	selectRowsPerPage,
+	selectSearchField,
 } from '../../../redux/handlers/menus-table/menus-table.selectors';
 import { deleteMultipleMenusStart } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
@@ -57,6 +58,7 @@ const MenusTable = props => {
 		rowsPerPage,
 		setPageStart,
 		setRowsPerPageStart,
+		searchField,
 	} = props;
 	const classes = useStyles();
 
@@ -68,6 +70,7 @@ const MenusTable = props => {
 					selected={selected}
 					handleSearch={setSearchFieldStart}
 					handleDeleteSelected={deleteMultipleMenusStart}
+					searchField={searchField}
 				/>
 			</Paper>
 			<Paper className={classes.paper}>
@@ -131,6 +134,7 @@ MenusTable.propTypes = {
 	rowsPerPage: PropTypes.number.isRequired,
 	setPageStart: PropTypes.func.isRequired,
 	setRowsPerPageStart: PropTypes.func.isRequired,
+	searchField: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -141,6 +145,7 @@ const mapStateToProps = createStructuredSelector({
 	orderBy: selectOrderBy,
 	page: selectPage,
 	rowsPerPage: selectRowsPerPage,
+	searchField: selectSearchField,
 });
 
 const mapDispatchToProps = dispatch => ({

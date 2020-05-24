@@ -15,6 +15,7 @@ import {
 	fetchCategoriesSuccess,
 	fetchCategoriesFailure,
 } from './categories.actions';
+import { setFilteredCategoriesStart } from '../handlers/categories-table/categories-table.actions';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -28,13 +29,9 @@ export function* fetchCategoriesStart() {
 		);
 		const snapshot = yield collectionRef.get();
 		const categories = yield snapshot.docs.map(doc => doc.data());
-		const newCategories = yield call(
-			convertArrayToObject,
-			categories,
-			'id'
-		);
 
-		yield put(fetchCategoriesSuccess(newCategories));
+		yield put(fetchCategoriesSuccess(categories));
+		yield put(setFilteredCategoriesStart());
 	} catch (error) {
 		console.log(error);
 		yield put(fetchCategoriesFailure(error));

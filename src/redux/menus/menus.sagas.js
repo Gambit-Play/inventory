@@ -27,7 +27,7 @@ import { sagaMiddleware } from '../store';
 let unsubscribe;
 export function* fetchMenusCollectionAsync() {
 	try {
-		const collectionRef = yield getCollection(COLLECTION_IDS.MENUS);
+		const collectionRef = yield call(getCollection, COLLECTION_IDS.MENUS);
 		const allUsers = yield select(selectAllUsers);
 
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
