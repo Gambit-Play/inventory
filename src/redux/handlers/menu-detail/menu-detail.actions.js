@@ -14,6 +14,11 @@ export const setMenuStart = (inputName, value) => ({
 	payload: { inputName, value },
 });
 
+export const setCategory = (categoryId, category) => ({
+	type: MenuDetailActionTypes.SET_MENU_CATEGORY,
+	payload: { categoryId, category },
+});
+
 export const setItemsIdQuantityStart = (index, quantity) => ({
 	type: MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_START,
 	payload: { index, quantity },

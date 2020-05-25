@@ -13,6 +13,8 @@ const INITIAL_STATE = {
 	updatedById: '',
 	updatedBy: '',
 	itemsId: [],
+	categoryId: '',
+	category: '',
 	selectedItemsId: [],
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
@@ -57,6 +59,8 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedById: action.payload.updatedById,
 				updatedBy: action.payload.updatedBy,
 				itemsId: action.payload.itemsId,
+				categoryId: action.payload.categoryId,
+				category: action.payload.category,
 			};
 		/* ================================================================ */
 		/*  Create Menu                                                     */
@@ -142,6 +146,15 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				selectedItemsId: action.payload,
 			};
 		/* ================================================================ */
+		/*  Set menu category                                               */
+		/* ================================================================ */
+		case MenuDetailActionTypes.SET_MENU_CATEGORY:
+			return {
+				...state,
+				categoryId: action.payload.categoryId,
+				category: action.payload.category,
+			};
+		/* ================================================================ */
 		/*  Remove Item from itemsId                                        */
 		/* ================================================================ */
 		case MenuDetailActionTypes.REMOVE_ITEMS_ID_SUCCESS:
@@ -176,6 +189,8 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedById: '',
 				updatedBy: '',
 				itemsId: [],
+				categoryId: '',
+				category: '',
 				selectedItemsId: [],
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,

@@ -17,6 +17,7 @@ import * as COLLECTION_IDS from '../../firebase/collections.ids';
 
 // Selectors
 import { selectAllUsers } from '../users/users.selectors';
+import { selectCurrentCategories } from '../categories/categories.selectors';
 
 // Redux
 import { sagaMiddleware } from '../store';
@@ -29,18 +30,23 @@ export function* fetchMenusCollectionAsync() {
 	try {
 		const collectionRef = yield call(getCollection, COLLECTION_IDS.MENUS);
 		const allUsers = yield select(selectAllUsers);
+		const currentCategories = yield select(selectCurrentCategories);
 
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
 			sagaMiddleware.run(fetchCurrentMenus);
 
 			const data = snapshot.docs.map(doc => {
 				const result = doc.data();
+				const res = currentCategories.find(
+					category => category.id === result.categoryId
+				);
 				const newData = {
 					...result,
 					createdBy: allUsers[result.createdById].displayName,
 					updatedBy: allUsers.hasOwnProperty(result.updatedById)
 						? allUsers[result.updatedById].displayName
 						: '',
+					category: res ? res.name : '',
 				};
 				return newData;
 			});

@@ -20,6 +20,15 @@ const useStyles = makeStyles(theme => ({
 	itemsList: {
 		alignItems: 'flex-end',
 	},
+	gridMultiDropdown: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'flex-end',
+	},
+	multiDropdown: {
+		width: '100%',
+		paddingRight: 24,
+	},
 }));
 
 export default useStyles;

@@ -27,21 +27,20 @@ import { setFilteredCategoriesStart } from '../handlers/categories-table/categor
 
 let unsubscribe = null;
 
-export function* fetchCategoriesStart() {
+export function* fetchCategoriesCollectionAsync() {
 	try {
 		const collectionRef = yield call(
 			getCollection,
 			COLLECTION_IDS.CATEGORIES
 		);
 		const allUsers = yield select(selectAllUsers);
-		// const snapshot = yield collectionRef.get();
-		// const categories = yield snapshot.docs.map(doc => doc.data());
 
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
 			sagaMiddleware.run(fetchCurrentCategories);
 
 			const data = snapshot.docs.map(doc => {
 				const result = doc.data();
+
 				const newData = {
 					...result,
 					createdBy: allUsers[result.createdById].displayName,
@@ -75,7 +74,7 @@ export function* fetchCurrentCategories(data) {
 export function* onFetchCategoriesStart() {
 	yield takeLatest(
 		CategoriesActionTypes.FETCH_CATEGORIES_COLLECTIONS_START,
-		fetchCategoriesStart
+		fetchCategoriesCollectionAsync
 	);
 }
 

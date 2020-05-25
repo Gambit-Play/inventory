@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
 
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
-const MultiChoiceDropdown = ({ data, setselectedData }) => {
+const MultiChoiceDropdown = ({ data, setselectedData, className }) => {
 	const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 	const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
@@ -27,6 +28,7 @@ const MultiChoiceDropdown = ({ data, setselectedData }) => {
 			id='checkboxes-tags-demo'
 			key={data}
 			options={data}
+			className={className}
 			disableCloseOnSelect
 			onChange={handleChange}
 			getOptionLabel={option => option.name}

@@ -80,11 +80,12 @@ export function* updateMenuStart() {
 			name: menu.name,
 			price: convertToFloat(menu.price),
 			description: menu.description,
+			itemsId: menu.itemsId,
+			categoryId: menu.categoryId,
 			createdAt: menu.createdAt,
 			createdById: menu.createdById,
 			updatedAt: new Date().toISOString(),
 			updatedById: currentUser.id,
-			itemsId: menu.itemsId,
 		};
 
 		yield call(updateDocument, COLLECTION_IDS.MENUS, menu.id, updatedMenu);
@@ -105,11 +106,12 @@ export function* createMenuStart() {
 				name: menu.name,
 				price: menu.price ? convertToFloat(menu.price) : 0,
 				description: menu.description,
+				itemsId: menu.itemsId,
+				categoryId: menu.categoryId,
 				createdAt: new Date().toISOString(),
 				createdById: currentUser.id,
 				updatedAt: '',
 				updatedById: '',
-				itemsId: menu.itemsId,
 			},
 		];
 		yield call(createCollectionAndDocument, COLLECTION_IDS.MENUS, newMenu);

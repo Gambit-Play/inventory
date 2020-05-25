@@ -27,6 +27,7 @@ import {
 // Component
 import MenuDetailButton from './menu-detail-button/menu-detail-button.component';
 import MenuDetailItemsList from './menu-detail-items-list/menu-detail-items-list.component';
+import MenuDetailDropdown from './menu-detail-dropdown/menu-detail-dropdown.component';
 import MultiChoiceDropdown from '../../molecules/multi-choice-dropdown/multi-choice-dropdown.component';
 
 // Mui Components & Icons
@@ -142,13 +143,15 @@ const MenuDetailForm = props => {
 							/>
 						</Grid>
 						<Grid item xs={6}>
+							<MenuDetailDropdown />
+						</Grid>
+						<Grid item xs={6} className={classes.gridMultiDropdown}>
 							<MultiChoiceDropdown
 								data={filteredItems}
 								value={menu.selectedItemsId}
 								setselectedData={setselectedItemsIdStart}
+								className={classes.multiDropdown}
 							/>
-						</Grid>
-						<Grid container item xs={6} alignContent='flex-end'>
 							<Button
 								disabled={menu.selectedItemsId.length === 0}
 								variant='contained'

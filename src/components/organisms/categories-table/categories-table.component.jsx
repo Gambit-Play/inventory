@@ -62,12 +62,6 @@ const CategoriesTable = props => {
 	} = props;
 	const classes = useStyles();
 
-	// {categories.map((category, index) => (
-	//     <h2 id={`category-${index}`} key={category.id}>
-	//         {category.name}
-	//     </h2>
-	// ))}
-
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.filterBar}>
