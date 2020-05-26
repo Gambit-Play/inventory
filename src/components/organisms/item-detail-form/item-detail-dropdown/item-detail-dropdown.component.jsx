@@ -19,9 +19,9 @@ const ItemDetailDropdown = props => {
 	const unitsArray = Object.values(currentUnits);
 
 	const handleChange = event => {
-		const { id, unit } = currentUnits[event.target.value];
+		const { id, name } = currentUnits[event.target.value];
 
-		setUnit(id, unit);
+		setUnit(id, name);
 	};
 
 	return (
@@ -35,7 +35,7 @@ const ItemDetailDropdown = props => {
 			>
 				{unitsArray.map(unitArr => (
 					<MenuItem key={unitArr.id} value={unitArr.id}>
-						{unitArr.unit}
+						{unitArr.name}
 					</MenuItem>
 				))}
 			</Select>

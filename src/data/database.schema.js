@@ -189,3 +189,51 @@ export const CategoriesData = [
 		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
 	},
 ];
+
+/* ================================================================ */
+/*  Tables collection data schema                                   */
+/* ================================================================ */
+export const TablesData = [
+	{
+		name: 'A',
+		createdAt: '2020-03-16T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-16T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+	},
+	{
+		name: 'B',
+		createdAt: '2020-03-17T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-17T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+	},
+	{
+		name: 'C',
+		createdAt: '2020-03-18T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-18T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+	},
+	{
+		name: 'D',
+		createdAt: '2020-03-19T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-19T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+	},
+	{
+		name: 'E',
+		createdAt: '2020-03-20T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-20T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+	},
+	{
+		name: 'F',
+		createdAt: '2020-03-21T03:15:15.657Z',
+		createdById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+		updatedAt: '2020-03-21T03:15:15.657Z',
+		updatedById: '4OMpNYZ1M8ejKIqrDbvhYYVpf2K3',
+	},
+];

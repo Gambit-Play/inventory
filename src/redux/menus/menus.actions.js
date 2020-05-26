@@ -39,7 +39,7 @@ export const fetchMenusCollectionFailure = errorMessage => ({
 /* ================================================================ */
 
 export const removeMenusCollectionListener = () => ({
-	type: MenusActionTypes.REMOVE_COLLECTION_LISTENER,
+	type: MenusActionTypes.REMOVE_MENUS_COLLECTION_LISTENER,
 });
 
 export const clearMenusStart = () => ({

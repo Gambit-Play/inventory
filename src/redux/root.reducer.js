@@ -8,6 +8,7 @@ import usersReducer from './users/users.reducer';
 import itemsReducer from './items/items.reducer';
 import unitsReducer from './units/units.reducer';
 import menusReducer from './menus/menus.reducer';
+import tablesReducer from './tables/tables.reducer';
 import categoriesReducer from './categories/categories.reducer';
 import itemsTableReducer from './handlers/items-table/items-table.reducer';
 import itemDetailReducer from './handlers/item-detail/item-detail.reducer';
@@ -32,6 +33,7 @@ const persistConfig = {
 		'categories',
 		'categoriesTable',
 		'categoryDetail',
+		'tables',
 	],
 };
 
@@ -41,6 +43,7 @@ const rootReducer = combineReducers({
 	units: unitsReducer,
 	items: itemsReducer,
 	menus: menusReducer,
+	tables: tablesReducer,
 	categories: categoriesReducer,
 
 	// Handlers Reducers

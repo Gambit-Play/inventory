@@ -42,13 +42,13 @@ const PrimaryList = props => {
 				<DashboardIcon color={isIconActive(ROUTES.DASHBOARD)} />
 			</MenuListItem>
 			<MenuListItem
-				selected={isCurrent(ROUTES.TABLE)}
-				to={ROUTES.TABLE}
-				iconColor={isIconActive(ROUTES.TABLE)}
-				labelColor={isIconActive(ROUTES.TABLE)}
+				selected={isCurrent(ROUTES.TABLES_LIST)}
+				to={ROUTES.TABLES_LIST}
+				iconColor={isIconActive(ROUTES.TABLES_LIST)}
+				labelColor={isIconActive(ROUTES.TABLES_LIST)}
 				label={'Tables'}
 			>
-				<ShoppingCartIcon color={isIconActive(ROUTES.TABLE)} />
+				<ShoppingCartIcon color={isIconActive(ROUTES.TABLES_LIST)} />
 			</MenuListItem>
 			<MenuListItem
 				selected={isCurrent(ROUTES.MENUS_LIST)}

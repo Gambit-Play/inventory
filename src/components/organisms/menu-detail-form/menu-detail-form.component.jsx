@@ -68,7 +68,7 @@ const MenuDetailForm = props => {
 			id: itemId.id,
 			name: result.name,
 			quantity: itemId.quantity,
-			unit: result.unit,
+			unit: result.name,
 		};
 	});
 
@@ -148,7 +148,6 @@ const MenuDetailForm = props => {
 						<Grid item xs={6} className={classes.gridMultiDropdown}>
 							<MultiChoiceDropdown
 								data={filteredItems}
-								value={menu.selectedItemsId}
 								setselectedData={setselectedItemsIdStart}
 								className={classes.multiDropdown}
 							/>

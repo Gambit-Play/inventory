@@ -18,6 +18,10 @@ import {
 	removeCategoriesCollectionListener,
 } from './redux/categories/categories.actions';
 import {
+	fetchTablesCollectionStart,
+	removeTablesCollectionListener,
+} from './redux/tables/tables.actions';
+import {
 	removeCategoriesOrderBy,
 	removeCategoriesSearchField,
 } from './redux/handlers/categories-table/categories-table.actions';
@@ -53,6 +57,7 @@ const App = props => {
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		fetchCategoriesCollectionStart,
+		fetchTablesCollectionStart,
 		removeItemsOrderBy,
 		removeItemsSearchField,
 		removeCategoriesOrderBy,
@@ -60,6 +65,7 @@ const App = props => {
 		removeMenusOrderBy,
 		removeMenusSearchField,
 		removeCategoriesCollectionListener,
+		removeTablesCollectionListener,
 	} = props;
 
 	useEffect(() => {
@@ -73,11 +79,13 @@ const App = props => {
 		fetchUnitsStart();
 		fetchAllUsersStart();
 		fetchCategoriesCollectionStart();
+		fetchTablesCollectionStart();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
 			removeAuthListenerStart();
 			removeCategoriesCollectionListener();
+			removeTablesCollectionListener();
 		};
 	}, [
 		onAuthStateChangedStart,
@@ -85,6 +93,7 @@ const App = props => {
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		fetchCategoriesCollectionStart,
+		fetchTablesCollectionStart,
 		removeItemsOrderBy,
 		removeItemsSearchField,
 		removeCategoriesOrderBy,
@@ -92,6 +101,7 @@ const App = props => {
 		removeMenusOrderBy,
 		removeMenusSearchField,
 		removeCategoriesCollectionListener,
+		removeTablesCollectionListener,
 	]);
 
 	return (
@@ -142,25 +152,30 @@ const App = props => {
 App.propTypes = {
 	onAuthStateChangedStart: PropTypes.func.isRequired,
 	removeAuthListenerStart: PropTypes.func.isRequired,
+	removeCategoriesCollectionListener: PropTypes.func.isRequired,
+	removeTablesCollectionListener: PropTypes.func.isRequired,
 	fetchUnitsStart: PropTypes.func.isRequired,
 	fetchAllUsersStart: PropTypes.func.isRequired,
 	fetchCategoriesCollectionStart: PropTypes.func.isRequired,
+	fetchTablesCollectionStart: PropTypes.func.isRequired,
 	removeItemsOrderBy: PropTypes.func.isRequired,
 	removeItemsSearchField: PropTypes.func.isRequired,
 	removeCategoriesOrderBy: PropTypes.func.isRequired,
 	removeCategoriesSearchField: PropTypes.func.isRequired,
 	removeMenusOrderBy: PropTypes.func.isRequired,
 	removeMenusSearchField: PropTypes.func.isRequired,
-	removeCategoriesCollectionListener: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
 	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
+	removeTablesCollectionListener: () =>
+		dispatch(removeTablesCollectionListener()),
 	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
 	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
 	fetchCategoriesCollectionStart: () =>
 		dispatch(fetchCategoriesCollectionStart()),
+	fetchTablesCollectionStart: () => dispatch(fetchTablesCollectionStart()),
 	removeItemsOrderBy: () => dispatch(removeItemsOrderBy()),
 	removeItemsSearchField: () => dispatch(removeItemsSearchField()),
 	removeCategoriesOrderBy: () => dispatch(removeCategoriesOrderBy()),

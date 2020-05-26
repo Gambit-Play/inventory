@@ -83,7 +83,7 @@ export function* onfetchMenusCollectionStart() {
 
 export function* onremoveListenerStart() {
 	yield takeLatest(
-		MenusActionTypes.REMOVE_COLLECTION_LISTENER,
+		MenusActionTypes.REMOVE_MENUS_COLLECTION_LISTENER,
 		removeCollectionListener
 	);
 }

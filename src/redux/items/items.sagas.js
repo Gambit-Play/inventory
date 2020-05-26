@@ -46,7 +46,7 @@ export function* fetchItemsCollectionAsync() {
 						? allUsers[result.updatedById].displayName
 						: '',
 					unit: currentUnits.hasOwnProperty(result.unitId)
-						? currentUnits[result.unitId].unit
+						? currentUnits[result.unitId].name
 						: '',
 				};
 				return newData;

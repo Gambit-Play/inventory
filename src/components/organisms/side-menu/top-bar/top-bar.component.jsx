@@ -57,10 +57,7 @@ const TopBar = props => {
 			return currentUser.displayName;
 	};
 	const handleCreateData = () => {
-		createCollectionAndDocument(
-			COLLECTION_IDS.CATEGORIES,
-			Data.CategoriesData
-		);
+		createCollectionAndDocument(COLLECTION_IDS.TABLES, Data.TablesData);
 	};
 
 	return (

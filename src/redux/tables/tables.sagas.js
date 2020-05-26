@@ -11,15 +11,15 @@ import * as COLLECTION_IDS from '../../firebase/collections.ids';
 import { selectAllUsers } from '../users/users.selectors';
 
 // Action Types
-import CategoriesActionTypes from './categories.types';
+import TablesActionTypes from './tables.types';
 
 // Action
 import {
-	fetchCategoriesCollectionSuccess,
-	fetchCategoriesCollectionFailure,
-	fetchCategoriesCollectionUpdate,
-} from './categories.actions';
-import { setFilteredCategoriesStart } from '../handlers/categories-table/categories-table.actions';
+	fetchTablesCollectionSuccess,
+	fetchTablesCollectionFailure,
+	fetchTablesCollectionUpdate,
+} from './tables.actions';
+// import { setFilteredTablesStart } from '../handlers/tables-table/tables-table.actions';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -27,16 +27,13 @@ import { setFilteredCategoriesStart } from '../handlers/categories-table/categor
 
 let unsubscribe = null;
 
-export function* fetchCategoriesCollectionAsync() {
+export function* fetchTablesCollectionAsync() {
 	try {
-		const collectionRef = yield call(
-			getCollection,
-			COLLECTION_IDS.CATEGORIES
-		);
+		const collectionRef = yield call(getCollection, COLLECTION_IDS.TABLES);
 		const allUsers = yield select(selectAllUsers);
 
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {
-			sagaMiddleware.run(fetchCurrentCategories);
+			sagaMiddleware.run(fetchCurrentTables);
 
 			const data = snapshot.docs.map(doc => {
 				const result = doc.data();
@@ -51,19 +48,19 @@ export function* fetchCategoriesCollectionAsync() {
 				return newData;
 			});
 
-			sagaMiddleware.run(fetchCurrentCategories, data);
+			sagaMiddleware.run(fetchCurrentTables, data);
 		});
 	} catch (error) {
 		console.log(error);
-		yield put(fetchCategoriesCollectionFailure(error));
+		yield put(fetchTablesCollectionFailure(error));
 	}
 }
 
-export function* fetchCurrentCategories(data) {
-	if (!data) yield put(fetchCategoriesCollectionUpdate());
+export function* fetchCurrentTables(data) {
+	if (!data) yield put(fetchTablesCollectionUpdate());
 	if (data) {
-		yield put(fetchCategoriesCollectionSuccess(data));
-		yield put(setFilteredCategoriesStart());
+		yield put(fetchTablesCollectionSuccess(data));
+		// yield put(setFilteredTablesStart());
 	}
 }
 
@@ -75,16 +72,16 @@ export function* removeCollectionListener() {
 /*  Listeners                                                       */
 /* ================================================================ */
 
-export function* onFetchCategoriesStart() {
+export function* onFetchTablesStart() {
 	yield takeLatest(
-		CategoriesActionTypes.FETCH_CATEGORIES_COLLECTIONS_START,
-		fetchCategoriesCollectionAsync
+		TablesActionTypes.FETCH_TABLES_COLLECTIONS_START,
+		fetchTablesCollectionAsync
 	);
 }
 
 export function* onremoveListenerStart() {
 	yield takeLatest(
-		CategoriesActionTypes.REMOVE_CATEGORIES_COLLECTION_LISTENER,
+		TablesActionTypes.REMOVE_TABLES_COLLECTION_LISTENER,
 		removeCollectionListener
 	);
 }
@@ -93,6 +90,6 @@ export function* onremoveListenerStart() {
 /*  Root Saga                                                       */
 /* ================================================================ */
 
-export default function* categoriesSagas() {
-	yield all([call(onFetchCategoriesStart), call(onremoveListenerStart)]);
+export default function* tablesSagas() {
+	yield all([call(onFetchTablesStart), call(onremoveListenerStart)]);
 }

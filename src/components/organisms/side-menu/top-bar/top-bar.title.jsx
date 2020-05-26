@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import * as ROUTES from '../../../../routes/routes';
 
 const TopBarTitle = ({ location }) => {
-	if (ROUTES.TABLE === location.pathname) return 'Tables';
+	if (ROUTES.TABLES_LIST === location.pathname) return 'Tables';
 	if (ROUTES.DASHBOARD === location.pathname) return 'Dashboard';
 	if (ROUTES.MENUS_LIST === location.pathname) return 'Menus';
 	if (ROUTES.ITEMS_LIST === location.pathname) return 'Items';
