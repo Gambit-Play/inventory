@@ -14,8 +14,8 @@ import * as ROUTES from '../../../routes/routes';
 import Table from '../../../components/organisms/table/table.component';
 // import FabButton from '../../../components/molecules/fab-button/fab-button.component';
 
-const CategoriesList = props => {
-	const { history, isNew } = props;
+const TablesList = props => {
+	const { history /* isNew */ } = props;
 
 	return (
 		<React.Fragment>
@@ -32,7 +32,7 @@ const CategoriesList = props => {
 	);
 };
 
-CategoriesList.propTypes = {
+TablesList.propTypes = {
 	history: PropTypes.object.isRequired,
 	isNew: PropTypes.func.isRequired,
 };
@@ -44,4 +44,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
 	withRouter,
 	connect(null, mapDispatchToProps)
-)(CategoriesList);
+)(TablesList);

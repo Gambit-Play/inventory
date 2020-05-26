@@ -12,6 +12,7 @@ import menusTableSagas from './handlers/menus-table/menus-table.sagas';
 import menuDetailSagas from './handlers/menu-detail/menu-detail.sagas';
 import categoriesTableSagas from './handlers/categories-table/categories-table.sagas';
 import categoryDetailSagas from './handlers/category-detail/category-detail.sagas';
+import tablesTableSagas from './handlers/tables-table/tables-table.sagas';
 
 export default function* rootSaga() {
 	yield all([
@@ -27,5 +28,6 @@ export default function* rootSaga() {
 		call(menuDetailSagas),
 		call(categoriesTableSagas),
 		call(categoryDetailSagas),
+		call(tablesTableSagas),
 	]);
 }

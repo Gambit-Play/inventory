@@ -43,6 +43,7 @@ import MenusList from './pages/menus-pages/menus-list/menus-list.component';
 import MenuDetail from './pages/menus-pages/menu-detail/menu-detail.component';
 import CategoriesList from './pages/categories-pages/categories-list/categories-list.component';
 import CategoryDetail from './pages/categories-pages/category-detail/category-detail.component';
+import TablesList from './pages/tables-pages/tables-list/tables-list.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -139,6 +140,11 @@ const App = props => {
 								<Route
 									path={`${ROUTES.CATEGORIES_LIST}/:categoryId`}
 									component={CategoryDetail}
+								/>
+								<Route
+									exact
+									path={ROUTES.TABLES_LIST}
+									component={TablesList}
 								/>
 							</SideMenu>
 						</MainContainer>

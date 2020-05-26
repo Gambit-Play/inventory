@@ -19,7 +19,7 @@ import {
 	fetchTablesCollectionFailure,
 	fetchTablesCollectionUpdate,
 } from './tables.actions';
-// import { setFilteredTablesStart } from '../handlers/tables-table/tables-table.actions';
+import { setFilteredTablesStart } from '../handlers/tables-table/tables-table.actions';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -60,7 +60,7 @@ export function* fetchCurrentTables(data) {
 	if (!data) yield put(fetchTablesCollectionUpdate());
 	if (data) {
 		yield put(fetchTablesCollectionSuccess(data));
-		// yield put(setFilteredTablesStart());
+		yield put(setFilteredTablesStart());
 	}
 }
 
