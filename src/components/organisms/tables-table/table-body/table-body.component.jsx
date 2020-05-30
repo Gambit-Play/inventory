@@ -12,7 +12,7 @@ import {
 	selectRowsPerPage,
 	selectFilteredTables,
 } from '../../../../redux/handlers/tables-table/tables-table.selectors';
-// import { fetchTableStart } from '../../../../redux/handlers/table-detail/table-detail.actions';
+import { fetchTableStart } from '../../../../redux/handlers/table-detail/table-detail.actions';
 import { setSelectStart } from '../../../../redux/handlers/tables-table/tables-table.actions';
 
 // Routes
@@ -33,7 +33,7 @@ const TableBody = props => {
 		page,
 		rowsPerPage,
 		history,
-		/* fetchTableStart, */
+		fetchTableStart,
 		setSelectStart,
 	} = props;
 	const classes = useStyles();
@@ -41,7 +41,7 @@ const TableBody = props => {
 	const isSelected = id => selected.indexOf(id) !== -1;
 
 	const handleRowClick = (event, rowId) => {
-		// fetchTableStart(rowId);
+		fetchTableStart(rowId);
 		history.push(`${ROUTES.TABLES_LIST}/${rowId}`);
 	};
 
@@ -109,7 +109,7 @@ TableBody.propTypes = {
 	selected: PropTypes.array.isRequired,
 	page: PropTypes.number.isRequired,
 	rowsPerPage: PropTypes.number.isRequired,
-	// fetchTableStart: PropTypes.func.isRequired,
+	fetchTableStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	setSelectStart: PropTypes.func.isRequired,
 };
@@ -122,7 +122,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapStateToDispatch = dispatch => ({
-	// fetchTableStart: rowId => dispatch(fetchTableStart(rowId)),
+	fetchTableStart: rowId => dispatch(fetchTableStart(rowId)),
 	setSelectStart: selectedId => dispatch(setSelectStart(selectedId)),
 });
 

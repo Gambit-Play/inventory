@@ -15,7 +15,7 @@ export const selectIsFetching = createSelector(
 );
 
 // Selects a single table based on the 'tableId' input
-export const selectSingleCategory = tableId =>
+export const selectSingleTable = tableId =>
 	createSelector([selectCurrentTables], currentTables =>
 		currentTables.find(table => table.id === tableId)
 	);

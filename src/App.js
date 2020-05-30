@@ -26,6 +26,10 @@ import {
 	removeCategoriesSearchField,
 } from './redux/handlers/categories-table/categories-table.actions';
 import {
+	removeTablesOrderBy,
+	removeTablesSearchField,
+} from './redux/handlers/tables-table/tables-table.actions';
+import {
 	removeMenusOrderBy,
 	removeMenusSearchField,
 } from './redux/handlers/menus-table/menus-table.actions';
@@ -44,6 +48,7 @@ import MenuDetail from './pages/menus-pages/menu-detail/menu-detail.component';
 import CategoriesList from './pages/categories-pages/categories-list/categories-list.component';
 import CategoryDetail from './pages/categories-pages/category-detail/category-detail.component';
 import TablesList from './pages/tables-pages/tables-list/tables-list.component';
+import TableDetail from './pages/tables-pages/table-detail/table-detail.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -67,6 +72,8 @@ const App = props => {
 		removeMenusSearchField,
 		removeCategoriesCollectionListener,
 		removeTablesCollectionListener,
+		removeTablesOrderBy,
+		removeTablesSearchField,
 	} = props;
 
 	useEffect(() => {
@@ -76,6 +83,8 @@ const App = props => {
 		removeCategoriesSearchField();
 		removeMenusOrderBy();
 		removeMenusSearchField();
+		removeTablesOrderBy();
+		removeTablesSearchField();
 		onAuthStateChangedStart();
 		fetchUnitsStart();
 		fetchAllUsersStart();
@@ -103,6 +112,8 @@ const App = props => {
 		removeMenusSearchField,
 		removeCategoriesCollectionListener,
 		removeTablesCollectionListener,
+		removeTablesOrderBy,
+		removeTablesSearchField,
 	]);
 
 	return (
@@ -146,6 +157,10 @@ const App = props => {
 									path={ROUTES.TABLES_LIST}
 									component={TablesList}
 								/>
+								<Route
+									path={`${ROUTES.TABLES_LIST}/:tableId`}
+									component={TableDetail}
+								/>
 							</SideMenu>
 						</MainContainer>
 					</React.Fragment>
@@ -170,6 +185,8 @@ App.propTypes = {
 	removeCategoriesSearchField: PropTypes.func.isRequired,
 	removeMenusOrderBy: PropTypes.func.isRequired,
 	removeMenusSearchField: PropTypes.func.isRequired,
+	removeTablesOrderBy: PropTypes.func.isRequired,
+	removeTablesSearchField: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -190,6 +207,8 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(removeCategoriesCollectionListener()),
 	removeMenusOrderBy: () => dispatch(removeMenusOrderBy()),
 	removeMenusSearchField: () => dispatch(removeMenusSearchField()),
+	removeTablesOrderBy: () => dispatch(removeTablesOrderBy()),
+	removeTablesSearchField: () => dispatch(removeTablesSearchField()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

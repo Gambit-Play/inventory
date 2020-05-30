@@ -23,7 +23,7 @@ import {
 	selectRowsPerPage,
 	selectSearchField,
 } from '../../../redux/handlers/tables-table/tables-table.selectors';
-// import { deleteMultipleTablesStart } from '../../../redux/handlers/table-detail/table-detail.actions';
+import { deleteMultipleTablesStart } from '../../../redux/handlers/table-detail/table-detail.actions';
 
 // Headcells
 import { headCells } from './table-head.cells';
@@ -47,7 +47,7 @@ const TablesTable = props => {
 	const {
 		isFetching,
 		setSearchFieldStart,
-		// deleteMultipleTablesStart,
+		deleteMultipleTablesStart,
 		selected,
 		tables,
 		order,
@@ -70,7 +70,7 @@ const TablesTable = props => {
 					selected={selected}
 					handleSearch={setSearchFieldStart}
 					searchField={searchField}
-					// handleDeleteSelected={deleteMultipleTablesStart}
+					handleDeleteSelected={deleteMultipleTablesStart}
 				/>
 			</Paper>
 			<Paper className={classes.paper}>
@@ -123,7 +123,7 @@ const TablesTable = props => {
 TablesTable.propTypes = {
 	isFetching: PropTypes.bool.isRequired,
 	setSearchFieldStart: PropTypes.func.isRequired,
-	// deleteMultipleTablesStart: PropTypes.func.isRequired,
+	deleteMultipleTablesStart: PropTypes.func.isRequired,
 	selected: PropTypes.array.isRequired,
 	tables: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
@@ -150,7 +150,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
-	// deleteMultipleTablesStart: () => dispatch(deleteMultipleTablesStart()),
+	deleteMultipleTablesStart: () => dispatch(deleteMultipleTablesStart()),
 	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
 	setSelectAllStart: event => dispatch(setSelectAllStart(event)),
 	setPageStart: (event, page) => dispatch(setPageStart(page)),
