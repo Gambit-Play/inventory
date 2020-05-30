@@ -14,6 +14,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
+import LoopOutlinedIcon from '@material-ui/icons/LoopOutlined';
 
 /* ================================================================ */
 /*  Main List Items                                                 */
@@ -78,6 +79,15 @@ const PrimaryList = props => {
 				<LabelOutlinedIcon
 					color={isIconActive(ROUTES.CATEGORIES_LIST)}
 				/>
+			</MenuListItem>
+			<MenuListItem
+				selected={isCurrent(ROUTES.TAKE_ORDER)}
+				to={ROUTES.TAKE_ORDER}
+				iconColor={isIconActive(ROUTES.TAKE_ORDER)}
+				labelColor={isIconActive(ROUTES.TAKE_ORDER)}
+				label={'Take Order'}
+			>
+				<LoopOutlinedIcon color={isIconActive(ROUTES.TAKE_ORDER)} />
 			</MenuListItem>
 		</div>
 	);

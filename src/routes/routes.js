@@ -14,3 +14,5 @@ export const NEW_CATEGORY = 'new-category';
 
 export const SIGN_UP = '/signup';
 export const SIGN_IN = '/signin';
+
+export const TAKE_ORDER = '/take-order';

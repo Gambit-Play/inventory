@@ -49,6 +49,7 @@ import CategoriesList from './pages/categories-pages/categories-list/categories-
 import CategoryDetail from './pages/categories-pages/category-detail/category-detail.component';
 import TablesList from './pages/tables-pages/tables-list/tables-list.component';
 import TableDetail from './pages/tables-pages/table-detail/table-detail.component';
+import TakeOrder from './pages/take-order-pages/take-order.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -160,6 +161,11 @@ const App = props => {
 								<Route
 									path={`${ROUTES.TABLES_LIST}/:tableId`}
 									component={TableDetail}
+								/>
+								<Route
+									exact
+									path={ROUTES.TAKE_ORDER}
+									component={TakeOrder}
 								/>
 							</SideMenu>
 						</MainContainer>
