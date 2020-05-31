@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 		marginLeft: theme.spacing(3),
 	},
 	quantity: {
-		width: '40%',
+		width: '50%',
 		marginRight: theme.spacing(2),
 	},
 	itemsList: {

@@ -146,7 +146,7 @@ export function* onRemoveAuthListenerStart() {
 	);
 }
 
-export function* fetchAllUsersCollectioStart() {
+export function* onFetchAllUsersCollectioStart() {
 	yield takeLatest(
 		UsersActionTypes.FETCH_ALL_USERS_START,
 		fetchAllUsersCollectionAsync
@@ -163,6 +163,6 @@ export default function* userSagas() {
 		call(onGoogleSignOutStart),
 		call(onAuthStateChangedStart),
 		call(onRemoveAuthListenerStart),
-		call(fetchAllUsersCollectioStart),
+		call(onFetchAllUsersCollectioStart),
 	]);
 }

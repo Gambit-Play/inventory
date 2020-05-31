@@ -41,7 +41,7 @@ const MenuDetailItemsList = ({ selectedItems, removeItem, setQuantity }) => {
 							<TextField
 								id={item.id}
 								name={item.name}
-								label={`Quantity (${item.name})`}
+								label={`Quantity (${item.unit})`}
 								value={item.quantity}
 								className={classes.quantity}
 								color='primary'

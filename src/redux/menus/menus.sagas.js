@@ -25,7 +25,9 @@ import { sagaMiddleware } from '../store';
 /* ================================================================ */
 /*  Actions                                                         */
 /* ================================================================ */
+
 let unsubscribe;
+
 export function* fetchMenusCollectionAsync() {
 	try {
 		const collectionRef = yield call(getCollection, COLLECTION_IDS.MENUS);

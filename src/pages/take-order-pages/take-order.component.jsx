@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 
 // Components
 import CenterContainer from '../../components/atoms/center-container/center-container.styles';
+import OrderButton from '../../components/atoms/order-button/order-button.component';
 
-// Mui Components & Icons
-import Button from '@material-ui/core/Button';
-
-const TakeOrder = () => {
+const TakeOrder = props => {
+	console.log(props);
 	return (
 		<CenterContainer>
-			<Button variant='contained' color='primary'>
+			<OrderButton variant='contained' isTakeAway>
 				Take Away
-			</Button>
-			<Button variant='contained' color='primary'>
+			</OrderButton>
+			<OrderButton variant='contained' isEatIn>
 				Eat In
-			</Button>
+			</OrderButton>
 		</CenterContainer>
 	);
 };

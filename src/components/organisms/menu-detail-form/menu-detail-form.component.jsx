@@ -68,7 +68,7 @@ const MenuDetailForm = props => {
 			id: itemId.id,
 			name: result.name,
 			quantity: itemId.quantity,
-			unit: result.name,
+			unit: result.unit,
 		};
 	});
 
