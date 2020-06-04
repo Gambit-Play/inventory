@@ -1,4 +1,5 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
+import orderData from 'lodash/orderBy';
 
 // Redux
 import { sagaMiddleware } from '../store';
@@ -40,6 +41,7 @@ export function* fetchTablesCollectionAsync() {
 
 				const newData = {
 					...result,
+					status: '',
 					createdBy: allUsers[result.createdById].displayName,
 					updatedBy: allUsers.hasOwnProperty(result.updatedById)
 						? allUsers[result.updatedById].displayName
@@ -48,7 +50,10 @@ export function* fetchTablesCollectionAsync() {
 				return newData;
 			});
 
-			sagaMiddleware.run(fetchCurrentTables, data);
+			const sorter = table => table.name.toLowerCase();
+			const sortedTables = orderData(data, [sorter], 'asc');
+
+			sagaMiddleware.run(fetchCurrentTables, sortedTables);
 		});
 	} catch (error) {
 		console.log(error);

@@ -163,7 +163,6 @@ const App = props => {
 									component={TableDetail}
 								/>
 								<Route
-									exact
 									path={ROUTES.TAKE_ORDER}
 									component={TakeOrder}
 								/>
