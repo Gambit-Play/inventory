@@ -39,7 +39,7 @@ export function* fetchMenusCollectionAsync() {
 
 			const data = snapshot.docs.map(doc => {
 				const result = doc.data();
-				const res = currentCategories.find(
+				const category = currentCategories.find(
 					category => category.id === result.categoryId
 				);
 				const newData = {
@@ -48,7 +48,7 @@ export function* fetchMenusCollectionAsync() {
 					updatedBy: allUsers.hasOwnProperty(result.updatedById)
 						? allUsers[result.updatedById].displayName
 						: '',
-					category: res ? res.name : '',
+					category: category ? category.name : '',
 				};
 				return newData;
 			});

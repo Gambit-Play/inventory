@@ -10,14 +10,15 @@ import CenterContainer from '../../atoms/center-container/center-container.style
 import OrderButton from '../../atoms/order-button/order-button.component';
 
 const TakeOrderButtons = () => {
-	const { path } = useRouteMatch();
+	const { url } = useRouteMatch();
+
 	return (
 		<CenterContainer>
 			<OrderButton
 				variant='contained'
 				isTakeAway
 				component={Link}
-				to={`${path}/${ROUTES.TAKE_AWAY}`}
+				to={`${url}/${ROUTES.TAKE_AWAY}`}
 			>
 				Take Away
 			</OrderButton>
@@ -25,7 +26,7 @@ const TakeOrderButtons = () => {
 				variant='contained'
 				isEatIn
 				component={Link}
-				to={`${path}/${ROUTES.EAT_IN}`}
+				to={`${url}/${ROUTES.EAT_IN}`}
 			>
 				Eat In
 			</OrderButton>

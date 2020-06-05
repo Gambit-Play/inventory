@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // Redux
@@ -18,6 +19,7 @@ import useStyles from './table-card.styles';
 
 const SelectTable = ({ tables }) => {
 	const classes = useStyles();
+	const { path } = useRouteMatch();
 
 	const TableStatus = props => {
 		const classes = useStyles();
@@ -34,7 +36,7 @@ const SelectTable = ({ tables }) => {
 		<Grid container spacing={3}>
 			{tables.map(table => (
 				<Grid item key={table.id}>
-					<ButtonBase>
+					<ButtonBase component={Link} to={`${path}/${table.id}`}>
 						<Paper className={classes.paper}>
 							<Typography
 								align='center'
