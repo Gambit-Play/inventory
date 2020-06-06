@@ -21,14 +21,14 @@ const useStyles = makeStyles(theme => ({
 		fontSize: 36,
 	},
 	status: {
-		height: '100%',
+		height: 42,
 	},
 	statusWaiting: {
-		height: '100%',
+		height: 42,
 		backgroundColor: red[500],
 	},
 	statusServed: {
-		height: '100%',
+		height: 42,
 		backgroundColor: green[500],
 	},
 	fab: {

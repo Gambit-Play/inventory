@@ -23,12 +23,15 @@ import LoopOutlinedIcon from '@material-ui/icons/LoopOutlined';
 const PrimaryList = props => {
 	const { location } = props;
 
+	let parentLocation = location.pathname.split('/')[1];
+	parentLocation = parentLocation ? `/${parentLocation}` : '/';
+
 	const isCurrent = linkLocation => {
-		if (linkLocation === location.pathname) return true;
+		if (linkLocation === parentLocation) return true;
 		return false;
 	};
 	const isIconActive = linkLocation => {
-		if (linkLocation === location.pathname) return 'primary';
+		if (linkLocation === parentLocation) return 'primary';
 		return;
 	};
 

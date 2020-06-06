@@ -45,8 +45,6 @@ const TableBody = props => {
 		history.push(`${ROUTES.TABLES_LIST}/${rowId}`);
 	};
 
-	console.log(tables);
-
 	return (
 		<MuiTableBody>
 			{(rowsPerPage > 0
