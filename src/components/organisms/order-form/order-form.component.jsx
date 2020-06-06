@@ -21,7 +21,8 @@ import Typography from '@material-ui/core/Typography';
 
 const OrderForm = props => {
 	const { categories, menus } = props;
-	console.log(menus);
+
+	console.log(categories.map(category => category.id));
 
 	return (
 		<Grid container spacing={2}>
@@ -29,7 +30,6 @@ const OrderForm = props => {
 				<Typography variant='h5' gutterBottom>
 					Categories
 				</Typography>
-				<Seperator />
 				{categories.map(category => (
 					<CategoryCard key={category.id}>
 						{category.name}
@@ -37,21 +37,29 @@ const OrderForm = props => {
 				))}
 			</Grid>
 			<Grid item xs={7}>
-				<Typography variant='h5' gutterBottom>
-					Menus
-				</Typography>
-				<Seperator />
-				<MenusContainer>
-					{menus.map(menu => (
-						<MenuCard key={menu.id}>{menu.name}</MenuCard>
-					))}
-				</MenusContainer>
+				{categories.map(category => (
+					<React.Fragment>
+						<Typography variant='button' gutterBottom>
+							{category.name}
+						</Typography>
+						<Seperator />
+						<MenusContainer>
+							{menus.map(
+								menu =>
+									menu.categoryId === category.id && (
+										<MenuCard key={menu.id}>
+											{menu.name}
+										</MenuCard>
+									)
+							)}
+						</MenusContainer>
+					</React.Fragment>
+				))}
 			</Grid>
 			<Grid item xs={3}>
 				<Typography variant='h5' gutterBottom>
 					Ticket
 				</Typography>
-				<Seperator />
 				<CategoryCard></CategoryCard>
 			</Grid>
 		</Grid>

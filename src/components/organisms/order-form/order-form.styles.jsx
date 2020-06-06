@@ -12,13 +12,13 @@ export const CategoryCard = styled(Paper)`
 `;
 
 export const MenuCard = styled(Paper)`
-	width: 130px;
-	height: 130px;
+	width: 90px;
+	height: 90px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	font-size: 18px;
+	font-size: 12px;
 	font-weight: 500;
 	margin: 0 12px 12px 0;
 	padding: 8px;
@@ -31,6 +31,5 @@ export const MenusContainer = styled.div`
 `;
 
 export const Seperator = styled(Divider)`
-	margin-top: 16px;
-	margin-bottom: 16px;
+	margin-bottom: 8px;
 `;
