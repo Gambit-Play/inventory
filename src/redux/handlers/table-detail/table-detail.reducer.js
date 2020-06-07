@@ -25,7 +25,7 @@ const INITIAL_STATE = {
 const tableDetailReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		/* ================================================================ */
-		/*  Current Table                                                */
+		/*  Current Table                                                	*/
 		/* ================================================================ */
 		case TableDetailActionTypes.FETCH_TABLE_START:
 			return {
@@ -52,7 +52,7 @@ const tableDetailReducer = (state = INITIAL_STATE, action) => {
 				updatedBy: action.payload.updatedBy,
 			};
 		/* ================================================================ */
-		/*  Create Table                                                 */
+		/*  Create Table                                                 	*/
 		/* ================================================================ */
 		case TableDetailActionTypes.IS_NEW_TABLE:
 			return {
@@ -76,7 +76,7 @@ const tableDetailReducer = (state = INITIAL_STATE, action) => {
 				[action.payload.errorType]: action.payload.errorMessage,
 			};
 		/* ================================================================ */
-		/*  Update Table                                                 */
+		/*  Update Table                                                 	*/
 		/* ================================================================ */
 		case TableDetailActionTypes.UPDATE_TABLE_SUCCESS:
 			return {
@@ -90,7 +90,7 @@ const tableDetailReducer = (state = INITIAL_STATE, action) => {
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Delete Table                                                 */
+		/*  Delete Table                                                 	*/
 		/* ================================================================ */
 		case TableDetailActionTypes.DELETE_TABLE_SUCCESS:
 		case TableDetailActionTypes.DELETE_MULTIPLE_TABLES_SUCCESS:
@@ -106,7 +106,7 @@ const tableDetailReducer = (state = INITIAL_STATE, action) => {
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
-		/*  Remove Table                                                 */
+		/*  Remove Table                                                 	*/
 		/* ================================================================ */
 		case TableDetailActionTypes.REMOVE_TABLE:
 			return {

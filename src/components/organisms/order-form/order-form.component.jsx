@@ -6,6 +6,11 @@ import { createStructuredSelector } from 'reselect';
 // Redux
 import { selectCurrentCategories } from '../../../redux/categories/categories.selectors';
 import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
+import {
+	setCategoryOrderForm,
+	removeOrderForm,
+} from '../../../redux/handlers/order-form/order-form.actions';
+import { selectCategoryId } from '../../../redux/handlers/order-form/order-form.selectors';
 
 // Components
 import {
@@ -20,29 +25,45 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 const OrderForm = props => {
-	const { categories, menus } = props;
+	const {
+		categories,
+		menus,
+		setCategoryOrderForm,
+		removeOrderForm,
+		categoryId,
+	} = props;
 
-	console.log(categories.map(category => category.id));
+	const filterdCategories = categories.filter(
+		category => category.id === categoryId
+	);
+	const menusCategories = filterdCategories.length
+		? filterdCategories
+		: categories;
+
+	const handleClick = categoryId => {
+		setCategoryOrderForm(categoryId);
+	};
 
 	return (
 		<Grid container spacing={2}>
 			<Grid item xs={2}>
-				<Typography variant='h5' gutterBottom>
-					Categories
-				</Typography>
+				<CategoryCard onClick={removeOrderForm}>All</CategoryCard>
 				{categories.map(category => (
-					<CategoryCard key={category.id}>
+					<CategoryCard
+						key={category.id}
+						onClick={event => handleClick(category.id)}
+					>
 						{category.name}
 					</CategoryCard>
 				))}
 			</Grid>
 			<Grid item xs={7}>
-				{categories.map(category => (
-					<React.Fragment>
+				{menusCategories.map(category => (
+					<React.Fragment key={category.id}>
+						<Seperator />
 						<Typography variant='button' gutterBottom>
 							{category.name}
 						</Typography>
-						<Seperator />
 						<MenusContainer>
 							{menus.map(
 								menu =>
@@ -57,9 +78,6 @@ const OrderForm = props => {
 				))}
 			</Grid>
 			<Grid item xs={3}>
-				<Typography variant='h5' gutterBottom>
-					Ticket
-				</Typography>
 				<CategoryCard></CategoryCard>
 			</Grid>
 		</Grid>
@@ -69,16 +87,21 @@ const OrderForm = props => {
 OrderForm.propTypes = {
 	categories: PropTypes.array.isRequired,
 	menus: PropTypes.array.isRequired,
+	categoryId: PropTypes.string.isRequired,
+	removeOrderForm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
 	categories: selectCurrentCategories,
 	menus: selectCurrentMenus,
+	categoryId: selectCategoryId,
 });
 
 // TODO: Remove if not used
 const mapDispatchToProps = dispatch => ({
-	// setSearchFieldStart: search => dispatch(setSearchFieldStart(search)),
+	setCategoryOrderForm: categoryId =>
+		dispatch(setCategoryOrderForm(categoryId)),
+	removeOrderForm: () => dispatch(removeOrderForm()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);
