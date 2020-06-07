@@ -3,12 +3,15 @@ import styled from 'styled-components';
 // Mui Components
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
+import ButtonBase from '@material-ui/core/Divider';
 
-export const CategoryCard = styled(Paper)`
+export const CategoryPaper = styled(Paper)`
 	padding: 16px;
 	margin-bottom: 8px;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 500;
+	width: 100%;
+	cursor: pointer;
 `;
 
 export const MenuCard = styled(Paper)`

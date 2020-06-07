@@ -13,12 +13,8 @@ import {
 import { selectCategoryId } from '../../../redux/handlers/order-form/order-form.selectors';
 
 // Components
-import {
-	CategoryCard,
-	MenuCard,
-	MenusContainer,
-	Seperator,
-} from './order-form.styles';
+import CategoryCard from './category-card/category-card.component';
+import { MenuCard, MenusContainer, Seperator } from './order-form.styles';
 
 // Mui Components
 import Grid from '@material-ui/core/Grid';
@@ -47,15 +43,19 @@ const OrderForm = props => {
 	return (
 		<Grid container spacing={2}>
 			<Grid item xs={2}>
-				<CategoryCard onClick={removeOrderForm}>All</CategoryCard>
-				{categories.map(category => (
+				<CategoryCard
+					categories={categories}
+					selectCategory={handleClick}
+					selectAll={removeOrderForm}
+				/>
+				{/* categories.map(category => (
 					<CategoryCard
 						key={category.id}
-						onClick={event => handleClick(category.id)}
+						handleClick={setCategoryOrderForm}
 					>
 						{category.name}
 					</CategoryCard>
-				))}
+				)) */}
 			</Grid>
 			<Grid item xs={7}>
 				{menusCategories.map(category => (
@@ -77,9 +77,7 @@ const OrderForm = props => {
 					</React.Fragment>
 				))}
 			</Grid>
-			<Grid item xs={3}>
-				<CategoryCard></CategoryCard>
-			</Grid>
+			<Grid item xs={3}></Grid>
 		</Grid>
 	);
 };
