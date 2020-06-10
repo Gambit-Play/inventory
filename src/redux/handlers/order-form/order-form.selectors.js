@@ -13,3 +13,15 @@ export const selectCategoryId = createSelector(
 	[selectOrderForm],
 	orderForm => orderForm.categoryId
 );
+
+// Selects orderForm.selectedMenus from the state
+export const selectSelectedMenus = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.selectedMenus
+);
+
+// Selects orderForm.selectedOrder from the state
+export const selectSelectedOrder = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.selectedOrder
+);

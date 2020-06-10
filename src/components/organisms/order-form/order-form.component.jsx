@@ -9,16 +9,20 @@ import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
 import {
 	setCategoryOrderForm,
 	removeOrderForm,
+	selectMenuStart,
 } from '../../../redux/handlers/order-form/order-form.actions';
 import { selectCategoryId } from '../../../redux/handlers/order-form/order-form.selectors';
 
 // Components
 import CategoryCard from './category-card/category-card.component';
-import { MenuCard, MenusContainer, Seperator } from './order-form.styles';
+import MenuCard from './menu-card/menu-card.component';
 
 // Mui Components
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
+// Data
+import { OrderFormData } from '../../../data/order-form.schema';
 
 const OrderForm = props => {
 	const {
@@ -27,6 +31,7 @@ const OrderForm = props => {
 		setCategoryOrderForm,
 		removeOrderForm,
 		categoryId,
+		selectMenuStart,
 	} = props;
 
 	const filterdCategories = categories.filter(
@@ -47,37 +52,23 @@ const OrderForm = props => {
 					categories={categories}
 					selectCategory={handleClick}
 					selectAll={removeOrderForm}
+					selected={categoryId}
 				/>
-				{/* categories.map(category => (
-					<CategoryCard
-						key={category.id}
-						handleClick={setCategoryOrderForm}
-					>
-						{category.name}
-					</CategoryCard>
-				)) */}
 			</Grid>
 			<Grid item xs={7}>
-				{menusCategories.map(category => (
-					<React.Fragment key={category.id}>
-						<Seperator />
-						<Typography variant='button' gutterBottom>
-							{category.name}
-						</Typography>
-						<MenusContainer>
-							{menus.map(
-								menu =>
-									menu.categoryId === category.id && (
-										<MenuCard key={menu.id}>
-											{menu.name}
-										</MenuCard>
-									)
-							)}
-						</MenusContainer>
-					</React.Fragment>
-				))}
+				<MenuCard
+					menusCategories={menusCategories}
+					menus={menus}
+					handleClick={selectMenuStart}
+				/>
 			</Grid>
-			<Grid item xs={3}></Grid>
+			<Grid item xs={3}>
+				<Paper>
+					{OrderFormData.map(order =>
+						order.map(menu => <h4 key={menu.id}>{menu.name}</h4>)
+					)}
+				</Paper>
+			</Grid>
 		</Grid>
 	);
 };
@@ -85,8 +76,10 @@ const OrderForm = props => {
 OrderForm.propTypes = {
 	categories: PropTypes.array.isRequired,
 	menus: PropTypes.array.isRequired,
-	categoryId: PropTypes.string.isRequired,
+	setCategoryOrderForm: PropTypes.func.isRequired,
 	removeOrderForm: PropTypes.func.isRequired,
+	categoryId: PropTypes.string.isRequired,
+	selectMenuStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -95,11 +88,11 @@ const mapStateToProps = createStructuredSelector({
 	categoryId: selectCategoryId,
 });
 
-// TODO: Remove if not used
 const mapDispatchToProps = dispatch => ({
 	setCategoryOrderForm: categoryId =>
 		dispatch(setCategoryOrderForm(categoryId)),
 	removeOrderForm: () => dispatch(removeOrderForm()),
+	selectMenuStart: menu => dispatch(selectMenuStart(menu)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);

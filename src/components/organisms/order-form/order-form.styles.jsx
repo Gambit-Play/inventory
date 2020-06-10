@@ -3,27 +3,26 @@ import styled from 'styled-components';
 // Mui Components
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
-import ButtonBase from '@material-ui/core/Divider';
 
 export const CategoryPaper = styled(Paper)`
 	padding: 16px;
-	margin-bottom: 8px;
 	font-size: 16px;
-	font-weight: 500;
+	font-weight: 600;
 	width: 100%;
 	cursor: pointer;
+	text-align: start;
+	border-left: 6px solid #f50057;
 `;
 
 export const MenuCard = styled(Paper)`
-	width: 90px;
-	height: 90px;
+	width: 120px;
+	height: 80px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
 	font-size: 12px;
 	font-weight: 500;
-	margin: 0 12px 12px 0;
 	padding: 8px;
 `;
 

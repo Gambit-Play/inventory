@@ -4,18 +4,28 @@ import PropTypes from 'prop-types';
 // Components
 import { CategoryPaper as Paper } from '../order-form.styles';
 
+// Mui Components
+import ButtonBase from '@material-ui/core/ButtonBase';
+
+// Styles
+import useStyles from './category-card.styles';
+
 const CategoryCard = ({ categories, selectCategory, selectAll }) => {
+	const classes = useStyles();
 	return (
 		<React.Fragment>
-			<Paper onClick={selectAll}>All</Paper>
+			<ButtonBase className={classes.button}>
+				<Paper onClick={selectAll}>All</Paper>
+			</ButtonBase>
 			{categories.map(category => (
-				<Paper
-					key={category.id}
-					onClick={event => selectCategory(category.id)}
-					className='paper'
-				>
-					{category.name}
-				</Paper>
+				<ButtonBase key={category.id} className={classes.button}>
+					<Paper
+						key={category.id}
+						onClick={event => selectCategory(category.id)}
+					>
+						{category.name}
+					</Paper>
+				</ButtonBase>
 			))}
 		</React.Fragment>
 	);

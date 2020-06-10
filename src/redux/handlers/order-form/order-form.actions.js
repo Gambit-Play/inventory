@@ -9,6 +9,29 @@ export const setCategoryOrderForm = categoryId => ({
 	payload: categoryId,
 });
 
+export const selectMenuStart = menu => ({
+	type: OrderFormActionTypes.SELECT_MENU_START,
+	payload: menu,
+});
+
+/* ================================================================ */
+/*  Process Success                                                 */
+/* ================================================================ */
+
+export const selectMenuSuccess = selectedMenus => ({
+	type: OrderFormActionTypes.SELECT_MENU_SUCCESS,
+	payload: selectedMenus,
+});
+
+/* ================================================================ */
+/*  Process Failure                                                 */
+/* ================================================================ */
+
+export const selectMenuFailure = errorMessage => ({
+	type: OrderFormActionTypes.SELECT_MENU_FAILURE,
+	payload: errorMessage,
+});
+
 /* ================================================================ */
 /*  Process Remove                                                  */
 /* ================================================================ */
