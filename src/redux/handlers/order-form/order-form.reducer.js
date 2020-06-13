@@ -2,6 +2,7 @@ import OrderFormActionTypes from './order-form.types';
 
 const INITIAL_STATE = {
 	categoryId: '',
+	tableId: '',
 	selectedMenus: [],
 	selectedOrder: 0,
 	errorMessage: '',

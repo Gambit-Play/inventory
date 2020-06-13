@@ -13,6 +13,7 @@ import {
 // Redux
 import { createStructuredSelector } from 'reselect';
 import { selectMenu } from '../../../redux/handlers/menu-detail/menu-detail.selectors';
+import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
 import { selectCurrentItems } from '../../../redux/items/items.selectors';
 import {
 	removeMenu,
@@ -22,12 +23,15 @@ import {
 	setItemsIdStart,
 	setItemsIdQuantityStart,
 	removeItemsIdStart,
+	setExtraMenuItemsIdStart,
+	setSelectedExtraMenuItems,
 } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Component
 import MenuDetailButton from './menu-detail-button/menu-detail-button.component';
 import MenuDetailItemsList from './menu-detail-items-list/menu-detail-items-list.component';
 import MenuDetailDropdown from './menu-detail-dropdown/menu-detail-dropdown.component';
+import ExtraMenuItems from './extra-menu-items/extra-menu-items.component';
 import MultiChoiceDropdown from '../../molecules/multi-choice-dropdown/multi-choice-dropdown.component';
 
 // Mui Components & Icons
@@ -53,15 +57,25 @@ const MenuDetailForm = props => {
 		setMenuStart,
 		deleteMenuStart,
 		history,
+		match,
 		setselectedItemsIdStart,
 		setItemsIdStart,
 		removeItemsIdStart,
 		setItemsIdQuantityStart,
+		menus,
+		setExtraMenuItemsIdStart,
+		setSelectedExtraMenuItems,
 	} = props;
 	const classes = useStyles();
+
 	const filteredItems = menu.itemsId.length
 		? filterArrayExclude(items, menu.itemsId)
 		: items;
+	const filteredMenus = filterArrayExclude(menus, [
+		...menu.extraMenuItemsId,
+		{ id: match.params.menuId },
+	]);
+
 	const selectedItems = menu.itemsId.map(itemId => {
 		const result = items.find(item => item.id === itemId.id);
 		return {
@@ -71,6 +85,8 @@ const MenuDetailForm = props => {
 			unit: result.unit,
 		};
 	});
+
+	// console.log('@@ MenuDetailForm - menu:', menu);
 
 	useEffect(() => {
 		return () => {
@@ -162,6 +178,25 @@ const MenuDetailForm = props => {
 								Add
 							</Button>
 						</Grid>
+						<Grid item xs={6} className={classes.gridMultiDropdown}>
+							<ExtraMenuItems
+								data={filteredMenus}
+								setselectedData={setSelectedExtraMenuItems}
+								className={classes.multiDropdown}
+							/>
+							<Button
+								disabled={
+									menu.selectedExtraMenuItemsId.length === 0
+								}
+								variant='contained'
+								color='primary'
+								size='small'
+								startIcon={<AddIcon />}
+								onClick={setExtraMenuItemsIdStart}
+							>
+								Add
+							</Button>
+						</Grid>
 						<Grid item xs={12}>
 							<TextField
 								id='description'
@@ -208,15 +243,20 @@ MenuDetailForm.propTypes = {
 	setMenuStart: PropTypes.func.isRequired,
 	deleteMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
+	match: PropTypes.object.isRequired,
 	setselectedItemsIdStart: PropTypes.func.isRequired,
 	setItemsIdStart: PropTypes.func.isRequired,
 	removeItemsIdStart: PropTypes.func.isRequired,
 	setItemsIdQuantityStart: PropTypes.func.isRequired,
+	menus: PropTypes.array.isRequired,
+	setExtraMenuItemsIdStart: PropTypes.func.isRequired,
+	setSelectedExtraMenuItems: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
 	menu: selectMenu,
 	items: selectCurrentItems,
+	menus: selectCurrentMenus,
 });
 
 const mapStateToDispatch = dispatch => ({
@@ -230,6 +270,10 @@ const mapStateToDispatch = dispatch => ({
 	removeItemsIdStart: itemId => dispatch(removeItemsIdStart(itemId)),
 	setItemsIdQuantityStart: (itemId, quantity) =>
 		dispatch(setItemsIdQuantityStart(itemId, quantity)),
+	setExtraMenuItemsIdStart: extraMenuItemsId =>
+		dispatch(setExtraMenuItemsIdStart(extraMenuItemsId)),
+	setSelectedExtraMenuItems: extraMenuItemsId =>
+		dispatch(setSelectedExtraMenuItems(extraMenuItemsId)),
 });
 
 export default compose(

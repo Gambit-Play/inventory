@@ -24,9 +24,19 @@ export const setItemsIdQuantityStart = (index, quantity) => ({
 	payload: { index, quantity },
 });
 
-export const setselectedItemsIdStart = SelectedId => ({
+export const setselectedItemsIdStart = selectedId => ({
 	type: MenuDetailActionTypes.SET_SELECTED_ITEMS_ID,
-	payload: SelectedId,
+	payload: selectedId,
+});
+
+export const setSelectedExtraMenuItems = extraMenuItemsId => ({
+	type: MenuDetailActionTypes.SET_SELECTED_EXTRA_MENU_ITEMS,
+	payload: extraMenuItemsId,
+});
+
+export const setExtraMenuItemsIdStart = extraMenuItemsId => ({
+	type: MenuDetailActionTypes.SET_EXTRA_MENU_ITEMS_ID_START,
+	payload: extraMenuItemsId,
 });
 
 export const setItemsIdStart = () => ({
@@ -77,6 +87,11 @@ export const setItemsIdQuantitySuccess = newItemsId => ({
 	payload: newItemsId,
 });
 
+export const setExtraMenuItemsIdSuccess = extraMenuItemsId => ({
+	type: MenuDetailActionTypes.SET_EXTRA_MENU_ITEMS_ID_SUCCESS,
+	payload: extraMenuItemsId,
+});
+
 export const updateMenuSuccess = () => ({
 	type: MenuDetailActionTypes.UPDATE_MENU_SUCCESS,
 });
@@ -114,6 +129,11 @@ export const setItemsIdFailure = errorMessage => ({
 
 export const setItemsIdQuantityFailure = errorMessage => ({
 	type: MenuDetailActionTypes.SET_ITEMS_ID_QUANTITY_FAILURE,
+	payload: errorMessage,
+});
+
+export const setExtraMenuItemsIdFailure = errorMessage => ({
+	type: MenuDetailActionTypes.SET_EXTRA_MENU_ITEMS_ID_FAILURE,
 	payload: errorMessage,
 });
 
@@ -157,4 +177,8 @@ export const removeMenu = () => ({
 
 export const removeSelectedItemsId = () => ({
 	type: MenuDetailActionTypes.REMOVE_SELECTED_ITEMS_ID,
+});
+
+export const removeSelectedExtraMenuItems = () => ({
+	type: MenuDetailActionTypes.REMOVE_SELECTED_EXTRA_MENU_ITEMS,
 });

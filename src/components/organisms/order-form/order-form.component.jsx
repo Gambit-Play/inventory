@@ -11,18 +11,18 @@ import {
 	removeOrderForm,
 	selectMenuStart,
 } from '../../../redux/handlers/order-form/order-form.actions';
-import { selectCategoryId } from '../../../redux/handlers/order-form/order-form.selectors';
+import {
+	selectCategoryId,
+	selectSelectedMenus,
+} from '../../../redux/handlers/order-form/order-form.selectors';
 
 // Components
 import CategoryCard from './category-card/category-card.component';
 import MenuCard from './menu-card/menu-card.component';
+import OrderCard from './order-card/order-card.component';
 
 // Mui Components
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-
-// Data
-import { OrderFormData } from '../../../data/order-form.schema';
 
 const OrderForm = props => {
 	const {
@@ -32,6 +32,7 @@ const OrderForm = props => {
 		removeOrderForm,
 		categoryId,
 		selectMenuStart,
+		selectedMenus,
 	} = props;
 
 	const filterdCategories = categories.filter(
@@ -63,11 +64,7 @@ const OrderForm = props => {
 				/>
 			</Grid>
 			<Grid item xs={3}>
-				<Paper>
-					{OrderFormData.map(order =>
-						order.map(menu => <h4 key={menu.id}>{menu.name}</h4>)
-					)}
-				</Paper>
+				<OrderCard menus={selectedMenus} />
 			</Grid>
 		</Grid>
 	);
@@ -86,6 +83,7 @@ const mapStateToProps = createStructuredSelector({
 	categories: selectCurrentCategories,
 	menus: selectCurrentMenus,
 	categoryId: selectCategoryId,
+	selectedMenus: selectSelectedMenus,
 });
 
 const mapDispatchToProps = dispatch => ({

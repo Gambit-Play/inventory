@@ -18,15 +18,11 @@ import useStyles from './menu-card.styles';
 const MenuCard = ({ menusCategories, menus, handleClick }) => {
 	const classes = useStyles();
 
-	// const handleClick = data => {
-	// 	console.log([data]);
-	// };
-
 	return (
 		<Fragment>
-			{menusCategories.map(category => (
+			{menusCategories.map((category, index) => (
 				<Fragment key={category.id}>
-					<Seperator />
+					{index !== 0 && <Seperator />}
 					<Typography variant='button' gutterBottom>
 						{category.name}
 					</Typography>
@@ -46,7 +42,6 @@ const MenuCard = ({ menusCategories, menus, handleClick }) => {
 					</MenusContainer>
 				</Fragment>
 			))}
-			<Seperator />
 		</Fragment>
 	);
 };
@@ -54,6 +49,7 @@ const MenuCard = ({ menusCategories, menus, handleClick }) => {
 MenuCard.propTypes = {
 	menusCategories: PropTypes.array.isRequired,
 	menus: PropTypes.array.isRequired,
+	handleClick: PropTypes.func.isRequired,
 };
 
 export default MenuCard;

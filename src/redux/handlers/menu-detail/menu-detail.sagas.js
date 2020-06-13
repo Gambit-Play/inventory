@@ -12,6 +12,7 @@ import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 import {
 	convertToFloat,
 	filterArrayExclude,
+	groupBy,
 } from '../../../utils/global.utils';
 
 // Action Types
@@ -32,9 +33,12 @@ import {
 	setItemsIdFailure,
 	setItemsIdQuantitySuccess,
 	setItemsIdQuantityFailure,
+	setExtraMenuItemsIdSuccess,
+	setExtraMenuItemsIdFailure,
 	removeSelectedItemsId,
 	removeItemsIdSuccess,
 	removeItemsIdFailure,
+	removeSelectedExtraMenuItems,
 } from './menu-detail.actions';
 
 // Selectors
@@ -182,6 +186,49 @@ export function* setItemsIdQuantityStart({ payload: { index, quantity } }) {
 	}
 }
 
+export function* setExtraNewMenuItemsStart() {
+	try {
+		const { extraMenuItemsId, selectedExtraMenuItemsId } = yield select(
+			selectMenu
+		);
+		const newExtraMenuItemsId = yield extraMenuItemsId.concat(
+			selectedExtraMenuItemsId
+		);
+
+		yield put(setExtraMenuItemsIdSuccess(newExtraMenuItemsId));
+		yield put(removeSelectedExtraMenuItems());
+	} catch (error) {
+		console.log(error);
+		yield put(setExtraMenuItemsIdFailure(error));
+	}
+}
+
+// TODO: This should be applied to in the order-form sagas
+// export function* setExtraNewMenuItemsStart() {
+// 	try {
+// 		const { selectedExtraMenuItemsId } = yield select(selectMenu);
+
+// 		const newExtraMenuItems = Object.entries(
+// 			groupBy(selectedExtraMenuItemsId, 'categoryId')
+// 		);
+// 		// .map(menuItem => {
+// 		// 	return {
+// 		// 		[menuItem[0]]: [...menuItem[1]],
+// 		// 	};
+// 		// });
+
+// 		// FIXME: Use this to get the name of the property which is an id
+// 		// console.log(Object.keys(newExtraMenuItems[0])[0]);
+// 		console.log(newExtraMenuItems);
+
+// 		yield put(setExtraMenuItemsIdSuccess(newExtraMenuItems));
+// 		yield put(removeSelectedExtraMenuItems());
+// 	} catch (error) {
+// 		console.log(error);
+// 		yield put(setExtraMenuItemsIdFailure(error));
+// 	}
+// }
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -223,6 +270,13 @@ export function* onSetItemsIdQuantityStart() {
 	);
 }
 
+export function* onSetNewExtraMenuItemsStart() {
+	yield takeLatest(
+		MenuDetailActionTypes.SET_EXTRA_MENU_ITEMS_ID_START,
+		setExtraNewMenuItemsStart
+	);
+}
+
 export function* onRemoveItemFromListStart() {
 	yield takeLatest(
 		MenuDetailActionTypes.REMOVE_ITEMS_ID_START,
@@ -243,6 +297,7 @@ export default function* menuDetailSagas() {
 		call(onDeleteMultipleMenusStart),
 		call(onSetNewItemsIdStart),
 		call(onSetItemsIdQuantityStart),
+		call(onSetNewExtraMenuItemsStart),
 		call(onRemoveItemFromListStart),
 	]);
 }

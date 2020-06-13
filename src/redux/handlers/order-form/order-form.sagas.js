@@ -11,6 +11,7 @@ import {
 	selectSelectedMenus,
 	selectSelectedOrder,
 } from './order-form.selectors';
+import { selectCurrentUser, selectAllUsers } from '../../users/users.selectors';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -20,14 +21,28 @@ export function* selectMenuStart({ payload: menu }) {
 	try {
 		const selectedMenus = yield select(selectSelectedMenus);
 		const selectedOrder = yield select(selectSelectedOrder);
+		const currentUser = yield select(selectCurrentUser);
+		const allUsers = yield select(selectAllUsers);
 
-		const menusArray = selectedMenus;
+		const newMenu = {
+			id: menu.id,
+			name: menu.name,
+			price: menu.price,
+			createdAt: new Date().toISOString(),
+			createdById: currentUser.id,
+			createdBy: allUsers[menu.createdById].displayName,
+			updatedAt: '',
+			updatedById: '',
+			updatedBy: '',
+		};
 
-		menusArray.length
-			? menusArray[selectedOrder].push(menu)
-			: menusArray.push([menu]);
+		const newSelectedMenus = [...selectedMenus];
 
-		console.log(menusArray);
+		yield newSelectedMenus.length
+			? newSelectedMenus[selectedOrder].push(newMenu)
+			: newSelectedMenus.push([newMenu]);
+
+		yield put(OrderFormActions.selectMenuSuccess(newSelectedMenus));
 	} catch (error) {
 		console.log(error);
 		yield put(OrderFormActions.selectMenuFailure(error));

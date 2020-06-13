@@ -16,6 +16,8 @@ const INITIAL_STATE = {
 	categoryId: '',
 	category: '',
 	selectedItemsId: [],
+	extraMenuItemsId: [],
+	selectedExtraMenuItemsId: [],
 	// Create, Delete and Update confirmation
 	isUpdateSuccess: undefined,
 	isCreateSuccess: undefined,
@@ -146,6 +148,27 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				selectedItemsId: action.payload,
 			};
 		/* ================================================================ */
+		/*  Set Extra Menu Items                                            */
+		/* ================================================================ */
+		case MenuDetailActionTypes.SET_EXTRA_MENU_ITEMS_ID_SUCCESS:
+			return {
+				...state,
+				extraMenuItemsId: action.payload,
+			};
+		case MenuDetailActionTypes.SET_EXTRA_MENU_ITEMS_ID_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload,
+			};
+		/* ================================================================ */
+		/*  Set Extra Menu Items Id                                            */
+		/* ================================================================ */
+		case MenuDetailActionTypes.SET_SELECTED_EXTRA_MENU_ITEMS:
+			return {
+				...state,
+				selectedExtraMenuItemsId: action.payload,
+			};
+		/* ================================================================ */
 		/*  Set menu category                                               */
 		/* ================================================================ */
 		case MenuDetailActionTypes.SET_MENU_CATEGORY:
@@ -175,6 +198,11 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				selectedItemsId: [],
 			};
+		case MenuDetailActionTypes.REMOVE_SELECTED_EXTRA_MENU_ITEMS:
+			return {
+				...state,
+				selectedExtraMenuItemsId: [],
+			};
 		case MenuDetailActionTypes.REMOVE_MENU:
 			return {
 				...state,
@@ -192,6 +220,8 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				categoryId: '',
 				category: '',
 				selectedItemsId: [],
+				extraMenuItemsId: [],
+				selectedExtraMenuItemsId: [],
 				isUpdateSuccess: undefined,
 				isCreateSuccess: undefined,
 				isDeleteSuccess: undefined,

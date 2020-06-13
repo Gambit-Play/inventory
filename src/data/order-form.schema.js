@@ -3,8 +3,7 @@ export const OrderFormData = [
 		{
 			id: 'XhP4xyytiYoLqfrUzh1E',
 			name: 'Cheese Burger Menu',
-			count: 1,
-			extraMenuItem: [
+			extraMenuItemsId: [
 				{
 					id: '',
 					name: '',
@@ -18,8 +17,7 @@ export const OrderFormData = [
 		{
 			id: 'Ejkr3Muzh7XmimzyMUsO',
 			name: 'Dubble Cheeseburger Menu',
-			count: 1,
-			extraMenuItem: [
+			extraMenuItemsId: [
 				{
 					id: '',
 					name: '',
@@ -35,8 +33,7 @@ export const OrderFormData = [
 		{
 			id: 'LThlSX82g5BJhocFD4Bv',
 			name: 'Chicken Wrap',
-			count: 1,
-			extraMenuItem: [
+			extraMenuItemsId: [
 				{
 					id: '',
 					name: '',
@@ -50,8 +47,7 @@ export const OrderFormData = [
 		{
 			id: 'EZu35ixEJUhGItBp6f7w',
 			name: 'Brownie',
-			count: 1,
-			extraMenuItem: [
+			extraMenuItemsId: [
 				{
 					id: '',
 					name: '',

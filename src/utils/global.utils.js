@@ -13,6 +13,16 @@ export const convertArrayToObject = (array, key) => {
 	}, initialValue);
 };
 
+// Groups by an array by 'key' and returns an object
+export const groupBy = (items, key) =>
+	items.reduce(
+		(result, item) => ({
+			...result,
+			[item[key]]: [...(result[item[key]] || []), item],
+		}),
+		{}
+	);
+
 // Converts a string to a number with 2 decimals
 export const convertToFloat = input => {
 	const formattedNumber = parseFloat(parseFloat(input).toFixed(2));
