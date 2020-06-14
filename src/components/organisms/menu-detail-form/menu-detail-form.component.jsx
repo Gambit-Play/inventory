@@ -19,7 +19,7 @@ import {
 	removeMenu,
 	setMenuStart,
 	deleteMenuStart,
-	setselectedItemsIdStart,
+	setSelectedItemsIdStart,
 	setItemsIdStart,
 	setItemsIdQuantityStart,
 	removeItemsIdStart,
@@ -58,7 +58,7 @@ const MenuDetailForm = props => {
 		deleteMenuStart,
 		history,
 		match,
-		setselectedItemsIdStart,
+		setSelectedItemsIdStart,
 		setItemsIdStart,
 		removeItemsIdStart,
 		setItemsIdQuantityStart,
@@ -164,7 +164,7 @@ const MenuDetailForm = props => {
 						<Grid item xs={6} className={classes.gridMultiDropdown}>
 							<MultiChoiceDropdown
 								data={filteredItems}
-								setselectedData={setselectedItemsIdStart}
+								setselectedData={setSelectedItemsIdStart}
 								className={classes.multiDropdown}
 							/>
 							<Button
@@ -244,7 +244,7 @@ MenuDetailForm.propTypes = {
 	deleteMenuStart: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired,
 	match: PropTypes.object.isRequired,
-	setselectedItemsIdStart: PropTypes.func.isRequired,
+	setSelectedItemsIdStart: PropTypes.func.isRequired,
 	setItemsIdStart: PropTypes.func.isRequired,
 	removeItemsIdStart: PropTypes.func.isRequired,
 	setItemsIdQuantityStart: PropTypes.func.isRequired,
@@ -264,8 +264,8 @@ const mapStateToDispatch = dispatch => ({
 	setMenuStart: (inputName, value) =>
 		dispatch(setMenuStart(inputName, value)),
 	deleteMenuStart: () => dispatch(deleteMenuStart()),
-	setselectedItemsIdStart: selectedId =>
-		dispatch(setselectedItemsIdStart(selectedId)),
+	setSelectedItemsIdStart: selectedId =>
+		dispatch(setSelectedItemsIdStart(selectedId)),
 	setItemsIdStart: () => dispatch(setItemsIdStart()),
 	removeItemsIdStart: itemId => dispatch(removeItemsIdStart(itemId)),
 	setItemsIdQuantityStart: (itemId, quantity) =>

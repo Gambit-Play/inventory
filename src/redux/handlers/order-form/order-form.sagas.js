@@ -30,7 +30,9 @@ export function* selectMenuStart({ payload: menu }) {
 			price: menu.price,
 			createdAt: new Date().toISOString(),
 			createdById: currentUser.id,
-			createdBy: allUsers[menu.createdById].displayName,
+			createdBy: allUsers.hasOwnProperty(menu.createdById)
+				? allUsers[menu.createdById].displayName
+				: '',
 			updatedAt: '',
 			updatedById: '',
 			updatedBy: '',

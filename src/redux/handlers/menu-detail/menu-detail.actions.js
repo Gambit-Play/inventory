@@ -24,7 +24,7 @@ export const setItemsIdQuantityStart = (index, quantity) => ({
 	payload: { index, quantity },
 });
 
-export const setselectedItemsIdStart = selectedId => ({
+export const setSelectedItemsIdStart = selectedId => ({
 	type: MenuDetailActionTypes.SET_SELECTED_ITEMS_ID,
 	payload: selectedId,
 });

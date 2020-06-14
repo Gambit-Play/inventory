@@ -63,6 +63,7 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				itemsId: action.payload.itemsId,
 				categoryId: action.payload.categoryId,
 				category: action.payload.category,
+				extraMenuItemsId: action.payload.extraMenuItemsId,
 			};
 		/* ================================================================ */
 		/*  Create Menu                                                     */

@@ -42,7 +42,9 @@ export function* fetchTablesCollectionAsync() {
 				const newData = {
 					...result,
 					status: '',
-					createdBy: allUsers[result.createdById].displayName,
+					createdBy: allUsers.hasOwnProperty(result.createdById)
+						? allUsers[result.createdById].displayName
+						: '',
 					updatedBy: allUsers.hasOwnProperty(result.updatedById)
 						? allUsers[result.updatedById].displayName
 						: '',

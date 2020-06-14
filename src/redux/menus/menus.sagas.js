@@ -44,12 +44,15 @@ export function* fetchMenusCollectionAsync() {
 				);
 				const newData = {
 					...result,
-					createdBy: allUsers[result.createdById].displayName,
+					createdBy: allUsers.hasOwnProperty(result.createdById)
+						? allUsers[result.createdById].displayName
+						: '',
 					updatedBy: allUsers.hasOwnProperty(result.updatedById)
 						? allUsers[result.updatedById].displayName
 						: '',
 					category: category ? category.name : '',
 				};
+				console.log(newData);
 				return newData;
 			});
 
