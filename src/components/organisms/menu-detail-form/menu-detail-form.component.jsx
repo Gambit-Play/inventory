@@ -30,6 +30,7 @@ import {
 // Component
 import MenuDetailButton from './menu-detail-button/menu-detail-button.component';
 import MenuDetailItemsList from './menu-detail-items-list/menu-detail-items-list.component';
+import SelectedExtraMenu from './selected-extra-menu/selected-extra-menu.component';
 import MenuDetailDropdown from './menu-detail-dropdown/menu-detail-dropdown.component';
 import ExtraMenuItems from './extra-menu-items/extra-menu-items.component';
 import MultiChoiceDropdown from '../../molecules/multi-choice-dropdown/multi-choice-dropdown.component';
@@ -85,6 +86,16 @@ const MenuDetailForm = props => {
 			unit: result.unit,
 		};
 	});
+
+	const selectedExtraMenuItems = menu.extraMenuItemsId.map(
+		extraMenuItemId => {
+			const result = menus.find(menu => menu.id === extraMenuItemId.id);
+			return {
+				id: extraMenuItemId.id,
+				name: result.name,
+			};
+		}
+	);
 
 	// console.log('@@ MenuDetailForm - menu:', menu);
 
@@ -225,7 +236,10 @@ const MenuDetailForm = props => {
 					</Box>
 				</Paper>
 			</Grid>
-			<Grid item xs={4}>
+			<Grid container item xs={4} direction='column' justify='flex-start'>
+				<SelectedExtraMenu
+					selectedExtraMenuItems={selectedExtraMenuItems}
+				/>
 				<MenuDetailItemsList
 					selectedItems={selectedItems}
 					removeItem={removeItemsIdStart}

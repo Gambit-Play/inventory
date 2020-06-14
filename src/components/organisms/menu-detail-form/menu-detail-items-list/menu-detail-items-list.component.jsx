@@ -30,7 +30,7 @@ const MenuDetailItemsList = ({ selectedItems, removeItem, setQuantity }) => {
 
 	return (
 		selectedItems.length !== 0 && (
-			<Paper className={classes.root}>
+			<Paper className={classes.selected}>
 				<Typography component='h2' variant='h5' color='inherit' noWrap>
 					Ingridients
 				</Typography>

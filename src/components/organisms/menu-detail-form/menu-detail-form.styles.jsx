@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
 		width: '100%',
 		paddingRight: 24,
 	},
+	selected: {
+		marginBottom: theme.spacing(3),
+		padding: theme.spacing(3),
+		width: '100%',
+		height: 'fit-content',
+	},
 }));
 
 export default useStyles;
