@@ -52,7 +52,7 @@ export function* fetchMenusCollectionAsync() {
 						: '',
 					category: category ? category.name : '',
 				};
-				console.log(newData);
+
 				return newData;
 			});
 

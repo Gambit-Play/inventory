@@ -25,6 +25,7 @@ import {
 	removeItemsIdStart,
 	setExtraMenuItemsIdStart,
 	setSelectedExtraMenuItems,
+	removeExtraMenuItemIdStart,
 } from '../../../redux/handlers/menu-detail/menu-detail.actions';
 
 // Component
@@ -66,9 +67,11 @@ const MenuDetailForm = props => {
 		menus,
 		setExtraMenuItemsIdStart,
 		setSelectedExtraMenuItems,
+		removeExtraMenuItemIdStart,
 	} = props;
 	const classes = useStyles();
 
+	// FIXME: Move this logic to redux-handlers
 	const filteredItems = menu.itemsId.length
 		? filterArrayExclude(items, menu.itemsId)
 		: items;
@@ -76,7 +79,7 @@ const MenuDetailForm = props => {
 		...menu.extraMenuItemsId,
 		{ id: match.params.menuId },
 	]);
-
+	// FIXME: Move this logic to redux-handlers
 	const selectedItems = menu.itemsId.map(itemId => {
 		const result = items.find(item => item.id === itemId.id);
 		return {
@@ -86,7 +89,7 @@ const MenuDetailForm = props => {
 			unit: result.unit,
 		};
 	});
-
+	// FIXME: Move this logic to redux-handlers
 	const selectedExtraMenuItems = menu.extraMenuItemsId.map(
 		extraMenuItemId => {
 			const result = menus.find(menu => menu.id === extraMenuItemId.id);
@@ -96,8 +99,6 @@ const MenuDetailForm = props => {
 			};
 		}
 	);
-
-	// console.log('@@ MenuDetailForm - menu:', menu);
 
 	useEffect(() => {
 		return () => {
@@ -239,6 +240,7 @@ const MenuDetailForm = props => {
 			<Grid container item xs={4} direction='column' justify='flex-start'>
 				<SelectedExtraMenu
 					selectedExtraMenuItems={selectedExtraMenuItems}
+					removeExtraMenuItem={removeExtraMenuItemIdStart}
 				/>
 				<MenuDetailItemsList
 					selectedItems={selectedItems}
@@ -265,6 +267,7 @@ MenuDetailForm.propTypes = {
 	menus: PropTypes.array.isRequired,
 	setExtraMenuItemsIdStart: PropTypes.func.isRequired,
 	setSelectedExtraMenuItems: PropTypes.func.isRequired,
+	removeExtraMenuItemIdStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -288,6 +291,8 @@ const mapStateToDispatch = dispatch => ({
 		dispatch(setExtraMenuItemsIdStart(extraMenuItemsId)),
 	setSelectedExtraMenuItems: extraMenuItemsId =>
 		dispatch(setSelectedExtraMenuItems(extraMenuItemsId)),
+	removeExtraMenuItemIdStart: extraMenuItemId =>
+		dispatch(removeExtraMenuItemIdStart(extraMenuItemId)),
 });
 
 export default compose(

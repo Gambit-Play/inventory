@@ -39,6 +39,8 @@ import {
 	removeItemsIdSuccess,
 	removeItemsIdFailure,
 	removeSelectedExtraMenuItems,
+	removeExtraMenuItemIdSuccess,
+	removeExtraMenuItemIdFailure,
 } from './menu-detail.actions';
 
 // Selectors
@@ -175,6 +177,29 @@ export function* removeItemIdStart({ payload: itemId }) {
 	}
 }
 
+export function* removeExtraItemIdStart({ payload: extraMenuItemId }) {
+	try {
+		const { extraMenuItemsId } = yield select(selectMenu);
+		const newExtraMenuItemsId = filterArrayExclude(extraMenuItemsId, [
+			{ id: extraMenuItemId },
+		]);
+
+		console.log(
+			'@@ removeExtraItemIdStart - extraMenuItemsId:',
+			extraMenuItemsId
+		);
+		console.log(
+			'@@ removeExtraItemIdStart - newExtraMenuItemsId:',
+			newExtraMenuItemsId
+		);
+
+		yield put(removeExtraMenuItemIdSuccess(newExtraMenuItemsId));
+	} catch (error) {
+		console.log(error);
+		yield put(removeExtraMenuItemIdFailure(error));
+	}
+}
+
 export function* setItemsIdQuantityStart({ payload: { index, quantity } }) {
 	try {
 		const { itemsId } = yield select(selectMenu);
@@ -286,6 +311,13 @@ export function* onRemoveItemFromListStart() {
 	);
 }
 
+export function* onRemoveExtraItemsIdStart() {
+	yield takeLatest(
+		MenuDetailActionTypes.REMOVE_EXTRA_MENU_ITEM_ID_START,
+		removeExtraItemIdStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -301,5 +333,6 @@ export default function* menuDetailSagas() {
 		call(onSetItemsIdQuantityStart),
 		call(onSetNewExtraMenuItemsStart),
 		call(onRemoveItemFromListStart),
+		call(onRemoveExtraItemsIdStart),
 	]);
 }

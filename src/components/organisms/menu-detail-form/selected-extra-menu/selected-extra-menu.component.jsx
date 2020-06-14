@@ -54,7 +54,7 @@ const SelectedExtraMenu = ({ selectedExtraMenuItems, removeExtraMenuItem }) => {
 
 SelectedExtraMenu.propTypes = {
 	selectedExtraMenuItems: PropTypes.array.isRequired,
-	removeExtraMenu: PropTypes.func.isRequired,
+	removeExtraMenuItem: PropTypes.func.isRequired,
 };
 
 export default SelectedExtraMenu;

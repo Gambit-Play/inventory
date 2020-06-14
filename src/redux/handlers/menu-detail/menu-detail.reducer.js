@@ -192,6 +192,19 @@ const menuDetailReducer = (state = INITIAL_STATE, action) => {
 				errorMessage: action.payload,
 			};
 		/* ================================================================ */
+		/*  Remove Extra menu item from extraMenuItemsId                    */
+		/* ================================================================ */
+		case MenuDetailActionTypes.REMOVE_EXTRA_MENU_ITEM_ID_SUCCESS:
+			return {
+				...state,
+				extraMenuItemsId: action.payload,
+			};
+		case MenuDetailActionTypes.REMOVE_EXTRA_MENU_ITEM_ID_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload,
+			};
+		/* ================================================================ */
 		/*  Process Remove                                                  */
 		/* ================================================================ */
 		case MenuDetailActionTypes.REMOVE_SELECTED_ITEMS_ID:

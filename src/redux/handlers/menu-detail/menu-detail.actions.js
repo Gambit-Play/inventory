@@ -68,6 +68,11 @@ export const removeItemsIdStart = itemId => ({
 	payload: itemId,
 });
 
+export const removeExtraMenuItemIdStart = extraMenuItemId => ({
+	type: MenuDetailActionTypes.REMOVE_EXTRA_MENU_ITEM_ID_START,
+	payload: extraMenuItemId,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -111,6 +116,11 @@ export const deleteMultipleMenusSuccess = () => ({
 export const removeItemsIdSuccess = itemsId => ({
 	type: MenuDetailActionTypes.REMOVE_ITEMS_ID_SUCCESS,
 	payload: itemsId,
+});
+
+export const removeExtraMenuItemIdSuccess = extraMenuItemId => ({
+	type: MenuDetailActionTypes.REMOVE_EXTRA_MENU_ITEM_ID_SUCCESS,
+	payload: extraMenuItemId,
 });
 
 /* ================================================================ */
@@ -164,6 +174,11 @@ export const inputFailure = (errorType, errorMessage) => ({
 
 export const removeItemsIdFailure = errorMessage => ({
 	type: MenuDetailActionTypes.REMOVE_ITEMS_ID_FAILURE,
+	payload: errorMessage,
+});
+
+export const removeExtraMenuItemIdFailure = errorMessage => ({
+	type: MenuDetailActionTypes.REMOVE_EXTRA_MENU_ITEM_ID_FAILURE,
 	payload: errorMessage,
 });
 
