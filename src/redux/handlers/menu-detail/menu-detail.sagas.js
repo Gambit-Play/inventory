@@ -12,7 +12,6 @@ import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 import {
 	convertToFloat,
 	filterArrayExclude,
-	groupBy,
 } from '../../../utils/global.utils';
 
 // Action Types
@@ -184,15 +183,6 @@ export function* removeExtraItemIdStart({ payload: extraMenuItemId }) {
 			{ id: extraMenuItemId },
 		]);
 
-		console.log(
-			'@@ removeExtraItemIdStart - extraMenuItemsId:',
-			extraMenuItemsId
-		);
-		console.log(
-			'@@ removeExtraItemIdStart - newExtraMenuItemsId:',
-			newExtraMenuItemsId
-		);
-
 		yield put(removeExtraMenuItemIdSuccess(newExtraMenuItemsId));
 	} catch (error) {
 		console.log(error);
@@ -229,32 +219,6 @@ export function* setExtraNewMenuItemsStart() {
 		yield put(setExtraMenuItemsIdFailure(error));
 	}
 }
-
-// TODO: This should be applied to in the order-form sagas
-// export function* setExtraNewMenuItemsStart() {
-// 	try {
-// 		const { selectedExtraMenuItemsId } = yield select(selectMenu);
-
-// 		const newExtraMenuItems = Object.entries(
-// 			groupBy(selectedExtraMenuItemsId, 'categoryId')
-// 		);
-// 		// .map(menuItem => {
-// 		// 	return {
-// 		// 		[menuItem[0]]: [...menuItem[1]],
-// 		// 	};
-// 		// });
-
-// 		// FIXME: Use this to get the name of the property which is an id
-// 		// console.log(Object.keys(newExtraMenuItems[0])[0]);
-// 		console.log(newExtraMenuItems);
-
-// 		yield put(setExtraMenuItemsIdSuccess(newExtraMenuItems));
-// 		yield put(removeSelectedExtraMenuItems());
-// 	} catch (error) {
-// 		console.log(error);
-// 		yield put(setExtraMenuItemsIdFailure(error));
-// 	}
-// }
 
 /* ================================================================ */
 /*  Listeners                                                       */

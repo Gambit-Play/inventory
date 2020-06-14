@@ -1,5 +1,8 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
+// Utils
+import { groupBy } from '../../../utils/global.utils';
+
 // Types
 import OrderFormActionTypes from './order-form.types';
 
@@ -11,7 +14,7 @@ import {
 	selectSelectedMenus,
 	selectSelectedOrder,
 } from './order-form.selectors';
-import { selectCurrentUser, selectAllUsers } from '../../users/users.selectors';
+import { selectCurrentMenus } from '../../menus/menus.selectors';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -21,24 +24,38 @@ export function* selectMenuStart({ payload: menu }) {
 	try {
 		const selectedMenus = yield select(selectSelectedMenus);
 		const selectedOrder = yield select(selectSelectedOrder);
-		const currentUser = yield select(selectCurrentUser);
-		const allUsers = yield select(selectAllUsers);
+		const currentMenus = yield select(selectCurrentMenus);
 
-		const newMenu = {
+		const newExtraMenuItemsId = yield menu.extraMenuItemsId.map(
+			extraMenuItem => {
+				if (extraMenuItem) {
+					const { name } = currentMenus.find(
+						menu => menu.id === extraMenuItem.id
+					);
+					const newExtraMenuItem = {
+						...extraMenuItem,
+						name,
+					};
+
+					return newExtraMenuItem;
+				}
+
+				return null;
+			}
+		);
+
+		const extraMenuItemsId = yield Object.entries(
+			groupBy(newExtraMenuItemsId, 'categoryId')
+		);
+
+		const newMenu = yield {
 			id: menu.id,
 			name: menu.name,
 			price: menu.price,
-			createdAt: new Date().toISOString(),
-			createdById: currentUser.id,
-			createdBy: allUsers.hasOwnProperty(menu.createdById)
-				? allUsers[menu.createdById].displayName
-				: '',
-			updatedAt: '',
-			updatedById: '',
-			updatedBy: '',
+			extraMenuItemsId,
 		};
 
-		const newSelectedMenus = [...selectedMenus];
+		const newSelectedMenus = yield [...selectedMenus];
 
 		yield newSelectedMenus.length
 			? newSelectedMenus[selectedOrder].push(newMenu)
