@@ -20,6 +20,7 @@ import {
 import CategoryCard from './category-card/category-card.component';
 import MenuCard from './menu-card/menu-card.component';
 import OrderCard from './order-card/order-card.component';
+import MenuList from './order-card/menu-list/menu-list.component';
 
 // Mui Components
 import Grid from '@material-ui/core/Grid';
@@ -64,7 +65,8 @@ const OrderForm = props => {
 				/>
 			</Grid>
 			<Grid item xs={3}>
-				<OrderCard menus={selectedMenus} />
+				<MenuList selectedMenus={selectedMenus} />
+				{/* <OrderCard menus={selectedMenus} /> */}
 			</Grid>
 		</Grid>
 	);

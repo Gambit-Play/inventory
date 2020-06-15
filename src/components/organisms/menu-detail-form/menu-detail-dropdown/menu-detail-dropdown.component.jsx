@@ -17,6 +17,8 @@ import Select from '@material-ui/core/Select';
 const MenuDetailDropdown = props => {
 	const { currentCategories, menu, setCategory } = props;
 
+	console.log('@@ OrderCard - props:', props);
+
 	const handleChange = event => {
 		const category = currentCategories.find(
 			category => category.id === event.target.value
