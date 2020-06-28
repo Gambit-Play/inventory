@@ -65,7 +65,10 @@ const OrderForm = props => {
 				/>
 			</Grid>
 			<Grid item xs={3}>
-				<MenuList selectedMenus={selectedMenus} />
+				<MenuList
+					selectedMenus={selectedMenus}
+					categories={categories}
+				/>
 				{/* <OrderCard menus={selectedMenus} /> */}
 			</Grid>
 		</Grid>

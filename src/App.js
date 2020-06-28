@@ -78,6 +78,7 @@ const App = props => {
 	} = props;
 
 	useEffect(() => {
+		fetchAllUsersStart();
 		removeItemsSearchField();
 		removeItemsOrderBy();
 		removeCategoriesOrderBy();
@@ -88,7 +89,6 @@ const App = props => {
 		removeTablesSearchField();
 		onAuthStateChangedStart();
 		fetchUnitsStart();
-		fetchAllUsersStart();
 		fetchCategoriesCollectionStart();
 		fetchTablesCollectionStart();
 		return () => {

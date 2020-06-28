@@ -13,7 +13,7 @@ export const convertArrayToObject = (array, key) => {
 	}, initialValue);
 };
 
-// Groups by an array by 'key' and returns an object
+// Groups an array by 'key' and returns an object
 export const groupBy = (items, key) =>
 	items.reduce(
 		(result, item) => ({
@@ -35,8 +35,8 @@ export const convertToFloat = input => {
 };
 
 // Changes the property 'createdById' from user id to displayName
-export const updateDataWithUsersName = (userCollection, collection) => {
-	if (!userCollection || !collection)
+export const updateDataWithUsersName = (usersCollection, collection) => {
+	if (!usersCollection || !collection)
 		console.error('Please provide all the inputs');
 
 	const hasUpdatedById = collection.hasOwnProperty('updatedById');
@@ -44,7 +44,7 @@ export const updateDataWithUsersName = (userCollection, collection) => {
 		const idUser = user => {
 			return user.id === collection.updatedById;
 		};
-		const user = userCollection.find(idUser);
+		const user = usersCollection.find(idUser);
 		const updatedByDoc = {
 			...collection,
 			createdBy: user.displayName,
@@ -58,7 +58,7 @@ export const updateDataWithUsersName = (userCollection, collection) => {
 		const idUser = user => {
 			return user.id === collection.createdById;
 		};
-		const user = userCollection.find(idUser);
+		const user = usersCollection.find(idUser);
 		const createdByDoc = {
 			...collection,
 			createdBy: user.displayName,
