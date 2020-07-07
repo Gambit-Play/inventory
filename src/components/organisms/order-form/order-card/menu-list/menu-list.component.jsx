@@ -20,7 +20,7 @@ import useStyles from './menu-list.styles';
 const MenuList = ({
 	selectedMenus,
 	categories,
-	hasExtreMenuItems,
+	hasExtraMenuItems,
 	removeMenu,
 	index,
 	setExtraMenuItem,
@@ -32,10 +32,7 @@ const MenuList = ({
 		// setExtraMenuItem();
 	};
 
-	console.log('@@ MenuList - selectedMenus:', selectedMenus);
-	console.log('@@ MenuList - categories:', categories);
-
-	// FIXME: replace selectedMenus.length with hasExtreMenuItems
+	// FIXME: replace selectedMenus.length with hasExtraMenuItems
 	return (
 		selectedMenus.length !== 0 && (
 			<Paper className={classes.selected}>
@@ -43,8 +40,7 @@ const MenuList = ({
 					Order
 				</Typography>
 				{selectedMenus[0].map((menu, idx) => {
-					// console.log(menu.extraMenuItemsId);
-
+					console.log(menu.extraMenuItemsId);
 					return (
 						<List key={idx}>
 							<ListItem className={classes.itemsList}>
@@ -54,17 +50,32 @@ const MenuList = ({
 										color='secondary'
 										edge='end'
 										aria-label='delete'
+										// FIXME: Change it to the index instead of menu.id @ removeMenu()
+										// 		  because there could be more then 1 with the same menu.id in the list
 										onClick={event => removeMenu(menu.id)}
 									>
 										<DeleteIcon />
 									</IconButton>
 								</ListItemSecondaryAction>
 							</ListItem>
-							{menu.extraMenuItemsId.map(item => {
+							{menu.extraMenuItemsId.map((item, index) => {
 								const categoryName = categories.find(
 									category => category.id === item[0]
 								).name;
-								return <ListItemText primary={categoryName} />;
+								return (
+									<React.Fragment>
+										<ListItemText
+											key={index}
+											primary={categoryName}
+										/>
+										{item[1].map((menuItem, index) => (
+											<ListItemText
+												key={index}
+												primary={`--${menuItem.name}`}
+											/>
+										))}
+									</React.Fragment>
+								);
 							})}
 							{idx !== selectedMenus[0].length - 1 && (
 								<Divider className={classes.divider} />
@@ -80,7 +91,7 @@ const MenuList = ({
 MenuList.propTypes = {
 	selectedMenus: PropTypes.array.isRequired,
 	categories: PropTypes.array.isRequired,
-	hasExtreMenuItems: PropTypes.bool.isRequired,
+	hasExtraMenuItems: PropTypes.bool.isRequired,
 	removeMenu: PropTypes.func.isRequired,
 	index: PropTypes.number.isRequired,
 	setExtraMenuItem: PropTypes.func.isRequired,
