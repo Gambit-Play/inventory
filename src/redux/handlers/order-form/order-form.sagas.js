@@ -4,10 +4,10 @@ import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 import { groupBy } from '../../../utils/global.utils';
 
 // Types
-import OrderFormActionTypes from './order-form.types';
+import Types from './order-form.types';
 
 // Actions
-import * as OrderFormActions from './order-form.actions';
+import * as Actions from './order-form.actions';
 
 // Selectors
 import {
@@ -29,12 +29,13 @@ export function* selectMenuStart({ payload: menu }) {
 		const newExtraMenuItemsId = yield menu.extraMenuItemsId.map(
 			extraMenuItem => {
 				if (extraMenuItem) {
-					const { name } = currentMenus.find(
+					const { name, categoryId } = currentMenus.find(
 						menu => menu.id === extraMenuItem.id
 					);
 					const newExtraMenuItem = {
 						...extraMenuItem,
 						name,
+						categoryId,
 					};
 
 					return newExtraMenuItem;
@@ -61,10 +62,10 @@ export function* selectMenuStart({ payload: menu }) {
 			? newSelectedMenus[selectedOrder].push(newMenu)
 			: newSelectedMenus.push([newMenu]);
 
-		yield put(OrderFormActions.selectMenuSuccess(newSelectedMenus));
+		yield put(Actions.selectMenuSuccess(newSelectedMenus));
 	} catch (error) {
 		console.log(error);
-		yield put(OrderFormActions.selectMenuFailure(error));
+		yield put(Actions.selectMenuFailure(error));
 	}
 }
 
@@ -73,7 +74,7 @@ export function* selectMenuStart({ payload: menu }) {
 /* ================================================================ */
 
 export function* onSelectMenuStart() {
-	yield takeLatest(OrderFormActionTypes.SELECT_MENU_START, selectMenuStart);
+	yield takeLatest(Types.SELECT_MENU_START, selectMenuStart);
 }
 
 /* ================================================================ */

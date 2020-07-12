@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Comment
+import MenuListDropdown from './menu-list-dropdown/menu-list-dropdown.component';
+
 // Mui Components & Icons
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -63,17 +66,15 @@ const MenuList = ({
 									category => category.id === item[0]
 								).name;
 								return (
-									<React.Fragment>
-										<ListItemText
-											key={index}
-											primary={categoryName}
-										/>
-										{item[1].map((menuItem, index) => (
-											<ListItemText
-												key={index}
-												primary={`--${menuItem.name}`}
+									<React.Fragment key={index}>
+										<ListItemText primary={categoryName} />
+										{item[1].length === 1 ? (
+											item[1][0].name
+										) : (
+											<MenuListDropdown
+												extraMenuItemsId={item[1]}
 											/>
-										))}
+										)}
 									</React.Fragment>
 								);
 							})}

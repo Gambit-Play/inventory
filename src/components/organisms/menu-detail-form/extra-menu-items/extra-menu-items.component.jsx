@@ -16,7 +16,6 @@ const ExtraMenuItems = ({ data, setselectedData, className }) => {
 	const handleChange = (event, values) => {
 		const selected = values.map(value => ({
 			id: value.id,
-			categoryId: value.categoryId,
 		}));
 		setselectedData(selected);
 	};
