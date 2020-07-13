@@ -14,6 +14,11 @@ export const selectMenuStart = menu => ({
 	payload: menu,
 });
 
+export const setExtraMenuItemStart = props => ({
+	type: OrderFormActionTypes.SET_EXTRA_MENU_ITEM_START,
+	payload: props,
+});
+
 /* ================================================================ */
 /*  Process Success                                                 */
 /* ================================================================ */

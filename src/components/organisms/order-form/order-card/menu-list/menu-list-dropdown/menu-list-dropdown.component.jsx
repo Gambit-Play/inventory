@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
 // // Redux
 // import { selectCurrentCategories } from '../../../../redux/categories/categories.selectors';
 // import { selectMenu } from '../../../../redux/handlers/menu-detail/menu-detail.selectors';
-// import { setCategory } from '../../../../redux/handlers/menu-detail/menu-detail.actions';
+import { setExtraMenuItemStart } from '../../../../../../redux/handlers/order-form/order-form.actions';
 
 // Mui Component
 import InputLabel from '@material-ui/core/InputLabel';
@@ -14,15 +14,33 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const MenuListDropdown = ({ extraMenuItemsId, setExtraMenuItem }) => {
-	console.log('@@ OrderCard - props:');
+const MenuListDropdown = ({
+	extraMenuItemsId,
+	setExtraMenuItemStart,
+	selectedMenusIndex,
+	selectedExtraIndex,
+}) => {
+	const handleChange = event => {
+		const { id, extraItemIndex } = event.target.value;
+		// FIXME: Remove "const extraItem".
+		// const extraItem = extraMenuItemsId.find(
+		// 	extraItem => extraItem.id === event.target.value
+		// );
 
-	// const handleChange = event => {
-	// 	const extraItem = extraMenuItemsId.find(
-	// 		extraItem => extraItem.id === event.target.value
-	// 	);
-	// 	setExtraMenuItem(extraItem.id, extraItem.name);
-	// };
+		setExtraMenuItemStart({
+			id,
+			extraItemIndex,
+			selectedMenusIndex,
+			selectedExtraIndex,
+		});
+
+		// TODO: The "event.target.value" contains an object with id,name and categoryId.
+		//  	 You can remove "const extraItem".
+		console.log(
+			'@@ MenuListDropdown - event.target.value:',
+			event.target.value
+		);
+	};
 
 	return (
 		<FormControl fullWidth>
@@ -30,11 +48,17 @@ const MenuListDropdown = ({ extraMenuItemsId, setExtraMenuItem }) => {
 			<Select
 				labelId='select-label'
 				id='select'
-				value={'None'}
-				// onChange={handleChange}
+				value={extraMenuItemsId[2]}
+				onChange={handleChange}
 			>
-				{extraMenuItemsId.map(extraItem => (
-					<MenuItem key={extraItem.id} value={extraItem.id}>
+				{extraMenuItemsId[1].map((extraItem, extraItemIndex) => (
+					<MenuItem
+						key={extraItem.id}
+						value={{
+							id: extraItem.id,
+							extraItemIndex,
+						}}
+					>
 						{extraItem.name}
 					</MenuItem>
 				))}
@@ -45,7 +69,7 @@ const MenuListDropdown = ({ extraMenuItemsId, setExtraMenuItem }) => {
 
 MenuListDropdown.propTypes = {
 	extraMenuItemsId: PropTypes.array.isRequired,
-	setExtraMenuItem: PropTypes.func.isRequired,
+	setExtraMenuItemStart: PropTypes.func.isRequired,
 };
 
 // const mapStateToProps = createStructuredSelector({
@@ -53,9 +77,8 @@ MenuListDropdown.propTypes = {
 // 	menu: selectMenu,
 // });
 
-// const mapDispatchToProps = dispatch => ({
-// 	setCategory: (categoryId, category) =>
-// 		dispatch(setCategory(categoryId, category)),
-// });
+const mapDispatchToProps = dispatch => ({
+	setExtraMenuItemStart: props => dispatch(setExtraMenuItemStart(props)),
+});
 
-export default /* connect(mapStateToProps, mapDispatchToProps)(MenuListDropdown) */ MenuListDropdown;
+export default connect(null, mapDispatchToProps)(MenuListDropdown);

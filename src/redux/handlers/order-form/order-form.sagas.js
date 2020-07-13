@@ -49,6 +49,8 @@ export function* selectMenuStart({ payload: menu }) {
 			groupBy(newExtraMenuItemsId, 'categoryId')
 		);
 
+		extraMenuItemsId.map(item => item.splice(2, 0, ''));
+
 		const newMenu = yield {
 			id: menu.id,
 			name: menu.name,
@@ -69,6 +71,25 @@ export function* selectMenuStart({ payload: menu }) {
 	}
 }
 
+export function* setExtraMenuItemStart({ payload: props }) {
+	try {
+		const {
+			id,
+			extraItemIndex,
+			selectedMenusIndex,
+			selectedExtraIndex,
+		} = props;
+		const selectedMenus = yield select(selectSelectedMenus);
+		const selectedOrder = yield select(selectSelectedOrder);
+
+		selectedMenus[selectedOrder][selectedMenusIndex].extraMenuItemsId[
+			selectedExtraIndex
+		][2] = id;
+
+		console.log('setExtraMenuItemStart - selectedMenus:', selectedMenus);
+	} catch (error) {}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -77,10 +98,14 @@ export function* onSelectMenuStart() {
 	yield takeLatest(Types.SELECT_MENU_START, selectMenuStart);
 }
 
+export function* onSetExtraMenuItemStart() {
+	yield takeLatest(Types.SET_EXTRA_MENU_ITEM_START, setExtraMenuItemStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* orderFormSagas() {
-	yield all([call(onSelectMenuStart)]);
+	yield all([call(onSelectMenuStart), call(onSetExtraMenuItemStart)]);
 }

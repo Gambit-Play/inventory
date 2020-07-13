@@ -42,10 +42,10 @@ const MenuList = ({
 				<Typography component='h2' variant='h5' color='inherit' noWrap>
 					Order
 				</Typography>
-				{selectedMenus[0].map((menu, idx) => {
+				{selectedMenus[0].map((menu, menuIndex) => {
 					console.log(menu.extraMenuItemsId);
 					return (
-						<List key={idx}>
+						<List key={menuIndex}>
 							<ListItem className={classes.itemsList}>
 								<ListItemText primary={menu.name} />
 								<ListItemSecondaryAction>
@@ -61,24 +61,26 @@ const MenuList = ({
 									</IconButton>
 								</ListItemSecondaryAction>
 							</ListItem>
-							{menu.extraMenuItemsId.map((item, index) => {
+							{menu.extraMenuItemsId.map((item, itemIndex) => {
 								const categoryName = categories.find(
 									category => category.id === item[0]
 								).name;
 								return (
-									<React.Fragment key={index}>
+									<React.Fragment key={itemIndex}>
 										<ListItemText primary={categoryName} />
 										{item[1].length === 1 ? (
 											item[1][0].name
 										) : (
 											<MenuListDropdown
-												extraMenuItemsId={item[1]}
+												extraMenuItemsId={item}
+												selectedMenusIndex={menuIndex}
+												selectedExtraIndex={itemIndex}
 											/>
 										)}
 									</React.Fragment>
 								);
 							})}
-							{idx !== selectedMenus[0].length - 1 && (
+							{menuIndex !== selectedMenus[0].length - 1 && (
 								<Divider className={classes.divider} />
 							)}
 						</List>
