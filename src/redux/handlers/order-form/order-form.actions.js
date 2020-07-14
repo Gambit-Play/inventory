@@ -28,12 +28,22 @@ export const selectMenuSuccess = selectedMenus => ({
 	payload: selectedMenus,
 });
 
+export const setExtraMenuItemSuccess = selectedMenus => ({
+	type: OrderFormActionTypes.SET_EXTRA_MENU_ITEM_SUCCESS,
+	payload: selectedMenus,
+});
+
 /* ================================================================ */
 /*  Process Failure                                                 */
 /* ================================================================ */
 
 export const selectMenuFailure = errorMessage => ({
 	type: OrderFormActionTypes.SELECT_MENU_FAILURE,
+	payload: errorMessage,
+});
+
+export const setExtraMenuItemFailure = errorMessage => ({
+	type: OrderFormActionTypes.SET_EXTRA_MENU_ITEM_FAILURE,
 	payload: errorMessage,
 });
 

@@ -73,21 +73,21 @@ export function* selectMenuStart({ payload: menu }) {
 
 export function* setExtraMenuItemStart({ payload: props }) {
 	try {
-		const {
-			id,
-			extraItemIndex,
-			selectedMenusIndex,
-			selectedExtraIndex,
-		} = props;
+		const { id, selectedMenusIndex, selectedExtraIndex } = props;
 		const selectedMenus = yield select(selectSelectedMenus);
 		const selectedOrder = yield select(selectSelectedOrder);
 
-		selectedMenus[selectedOrder][selectedMenusIndex].extraMenuItemsId[
+		const newSelectedMenus = yield [...selectedMenus];
+
+		newSelectedMenus[selectedOrder][selectedMenusIndex].extraMenuItemsId[
 			selectedExtraIndex
 		][2] = id;
 
-		console.log('setExtraMenuItemStart - selectedMenus:', selectedMenus);
-	} catch (error) {}
+		yield put(Actions.setExtraMenuItemSuccess(newSelectedMenus));
+	} catch (error) {
+		console.log(error);
+		yield put(Actions.setExtraMenuItemFailure(error));
+	}
 }
 
 /* ================================================================ */

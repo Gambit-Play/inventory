@@ -19,6 +19,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				categoryId: action.payload,
 			};
 		case OrderFormActionTypes.SELECT_MENU_SUCCESS:
+		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_SUCCESS:
 			return {
 				...state,
 				selectedMenus: action.payload,
