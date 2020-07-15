@@ -20,6 +20,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 			};
 		case OrderFormActionTypes.SELECT_MENU_SUCCESS:
 		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_SUCCESS:
+		case OrderFormActionTypes.REMOVE_ORDER_ITEM_SUCCESS:
 			return {
 				...state,
 				selectedMenus: action.payload,
@@ -28,6 +29,8 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 		/*  Process Failure		                                        	*/
 		/* ================================================================ */
 		case OrderFormActionTypes.SELECT_MENU_FAILURE:
+		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_FAILURE:
+		case OrderFormActionTypes.REMOVE_ORDER_ITEM_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,

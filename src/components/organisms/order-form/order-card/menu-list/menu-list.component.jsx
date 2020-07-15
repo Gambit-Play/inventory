@@ -55,7 +55,7 @@ const MenuList = ({
 										aria-label='delete'
 										// FIXME: Change it to the index instead of menu.id @ removeMenu()
 										// 		  because there could be more then 1 with the same menu.id in the list
-										onClick={event => removeMenu(menu.id)}
+										onClick={event => removeMenu(menuIndex)}
 									>
 										<DeleteIcon />
 									</IconButton>

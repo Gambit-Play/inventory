@@ -10,6 +10,7 @@ import {
 	setCategoryOrderForm,
 	removeOrderForm,
 	selectMenuStart,
+	removeOrderItemStart,
 } from '../../../redux/handlers/order-form/order-form.actions';
 import {
 	selectCategoryId,
@@ -34,6 +35,7 @@ const OrderForm = props => {
 		categoryId,
 		selectMenuStart,
 		selectedMenus,
+		removeOrderItemStart,
 	} = props;
 
 	const filterdCategories = categories.filter(
@@ -68,6 +70,7 @@ const OrderForm = props => {
 				<MenuList
 					selectedMenus={selectedMenus}
 					categories={categories}
+					removeMenu={removeOrderItemStart}
 				/>
 				{/* <OrderCard menus={selectedMenus} /> */}
 			</Grid>
@@ -82,6 +85,7 @@ OrderForm.propTypes = {
 	removeOrderForm: PropTypes.func.isRequired,
 	categoryId: PropTypes.string.isRequired,
 	selectMenuStart: PropTypes.func.isRequired,
+	removeOrderItemStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -96,6 +100,7 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(setCategoryOrderForm(categoryId)),
 	removeOrderForm: () => dispatch(removeOrderForm()),
 	selectMenuStart: menu => dispatch(selectMenuStart(menu)),
+	removeOrderItemStart: index => dispatch(removeOrderItemStart(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);

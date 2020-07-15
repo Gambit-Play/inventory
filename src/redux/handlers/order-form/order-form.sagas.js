@@ -90,6 +90,22 @@ export function* setExtraMenuItemStart({ payload: props }) {
 	}
 }
 
+export function* removeOrderItemStart({ payload: index }) {
+	try {
+		const selectedMenus = yield select(selectSelectedMenus);
+		const selectedOrder = yield select(selectSelectedOrder);
+
+		const newSelectedMenus = yield [...selectedMenus];
+
+		newSelectedMenus[selectedOrder].splice(index, 1);
+
+		yield put(Actions.removeOrderItemSuccess(newSelectedMenus));
+	} catch (error) {
+		console.log(error);
+		yield put(Actions.removeOrderItemFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -102,10 +118,18 @@ export function* onSetExtraMenuItemStart() {
 	yield takeLatest(Types.SET_EXTRA_MENU_ITEM_START, setExtraMenuItemStart);
 }
 
+export function* onRemoveOrderItemStart() {
+	yield takeLatest(Types.REMOVE_ORDER_ITEM_START, removeOrderItemStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* orderFormSagas() {
-	yield all([call(onSelectMenuStart), call(onSetExtraMenuItemStart)]);
+	yield all([
+		call(onSelectMenuStart),
+		call(onSetExtraMenuItemStart),
+		call(onRemoveOrderItemStart),
+	]);
 }

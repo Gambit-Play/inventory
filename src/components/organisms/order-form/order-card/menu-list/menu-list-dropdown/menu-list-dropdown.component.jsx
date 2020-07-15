@@ -53,10 +53,11 @@ const MenuListDropdown = ({
 MenuListDropdown.propTypes = {
 	extraMenuItemsId: PropTypes.array.isRequired,
 	setExtraMenuItemStart: PropTypes.func.isRequired,
-	selectedMenus: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+	// This state is not being used but helps displaying the selected option
+	// for the "Select" component. Need to understand why is that.
 	selectedMenus: selectSelectedMenus,
 });
 

@@ -19,6 +19,11 @@ export const setExtraMenuItemStart = props => ({
 	payload: props,
 });
 
+export const removeOrderItemStart = index => ({
+	type: OrderFormActionTypes.REMOVE_ORDER_ITEM_START,
+	payload: index,
+});
+
 /* ================================================================ */
 /*  Process Success                                                 */
 /* ================================================================ */
@@ -33,6 +38,11 @@ export const setExtraMenuItemSuccess = selectedMenus => ({
 	payload: selectedMenus,
 });
 
+export const removeOrderItemSuccess = selectedMenus => ({
+	type: OrderFormActionTypes.REMOVE_ORDER_ITEM_SUCCESS,
+	payload: selectedMenus,
+});
+
 /* ================================================================ */
 /*  Process Failure                                                 */
 /* ================================================================ */
@@ -44,6 +54,11 @@ export const selectMenuFailure = errorMessage => ({
 
 export const setExtraMenuItemFailure = errorMessage => ({
 	type: OrderFormActionTypes.SET_EXTRA_MENU_ITEM_FAILURE,
+	payload: errorMessage,
+});
+
+export const removeOrderItemFailure = errorMessage => ({
+	type: OrderFormActionTypes.REMOVE_ORDER_ITEM_FAILURE,
 	payload: errorMessage,
 });
 
