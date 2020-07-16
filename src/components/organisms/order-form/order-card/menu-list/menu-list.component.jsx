@@ -35,11 +35,16 @@ const MenuList = ({
 		// setExtraMenuItem();
 	};
 
+	const totalPrice = selectedMenus[0].reduce(
+		(acc, selectedMenu) => acc + selectedMenu.price,
+		0
+	);
+
 	// FIXME: replace selectedMenus.length with hasExtraMenuItems
 	return (
 		<Paper className={classes.selected}>
 			<Typography component='h2' variant='h5' color='inherit' noWrap>
-				Order
+				{`Order | Total: € ${parseFloat(totalPrice).toFixed(2)}`}
 			</Typography>
 			{selectedMenus.length !== 0 &&
 				selectedMenus[0].map((menu, menuIndex) => {
