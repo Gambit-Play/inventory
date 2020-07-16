@@ -49,7 +49,7 @@ export function* selectMenuStart({ payload: menu }) {
 			groupBy(newExtraMenuItemsId, 'categoryId')
 		);
 
-		extraMenuItemsId.map(item => item.splice(2, 0, ''));
+		yield extraMenuItemsId.map(item => item.splice(2, 0, ''));
 
 		const newMenu = yield {
 			id: menu.id,
@@ -90,7 +90,7 @@ export function* setExtraMenuItemStart({ payload: props }) {
 	}
 }
 
-export function* removeOrderItemStart({ payload: index }) {
+export function* clearOrderItemStart({ payload: index }) {
 	try {
 		const selectedMenus = yield select(selectSelectedMenus);
 		const selectedOrder = yield select(selectSelectedOrder);
@@ -119,7 +119,7 @@ export function* onSetExtraMenuItemStart() {
 }
 
 export function* onRemoveOrderItemStart() {
-	yield takeLatest(Types.REMOVE_ORDER_ITEM_START, removeOrderItemStart);
+	yield takeLatest(Types.REMOVE_ORDER_ITEM_START, clearOrderItemStart);
 }
 
 /* ================================================================ */

@@ -14,8 +14,8 @@ const CategoryCard = ({ categories, selectCategory, selectAll }) => {
 	const classes = useStyles();
 	return (
 		<React.Fragment>
-			<ButtonBase className={classes.button}>
-				<Paper onClick={selectAll}>All</Paper>
+			<ButtonBase className={classes.button} onClick={selectAll}>
+				<Paper>All</Paper>
 			</ButtonBase>
 			{categories.map(category => (
 				<ButtonBase key={category.id} className={classes.button}>

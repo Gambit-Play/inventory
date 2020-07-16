@@ -37,12 +37,12 @@ const MenuList = ({
 
 	// FIXME: replace selectedMenus.length with hasExtraMenuItems
 	return (
-		selectedMenus.length !== 0 && (
-			<Paper className={classes.selected}>
-				<Typography component='h2' variant='h5' color='inherit' noWrap>
-					Order
-				</Typography>
-				{selectedMenus[0].map((menu, menuIndex) => {
+		<Paper className={classes.selected}>
+			<Typography component='h2' variant='h5' color='inherit' noWrap>
+				Order
+			</Typography>
+			{selectedMenus.length !== 0 &&
+				selectedMenus[0].map((menu, menuIndex) => {
 					console.log(menu.extraMenuItemsId);
 					return (
 						<List key={menuIndex}>
@@ -53,8 +53,6 @@ const MenuList = ({
 										color='secondary'
 										edge='end'
 										aria-label='delete'
-										// FIXME: Change it to the index instead of menu.id @ removeMenu()
-										// 		  because there could be more then 1 with the same menu.id in the list
 										onClick={event => removeMenu(menuIndex)}
 									>
 										<DeleteIcon />
@@ -86,8 +84,7 @@ const MenuList = ({
 						</List>
 					);
 				})}
-			</Paper>
-		)
+		</Paper>
 	);
 };
 

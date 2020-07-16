@@ -19,7 +19,7 @@ export const setExtraMenuItemStart = props => ({
 	payload: props,
 });
 
-export const removeOrderItemStart = index => ({
+export const clearOrderItemStart = index => ({
 	type: OrderFormActionTypes.REMOVE_ORDER_ITEM_START,
 	payload: index,
 });
@@ -66,6 +66,10 @@ export const removeOrderItemFailure = errorMessage => ({
 /*  Process Remove                                                  */
 /* ================================================================ */
 
-export const removeOrderForm = () => ({
-	type: OrderFormActionTypes.REMOVE_ORDER_FORM,
+export const clearOrderForm = () => ({
+	type: OrderFormActionTypes.CLEAR_ORDER_FORM,
+});
+
+export const clearCategoryFilter = () => ({
+	type: OrderFormActionTypes.CLEAR_CATEGORY_FILTER,
 });

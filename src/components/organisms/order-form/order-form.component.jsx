@@ -8,9 +8,9 @@ import { selectCurrentCategories } from '../../../redux/categories/categories.se
 import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
 import {
 	setCategoryOrderForm,
-	removeOrderForm,
+	clearCategoryFilter,
 	selectMenuStart,
-	removeOrderItemStart,
+	clearOrderItemStart,
 } from '../../../redux/handlers/order-form/order-form.actions';
 import {
 	selectCategoryId,
@@ -31,11 +31,11 @@ const OrderForm = props => {
 		categories,
 		menus,
 		setCategoryOrderForm,
-		removeOrderForm,
+		clearCategoryFilter,
 		categoryId,
 		selectMenuStart,
 		selectedMenus,
-		removeOrderItemStart,
+		clearOrderItemStart,
 	} = props;
 
 	const filterdCategories = categories.filter(
@@ -55,7 +55,7 @@ const OrderForm = props => {
 				<CategoryCard
 					categories={categories}
 					selectCategory={handleClick}
-					selectAll={removeOrderForm}
+					selectAll={clearCategoryFilter}
 					selected={categoryId}
 				/>
 			</Grid>
@@ -70,7 +70,7 @@ const OrderForm = props => {
 				<MenuList
 					selectedMenus={selectedMenus}
 					categories={categories}
-					removeMenu={removeOrderItemStart}
+					removeMenu={clearOrderItemStart}
 				/>
 				{/* <OrderCard menus={selectedMenus} /> */}
 			</Grid>
@@ -82,10 +82,10 @@ OrderForm.propTypes = {
 	categories: PropTypes.array.isRequired,
 	menus: PropTypes.array.isRequired,
 	setCategoryOrderForm: PropTypes.func.isRequired,
-	removeOrderForm: PropTypes.func.isRequired,
+	clearCategoryFilter: PropTypes.func.isRequired,
 	categoryId: PropTypes.string.isRequired,
 	selectMenuStart: PropTypes.func.isRequired,
-	removeOrderItemStart: PropTypes.func.isRequired,
+	clearOrderItemStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -98,9 +98,9 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
 	setCategoryOrderForm: categoryId =>
 		dispatch(setCategoryOrderForm(categoryId)),
-	removeOrderForm: () => dispatch(removeOrderForm()),
+	clearCategoryFilter: () => dispatch(clearCategoryFilter()),
 	selectMenuStart: menu => dispatch(selectMenuStart(menu)),
-	removeOrderItemStart: index => dispatch(removeOrderItemStart(index)),
+	clearOrderItemStart: index => dispatch(clearOrderItemStart(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);

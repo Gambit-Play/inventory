@@ -38,11 +38,18 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Remove                                              	*/
 		/* ================================================================ */
-		case OrderFormActionTypes.REMOVE_ORDER_FORM:
+		case OrderFormActionTypes.CLEAR_CATEGORY_FILTER:
 			return {
 				...state,
 				categoryId: '',
+			};
+		case OrderFormActionTypes.CLEAR_ORDER_FORM:
+			return {
+				...state,
+				categoryId: '',
+				tableId: '',
 				selectedMenus: [],
+				selectedOrder: 0,
 				errorMessage: '',
 			};
 		default:
