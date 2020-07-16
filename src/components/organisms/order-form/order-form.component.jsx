@@ -25,6 +25,10 @@ import MenuList from './order-card/menu-list/menu-list.component';
 
 // Mui Components
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+// Styles
+import useStyles from './order-form.styles';
 
 const OrderForm = props => {
 	const {
@@ -37,6 +41,8 @@ const OrderForm = props => {
 		selectedMenus,
 		clearOrderItemStart,
 	} = props;
+
+	const classes = useStyles();
 
 	const filterdCategories = categories.filter(
 		category => category.id === categoryId
@@ -67,12 +73,19 @@ const OrderForm = props => {
 				/>
 			</Grid>
 			<Grid item xs={3}>
+				<Button
+					fullWidth
+					variant={'contained'}
+					color={'primary'}
+					className={classes.payButton}
+				>
+					Pay
+				</Button>
 				<MenuList
 					selectedMenus={selectedMenus}
 					categories={categories}
 					removeMenu={clearOrderItemStart}
 				/>
-				{/* <OrderCard menus={selectedMenus} /> */}
 			</Grid>
 		</Grid>
 	);

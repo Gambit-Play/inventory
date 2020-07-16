@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 
 // Mui Components
 import Paper from '@material-ui/core/Paper';
@@ -35,3 +36,11 @@ export const MenusContainer = styled.div`
 export const Seperator = styled(Divider)`
 	margin-bottom: 8px;
 `;
+
+const useStyles = makeStyles(theme => ({
+	payButton: {
+		marginBottom: theme.spacing(3),
+	},
+}));
+
+export default useStyles;

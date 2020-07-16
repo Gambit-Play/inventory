@@ -14,6 +14,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const MenuListDropdown = ({
 	extraMenuItemsId,
@@ -32,7 +33,10 @@ const MenuListDropdown = ({
 	};
 
 	return (
-		<FormControl fullWidth>
+		<FormControl
+			fullWidth
+			error={extraMenuItemsId[2] === '' ? true : false}
+		>
 			<InputLabel id='select-label'>Select</InputLabel>
 			<Select
 				labelId='select-label'
@@ -46,6 +50,9 @@ const MenuListDropdown = ({
 					</MenuItem>
 				))}
 			</Select>
+			{extraMenuItemsId[2] === '' && (
+				<FormHelperText>Please select an option</FormHelperText>
+			)}
 		</FormControl>
 	);
 };

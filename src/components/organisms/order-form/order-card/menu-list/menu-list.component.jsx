@@ -48,7 +48,6 @@ const MenuList = ({
 			</Typography>
 			{selectedMenus.length !== 0 &&
 				selectedMenus[0].map((menu, menuIndex) => {
-					console.log(menu.extraMenuItemsId);
 					return (
 						<List key={menuIndex}>
 							<ListItem className={classes.itemsList}>
