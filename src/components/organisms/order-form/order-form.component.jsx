@@ -15,6 +15,7 @@ import {
 import {
 	selectCategoryId,
 	selectSelectedMenus,
+	selectHasError,
 } from '../../../redux/handlers/order-form/order-form.selectors';
 
 // Components
@@ -40,6 +41,7 @@ const OrderForm = props => {
 		selectMenuStart,
 		selectedMenus,
 		clearOrderItemStart,
+		hasError,
 	} = props;
 
 	const classes = useStyles();
@@ -77,6 +79,7 @@ const OrderForm = props => {
 					fullWidth
 					variant={'contained'}
 					color={'primary'}
+					disabled={hasError}
 					className={classes.payButton}
 				>
 					Pay
@@ -99,6 +102,7 @@ OrderForm.propTypes = {
 	categoryId: PropTypes.string.isRequired,
 	selectMenuStart: PropTypes.func.isRequired,
 	clearOrderItemStart: PropTypes.func.isRequired,
+	hasError: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -106,6 +110,7 @@ const mapStateToProps = createStructuredSelector({
 	menus: selectCurrentMenus,
 	categoryId: selectCategoryId,
 	selectedMenus: selectSelectedMenus,
+	hasError: selectHasError,
 });
 
 const mapDispatchToProps = dispatch => ({

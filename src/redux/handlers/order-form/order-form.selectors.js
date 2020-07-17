@@ -25,3 +25,9 @@ export const selectSelectedOrder = createSelector(
 	[selectOrderForm],
 	orderForm => orderForm.selectedOrder
 );
+
+// Selects orderForm.hasError from the state
+export const selectHasError = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.hasError
+);

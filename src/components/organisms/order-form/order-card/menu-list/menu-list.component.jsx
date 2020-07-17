@@ -30,15 +30,12 @@ const MenuList = ({
 }) => {
 	const classes = useStyles();
 
-	const handleChange = (event, index) => {
-		const { value } = event.target;
-		// setExtraMenuItem();
-	};
-
-	const totalPrice = selectedMenus[0].reduce(
-		(acc, selectedMenu) => acc + selectedMenu.price,
-		0
-	);
+	const totalPrice = selectedMenus.length
+		? selectedMenus[0].reduce(
+				(acc, selectedMenu) => acc + selectedMenu.price,
+				0
+		  )
+		: 0;
 
 	// FIXME: replace selectedMenus.length with hasExtraMenuItems
 	return (

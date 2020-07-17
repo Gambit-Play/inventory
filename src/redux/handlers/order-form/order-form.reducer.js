@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 	selectedMenus: [],
 	selectedOrder: 0,
 	errorMessage: '',
+	hasError: true,
 };
 
 const orderFormReducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,11 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				categoryId: action.payload,
+			};
+		case OrderFormActionTypes.HAS_ERROR_SUCCESS:
+			return {
+				...state,
+				hasError: action.payload,
 			};
 		case OrderFormActionTypes.SELECT_MENU_SUCCESS:
 		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_SUCCESS:
@@ -31,6 +37,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 		case OrderFormActionTypes.SELECT_MENU_FAILURE:
 		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_FAILURE:
 		case OrderFormActionTypes.REMOVE_ORDER_ITEM_FAILURE:
+		case OrderFormActionTypes.HAS_ERROR_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,
@@ -51,6 +58,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				selectedMenus: [],
 				selectedOrder: 0,
 				errorMessage: '',
+				hasError: true,
 			};
 		default:
 			return state;

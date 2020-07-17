@@ -49,7 +49,9 @@ export function* selectMenuStart({ payload: menu }) {
 			groupBy(newExtraMenuItemsId, 'categoryId')
 		);
 
-		yield extraMenuItemsId.map(item => item.splice(2, 0, ''));
+		yield extraMenuItemsId.map(item => {
+			return item[1].length > 1 ? item.splice(2, 0, '') : item;
+		});
 
 		const newMenu = yield {
 			id: menu.id,
@@ -65,6 +67,7 @@ export function* selectMenuStart({ payload: menu }) {
 			: newSelectedMenus.push([newMenu]);
 
 		yield put(Actions.selectMenuSuccess(newSelectedMenus));
+		yield hasErrorStart(newSelectedMenus);
 	} catch (error) {
 		console.log(error);
 		yield put(Actions.selectMenuFailure(error));
@@ -84,9 +87,34 @@ export function* setExtraMenuItemStart({ payload: props }) {
 		][2] = id;
 
 		yield put(Actions.setExtraMenuItemSuccess(newSelectedMenus));
+		yield hasErrorStart(newSelectedMenus);
 	} catch (error) {
 		console.log(error);
 		yield put(Actions.setExtraMenuItemFailure(error));
+	}
+}
+
+export function* hasErrorStart(selectedMenus) {
+	try {
+		const isArrayEmpty = yield selectedMenus.some(
+			menu => menu.length === 0
+		);
+
+		if (isArrayEmpty === false) {
+			const hasError = yield selectedMenus.some(menus =>
+				menus.some(
+					menu =>
+						menu.extraMenuItemsId.length &&
+						menu.extraMenuItemsId.some(item => item[2] === '')
+				)
+			);
+			yield put(Actions.hasErrorSuccess(hasError));
+		} else {
+			yield put(Actions.hasErrorSuccess(true));
+		}
+	} catch (error) {
+		console.log(error);
+		yield put(Actions.hasErrorFailure(error));
 	}
 }
 
@@ -99,6 +127,7 @@ export function* clearOrderItemStart({ payload: index }) {
 
 		newSelectedMenus[selectedOrder].splice(index, 1);
 
+		yield hasErrorStart(newSelectedMenus);
 		yield put(Actions.removeOrderItemSuccess(newSelectedMenus));
 	} catch (error) {
 		console.log(error);
@@ -122,6 +151,10 @@ export function* onRemoveOrderItemStart() {
 	yield takeLatest(Types.REMOVE_ORDER_ITEM_START, clearOrderItemStart);
 }
 
+export function* onHasErrorStart() {
+	yield takeLatest(Types.HAS_ERROR_START, hasErrorStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -131,5 +164,6 @@ export default function* orderFormSagas() {
 		call(onSelectMenuStart),
 		call(onSetExtraMenuItemStart),
 		call(onRemoveOrderItemStart),
+		call(onHasErrorStart),
 	]);
 }

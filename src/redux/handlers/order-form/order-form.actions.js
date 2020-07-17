@@ -24,6 +24,10 @@ export const clearOrderItemStart = index => ({
 	payload: index,
 });
 
+export const hasErrorStart = () => ({
+	type: OrderFormActionTypes.HAS_ERROR_START,
+});
+
 /* ================================================================ */
 /*  Process Success                                                 */
 /* ================================================================ */
@@ -43,6 +47,11 @@ export const removeOrderItemSuccess = selectedMenus => ({
 	payload: selectedMenus,
 });
 
+export const hasErrorSuccess = bool => ({
+	type: OrderFormActionTypes.HAS_ERROR_SUCCESS,
+	payload: bool,
+});
+
 /* ================================================================ */
 /*  Process Failure                                                 */
 /* ================================================================ */
@@ -59,6 +68,11 @@ export const setExtraMenuItemFailure = errorMessage => ({
 
 export const removeOrderItemFailure = errorMessage => ({
 	type: OrderFormActionTypes.REMOVE_ORDER_ITEM_FAILURE,
+	payload: errorMessage,
+});
+
+export const hasErrorFailure = errorMessage => ({
+	type: OrderFormActionTypes.HAS_ERROR_FAILURE,
 	payload: errorMessage,
 });
 

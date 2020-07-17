@@ -94,13 +94,13 @@ const App = props => {
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
-			removeAuthListenerStart();
-			removeCategoriesCollectionListener();
-			removeTablesCollectionListener();
+			// removeAuthListenerStart();
+			// removeCategoriesCollectionListener();
+			// removeTablesCollectionListener();
 		};
 	}, [
 		onAuthStateChangedStart,
-		removeAuthListenerStart,
+		// removeAuthListenerStart,
 		fetchUnitsStart,
 		fetchAllUsersStart,
 		fetchCategoriesCollectionStart,
@@ -111,8 +111,8 @@ const App = props => {
 		removeCategoriesSearchField,
 		removeMenusOrderBy,
 		removeMenusSearchField,
-		removeCategoriesCollectionListener,
-		removeTablesCollectionListener,
+		// removeCategoriesCollectionListener,
+		// removeTablesCollectionListener,
 		removeTablesOrderBy,
 		removeTablesSearchField,
 	]);
