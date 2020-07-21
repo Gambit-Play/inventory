@@ -27,21 +27,28 @@ const MenuList = ({
 	removeMenu,
 	index,
 	setExtraMenuItem,
+	setTotalPrice,
 }) => {
 	const classes = useStyles();
 
-	const totalPrice = selectedMenus.length
-		? selectedMenus[0].reduce(
+	const totalPrice = () => {
+		if (selectedMenus.length) {
+			const total = selectedMenus[0].reduce(
 				(acc, selectedMenu) => acc + selectedMenu.price,
 				0
-		  )
-		: 0;
+			);
+			setTotalPrice(total);
+			return total;
+		}
+		setTotalPrice(0);
+		return 0;
+	};
 
 	// FIXME: replace selectedMenus.length with hasExtraMenuItems
 	return (
 		<Paper className={classes.selected}>
 			<Typography component='h2' variant='h5' color='inherit' noWrap>
-				{`Order | Total: € ${parseFloat(totalPrice).toFixed(2)}`}
+				{`Order | Total: € ${parseFloat(totalPrice()).toFixed(2)}`}
 			</Typography>
 			{selectedMenus.length !== 0 &&
 				selectedMenus[0].map((menu, menuIndex) => {

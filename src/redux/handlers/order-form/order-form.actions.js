@@ -28,6 +28,11 @@ export const hasErrorStart = () => ({
 	type: OrderFormActionTypes.HAS_ERROR_START,
 });
 
+export const setTotalPrice = totalPrice => ({
+	type: OrderFormActionTypes.SET_TOTAL_PRICE,
+	payload: totalPrice,
+});
+
 /* ================================================================ */
 /*  Process Success                                                 */
 /* ================================================================ */

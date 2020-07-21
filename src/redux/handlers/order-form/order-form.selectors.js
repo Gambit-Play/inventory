@@ -31,3 +31,9 @@ export const selectHasError = createSelector(
 	[selectOrderForm],
 	orderForm => orderForm.hasError
 );
+
+// Selects orderForm.totalPrice from the state
+export const selectTotalPrice = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.totalPrice
+);

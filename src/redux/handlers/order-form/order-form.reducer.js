@@ -4,6 +4,7 @@ const INITIAL_STATE = {
 	categoryId: '',
 	tableId: '',
 	selectedMenus: [],
+	totalPrice: 0,
 	selectedOrder: 0,
 	errorMessage: '',
 	hasError: true,
@@ -14,6 +15,13 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Success                                                 */
 		/* ================================================================ */
+		case OrderFormActionTypes.SELECT_MENU_SUCCESS:
+		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_SUCCESS:
+		case OrderFormActionTypes.REMOVE_ORDER_ITEM_SUCCESS:
+			return {
+				...state,
+				selectedMenus: action.payload,
+			};
 		case OrderFormActionTypes.SET_CATEGORY_ORDER_FORM:
 			return {
 				...state,
@@ -24,12 +32,10 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				hasError: action.payload,
 			};
-		case OrderFormActionTypes.SELECT_MENU_SUCCESS:
-		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_SUCCESS:
-		case OrderFormActionTypes.REMOVE_ORDER_ITEM_SUCCESS:
+		case OrderFormActionTypes.SET_TOTAL_PRICE:
 			return {
 				...state,
-				selectedMenus: action.payload,
+				totalPrice: action.payload,
 			};
 		/* ================================================================ */
 		/*  Process Failure		                                        	*/
@@ -56,6 +62,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				categoryId: '',
 				tableId: '',
 				selectedMenus: [],
+				totalPrice: 0,
 				selectedOrder: 0,
 				errorMessage: '',
 				hasError: true,

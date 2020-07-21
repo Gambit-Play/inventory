@@ -11,6 +11,7 @@ import {
 	clearCategoryFilter,
 	selectMenuStart,
 	clearOrderItemStart,
+	setTotalPrice,
 } from '../../../redux/handlers/order-form/order-form.actions';
 import {
 	selectCategoryId,
@@ -42,6 +43,7 @@ const OrderForm = props => {
 		selectedMenus,
 		clearOrderItemStart,
 		hasError,
+		setTotalPrice,
 	} = props;
 
 	const classes = useStyles();
@@ -88,6 +90,7 @@ const OrderForm = props => {
 					selectedMenus={selectedMenus}
 					categories={categories}
 					removeMenu={clearOrderItemStart}
+					setTotalPrice={setTotalPrice}
 				/>
 			</Grid>
 		</Grid>
@@ -119,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
 	clearCategoryFilter: () => dispatch(clearCategoryFilter()),
 	selectMenuStart: menu => dispatch(selectMenuStart(menu)),
 	clearOrderItemStart: index => dispatch(clearOrderItemStart(index)),
+	setTotalPrice: totalPrice => dispatch(setTotalPrice(totalPrice)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderForm);
