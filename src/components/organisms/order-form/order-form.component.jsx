@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 // Redux
 import { selectCurrentCategories } from '../../../redux/categories/categories.selectors';
@@ -46,6 +47,8 @@ const OrderForm = props => {
 		setTotalPrice,
 	} = props;
 
+	const { url } = useRouteMatch();
+
 	const classes = useStyles();
 
 	const filterdCategories = categories.filter(
@@ -60,40 +63,44 @@ const OrderForm = props => {
 	};
 
 	return (
-		<Grid container spacing={2}>
-			<Grid item xs={2}>
-				<CategoryCard
-					categories={categories}
-					selectCategory={handleClick}
-					selectAll={clearCategoryFilter}
-					selected={categoryId}
-				/>
+		<React.Fragment>
+			<Grid container spacing={2}>
+				<Grid item xs={2}>
+					<CategoryCard
+						categories={categories}
+						selectCategory={handleClick}
+						selectAll={clearCategoryFilter}
+						selected={categoryId}
+					/>
+				</Grid>
+				<Grid item xs={7}>
+					<MenuCard
+						menusCategories={menusCategories}
+						menus={menus}
+						handleClick={selectMenuStart}
+					/>
+				</Grid>
+				<Grid item xs={3}>
+					<Button
+						fullWidth
+						variant={'contained'}
+						color={'primary'}
+						disabled={hasError}
+						className={classes.payButton}
+						component={Link}
+						to={`${url}/pay`}
+					>
+						Pay
+					</Button>
+					<MenuList
+						selectedMenus={selectedMenus}
+						categories={categories}
+						removeMenu={clearOrderItemStart}
+						setTotalPrice={setTotalPrice}
+					/>
+				</Grid>
 			</Grid>
-			<Grid item xs={7}>
-				<MenuCard
-					menusCategories={menusCategories}
-					menus={menus}
-					handleClick={selectMenuStart}
-				/>
-			</Grid>
-			<Grid item xs={3}>
-				<Button
-					fullWidth
-					variant={'contained'}
-					color={'primary'}
-					disabled={hasError}
-					className={classes.payButton}
-				>
-					Pay
-				</Button>
-				<MenuList
-					selectedMenus={selectedMenus}
-					categories={categories}
-					removeMenu={clearOrderItemStart}
-					setTotalPrice={setTotalPrice}
-				/>
-			</Grid>
-		</Grid>
+		</React.Fragment>
 	);
 };
 
@@ -106,6 +113,7 @@ OrderForm.propTypes = {
 	selectMenuStart: PropTypes.func.isRequired,
 	clearOrderItemStart: PropTypes.func.isRequired,
 	hasError: PropTypes.bool.isRequired,
+	setTotalPrice: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

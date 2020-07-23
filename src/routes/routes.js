@@ -13,3 +13,4 @@ export const NEW_ITEM = 'new-item';
 export const NEW_MENU = 'new-menu';
 export const EAT_IN = 'eat-in';
 export const TAKE_AWAY = 'take-away';
+export const PAYMENT = 'payment';

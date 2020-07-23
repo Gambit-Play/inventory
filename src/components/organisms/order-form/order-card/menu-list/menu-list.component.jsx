@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // Comment
@@ -12,7 +12,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -20,15 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 // Styles
 import useStyles from './menu-list.styles';
 
-const MenuList = ({
-	selectedMenus,
-	categories,
-	hasExtraMenuItems,
-	removeMenu,
-	index,
-	setExtraMenuItem,
-	setTotalPrice,
-}) => {
+const MenuList = ({ selectedMenus, categories, removeMenu, setTotalPrice }) => {
 	const classes = useStyles();
 
 	const totalPrice = () => {
@@ -99,10 +90,8 @@ const MenuList = ({
 MenuList.propTypes = {
 	selectedMenus: PropTypes.array.isRequired,
 	categories: PropTypes.array.isRequired,
-	hasExtraMenuItems: PropTypes.bool.isRequired,
 	removeMenu: PropTypes.func.isRequired,
-	index: PropTypes.number.isRequired,
-	setExtraMenuItem: PropTypes.func.isRequired,
+	setTotalPrice: PropTypes.func.isRequired,
 };
 
 export default MenuList;
