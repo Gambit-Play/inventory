@@ -50,7 +50,7 @@ const TakeOrder = props => {
 			/>
 			<Route
 				path={`${path}/${ROUTES.EAT_IN}/:tableId/pay`}
-				component={TestComponentOne}
+				component={PayOrder}
 			/>
 			<Route
 				path={`${path}/${ROUTES.TAKE_AWAY}/pay`}

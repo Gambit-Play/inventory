@@ -63,7 +63,7 @@ MenuListDropdown.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-	// This state is not being used but helps displaying the selected option
+	// The state 'selectedMenus' is not being used but it helps displaying the selected option
 	// for the "Select" component. Need to understand why is that.
 	selectedMenus: selectSelectedMenus,
 });
