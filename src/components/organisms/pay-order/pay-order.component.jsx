@@ -9,6 +9,12 @@ import {
 	selectSelectedMenus,
 } from '../../../redux/handlers/order-form/order-form.selectors';
 
+// Mui Components & Icons
+import Button from '@material-ui/core/Button';
+
+import PaymentIcon from '@material-ui/icons/Payment';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
 const PayOrder = ({ totalPrice, selectedMenus }) => {
 	console.log('@@ PayOrder - selectedMenus:', selectedMenus);
 	return (
@@ -16,7 +22,9 @@ const PayOrder = ({ totalPrice, selectedMenus }) => {
 			<h1>{`Total: € ${parseFloat(totalPrice).toFixed(2)}`}</h1>
 			{selectedMenus[0].map((menu, menuIndex) => (
 				<React.Fragment key={menuIndex}>
-					<h4> {menu.name} </h4>
+					<h4>
+						{`${menu.name} | €${parseFloat(menu.price).toFixed(2)}`}
+					</h4>
 					{menu.extraMenuItemsId.map((extraMenu, extraMenuIndex) =>
 						extraMenu[2] ? (
 							<h6 key={extraMenuIndex}>
@@ -32,6 +40,20 @@ const PayOrder = ({ totalPrice, selectedMenus }) => {
 					)}
 				</React.Fragment>
 			))}
+			<Button
+				variant='contained'
+				color='primary'
+				startIcon={<AttachMoneyIcon />}
+			>
+				Cash
+			</Button>
+			<Button
+				variant='contained'
+				color='secondary'
+				startIcon={<PaymentIcon />}
+			>
+				Card
+			</Button>
 		</div>
 	);
 };

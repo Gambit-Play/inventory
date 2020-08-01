@@ -46,7 +46,11 @@ const MenuList = ({ selectedMenus, categories, removeMenu, setTotalPrice }) => {
 					return (
 						<List key={menuIndex}>
 							<ListItem className={classes.itemsList}>
-								<ListItemText primary={menu.name} />
+								<ListItemText
+									primary={`${menu.name} - €${parseFloat(
+										menu.price
+									).toFixed(2)}`}
+								/>
 								<ListItemSecondaryAction>
 									<IconButton
 										color='secondary'
