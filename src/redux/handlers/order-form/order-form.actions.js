@@ -33,6 +33,14 @@ export const setTotalPrice = totalPrice => ({
 	payload: totalPrice,
 });
 
+export const isCardPaymentStart = () => ({
+	type: OrderFormActionTypes.IS_CARD_PAYMENT,
+});
+
+export const isCashPaymentStart = () => ({
+	type: OrderFormActionTypes.IS_CASH_PAYMENT,
+});
+
 /* ================================================================ */
 /*  Process Success                                                 */
 /* ================================================================ */
@@ -91,4 +99,8 @@ export const clearOrderForm = () => ({
 
 export const clearCategoryFilter = () => ({
 	type: OrderFormActionTypes.CLEAR_CATEGORY_FILTER,
+});
+
+export const cancelPayment = () => ({
+	type: OrderFormActionTypes.CANCEL_PAYMENT,
 });

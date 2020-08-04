@@ -37,3 +37,15 @@ export const selectTotalPrice = createSelector(
 	[selectOrderForm],
 	orderForm => orderForm.totalPrice
 );
+
+// Selects orderForm.isCardPayment from the state
+export const selectIsCardPayment = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.isCardPayment
+);
+
+// Selects orderForm.isCashPayment from the state
+export const selectIsCashPayment = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.isCashPayment
+);

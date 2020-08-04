@@ -8,6 +8,9 @@ const INITIAL_STATE = {
 	selectedOrder: 0,
 	errorMessage: '',
 	hasError: true,
+	typeOfPayment: '',
+	isCardPayment: false,
+	isCashPayment: false,
 };
 
 const orderFormReducer = (state = INITIAL_STATE, action) => {
@@ -37,6 +40,18 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				totalPrice: action.payload,
 			};
+		case OrderFormActionTypes.IS_CARD_PAYMENT:
+			return {
+				...state,
+				isCardPayment: true,
+				typeOfPayment: 'card',
+			};
+		case OrderFormActionTypes.IS_CASH_PAYMENT:
+			return {
+				...state,
+				isCashPayment: true,
+				typeOfPayment: 'cash',
+			};
 		/* ================================================================ */
 		/*  Process Failure		                                        	*/
 		/* ================================================================ */
@@ -56,6 +71,13 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				categoryId: '',
 			};
+		case OrderFormActionTypes.CANCEL_PAYMENT:
+			return {
+				...state,
+				typeOfPayment: '',
+				isCardPayment: false,
+				isCashPayment: false,
+			};
 		case OrderFormActionTypes.CLEAR_ORDER_FORM:
 			return {
 				...state,
@@ -66,6 +88,9 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				selectedOrder: 0,
 				errorMessage: '',
 				hasError: true,
+				typeOfPayment: '',
+				isCardPayment: false,
+				isCashPayment: false,
 			};
 		default:
 			return state;
