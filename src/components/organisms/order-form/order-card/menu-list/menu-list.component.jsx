@@ -35,7 +35,6 @@ const MenuList = ({ selectedMenus, categories, removeMenu, setTotalPrice }) => {
 		return 0;
 	};
 
-	// FIXME: replace selectedMenus.length with hasExtraMenuItems
 	return (
 		<Paper className={classes.selected}>
 			<Typography component='h2' variant='h5' color='inherit' noWrap>

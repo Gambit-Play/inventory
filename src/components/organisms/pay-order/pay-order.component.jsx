@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useHistory } from 'react-router-dom';
 
 // Redux
 import {
@@ -15,6 +16,10 @@ import {
 	isCashPaymentStart,
 	cancelPayment,
 } from '../../../redux/handlers/order-form/order-form.actions';
+
+// Components
+import TotalPrice from './total-price/total-price.component';
+import SelectedMenus from './selected-menus/selected-menus.component';
 
 // Mui Components & Icons
 import Button from '@material-ui/core/Button';
@@ -31,32 +36,40 @@ const PayOrder = ({
 	isCashPayment,
 	cancelPayment,
 }) => {
-	console.log('@@ PayOrder - selectedMenus:', selectedMenus);
-	console.log('@@ PayOrder - isCardPayment:', isCardPayment);
-	console.log('@@ PayOrder - isCashPayment:', isCashPayment);
+	const history = useHistory();
+
+	if (isCardPayment) {
+		return (
+			<Fragment>
+				<TotalPrice totalPrice={totalPrice} />
+				<Button variant='contained' onClick={cancelPayment}>
+					Payed
+				</Button>
+				<Button variant='outlined' onClick={cancelPayment}>
+					Cancel
+				</Button>
+			</Fragment>
+		);
+	}
+
+	if (isCashPayment) {
+		return (
+			<Fragment>
+				<TotalPrice totalPrice={totalPrice} />
+				<Button variant='contained' onClick={cancelPayment}>
+					Payed
+				</Button>
+				<Button variant='outlined' onClick={cancelPayment}>
+					Cancel
+				</Button>
+			</Fragment>
+		);
+	}
+
 	return (
 		<div>
-			<h1>{`Total: € ${parseFloat(totalPrice).toFixed(2)}`}</h1>
-			{selectedMenus[0].map((menu, menuIndex) => (
-				<React.Fragment key={menuIndex}>
-					<h4>
-						{`${menu.name} | €${parseFloat(menu.price).toFixed(2)}`}
-					</h4>
-					{menu.extraMenuItemsId.map((extraMenu, extraMenuIndex) =>
-						extraMenu[2] ? (
-							<h6 key={extraMenuIndex}>
-								{
-									extraMenu[1].find(
-										item => item.id === extraMenu[2]
-									).name
-								}
-							</h6>
-						) : (
-							<h6 key={extraMenuIndex}>{extraMenu[1][0].name}</h6>
-						)
-					)}
-				</React.Fragment>
-			))}
+			<TotalPrice totalPrice={totalPrice} />
+			<SelectedMenus selectedMenus={selectedMenus} />
 			<Button
 				variant='contained'
 				color='primary'
@@ -73,7 +86,7 @@ const PayOrder = ({
 			>
 				Card
 			</Button>
-			<Button variant='outlined' onClick={cancelPayment}>
+			<Button variant='outlined' onClick={history.goBack}>
 				Cancel
 			</Button>
 		</div>
