@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 	typeOfPayment: '',
 	isCardPayment: false,
 	isCashPayment: false,
+	isCreateSuccess: undefined,
 };
 
 const orderFormReducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +30,11 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				categoryId: action.payload,
+			};
+		case OrderFormActionTypes.CREATE_ORDER_SUCCESS:
+			return {
+				...state,
+				isCreateSuccess: true,
 			};
 		case OrderFormActionTypes.HAS_ERROR_SUCCESS:
 			return {
@@ -59,6 +65,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_FAILURE:
 		case OrderFormActionTypes.REMOVE_ORDER_ITEM_FAILURE:
 		case OrderFormActionTypes.HAS_ERROR_FAILURE:
+		case OrderFormActionTypes.CREATE_ORDER_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,
@@ -91,6 +98,7 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				typeOfPayment: '',
 				isCardPayment: false,
 				isCashPayment: false,
+				isCreateSuccess: undefined,
 			};
 		default:
 			return state;

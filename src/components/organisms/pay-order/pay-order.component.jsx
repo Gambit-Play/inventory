@@ -15,6 +15,7 @@ import {
 	isCardPaymentStart,
 	isCashPaymentStart,
 	cancelPayment,
+	createOrderStart,
 } from '../../../redux/handlers/order-form/order-form.actions';
 
 // Components
@@ -35,6 +36,7 @@ const PayOrder = ({
 	isCardPayment,
 	isCashPayment,
 	cancelPayment,
+	createOrderStart,
 }) => {
 	const history = useHistory();
 
@@ -42,7 +44,7 @@ const PayOrder = ({
 		return (
 			<Fragment>
 				<TotalPrice totalPrice={totalPrice} />
-				<Button variant='contained' onClick={cancelPayment}>
+				<Button variant='contained' onClick={createOrderStart}>
 					Payed
 				</Button>
 				<Button variant='outlined' onClick={cancelPayment}>
@@ -56,7 +58,7 @@ const PayOrder = ({
 		return (
 			<Fragment>
 				<TotalPrice totalPrice={totalPrice} />
-				<Button variant='contained' onClick={cancelPayment}>
+				<Button variant='contained' onClick={createOrderStart}>
 					Payed
 				</Button>
 				<Button variant='outlined' onClick={cancelPayment}>
@@ -101,6 +103,7 @@ PayOrder.propTypes = {
 	isCardPaymentStart: PropTypes.func.isRequired,
 	isCashPaymentStart: PropTypes.func.isRequired,
 	cancelPayment: PropTypes.func.isRequired,
+	createOrderStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -114,6 +117,7 @@ const mapDispatchToProps = dispatch => ({
 	isCardPaymentStart: () => dispatch(isCardPaymentStart()),
 	isCashPaymentStart: () => dispatch(isCashPaymentStart()),
 	cancelPayment: () => dispatch(cancelPayment()),
+	createOrderStart: () => dispatch(createOrderStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PayOrder);

@@ -38,6 +38,12 @@ export const selectTotalPrice = createSelector(
 	orderForm => orderForm.totalPrice
 );
 
+// Selects orderForm.typeOfPayment from the state
+export const selectTypeOfPayment = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.typeOfPayment
+);
+
 // Selects orderForm.isCardPayment from the state
 export const selectIsCardPayment = createSelector(
 	[selectOrderForm],

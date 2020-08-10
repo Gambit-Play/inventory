@@ -1,5 +1,9 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
+// Firebase
+import { createCollectionAndDocument } from '../../../firebase/firebase.utils';
+import * as COLLECTION_IDS from '../../../firebase/collections.ids';
+
 // Utils
 import { groupBy } from '../../../utils/global.utils';
 
@@ -7,14 +11,30 @@ import { groupBy } from '../../../utils/global.utils';
 import Types from './order-form.types';
 
 // Actions
-import * as Actions from './order-form.actions';
+import {
+	selectMenuSuccess,
+	selectMenuFailure,
+	setExtraMenuItemSuccess,
+	setExtraMenuItemFailure,
+	hasErrorSuccess,
+	hasErrorFailure,
+	removeOrderItemSuccess,
+	removeOrderItemFailure,
+	createOrderSuccess,
+	createOrderFailure,
+} from './order-form.actions';
 
 // Selectors
 import {
 	selectSelectedMenus,
 	selectSelectedOrder,
+	selectTotalPrice,
+	selectTypeOfPayment,
+	selectIsCardPayment,
+	selectIsCashPayment,
 } from './order-form.selectors';
 import { selectCurrentMenus } from '../../menus/menus.selectors';
+import { selectCurrentUser } from '../../users/users.selectors';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -66,11 +86,11 @@ export function* selectMenuStart({ payload: menu }) {
 			? newSelectedMenus[selectedOrder].push(newMenu)
 			: newSelectedMenus.push([newMenu]);
 
-		yield put(Actions.selectMenuSuccess(newSelectedMenus));
+		yield put(selectMenuSuccess(newSelectedMenus));
 		yield hasErrorStart(newSelectedMenus);
 	} catch (error) {
 		console.log(error);
-		yield put(Actions.selectMenuFailure(error));
+		yield put(selectMenuFailure(error));
 	}
 }
 
@@ -86,11 +106,11 @@ export function* setExtraMenuItemStart({ payload: props }) {
 			selectedExtraIndex
 		][2] = id;
 
-		yield put(Actions.setExtraMenuItemSuccess(newSelectedMenus));
+		yield put(setExtraMenuItemSuccess(newSelectedMenus));
 		yield hasErrorStart(newSelectedMenus);
 	} catch (error) {
 		console.log(error);
-		yield put(Actions.setExtraMenuItemFailure(error));
+		yield put(setExtraMenuItemFailure(error));
 	}
 }
 
@@ -108,13 +128,13 @@ export function* hasErrorStart(selectedMenus) {
 						menu.extraMenuItemsId.some(item => item[2] === '')
 				)
 			);
-			yield put(Actions.hasErrorSuccess(hasError));
+			yield put(hasErrorSuccess(hasError));
 		} else {
-			yield put(Actions.hasErrorSuccess(true));
+			yield put(hasErrorSuccess(true));
 		}
 	} catch (error) {
 		console.log(error);
-		yield put(Actions.hasErrorFailure(error));
+		yield put(hasErrorFailure(error));
 	}
 }
 
@@ -128,10 +148,56 @@ export function* clearOrderItemStart({ payload: index }) {
 		newSelectedMenus[selectedOrder].splice(index, 1);
 
 		yield hasErrorStart(newSelectedMenus);
-		yield put(Actions.removeOrderItemSuccess(newSelectedMenus));
+		yield put(removeOrderItemSuccess(newSelectedMenus));
 	} catch (error) {
 		console.log(error);
-		yield put(Actions.removeOrderItemFailure(error));
+		yield put(removeOrderItemFailure(error));
+	}
+}
+
+export function* createOrderStart() {
+	try {
+		const selectedMenus = yield select(selectSelectedMenus);
+		const totalPrice = yield select(selectTotalPrice);
+		const typeOfPayment = yield select(selectTypeOfPayment);
+		const currentUser = yield select(selectCurrentUser);
+
+		const newSelectedMenus = selectedMenus[0].map((item, index) => {
+			const extraMenuItemsId = item.extraMenuItemsId.map(extraMenu => {
+				return {
+					categoryId: extraMenu[0],
+					selectedExtraItemId: extraMenu[2] ? extraMenu[2] : '',
+				};
+			});
+
+			return {
+				selectedMenuId: item.id,
+				extraMenuItemsId: extraMenuItemsId,
+				selectedMenuIndex: index,
+			};
+		});
+
+		const newOrder = yield [
+			{
+				selectedMenus: newSelectedMenus,
+				totalPrice: totalPrice,
+				typeOfPayment,
+				createdAt: new Date().toISOString(),
+				createdById: currentUser.id,
+				updatedAt: '',
+				updatedById: '',
+			},
+		];
+
+		yield call(
+			createCollectionAndDocument,
+			COLLECTION_IDS.ORDERS,
+			newOrder
+		);
+		yield put(createOrderSuccess());
+	} catch (error) {
+		console.log(error);
+		yield put(createOrderFailure(error));
 	}
 }
 
@@ -155,6 +221,10 @@ export function* onHasErrorStart() {
 	yield takeLatest(Types.HAS_ERROR_START, hasErrorStart);
 }
 
+export function* onCreateOrderStart() {
+	yield takeLatest(Types.CREATE_ORDER_START, createOrderStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -165,5 +235,6 @@ export default function* orderFormSagas() {
 		call(onSetExtraMenuItemStart),
 		call(onRemoveOrderItemStart),
 		call(onHasErrorStart),
+		call(onCreateOrderStart),
 	]);
 }

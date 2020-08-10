@@ -41,6 +41,10 @@ export const isCashPaymentStart = () => ({
 	type: OrderFormActionTypes.IS_CASH_PAYMENT,
 });
 
+export const createOrderStart = () => ({
+	type: OrderFormActionTypes.CREATE_ORDER_START,
+});
+
 /* ================================================================ */
 /*  Process Success                                                 */
 /* ================================================================ */
@@ -65,6 +69,10 @@ export const hasErrorSuccess = bool => ({
 	payload: bool,
 });
 
+export const createOrderSuccess = bool => ({
+	type: OrderFormActionTypes.CREATE_ORDER_SUCCESS,
+});
+
 /* ================================================================ */
 /*  Process Failure                                                 */
 /* ================================================================ */
@@ -86,6 +94,11 @@ export const removeOrderItemFailure = errorMessage => ({
 
 export const hasErrorFailure = errorMessage => ({
 	type: OrderFormActionTypes.HAS_ERROR_FAILURE,
+	payload: errorMessage,
+});
+
+export const createOrderFailure = errorMessage => ({
+	type: OrderFormActionTypes.CREATE_ORDER_FAILURE,
 	payload: errorMessage,
 });
 
