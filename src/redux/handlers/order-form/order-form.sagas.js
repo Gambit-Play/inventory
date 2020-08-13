@@ -7,6 +7,9 @@ import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 // Utils
 import { groupBy } from '../../../utils/global.utils';
 
+// Status
+import STATUS from '../../../status/status';
+
 // Types
 import Types from './order-form.types';
 
@@ -30,8 +33,6 @@ import {
 	selectSelectedOrder,
 	selectTotalPrice,
 	selectTypeOfPayment,
-	selectIsCardPayment,
-	selectIsCashPayment,
 } from './order-form.selectors';
 import { selectCurrentMenus } from '../../menus/menus.selectors';
 import { selectCurrentUser } from '../../users/users.selectors';
@@ -166,7 +167,9 @@ export function* createOrderStart() {
 			const extraMenuItemsId = item.extraMenuItemsId.map(extraMenu => {
 				return {
 					categoryId: extraMenu[0],
-					selectedExtraItemId: extraMenu[2] ? extraMenu[2] : '',
+					selectedExtraItemId: extraMenu[2]
+						? extraMenu[2]
+						: extraMenu[1][0].id,
 				};
 			});
 
@@ -182,6 +185,7 @@ export function* createOrderStart() {
 				selectedMenus: newSelectedMenus,
 				totalPrice: totalPrice,
 				typeOfPayment,
+				orderStatus: STATUS.NOT_STARTED,
 				createdAt: new Date().toISOString(),
 				createdById: currentUser.id,
 				updatedAt: '',

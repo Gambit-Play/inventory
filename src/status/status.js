@@ -1,0 +1,9 @@
+const STATUS = {
+	NOT_STARTED: 'NOT_STARTED',
+	STARTED: 'STARTED',
+	FINISHED: 'FINISHED',
+	SERVED: 'SERVED',
+	PAID: 'PAID',
+};
+
+export default STATUS;
