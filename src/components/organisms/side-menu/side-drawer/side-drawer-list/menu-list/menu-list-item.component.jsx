@@ -9,8 +9,7 @@ import { MenuItem } from './menu-list-item.styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 
-const MenuListItem = props => {
-	const { children, selected, to, labelColor, label } = props;
+const MenuListItem = ({ children, selected, to, labelColor, label }) => {
 	return (
 		<MenuItem selected={selected} button component={Link} to={to}>
 			<ListItemIcon>{children}</ListItemIcon>

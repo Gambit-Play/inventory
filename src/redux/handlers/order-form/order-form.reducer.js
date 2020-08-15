@@ -61,11 +61,16 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Process Failure		                                        	*/
 		/* ================================================================ */
+		case OrderFormActionTypes.CREATE_ORDER_FAILURE:
+			return {
+				...state,
+				isCreateSuccess: false,
+				errorMessage: action.payload,
+			};
 		case OrderFormActionTypes.SELECT_MENU_FAILURE:
 		case OrderFormActionTypes.SET_EXTRA_MENU_ITEM_FAILURE:
 		case OrderFormActionTypes.REMOVE_ORDER_ITEM_FAILURE:
 		case OrderFormActionTypes.HAS_ERROR_FAILURE:
-		case OrderFormActionTypes.CREATE_ORDER_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,
