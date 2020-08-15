@@ -1,33 +1,33 @@
-import MenusActionTypes from './menus.types';
+import OrdersActionTypes from './orders.types';
 
 const INITIAL_STATE = {
-	currentMenus: null,
+	currentOrders: null,
 	isFetching: false,
 	errorMessage: '',
 };
 
-const menusReducer = (state = INITIAL_STATE, action) => {
+const ordersReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		/* ================================================================ */
 		/*  Current Items                                                   */
 		/* ================================================================ */
-		case MenusActionTypes.FETCH_MENUS_COLLECTIONS_START:
+		case OrdersActionTypes.FETCH_ORDERS_COLLECTIONS_START:
 			return {
 				...state,
 				isFetching: true,
 			};
-		case MenusActionTypes.FETCH_MENUS_COLLECTIONS_UPDATE:
+		case OrdersActionTypes.FETCH_ORDERS_COLLECTIONS_UPDATE:
 			return {
 				...state,
 				isFetching: true,
 			};
-		case MenusActionTypes.FETCH_MENUS_COLLECTIONS_SUCCESS:
+		case OrdersActionTypes.FETCH_ORDERS_COLLECTIONS_SUCCESS:
 			return {
 				...state,
 				isFetching: false,
-				currentMenus: action.payload,
+				currentOrders: action.payload,
 			};
-		case MenusActionTypes.FETCH_MENUS_COLLECTIONS_FAILURE:
+		case OrdersActionTypes.FETCH_ORDERS_COLLECTIONS_FAILURE:
 			return {
 				...state,
 				isFetching: false,
@@ -36,10 +36,10 @@ const menusReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Clear Items                                                     */
 		/* ================================================================ */
-		case MenusActionTypes.CLEAR_MENUS_COLLECTIONS:
+		case OrdersActionTypes.CLEAR_ORDERS_COLLECTIONS:
 			return {
 				...state,
-				currentMenus: null,
+				currentOrders: null,
 				isFetching: false,
 				errorMessage: '',
 			};
@@ -48,4 +48,4 @@ const menusReducer = (state = INITIAL_STATE, action) => {
 	}
 };
 
-export default menusReducer;
+export default ordersReducer;
