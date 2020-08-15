@@ -50,6 +50,7 @@ import CategoryDetail from './pages/categories-pages/category-detail/category-de
 import TablesList from './pages/tables-pages/tables-list/tables-list.component';
 import TableDetail from './pages/tables-pages/table-detail/table-detail.component';
 import TakeOrder from './pages/take-order-pages/take-order.component';
+import Orders from './pages/orders-pages/orders.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -165,6 +166,11 @@ const App = props => {
 								<Route
 									path={ROUTES.TAKE_ORDER}
 									component={TakeOrder}
+								/>
+								<Route
+									exact
+									path={ROUTES.ORDERS}
+									component={Orders}
 								/>
 							</SideMenu>
 						</MainContainer>

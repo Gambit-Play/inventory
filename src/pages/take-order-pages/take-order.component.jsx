@@ -11,22 +11,6 @@ import TableCard from '../../components/molecules/table-card/table-card.componen
 import OrderForm from '../../components/organisms/order-form/order-form.component';
 import PayOrder from '../../components/organisms/pay-order/pay-order.component';
 
-/*============================================================================*/
-// FIXME: Remove
-const TestTakeAway = () => <h1>Take Away</h1>;
-const TestEatIn = props => <h1>{props.match.params.tableId}</h1>;
-const TestComponentOne = props => {
-	console.log('@@ TestComponentOne - props:', props);
-
-	return <h1>TestComponentOne</h1>;
-};
-const TestComponentTwo = props => {
-	console.log('@@ TestComponentTwo - props:', props);
-
-	return <h1>TestComponentTwo</h1>;
-};
-/*============================================================================*/
-
 const TakeOrder = props => {
 	const { path } = props.match;
 
