@@ -40,11 +40,16 @@ const PayOrder = ({
 }) => {
 	const history = useHistory();
 
+	const handleClick = () => {
+		history.goBack();
+		createOrderStart();
+	};
+
 	if (isCardPayment) {
 		return (
 			<Fragment>
 				<TotalPrice totalPrice={totalPrice} />
-				<Button variant='contained' onClick={createOrderStart}>
+				<Button variant='contained' onClick={handleClick}>
 					Payed
 				</Button>
 				<Button variant='outlined' onClick={cancelPayment}>
@@ -58,7 +63,7 @@ const PayOrder = ({
 		return (
 			<Fragment>
 				<TotalPrice totalPrice={totalPrice} />
-				<Button variant='contained' onClick={createOrderStart}>
+				<Button variant='contained' onClick={handleClick}>
 					Payed
 				</Button>
 				<Button variant='outlined' onClick={cancelPayment}>

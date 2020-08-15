@@ -25,6 +25,7 @@ import {
 	removeOrderItemFailure,
 	createOrderSuccess,
 	createOrderFailure,
+	clearOrderForm,
 } from './order-form.actions';
 
 // Selectors
@@ -199,6 +200,7 @@ export function* createOrderStart() {
 			newOrder
 		);
 		yield put(createOrderSuccess());
+		yield put(clearOrderForm());
 	} catch (error) {
 		console.log(error);
 		yield put(createOrderFailure(error));
