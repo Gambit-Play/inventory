@@ -18,6 +18,10 @@ import {
 	removeCategoriesCollectionListener,
 } from './redux/categories/categories.actions';
 import {
+	fetchOrdersCollectionStart,
+	removeOrdersCollectionListener,
+} from './redux/orders/orders.actions';
+import {
 	fetchTablesCollectionStart,
 	removeTablesCollectionListener,
 } from './redux/tables/tables.actions';
@@ -66,6 +70,7 @@ const App = props => {
 		fetchAllUsersStart,
 		fetchCategoriesCollectionStart,
 		fetchTablesCollectionStart,
+		fetchOrdersCollectionStart,
 		removeItemsOrderBy,
 		removeItemsSearchField,
 		removeCategoriesOrderBy,
@@ -76,6 +81,7 @@ const App = props => {
 		removeTablesCollectionListener,
 		removeTablesOrderBy,
 		removeTablesSearchField,
+		removeOrdersCollectionListener,
 	} = props;
 
 	useEffect(() => {
@@ -92,6 +98,7 @@ const App = props => {
 		fetchUnitsStart();
 		fetchCategoriesCollectionStart();
 		fetchTablesCollectionStart();
+		fetchOrdersCollectionStart();
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -106,6 +113,7 @@ const App = props => {
 		fetchAllUsersStart,
 		fetchCategoriesCollectionStart,
 		fetchTablesCollectionStart,
+		fetchOrdersCollectionStart,
 		removeItemsOrderBy,
 		removeItemsSearchField,
 		removeCategoriesOrderBy,
@@ -116,6 +124,7 @@ const App = props => {
 		// removeTablesCollectionListener,
 		removeTablesOrderBy,
 		removeTablesSearchField,
+		removeOrdersCollectionListener,
 	]);
 
 	return (
@@ -190,6 +199,7 @@ App.propTypes = {
 	fetchAllUsersStart: PropTypes.func.isRequired,
 	fetchCategoriesCollectionStart: PropTypes.func.isRequired,
 	fetchTablesCollectionStart: PropTypes.func.isRequired,
+	fetchOrdersCollectionStart: PropTypes.func.isRequired,
 	removeItemsOrderBy: PropTypes.func.isRequired,
 	removeItemsSearchField: PropTypes.func.isRequired,
 	removeCategoriesOrderBy: PropTypes.func.isRequired,
@@ -198,6 +208,7 @@ App.propTypes = {
 	removeMenusSearchField: PropTypes.func.isRequired,
 	removeTablesOrderBy: PropTypes.func.isRequired,
 	removeTablesSearchField: PropTypes.func.isRequired,
+	removeOrdersCollectionListener: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -210,6 +221,7 @@ const mapDispatchToProps = dispatch => ({
 	fetchCategoriesCollectionStart: () =>
 		dispatch(fetchCategoriesCollectionStart()),
 	fetchTablesCollectionStart: () => dispatch(fetchTablesCollectionStart()),
+	fetchOrdersCollectionStart: () => dispatch(fetchOrdersCollectionStart()),
 	removeItemsOrderBy: () => dispatch(removeItemsOrderBy()),
 	removeItemsSearchField: () => dispatch(removeItemsSearchField()),
 	removeCategoriesOrderBy: () => dispatch(removeCategoriesOrderBy()),
@@ -220,6 +232,8 @@ const mapDispatchToProps = dispatch => ({
 	removeMenusSearchField: () => dispatch(removeMenusSearchField()),
 	removeTablesOrderBy: () => dispatch(removeTablesOrderBy()),
 	removeTablesSearchField: () => dispatch(removeTablesSearchField()),
+	removeOrdersCollectionListener: () =>
+		dispatch(removeOrdersCollectionListener()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

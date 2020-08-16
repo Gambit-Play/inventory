@@ -5,6 +5,7 @@ import itemsSagas from './items/items.sagas';
 import menusSagas from './menus/menus.sagas';
 import unitsSagas from './units/units.sagas';
 import tablesSagas from './tables/tables.sagas';
+import ordersSagas from './orders/orders.sagas';
 import categoriesSagas from './categories/categories.sagas';
 
 import itemsTableSagas from './handlers/items-table/items-table.sagas';
@@ -24,6 +25,7 @@ export default function* rootSaga() {
 		call(menusSagas),
 		call(unitsSagas),
 		call(tablesSagas),
+		call(ordersSagas),
 		call(categoriesSagas),
 		call(itemsTableSagas),
 		call(itemDetailSagas),
