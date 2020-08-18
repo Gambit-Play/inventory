@@ -7,6 +7,9 @@ import { createStructuredSelector } from 'reselect';
 import { fetchOrdersStart } from '../../../redux/handlers/orders-list/orders-list.actions';
 import { selectCurrentOrders } from '../../../redux/handlers/orders-list/orders-list.selectors';
 
+// Components
+import { OrderCard, FlexBox } from './orders-list.styles';
+
 const OrdersList = ({ fetchOrdersStart, ordersList }) => {
 	useEffect(() => {
 		fetchOrdersStart();
@@ -18,24 +21,24 @@ const OrdersList = ({ fetchOrdersStart, ordersList }) => {
 	console.log('@@@@@ ordersList:', ordersList);
 
 	return (
-		<Fragment>
-			{ordersList.map(order => (
-				<Fragment>
+		<FlexBox row>
+			{ordersList.map((order, orderIndex) => (
+				<OrderCard key={orderIndex}>
 					{order.selectedMenus.map((menu, menuIndex) => (
-						<div>
-							<h1 key={menuIndex}>{menu.selectedMenuName}</h1>
+						<Fragment>
+							<h3 key={menuIndex}>{menu.selectedMenuName}</h3>
 							{menu.extraMenuItems.map(
 								(extraMenu, extraMenuIndex) => (
-									<h4 key={extraMenuIndex}>
+									<h6 key={extraMenuIndex}>
 										{extraMenu.name}
-									</h4>
+									</h6>
 								)
 							)}
-						</div>
+						</Fragment>
 					))}
-				</Fragment>
+				</OrderCard>
 			))}
-		</Fragment>
+		</FlexBox>
 	);
 };
 
