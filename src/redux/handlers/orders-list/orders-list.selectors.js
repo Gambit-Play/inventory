@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 
 const selectOrdersListStore = state => state.ordersList;
 
-// Selects ordersList from the state
-export const selectOrdersList = createSelector(
+// Selects ordersList.currentOrders from the state
+export const selectCurrentOrders = createSelector(
 	[selectOrdersListStore],
-	ordersList => ordersList
+	ordersList => ordersList.currentOrders
 );
