@@ -4,7 +4,7 @@ import OrdersListActionTypes from './orders-list.types';
 /*  Process Start  	                                                */
 /* ================================================================ */
 
-export const fetchMenuStart = () => ({
+export const fetchOrdersStart = () => ({
 	type: OrdersListActionTypes.FETCH_ORDERS_START,
 });
 
@@ -12,7 +12,7 @@ export const fetchMenuStart = () => ({
 /*  Process Success	                                                */
 /* ================================================================ */
 
-export const fetchMenuSuccess = orders => ({
+export const fetchOrdersSuccess = orders => ({
 	type: OrdersListActionTypes.FETCH_ORDERS_SUCCESS,
 	payload: orders,
 });
@@ -21,7 +21,7 @@ export const fetchMenuSuccess = orders => ({
 /*  Process Failure	       	                                        */
 /* ================================================================ */
 
-export const fetchMenuFailure = errorMessage => ({
+export const fetchOrdersFailure = errorMessage => ({
 	type: OrdersListActionTypes.FETCH_ORDERS_FAILURE,
 	payload: errorMessage,
 });

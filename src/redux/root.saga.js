@@ -17,6 +17,7 @@ import categoryDetailSagas from './handlers/category-detail/category-detail.saga
 import tablesTableSagas from './handlers/tables-table/tables-table.sagas';
 import tableDetailSagas from './handlers/table-detail/table-detail.sagas';
 import orderFormSagas from './handlers/order-form/order-form.sagas';
+import ordersListSagas from './handlers/orders-list/orders-list.sagas';
 
 export default function* rootSaga() {
 	yield all([
@@ -36,5 +37,6 @@ export default function* rootSaga() {
 		call(tablesTableSagas),
 		call(tableDetailSagas),
 		call(orderFormSagas),
+		call(ordersListSagas),
 	]);
 }

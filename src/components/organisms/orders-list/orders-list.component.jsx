@@ -3,25 +3,25 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
-import { fetchMenuStart } from '../../../redux/handlers/orders-list/orders-list.actions';
+import { fetchOrdersStart } from '../../../redux/handlers/orders-list/orders-list.actions';
 
-const OrdersList = ({ fetchMenuStart }) => {
+const OrdersList = ({ fetchOrdersStart }) => {
 	useEffect(() => {
-		fetchMenuStart();
+		fetchOrdersStart();
 		return () => {
-			// Cleanup Listeners
+			// Cleanup
 		};
-	}, [fetchMenuStart]);
+	}, [fetchOrdersStart]);
 
 	return <h1>Orders List</h1>;
 };
 
 OrdersList.propTypes = {
-	fetchMenuStart: PropTypes.func.isRequired,
+	fetchOrdersStart: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
-	fetchMenuStart: () => dispatch(fetchMenuStart()),
+	fetchOrdersStart: () => dispatch(fetchOrdersStart()),
 });
 
 export default connect(null, mapDispatchToProps)(OrdersList);
