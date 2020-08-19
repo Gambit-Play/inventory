@@ -7,7 +7,10 @@ import STATUS from '../../../status/status';
 // Redux
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { fetchOrdersStart } from '../../../redux/handlers/orders-list/orders-list.actions';
+import {
+	fetchOrdersStart,
+	setOrderStatusStart,
+} from '../../../redux/handlers/orders-list/orders-list.actions';
 import { selectCurrentOrders } from '../../../redux/handlers/orders-list/orders-list.selectors';
 
 // Components
@@ -19,14 +22,15 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
-const OrdersList = ({ fetchOrdersStart, ordersList }) => {
+const OrdersList = ({ fetchOrdersStart, ordersList, setOrderStatusStart }) => {
 	const [value, setValue] = React.useState(STATUS.NOT_STARTED);
 
 	const handleChange = event => {
 		// setValue(event.target.value);
-		console.log(event.target);
+		const { name, value } = event.target;
+		console.log(name, value);
+		setOrderStatusStart(name, value);
 	};
 
 	useEffect(() => {
@@ -38,7 +42,7 @@ const OrdersList = ({ fetchOrdersStart, ordersList }) => {
 
 	console.log('@@@@@ ordersList:', ordersList);
 
-	return (
+	return ordersList !== undefined ? (
 		<FlexBox row>
 			{ordersList.map((order, orderIndex) => (
 				<OrderCard key={orderIndex}>
@@ -82,12 +86,13 @@ const OrdersList = ({ fetchOrdersStart, ordersList }) => {
 				</OrderCard>
 			))}
 		</FlexBox>
-	);
+	) : null;
 };
 
 OrdersList.propTypes = {
 	fetchOrdersStart: PropTypes.func.isRequired,
 	ordersList: PropTypes.array.isRequired,
+	setOrderStatusStart: PropTypes.func.isRequired,
 };
 
 const mapStateToDispatch = createStructuredSelector({
@@ -96,6 +101,8 @@ const mapStateToDispatch = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	fetchOrdersStart: () => dispatch(fetchOrdersStart()),
+	setOrderStatusStart: (id, status) =>
+		dispatch(setOrderStatusStart(id, status)),
 });
 
 export default connect(mapStateToDispatch, mapDispatchToProps)(OrdersList);

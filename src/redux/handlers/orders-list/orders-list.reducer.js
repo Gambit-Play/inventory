@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 const ordersListReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case OrdersListActionTypes.FETCH_ORDERS_SUCCESS:
+		case OrdersListActionTypes.SET_ORDER_STATUS_SUCCESS:
 			return {
 				...state,
 				currentOrders: action.payload,

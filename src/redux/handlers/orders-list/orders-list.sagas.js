@@ -11,11 +11,16 @@ import STATUS from '../../../status/status';
 import Types from './orders-list.types';
 
 // Actions
-import { fetchOrdersSuccess, fetchOrdersFailure } from './orders-list.actions';
+import {
+	fetchOrdersSuccess,
+	fetchOrdersFailure,
+	setOrderStatusSuccess,
+} from './orders-list.actions';
 
 // Selectors
 import { selectCurrentOrders } from '../../orders/orders.selectors';
 import { selectCurrentMenus } from '../../menus/menus.selectors';
+import { selectCurrentOrders as selectOrdersList } from '../../handlers/orders-list/orders-list.selectors';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -68,6 +73,24 @@ export function* fetchOrdersStart() {
 	}
 }
 
+export function* setOrderStatusStart({ payload: { id, status } }) {
+	try {
+		const ordersList = yield select(selectOrdersList);
+
+		const updatedCurrentOrders = ordersList.map(order => {
+			if (order.id === id) {
+				order.orderStatus = status;
+			}
+
+			return order;
+		});
+
+		yield put(setOrderStatusSuccess(updatedCurrentOrders));
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -76,10 +99,14 @@ export function* onFetchOrdersStart() {
 	yield takeLatest(Types.FETCH_ORDERS_START, fetchOrdersStart);
 }
 
+export function* onSetOrderStatusStart() {
+	yield takeLatest(Types.SET_ORDER_STATUS_START, setOrderStatusStart);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* ordersListSagas() {
-	yield all([call(onFetchOrdersStart)]);
+	yield all([call(onFetchOrdersStart), call(onSetOrderStatusStart)]);
 }
