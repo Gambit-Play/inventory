@@ -9,9 +9,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
 	fetchOrdersStart,
-	setOrderStatusStart,
+	setOrderStatus,
 } from '../../../redux/handlers/orders-list/orders-list.actions';
-import { selectCurrentOrders } from '../../../redux/handlers/orders-list/orders-list.selectors';
+import {
+	selectCurrentOrders,
+	selectUpdatedOrderId,
+} from '../../../redux/handlers/orders-list/orders-list.selectors';
 
 // Components
 import { OrderCard, FlexBox } from './orders-list.styles';
@@ -22,15 +25,18 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
 
-const OrdersList = ({ fetchOrdersStart, ordersList, setOrderStatusStart }) => {
-	const [value, setValue] = React.useState(STATUS.NOT_STARTED);
-
+const OrdersList = ({
+	fetchOrdersStart,
+	ordersList,
+	setOrderStatus,
+	updatedOrderId,
+}) => {
 	const handleChange = event => {
 		// setValue(event.target.value);
 		const { name, value } = event.target;
-		console.log(name, value);
-		setOrderStatusStart(name, value);
+		setOrderStatus(name, value);
 	};
 
 	useEffect(() => {
@@ -46,43 +52,54 @@ const OrdersList = ({ fetchOrdersStart, ordersList, setOrderStatusStart }) => {
 		<FlexBox row>
 			{ordersList.map((order, orderIndex) => (
 				<OrderCard key={orderIndex}>
-					{order.selectedMenus.map((menu, menuIndex) => (
-						<Fragment key={menuIndex}>
-							<h3>{menu.selectedMenuName}</h3>
-							{menu.extraMenuItems.map(
-								(extraMenu, extraMenuIndex) => (
-									<h6 key={extraMenuIndex}>
-										{extraMenu.name}
-									</h6>
-								)
-							)}
-							<Divider />
-						</Fragment>
-					))}
-					<FormControl component='fieldset'>
-						<RadioGroup
-							aria-label='status'
-							name={order.id}
-							value={order.orderStatus}
-							onChange={handleChange}
-						>
-							<FormControlLabel
-								value={STATUS.NOT_STARTED}
-								control={<Radio />}
-								label='Not Started'
-							/>
-							<FormControlLabel
-								value={STATUS.STARTED}
-								control={<Radio />}
-								label='Started'
-							/>
-							<FormControlLabel
-								value={STATUS.FINISHED}
-								control={<Radio />}
-								label='Finished'
-							/>
-						</RadioGroup>
-					</FormControl>
+					<div>
+						{order.selectedMenus.map((menu, menuIndex) => (
+							<Fragment key={menuIndex}>
+								<h3>{menu.selectedMenuName}</h3>
+								{menu.extraMenuItems.map(
+									(extraMenu, extraMenuIndex) => (
+										<h6 key={extraMenuIndex}>
+											{extraMenu.name}
+										</h6>
+									)
+								)}
+								<Divider />
+							</Fragment>
+						))}
+					</div>
+					{updatedOrderId === order.id ? (
+						<div>
+							<Button variant='contained' color='primary'>
+								Update
+							</Button>
+							<Button variant='contained'>Cancel</Button>
+						</div>
+					) : (
+						<FormControl component='fieldset'>
+							<RadioGroup
+								aria-label='status'
+								name={order.id}
+								value={order.orderStatus}
+								onChange={handleChange}
+							>
+								<FormControlLabel
+									value={STATUS.NOT_STARTED}
+									control={<Radio />}
+									label='Not Started'
+								/>
+								<FormControlLabel
+									value={STATUS.STARTED}
+									control={<Radio />}
+									label='Started'
+								/>
+								<FormControlLabel
+									value={STATUS.FINISHED}
+									control={<Radio />}
+									label='Finished'
+								/>
+							</RadioGroup>
+						</FormControl>
+					)}
 				</OrderCard>
 			))}
 		</FlexBox>
@@ -92,17 +109,18 @@ const OrdersList = ({ fetchOrdersStart, ordersList, setOrderStatusStart }) => {
 OrdersList.propTypes = {
 	fetchOrdersStart: PropTypes.func.isRequired,
 	ordersList: PropTypes.array.isRequired,
-	setOrderStatusStart: PropTypes.func.isRequired,
+	setOrderStatus: PropTypes.func.isRequired,
+	updatedOrderId: PropTypes.string.isRequired,
 };
 
 const mapStateToDispatch = createStructuredSelector({
 	ordersList: selectCurrentOrders,
+	updatedOrderId: selectUpdatedOrderId,
 });
 
 const mapDispatchToProps = dispatch => ({
 	fetchOrdersStart: () => dispatch(fetchOrdersStart()),
-	setOrderStatusStart: (id, status) =>
-		dispatch(setOrderStatusStart(id, status)),
+	setOrderStatus: (id, status) => dispatch(setOrderStatus(id, status)),
 });
 
 export default connect(mapStateToDispatch, mapDispatchToProps)(OrdersList);

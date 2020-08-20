@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const OrderCard = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	width: 300px;
 	padding: 20px;
 	margin-bottom: 8px;
@@ -13,4 +16,5 @@ export const OrderCard = styled.div`
 export const FlexBox = styled.div`
 	display: flex;
 	flex-direction: ${props => (props.row ? 'row' : 'column')};
+	flex-wrap: wrap;
 `;
