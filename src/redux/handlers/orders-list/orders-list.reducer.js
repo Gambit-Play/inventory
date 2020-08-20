@@ -7,10 +7,19 @@ const INITIAL_STATE = {
 	// Changed status and id of the specific order.
 	status: '',
 	id: '',
+	isUpdating: false,
 };
 
 const ordersListReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
+		/* ================================================================ */
+		/*  Process Start                                                   */
+		/* ================================================================ */
+		case OrdersListActionTypes.UPDATE_ORDER_STATUS_START:
+			return {
+				...state,
+				isUpdating: true,
+			};
 		/* ================================================================ */
 		/*  Process Success                                                 */
 		/* ================================================================ */
@@ -18,6 +27,16 @@ const ordersListReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				currentOrders: action.payload,
+				isUpdating: false,
+				status: '',
+				id: '',
+			};
+		case OrdersListActionTypes.UPDATE_ORDER_STATUS_SUCCESS:
+			return {
+				...state,
+				isUpdating: false,
+				status: '',
+				id: '',
 			};
 		case OrdersListActionTypes.SET_ORDER_STATUS:
 			return {
@@ -29,6 +48,12 @@ const ordersListReducer = (state = INITIAL_STATE, action) => {
 		/*  Process Failure                                                 */
 		/* ================================================================ */
 		case OrdersListActionTypes.FETCH_ORDERS_FAILURE:
+			return {
+				...state,
+				errorMessage: action.payload,
+				isUpdating: false,
+			};
+		case OrdersListActionTypes.UPDATE_ORDER_STATUS_FAILURE:
 			return {
 				...state,
 				errorMessage: action.payload,

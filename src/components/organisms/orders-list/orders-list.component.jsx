@@ -10,6 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import {
 	fetchOrdersStart,
 	setOrderStatus,
+	updateOrderStatusStart,
 } from '../../../redux/handlers/orders-list/orders-list.actions';
 import {
 	selectCurrentOrders,
@@ -32,19 +33,20 @@ const OrdersList = ({
 	ordersList,
 	setOrderStatus,
 	updatedOrderId,
+	updateOrderStatusStart,
 }) => {
-	const handleChange = event => {
-		// setValue(event.target.value);
-		const { name, value } = event.target;
-		setOrderStatus(name, value);
-	};
-
 	useEffect(() => {
 		fetchOrdersStart();
 		return () => {
 			// Cleanup
 		};
 	}, [fetchOrdersStart]);
+
+	const handleChange = event => {
+		// setValue(event.target.value);
+		const { name, value } = event.target;
+		setOrderStatus(name, value);
+	};
 
 	console.log('@@@@@ ordersList:', ordersList);
 
@@ -69,7 +71,11 @@ const OrdersList = ({
 					</div>
 					{updatedOrderId === order.id ? (
 						<div>
-							<Button variant='contained' color='primary'>
+							<Button
+								variant='contained'
+								color='primary'
+								onClick={updateOrderStatusStart}
+							>
 								Update
 							</Button>
 							<Button variant='contained'>Cancel</Button>
@@ -80,7 +86,12 @@ const OrdersList = ({
 								aria-label='status'
 								name={order.id}
 								value={order.orderStatus}
-								onChange={handleChange}
+								onChange={event =>
+									setOrderStatus(
+										event.target.name,
+										event.target.value
+									)
+								}
 							>
 								<FormControlLabel
 									value={STATUS.NOT_STARTED}
@@ -111,6 +122,7 @@ OrdersList.propTypes = {
 	ordersList: PropTypes.array.isRequired,
 	setOrderStatus: PropTypes.func.isRequired,
 	updatedOrderId: PropTypes.string.isRequired,
+	updateOrderStatusStart: PropTypes.func.isRequired,
 };
 
 const mapStateToDispatch = createStructuredSelector({
@@ -121,6 +133,7 @@ const mapStateToDispatch = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
 	fetchOrdersStart: () => dispatch(fetchOrdersStart()),
 	setOrderStatus: (id, status) => dispatch(setOrderStatus(id, status)),
+	updateOrderStatusStart: () => dispatch(updateOrderStatusStart()),
 });
 
 export default connect(mapStateToDispatch, mapDispatchToProps)(OrdersList);

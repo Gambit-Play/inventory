@@ -13,6 +13,10 @@ export const setOrderStatus = (id, status) => ({
 	payload: { id, status },
 });
 
+export const updateOrderStatusStart = () => ({
+	type: OrdersListActionTypes.UPDATE_ORDER_STATUS_START,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -22,11 +26,20 @@ export const fetchOrdersSuccess = orders => ({
 	payload: orders,
 });
 
+export const updateOrderStatusSuccess = () => ({
+	type: OrdersListActionTypes.UPDATE_ORDER_STATUS_SUCCESS,
+});
+
 /* ================================================================ */
 /*  Process Failure	       	                                        */
 /* ================================================================ */
 
 export const fetchOrdersFailure = errorMessage => ({
 	type: OrdersListActionTypes.FETCH_ORDERS_FAILURE,
+	payload: errorMessage,
+});
+
+export const updateOrderStatusFailure = errorMessage => ({
+	type: OrdersListActionTypes.UPDATE_ORDER_STATUS_FAILURE,
 	payload: errorMessage,
 });

@@ -1,7 +1,7 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
 // Firebase
-import { createCollectionAndDocument } from '../../../firebase/firebase.utils';
+import { updateDocument } from '../../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 
 // Status
@@ -9,13 +9,20 @@ import STATUS from '../../../status/status';
 
 // Types
 import Types from './orders-list.types';
+import OrdersCollectionTypes from '../../orders/orders.types';
 
 // Actions
-import { fetchOrdersSuccess, fetchOrdersFailure } from './orders-list.actions';
+import {
+	fetchOrdersSuccess,
+	fetchOrdersFailure,
+	updateOrderStatusSuccess,
+	updateOrderStatusFailure,
+} from './orders-list.actions';
 
 // Selectors
 import { selectCurrentOrders } from '../../orders/orders.selectors';
 import { selectCurrentMenus } from '../../menus/menus.selectors';
+import { selectCurrentUser } from '../../users/users.selectors';
 import {
 	selectUpdatedOrderId,
 	selectUpdatedOrderStatus,
@@ -76,16 +83,21 @@ export function* updateOrderStatusStart() {
 	try {
 		const id = yield select(selectUpdatedOrderId);
 		const status = yield select(selectUpdatedOrderStatus);
+		const currentOrders = yield select(selectCurrentOrders);
+		const currentUser = yield select(selectCurrentUser);
 
-		// const updatedCurrentOrders = yield ordersList.map(order => {
-		// 	if (order.id === id) {
-		// 		order.orderStatus = status;
-		// 	}
+		const order = yield currentOrders.find(order => order.id === id);
+		const updatedOrder = yield {
+			...order,
+			orderStatus: status,
+			updatedAt: new Date().toISOString(),
+			updatedById: currentUser.id,
+		};
 
-		// 	return order;
-		// });
+		yield call(updateDocument, COLLECTION_IDS.ORDERS, id, updatedOrder);
 	} catch (error) {
 		console.log(error);
+		yield put(updateOrderStatusFailure(error));
 	}
 }
 
@@ -95,19 +107,20 @@ export function* updateOrderStatusStart() {
 
 export function* onFetchOrdersStart() {
 	yield takeLatest(Types.FETCH_ORDERS_START, fetchOrdersStart);
+	yield takeLatest(
+		OrdersCollectionTypes.FETCH_ORDERS_COLLECTIONS_SUCCESS,
+		fetchOrdersStart
+	);
 }
 
-// export function* onUpdateOrderStatusStart() {
-// 	yield takeLatest(Types.SET_ORDER_STATUS, updateOrderStatusStart);
-// }
+export function* onUpdateOrderStatusStart() {
+	yield takeLatest(Types.UPDATE_ORDER_STATUS_START, updateOrderStatusStart);
+}
 
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* ordersListSagas() {
-	yield all([
-		call(onFetchOrdersStart),
-		// call(onUpdateOrderStatusStart)
-	]);
+	yield all([call(onFetchOrdersStart), call(onUpdateOrderStatusStart)]);
 }
