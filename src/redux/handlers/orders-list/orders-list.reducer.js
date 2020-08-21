@@ -45,6 +45,15 @@ const ordersListReducer = (state = INITIAL_STATE, action) => {
 				id: action.payload.id,
 			};
 		/* ================================================================ */
+		/*  Process Remove                                                  */
+		/* ================================================================ */
+		case OrdersListActionTypes.REMOVE_ORDER_STATUS:
+			return {
+				...state,
+				status: '',
+				id: '',
+			};
+		/* ================================================================ */
 		/*  Process Failure                                                 */
 		/* ================================================================ */
 		case OrdersListActionTypes.FETCH_ORDERS_FAILURE:

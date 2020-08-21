@@ -8,6 +8,8 @@ const OrdersListActionTypes = {
 	UPDATE_ORDER_STATUS_FAILURE: 'UPDATE_ORDER_STATUS_FAILURE',
 
 	SET_ORDER_STATUS: 'SET_ORDER_STATUS',
+
+	REMOVE_ORDER_STATUS: 'REMOVE_ORDER_STATUS',
 };
 
 export default OrdersListActionTypes;

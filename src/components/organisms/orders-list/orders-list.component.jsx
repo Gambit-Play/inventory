@@ -11,6 +11,7 @@ import {
 	fetchOrdersStart,
 	setOrderStatus,
 	updateOrderStatusStart,
+	removeOrderStatus,
 } from '../../../redux/handlers/orders-list/orders-list.actions';
 import {
 	selectCurrentOrders,
@@ -34,6 +35,7 @@ const OrdersList = ({
 	setOrderStatus,
 	updatedOrderId,
 	updateOrderStatusStart,
+	removeOrderStatus,
 }) => {
 	useEffect(() => {
 		fetchOrdersStart();
@@ -41,14 +43,6 @@ const OrdersList = ({
 			// Cleanup
 		};
 	}, [fetchOrdersStart]);
-
-	const handleChange = event => {
-		// setValue(event.target.value);
-		const { name, value } = event.target;
-		setOrderStatus(name, value);
-	};
-
-	console.log('@@@@@ ordersList:', ordersList);
 
 	return ordersList !== undefined ? (
 		<FlexBox row>
@@ -78,7 +72,12 @@ const OrdersList = ({
 							>
 								Update
 							</Button>
-							<Button variant='contained'>Cancel</Button>
+							<Button
+								variant='contained'
+								onClick={removeOrderStatus}
+							>
+								Cancel
+							</Button>
 						</div>
 					) : (
 						<FormControl component='fieldset'>
@@ -123,6 +122,7 @@ OrdersList.propTypes = {
 	setOrderStatus: PropTypes.func.isRequired,
 	updatedOrderId: PropTypes.string.isRequired,
 	updateOrderStatusStart: PropTypes.func.isRequired,
+	removeOrderStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToDispatch = createStructuredSelector({
@@ -134,6 +134,7 @@ const mapDispatchToProps = dispatch => ({
 	fetchOrdersStart: () => dispatch(fetchOrdersStart()),
 	setOrderStatus: (id, status) => dispatch(setOrderStatus(id, status)),
 	updateOrderStatusStart: () => dispatch(updateOrderStatusStart()),
+	removeOrderStatus: () => dispatch(removeOrderStatus()),
 });
 
 export default connect(mapStateToDispatch, mapDispatchToProps)(OrdersList);

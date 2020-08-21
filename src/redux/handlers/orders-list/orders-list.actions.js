@@ -43,3 +43,11 @@ export const updateOrderStatusFailure = errorMessage => ({
 	type: OrdersListActionTypes.UPDATE_ORDER_STATUS_FAILURE,
 	payload: errorMessage,
 });
+
+/* ================================================================ */
+/*  Process Remove	       	                                        */
+/* ================================================================ */
+
+export const removeOrderStatus = () => ({
+	type: OrdersListActionTypes.REMOVE_ORDER_STATUS,
+});
