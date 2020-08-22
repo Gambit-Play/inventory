@@ -37,40 +37,45 @@ export function* fetchOrdersStart() {
 		const currentOrders = yield select(selectCurrentOrders);
 		const currentMenus = yield select(selectCurrentMenus);
 
-		const newCurrentOrders = currentOrders.map(order => {
-			const newSelectedMenus = order.selectedMenus.map(menu => {
-				const { name } = currentMenus.find(
-					currMenu => currMenu.id === menu.selectedMenuId
-				);
-
-				const extraMenuItems = menu.extraMenuItemsId.map(menuItem => {
+		const newCurrentOrders = currentOrders
+			.filter(order => order.orderStatus !== STATUS.FINISHED)
+			.map(order => {
+				const newSelectedMenus = order.selectedMenus.map(menu => {
 					const { name } = currentMenus.find(
-						currMenu => currMenu.id === menuItem.selectedExtraItemId
+						currMenu => currMenu.id === menu.selectedMenuId
 					);
 
-					return { name: name };
+					const extraMenuItems = menu.extraMenuItemsId.map(
+						menuItem => {
+							const { name } = currentMenus.find(
+								currMenu =>
+									currMenu.id === menuItem.selectedExtraItemId
+							);
+
+							return { name: name };
+						}
+					);
+
+					return {
+						selectedMenuName: name,
+						selectedMenuId: menu.selectedMenuId,
+						extraMenuItems: extraMenuItems,
+					};
 				});
 
 				return {
-					selectedMenuName: name,
-					selectedMenuId: menu.selectedMenuId,
-					extraMenuItems: extraMenuItems,
+					createdAt: order.createdAt,
+					createdBy: order.createdBy,
+					createdById: order.createdById,
+					id: order.id,
+					orderStatus: order.orderStatus,
+					selectedMenus: newSelectedMenus,
+					totalPrice: order.totalPrice,
+					updatedAt: order.updatedAt,
+					updatedBy: order.updatedBy,
+					updatedById: order.updatedById,
 				};
 			});
-
-			return {
-				createdAt: order.createdAt,
-				createdBy: order.createdBy,
-				createdById: order.createdById,
-				id: order.id,
-				orderStatus: order.orderStatus,
-				selectedMenus: newSelectedMenus,
-				totalPrice: order.totalPrice,
-				updatedAt: order.updatedAt,
-				updatedBy: order.updatedBy,
-				updatedById: order.updatedById,
-			};
-		});
 
 		yield put(fetchOrdersSuccess(newCurrentOrders));
 	} catch (error) {
