@@ -15,3 +15,5 @@ export const NEW_MENU = 'new-menu';
 export const EAT_IN = 'eat-in';
 export const TAKE_AWAY = 'take-away';
 export const PAYMENT = 'payment';
+export const ORDERS_LIST = 'orders-list';
+export const ORDERS_TABLE = 'orders-table';

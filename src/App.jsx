@@ -177,7 +177,6 @@ const App = props => {
 									component={TakeOrder}
 								/>
 								<Route
-									exact
 									path={ROUTES.ORDERS}
 									component={Orders}
 								/>
