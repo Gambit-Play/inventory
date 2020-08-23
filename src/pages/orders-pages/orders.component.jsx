@@ -12,7 +12,6 @@ import Table from '../../components/organisms/table/table.component';
 
 const Orders = ({ match }) => {
 	const { path } = match;
-	const OrderTable = <Table orders />;
 
 	console.log(match);
 

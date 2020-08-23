@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 // Routes
 import * as ROUTES from '../../../routes/routes';
@@ -20,7 +19,7 @@ const OrderTypeButtons = () => {
 				component={Link}
 				to={`${url}/${ROUTES.ORDERS_LIST}`}
 			>
-				Orders List
+				New Orders
 			</OrderButton>
 			<OrderButton
 				variant='contained'
@@ -28,12 +27,10 @@ const OrderTypeButtons = () => {
 				component={Link}
 				to={`${url}/${ROUTES.ORDERS_TABLE}`}
 			>
-				Orders Table
+				All Orders
 			</OrderButton>
 		</CenterContainer>
 	);
 };
-
-OrderTypeButtons.propTypes = {};
 
 export default OrderTypeButtons;
