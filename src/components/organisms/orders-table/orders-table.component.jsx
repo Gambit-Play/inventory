@@ -21,7 +21,7 @@ import { headCells } from './table-head.cells';
 // Components
 import TableToolbar from '../table/table-toolbar/table-toolbar.component';
 import TableHead from '../table/table-head/table-head.component';
-// import TableBody from './table-body/table-body.component';
+import TableBody from './table-body/table-body.component';
 
 // Mui Components
 import Paper from '@material-ui/core/Paper';
@@ -70,7 +70,9 @@ const OrdersTable = ({
 								order={order}
 								orderBy={orderBy}
 								headCells={headCells}
+								setOrderStart={setOrderStart}
 							/>
+							<TableBody />
 						</Table>
 					</TableContainer>
 				)}
