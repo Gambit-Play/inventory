@@ -122,6 +122,16 @@ export const getCollection = async collectionId => {
 	return collectionRef;
 };
 
+export const getCollectionOrderedByDate = async collectionId => {
+	if (!collectionId) console.error('There is no "collectionId"');
+
+	const collectionRef = firestore
+		.collection(collectionId)
+		.orderBy('createdAt', 'desc');
+
+	return collectionRef;
+};
+
 export const getUsersCollection = async () => {
 	const usersRef = await getCollection(COLLECTION_IDS.USERS);
 	const snapshot = await usersRef.get();

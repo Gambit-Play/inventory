@@ -1,6 +1,7 @@
 import OrdersTableActionTypes from './orders-table.types';
 
 const INITIAL_STATE = {
+	ordersTable: [],
 	order: 'asc',
 	orderBy: '',
 	page: 0,
@@ -14,6 +15,11 @@ const ordersTableReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Success Process                                                 */
 		/* ================================================================ */
+		case OrdersTableActionTypes.FETCH_ORDERS_TABLE_SUCCESS:
+			return {
+				...state,
+				ordersTable: action.payload,
+			};
 		case OrdersTableActionTypes.SET_ORDERS_ORDER_SUCCESS:
 			return {
 				...state,
@@ -37,6 +43,7 @@ const ordersTableReducer = (state = INITIAL_STATE, action) => {
 		/* ================================================================ */
 		/*  Failure Process                                                 */
 		/* ================================================================ */
+		case OrdersTableActionTypes.FETCH_ORDERS_TABLE_FAILURE:
 		case OrdersTableActionTypes.SET_ORDERS_ORDER_FAILURE:
 		case OrdersTableActionTypes.SET_ORDERS_PAGE_FAILURE:
 		case OrdersTableActionTypes.SET_ORDERS_ROWS_PER_PAGE_FAILURE:

@@ -151,3 +151,31 @@ export const filterArrayInclude = (array, filter) => {
 
 	return arrayFiltered;
 };
+
+export function formatSelectedMenus(selectedMenus, currentMenus) {
+	try {
+		const newSelectedMenus = selectedMenus.map(menu => {
+			const { name } = currentMenus.find(
+				currMenu => currMenu.id === menu.selectedMenuId
+			);
+
+			const extraMenuItems = menu.extraMenuItemsId.map(menuItem => {
+				const { name } = currentMenus.find(
+					currMenu => currMenu.id === menuItem.selectedExtraItemId
+				);
+
+				return { name: name };
+			});
+
+			return {
+				selectedMenuName: name,
+				selectedMenuId: menu.selectedMenuId,
+				extraMenuItems: extraMenuItems,
+			};
+		});
+
+		return newSelectedMenus;
+	} catch (error) {
+		console.log(error);
+	}
+}
