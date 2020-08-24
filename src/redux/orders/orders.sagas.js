@@ -1,4 +1,5 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
+import orderData from 'lodash/orderBy';
 
 // Action Types
 import OrdersActionTypes from './orders.types';
@@ -11,7 +12,7 @@ import {
 } from './orders.actions';
 
 // Firebase utils
-import { getCollection } from '../../firebase/firebase.utils';
+import { getCollectionOrderedByDate } from '../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../firebase/collections.ids';
 
 // Selectors
@@ -28,7 +29,10 @@ let unsubscribe;
 
 export function* fetchOrdersCollectionAsync() {
 	try {
-		const collectionRef = yield call(getCollection, COLLECTION_IDS.ORDERS);
+		const collectionRef = yield call(
+			getCollectionOrderedByDate,
+			COLLECTION_IDS.ORDERS
+		);
 		const allUsers = yield select(selectAllUsers);
 
 		unsubscribe = yield collectionRef.onSnapshot(snapshot => {

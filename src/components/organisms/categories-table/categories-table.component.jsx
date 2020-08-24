@@ -94,6 +94,7 @@ const CategoriesTable = props => {
 								setOrderStart={setOrderStart}
 								setSelectAllStart={setSelectAllStart}
 								headCells={headCells}
+								enableCheckbox
 							/>
 							<TableBody />
 						</Table>

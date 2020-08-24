@@ -2,6 +2,12 @@ import { createSelector } from 'reselect';
 
 const selectOrdersTable = state => state.ordersTable;
 
+// Selects ordersTable.ordersTable from the state
+export const selectOrderTable = createSelector(
+	[selectOrdersTable],
+	ordersTable => ordersTable.ordersTable
+);
+
 // Selects ordersTable.order from the state
 export const selectOrder = createSelector(
 	[selectOrdersTable],

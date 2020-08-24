@@ -94,6 +94,7 @@ const ItemsTable = props => {
 								setOrderStart={setOrderStart}
 								setSelectAllStart={setSelectAllStart}
 								headCells={headCells}
+								enableCheckbox
 							/>
 							<TableBody />
 						</Table>

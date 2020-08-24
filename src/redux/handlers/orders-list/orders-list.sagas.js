@@ -4,6 +4,9 @@ import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 import { updateDocument } from '../../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 
+// Utils
+import { formatSelectedMenus } from '../../../utils/global.utils';
+
 // Status
 import STATUS from '../../../status/status';
 
@@ -40,28 +43,10 @@ export function* fetchOrdersStart() {
 		const newCurrentOrders = currentOrders
 			.filter(order => order.orderStatus !== STATUS.FINISHED)
 			.map(order => {
-				const newSelectedMenus = order.selectedMenus.map(menu => {
-					const { name } = currentMenus.find(
-						currMenu => currMenu.id === menu.selectedMenuId
-					);
-
-					const extraMenuItems = menu.extraMenuItemsId.map(
-						menuItem => {
-							const { name } = currentMenus.find(
-								currMenu =>
-									currMenu.id === menuItem.selectedExtraItemId
-							);
-
-							return { name: name };
-						}
-					);
-
-					return {
-						selectedMenuName: name,
-						selectedMenuId: menu.selectedMenuId,
-						extraMenuItems: extraMenuItems,
-					};
-				});
+				const newSelectedMenus = formatSelectedMenus(
+					order.selectedMenus,
+					currentMenus
+				);
 
 				return {
 					createdAt: order.createdAt,

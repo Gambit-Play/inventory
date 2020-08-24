@@ -19,27 +19,30 @@ const TableHead = ({
 	setOrderStart,
 	setSelectAllStart,
 	headCells,
+	enableCheckbox,
 }) => {
 	const classes = useStyles();
 
-	const numSelected = selected.length;
+	const numSelected = selected ? selected.length : 0;
 	const dataCount = data.length;
 
 	return (
 		<MuiTableHead>
 			<TableRow>
-				<TableCell padding='checkbox'>
-					<Checkbox
-						indeterminate={
-							numSelected > 0 && numSelected < dataCount
-						}
-						checked={dataCount > 0 && numSelected === dataCount}
-						onChange={event =>
-							setSelectAllStart(event.target.checked)
-						}
-						inputProps={{ 'aria-label': 'select all' }}
-					/>
-				</TableCell>
+				{enableCheckbox && (
+					<TableCell padding='checkbox'>
+						<Checkbox
+							indeterminate={
+								numSelected > 0 && numSelected < dataCount
+							}
+							checked={dataCount > 0 && numSelected === dataCount}
+							onChange={event =>
+								setSelectAllStart(event.target.checked)
+							}
+							inputProps={{ 'aria-label': 'select all' }}
+						/>
+					</TableCell>
+				)}
 				{headCells.map(headCell => (
 					<TableCell
 						key={headCell.id}
@@ -72,9 +75,11 @@ TableHead.propTypes = {
 	data: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
-	selected: PropTypes.array.isRequired,
-	setOrderStart: PropTypes.func.isRequired,
-	setSelectAllStart: PropTypes.func.isRequired,
+	selected: PropTypes.array,
+	setOrderStart: PropTypes.func,
+	setSelectAllStart: PropTypes.func,
+	headCells: PropTypes.array.isRequired,
+	disableCheckbox: PropTypes.bool,
 };
 
 export default TableHead;
