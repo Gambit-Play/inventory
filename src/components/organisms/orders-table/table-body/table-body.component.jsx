@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+// Utils
+import { normalizeString } from '../../../../utils/global.utils';
+
 // Redux
 import {
 	selectPage,
@@ -53,7 +56,7 @@ const TableBody = ({ orders, page, rowsPerPage, history }) => {
 							// FIXME: Apply new handler
 							//onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.orderStatus}
+							{normalizeString(row.orderStatus)}
 						</TableCell>
 						<TableCell
 							align='right'

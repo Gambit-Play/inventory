@@ -13,8 +13,6 @@ import Table from '../../components/organisms/table/table.component';
 const Orders = ({ match }) => {
 	const { path } = match;
 
-	console.log(match);
-
 	return (
 		<Switch>
 			<Route exact path={path} component={OrderTypeButtons} />

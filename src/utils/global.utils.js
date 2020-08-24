@@ -179,3 +179,27 @@ export function formatSelectedMenus(selectedMenus, currentMenus) {
 		console.log(error);
 	}
 }
+
+// Convert string to normal string
+export const normalizeString = string => {
+	const arr = string.toLowerCase().split('_');
+
+	const capitalize = (array, index) => {
+		return array[index].charAt(0).toUpperCase() + array[index].slice(1);
+	};
+
+	if (arr.length === 1) {
+		const nameCapitalized = capitalize(arr, 0);
+
+		return nameCapitalized;
+	}
+
+	if (arr.length === 2) {
+		const firstCapitalized = capitalize(arr, 0);
+		const secondCapitalized = capitalize(arr, 1);
+
+		const nameCapitalized = `${firstCapitalized} ${secondCapitalized}`;
+
+		return nameCapitalized;
+	}
+};
