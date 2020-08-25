@@ -5,8 +5,11 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-// Utils
-import { normalizeString } from '../../../../utils/global.utils';
+// Routes
+import * as ROUTES from '../../../../routes/routes';
+
+// Status
+import STATUS from '../../../../status/status';
 
 // Redux
 import {
@@ -15,9 +18,7 @@ import {
 	selectOrderTable,
 } from '../../../../redux/handlers/orders-table/orders-table.selectors';
 
-// Routes
-import * as ROUTES from '../../../../routes/routes';
-
+// Mui Components
 import MuiTableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -56,7 +57,7 @@ const TableBody = ({ orders, page, rowsPerPage, history }) => {
 							// FIXME: Apply new handler
 							//onClick={event => handleRowClick(event, row.id)}
 						>
-							{normalizeString(row.orderStatus)}
+							{STATUS[row.orderStatus].LABEL}
 						</TableCell>
 						<TableCell
 							align='right'

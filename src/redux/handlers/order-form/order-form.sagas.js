@@ -186,7 +186,7 @@ export function* createOrderStart() {
 				selectedMenus: newSelectedMenus,
 				totalPrice: totalPrice,
 				typeOfPayment,
-				orderStatus: STATUS.NOT_STARTED,
+				orderStatus: STATUS.NOT_STARTED.TYPE,
 				createdAt: new Date().toISOString(),
 				createdById: currentUser.id,
 				updatedAt: '',

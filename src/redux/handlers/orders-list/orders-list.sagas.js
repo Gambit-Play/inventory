@@ -41,7 +41,7 @@ export function* fetchOrdersStart() {
 		const currentMenus = yield select(selectCurrentMenus);
 
 		const newCurrentOrders = currentOrders
-			.filter(order => order.orderStatus !== STATUS.FINISHED)
+			.filter(order => order.orderStatus !== STATUS.FINISHED.TYPE)
 			.map(order => {
 				const newSelectedMenus = formatSelectedMenus(
 					order.selectedMenus,

@@ -93,19 +93,19 @@ const OrdersList = ({
 								}
 							>
 								<FormControlLabel
-									value={STATUS.NOT_STARTED}
+									value={STATUS.NOT_STARTED.TYPE}
 									control={<Radio />}
-									label='Not Started'
+									label={STATUS.NOT_STARTED.LABEL}
 								/>
 								<FormControlLabel
-									value={STATUS.STARTED}
+									value={STATUS.STARTED.TYPE}
 									control={<Radio />}
-									label='Started'
+									label={STATUS.STARTED.LABEL}
 								/>
 								<FormControlLabel
-									value={STATUS.FINISHED}
+									value={STATUS.FINISHED.TYPE}
 									control={<Radio />}
-									label='Finished'
+									label={STATUS.FINISHED.LABEL}
 								/>
 							</RadioGroup>
 						</FormControl>
