@@ -22,6 +22,7 @@ import {
 import MuiTableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Chip from '@material-ui/core/Chip';
 
 // Styles
 import useStyles from '../orders-table.styles';
@@ -43,6 +44,11 @@ const TableBody = ({ orders, page, rowsPerPage, history }) => {
 				  )
 				: orders
 			).map((row, index) => {
+				const style = {
+					background: STATUS[row.orderStatus].BACKGROUND_COLOR,
+					color: STATUS[row.orderStatus].TEXT_COLOR,
+				};
+
 				return (
 					<TableRow hover tabIndex={-1} key={row.id}>
 						<TableCell
@@ -57,7 +63,11 @@ const TableBody = ({ orders, page, rowsPerPage, history }) => {
 							// FIXME: Apply new handler
 							//onClick={event => handleRowClick(event, row.id)}
 						>
-							{STATUS[row.orderStatus].LABEL}
+							<Chip
+								size='small'
+								label={STATUS[row.orderStatus].LABEL}
+								style={style}
+							/>
 						</TableCell>
 						<TableCell
 							align='right'
