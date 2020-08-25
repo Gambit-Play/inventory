@@ -21,12 +21,12 @@ const STATUS = {
 		TYPE: 'SERVED',
 		LABEL: 'Served',
 		BACKGROUND_COLOR: '#6200ea',
-		TEXT_COLOR: '#000000',
+		TEXT_COLOR: '#ffffff',
 	},
 	PAID: {
 		TYPE: 'PAID',
 		LABEL: 'Paid',
-		BACKGROUND_COLOR: '#2962ff',
+		BACKGROUND_COLOR: '#0091ea',
 		TEXT_COLOR: '#000000',
 	},
 };

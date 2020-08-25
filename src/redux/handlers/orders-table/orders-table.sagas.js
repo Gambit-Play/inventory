@@ -11,7 +11,11 @@ import OrdersTableActionTypes from './orders-table.types';
 import * as OrdersTableActions from './orders-table.actions';
 
 // Selectors
-import { selectOrder, selectOrderBy } from './orders-table.selectors';
+import {
+	selectOrder,
+	selectOrderBy,
+	selectOrderTable,
+} from './orders-table.selectors';
 import { selectCurrentOrders } from '../../orders/orders.selectors';
 import { selectCurrentMenus } from '../../menus/menus.selectors';
 
@@ -65,6 +69,25 @@ export function* setOrder({ payload: columnName }) {
 	}
 }
 
+export function* setOrderByStart() {
+	try {
+		const order = yield select(selectOrder);
+		const orderBy = yield select(selectOrderBy);
+		const orderTable = yield select(selectOrderTable);
+		const sorter =
+			orderBy === 'totalPrice'
+				? orderBy
+				: order => {
+						return order[orderBy].toLowerCase();
+				  };
+		const newOrdersTable = yield orderData(orderTable, [sorter], order);
+
+		yield put(OrdersTableActions.fetchOrdersTableSuccess(newOrdersTable));
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -80,10 +103,21 @@ export function* onSetOrderStart() {
 	yield takeLatest(OrdersTableActionTypes.SET_ORDERS_ORDER_START, setOrder);
 }
 
+export function* onSetOrderByStart() {
+	yield takeLatest(
+		OrdersTableActionTypes.SET_ORDERS_ORDER_BY,
+		setOrderByStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
 
 export default function* ordersTableSagas() {
-	yield all([call(onFetchOrdersTableStart), call(onSetOrderStart)]);
+	yield all([
+		call(onFetchOrdersTableStart),
+		call(onSetOrderStart),
+		call(onSetOrderByStart),
+	]);
 }
