@@ -88,6 +88,27 @@ export function* setOrderByStart() {
 	}
 }
 
+export function* setPageStart({ payload: page }) {
+	try {
+		yield put(OrdersTableActions.setPageSuccess(page));
+	} catch (error) {
+		console.log(error);
+		yield put(OrdersTableActions.setPageFailure(error));
+	}
+}
+
+export function* setRowsPerPageStart({ payload: rowsPerPage }) {
+	try {
+		yield put(
+			OrdersTableActions.setRowsPerPageSuccess(parseInt(rowsPerPage, 10))
+		);
+		yield put(OrdersTableActions.setPageSuccess(0));
+	} catch (error) {
+		console.log(error);
+		yield put(OrdersTableActions.setRowsPerPageFailure(error));
+	}
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -110,6 +131,20 @@ export function* onSetOrderByStart() {
 	);
 }
 
+export function* onSetPageStart() {
+	yield takeLatest(
+		OrdersTableActionTypes.SET_ORDERS_PAGE_START,
+		setPageStart
+	);
+}
+
+export function* onSetRowsPerPageStart() {
+	yield takeLatest(
+		OrdersTableActionTypes.SET_ORDERS_ROWS_PER_PAGE_START,
+		setRowsPerPageStart
+	);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -119,5 +154,7 @@ export default function* ordersTableSagas() {
 		call(onFetchOrdersTableStart),
 		call(onSetOrderStart),
 		call(onSetOrderByStart),
+		call(onSetPageStart),
+		call(onSetRowsPerPageStart),
 	]);
 }

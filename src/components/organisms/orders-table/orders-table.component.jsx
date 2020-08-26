@@ -9,10 +9,14 @@ import {
 	selectOrderTable,
 	selectOrder,
 	selectOrderBy,
+	selectPage,
+	selectRowsPerPage,
 } from '../../../redux/handlers/orders-table/orders-table.selectors';
 import {
 	setOrderStart,
 	fetchOrdersTableStart,
+	setPageStart,
+	setRowsPerPageStart,
 } from '../../../redux/handlers/orders-table/orders-table.actions';
 
 // Headcells
@@ -40,6 +44,10 @@ const OrdersTable = ({
 	orders,
 	order,
 	orderBy,
+	page,
+	rowsPerPage,
+	setPageStart,
+	setRowsPerPageStart,
 }) => {
 	const classes = useStyles();
 
@@ -77,6 +85,22 @@ const OrdersTable = ({
 					</TableContainer>
 				)}
 			</Paper>
+			<Paper>
+				<TablePagination
+					rowsPerPageOptions={[
+						5,
+						10,
+						25,
+						{ label: 'All', value: -1 },
+					]}
+					component='div'
+					count={orders.length}
+					rowsPerPage={rowsPerPage}
+					page={page}
+					onChangePage={setPageStart}
+					onChangeRowsPerPage={setRowsPerPageStart}
+				/>
+			</Paper>
 		</div>
 	);
 };
@@ -88,6 +112,10 @@ OrdersTable.propTypes = {
 	orders: PropTypes.array.isRequired,
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
+	page: PropTypes.number.isRequired,
+	rowsPerPage: PropTypes.number.isRequired,
+	setPageStart: PropTypes.func.isRequired,
+	setRowsPerPageStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -95,10 +123,15 @@ const mapStateToProps = createStructuredSelector({
 	orders: selectOrderTable,
 	order: selectOrder,
 	orderBy: selectOrderBy,
+	page: selectPage,
+	rowsPerPage: selectRowsPerPage,
 });
 
 const mapDispatchToProps = dispatch => ({
 	setOrderStart: columnName => dispatch(setOrderStart(columnName)),
 	fetchOrdersTableStart: () => dispatch(fetchOrdersTableStart()),
+	setPageStart: (event, page) => dispatch(setPageStart(page)),
+	setRowsPerPageStart: event =>
+		dispatch(setRowsPerPageStart(event.target.value)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(OrdersTable);
