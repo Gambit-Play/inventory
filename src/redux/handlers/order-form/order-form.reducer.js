@@ -46,6 +46,11 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				totalPrice: action.payload,
 			};
+		case OrderFormActionTypes.SET_TABLE_ID:
+			return {
+				...state,
+				tableId: action.payload,
+			};
 		case OrderFormActionTypes.IS_CARD_PAYMENT:
 			return {
 				...state,
@@ -82,6 +87,11 @@ const orderFormReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				categoryId: '',
+			};
+		case OrderFormActionTypes.CLEAR_TABLE_ID:
+			return {
+				...state,
+				tableId: '',
 			};
 		case OrderFormActionTypes.CANCEL_PAYMENT:
 			return {

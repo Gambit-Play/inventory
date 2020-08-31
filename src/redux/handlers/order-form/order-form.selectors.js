@@ -26,6 +26,12 @@ export const selectSelectedOrder = createSelector(
 	orderForm => orderForm.selectedOrder
 );
 
+// Selects orderForm.tableId from the state
+export const selectTableId = createSelector(
+	[selectOrderForm],
+	orderForm => orderForm.tableId
+);
+
 // Selects orderForm.hasError from the state
 export const selectHasError = createSelector(
 	[selectOrderForm],

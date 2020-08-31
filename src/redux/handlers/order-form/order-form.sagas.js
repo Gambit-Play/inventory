@@ -34,6 +34,7 @@ import {
 	selectSelectedOrder,
 	selectTotalPrice,
 	selectTypeOfPayment,
+	selectTableId,
 } from './order-form.selectors';
 import { selectCurrentMenus } from '../../menus/menus.selectors';
 import { selectCurrentUser } from '../../users/users.selectors';
@@ -163,6 +164,7 @@ export function* createOrderStart() {
 		const totalPrice = yield select(selectTotalPrice);
 		const typeOfPayment = yield select(selectTypeOfPayment);
 		const currentUser = yield select(selectCurrentUser);
+		const tableId = yield select(selectTableId);
 
 		const newSelectedMenus = selectedMenus[0].map((item, index) => {
 			const extraMenuItemsId = item.extraMenuItemsId.map(extraMenu => {
@@ -184,8 +186,9 @@ export function* createOrderStart() {
 		const newOrder = yield [
 			{
 				selectedMenus: newSelectedMenus,
-				totalPrice: totalPrice,
+				totalPrice,
 				typeOfPayment,
+				tableId,
 				orderStatus: STATUS.NOT_STARTED.TYPE,
 				createdAt: new Date().toISOString(),
 				createdById: currentUser.id,

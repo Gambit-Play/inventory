@@ -19,6 +19,11 @@ export const setExtraMenuItemStart = props => ({
 	payload: props,
 });
 
+export const setTableIdStart = tableId => ({
+	type: OrderFormActionTypes.SET_TABLE_ID,
+	payload: tableId,
+});
+
 export const clearOrderItemStart = index => ({
 	type: OrderFormActionTypes.REMOVE_ORDER_ITEM_START,
 	payload: index,
@@ -112,6 +117,10 @@ export const clearOrderForm = () => ({
 
 export const clearCategoryFilter = () => ({
 	type: OrderFormActionTypes.CLEAR_CATEGORY_FILTER,
+});
+
+export const clearTableId = () => ({
+	type: OrderFormActionTypes.CLEAR_TABLE_ID,
 });
 
 export const cancelPayment = () => ({

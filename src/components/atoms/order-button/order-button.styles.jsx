@@ -30,9 +30,9 @@ const getButtonStyles = props => {
 	if (props.isEatIn) return buttonStyles.eatIn;
 };
 
-const OrderButtonContainer = styled(({ isTakeAway, isEatIn, ...props }) => (
-	<Button {...props} />
-))`
+const OrderButtonContainer = styled(
+	({ isTakeAway, isEatIn, ...otherProps }) => <Button {...otherProps} />
+)`
 	width: 200px;
 	height: 70px;
 	font-size: large;
