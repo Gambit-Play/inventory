@@ -41,6 +41,7 @@ export function* fetchItemsCollectionAsync() {
 				const result = doc.data();
 				const newData = {
 					...result,
+					cost: result.quantity * result.price,
 					createdBy: allUsers.hasOwnProperty(result.createdById)
 						? allUsers[result.createdById].displayName
 						: '',
