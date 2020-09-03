@@ -50,6 +50,20 @@ export const deleteDocuments = async (collectionId, documents) => {
 	return await batch.commit();
 };
 
+export const updateItemsQuantity = async (collectionId, documents) => {
+	const batch = firestore.batch();
+	documents.forEach(doc => {
+		const documentRef = firestore.collection(collectionId).doc(doc.id);
+		const decrement = firebase.firestore.FieldValue.increment(
+			-doc.quantity
+		);
+
+		batch.update(documentRef, { quantity: decrement });
+	});
+
+	return await batch.commit();
+};
+
 export const createUserProfileDocument = async (userAuth, otherData) => {
 	if (!userAuth) return;
 
