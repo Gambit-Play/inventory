@@ -1,11 +1,14 @@
 import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
 // Firebase
-import { updateDocument } from '../../../firebase/firebase.utils';
+import {
+	updateDocument,
+	updateItemsQuantity,
+} from '../../../firebase/firebase.utils';
 import * as COLLECTION_IDS from '../../../firebase/collections.ids';
 
 // Utils
-import { formatSelectedMenus } from '../../../utils/global.utils';
+import { formatSelectedMenus, groupBy } from '../../../utils/global.utils';
 
 // Status
 import STATUS from '../../../status/status';
@@ -18,7 +21,7 @@ import OrdersCollectionTypes from '../../orders/orders.types';
 import {
 	fetchOrdersSuccess,
 	fetchOrdersFailure,
-	updateOrderStatusSuccess,
+	updateOrderStatusSuccess, // FIXME:
 	updateOrderStatusFailure,
 } from './orders-list.actions';
 
@@ -49,13 +52,13 @@ export function* fetchOrdersStart() {
 				);
 
 				return {
-					createdAt: order.createdAt,
-					createdBy: order.createdBy,
-					createdById: order.createdById,
 					id: order.id,
 					orderStatus: order.orderStatus,
 					selectedMenus: newSelectedMenus,
 					totalPrice: order.totalPrice,
+					createdAt: order.createdAt,
+					createdBy: order.createdBy,
+					createdById: order.createdById,
 					updatedAt: order.updatedAt,
 					updatedBy: order.updatedBy,
 					updatedById: order.updatedById,
@@ -85,10 +88,49 @@ export function* updateOrderStatusStart() {
 		};
 
 		yield call(updateDocument, COLLECTION_IDS.ORDERS, id, updatedOrder);
+
+		if (status === STATUS.FINISHED.TYPE) {
+			let updatedItems = [];
+
+			yield order.selectedMenus.forEach(menu => {
+				updatedItems.push({ id: menu.selectedMenuId });
+
+				menu.extraMenuItemsId.forEach(item =>
+					updatedItems.push({ id: item.selectedExtraItemId })
+				);
+			});
+
+			const newUpdatedItems = yield Object.entries(
+				groupBy(updatedItems, 'id')
+			).map(item => {
+				return { id: item[0], amount: item[1].length };
+			});
+
+			yield call(updateItemsCollection, newUpdatedItems);
+		}
 	} catch (error) {
 		console.log(error);
 		yield put(updateOrderStatusFailure(error));
 	}
+}
+
+export function* updateItemsCollection(menus) {
+	try {
+		const currentMenus = yield select(selectCurrentMenus);
+
+		let updatedItems;
+
+		yield menus.forEach(menu => {
+			updatedItems = currentMenus
+				.find(currentMenu => currentMenu.id === menu.id)
+				.itemsId.map(itemId => ({
+					id: itemId.id,
+					quantity: itemId.quantity * menu.amount,
+				}));
+		});
+
+		yield call(updateItemsQuantity, COLLECTION_IDS.ITEMS, updatedItems);
+	} catch (error) {}
 }
 
 /* ================================================================ */

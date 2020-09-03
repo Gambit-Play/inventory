@@ -10,7 +10,7 @@ export const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [sagaMiddleware];
 
-let composeEnhancers = null;
+let composeEnhancers = compose;
 
 if (process.env.NODE_ENV === 'development') {
 	middlewares.push(logger);
