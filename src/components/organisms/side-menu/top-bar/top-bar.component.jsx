@@ -57,7 +57,7 @@ const TopBar = props => {
 			return currentUser.displayName;
 	};
 	const handleCreateData = () => {
-		createCollectionAndDocument(COLLECTION_IDS.TABLES, Data.TablesData);
+		// createCollectionAndDocument(COLLECTION_IDS.TABLES, Data.TablesData);
 	};
 
 	return (
@@ -87,13 +87,15 @@ const TopBar = props => {
 				>
 					<TopBarTitle />
 				</Typography>
-				<Button
-					variant='outlined'
-					color='inherit'
-					onClick={handleCreateData}
-				>
-					Create Data
-				</Button>
+				{process.env.NODE_ENV === 'development' && (
+					<Button
+						variant='outlined'
+						color='inherit'
+						onClick={handleCreateData}
+					>
+						Create Data
+					</Button>
+				)}
 				<Divider
 					orientation='vertical'
 					flexItem

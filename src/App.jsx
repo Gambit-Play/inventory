@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
 
 // Routes
 import * as ROUTES from './routes/routes';
@@ -12,6 +13,7 @@ import {
 	removeAuthListenerStart,
 	fetchAllUsersStart,
 } from './redux/users/users.actions';
+import { selectCurrentUser } from './redux/users/users.selectors';
 import { fetchUnitsStart } from './redux/units/units.actions';
 import {
 	fetchCategoriesCollectionStart,
@@ -55,6 +57,7 @@ import TablesList from './pages/tables-pages/tables-list/tables-list.component';
 import TableDetail from './pages/tables-pages/table-detail/table-detail.component';
 import TakeOrder from './pages/take-order-pages/take-order.component';
 import Orders from './pages/orders-pages/orders.component';
+import LoginScreen from './pages/login-page/login-screen.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -82,6 +85,7 @@ const App = props => {
 		removeTablesOrderBy,
 		removeTablesSearchField,
 		removeOrdersCollectionListener,
+		currentUser,
 	} = props;
 
 	useEffect(() => {
@@ -133,55 +137,62 @@ const App = props => {
 			<ThemeProvider theme={theme}>
 				<Switch>
 					<React.Fragment>
-						<MainContainer>
-							<SideMenu>
-								<Route exact path={ROUTES.DASHBOARD} />
-								<Route
-									exact
-									path={ROUTES.ITEMS_LIST}
-									component={ItemsList}
-								/>
-								<Route
-									path={`${ROUTES.ITEMS_LIST}/:itemId`}
-									component={ItemDetail}
-								/>
-								<Route
-									exact
-									path={ROUTES.MENUS_LIST}
-									component={MenusList}
-								/>
-								<Route
-									path={`${ROUTES.MENUS_LIST}/:menuId`}
-									component={MenuDetail}
-								/>
-								<Route
-									exact
-									path={ROUTES.CATEGORIES_LIST}
-									component={CategoriesList}
-								/>
-								<Route
-									path={`${ROUTES.CATEGORIES_LIST}/:categoryId`}
-									component={CategoryDetail}
-								/>
-								<Route
-									exact
-									path={ROUTES.TABLES_LIST}
-									component={TablesList}
-								/>
-								<Route
-									path={`${ROUTES.TABLES_LIST}/:tableId`}
-									component={TableDetail}
-								/>
-								<Route
-									path={ROUTES.TAKE_ORDER}
-									component={TakeOrder}
-								/>
-								<Route
-									path={ROUTES.ORDERS}
-									component={Orders}
-								/>
-							</SideMenu>
-						</MainContainer>
+						{currentUser === null ? (
+							<Route
+								exact
+								path={ROUTES.DASHBOARD}
+								component={LoginScreen}
+							/>
+						) : (
+							<MainContainer>
+								<SideMenu>
+									<Route
+										exact
+										path={ROUTES.ITEMS_LIST}
+										component={ItemsList}
+									/>
+									<Route
+										path={`${ROUTES.ITEMS_LIST}/:itemId`}
+										component={ItemDetail}
+									/>
+									<Route
+										exact
+										path={ROUTES.MENUS_LIST}
+										component={MenusList}
+									/>
+									<Route
+										path={`${ROUTES.MENUS_LIST}/:menuId`}
+										component={MenuDetail}
+									/>
+									<Route
+										exact
+										path={ROUTES.CATEGORIES_LIST}
+										component={CategoriesList}
+									/>
+									<Route
+										path={`${ROUTES.CATEGORIES_LIST}/:categoryId`}
+										component={CategoryDetail}
+									/>
+									<Route
+										exact
+										path={ROUTES.TABLES_LIST}
+										component={TablesList}
+									/>
+									<Route
+										path={`${ROUTES.TABLES_LIST}/:tableId`}
+										component={TableDetail}
+									/>
+									<Route
+										path={ROUTES.TAKE_ORDER}
+										component={TakeOrder}
+									/>
+									<Route
+										path={ROUTES.ORDERS}
+										component={Orders}
+									/>
+								</SideMenu>
+							</MainContainer>
+						)}
 					</React.Fragment>
 				</Switch>
 			</ThemeProvider>
@@ -210,6 +221,10 @@ App.propTypes = {
 	removeOrdersCollectionListener: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = createStructuredSelector({
+	currentUser: selectCurrentUser,
+});
+
 const mapDispatchToProps = dispatch => ({
 	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
 	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
@@ -235,4 +250,4 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(removeOrdersCollectionListener()),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
