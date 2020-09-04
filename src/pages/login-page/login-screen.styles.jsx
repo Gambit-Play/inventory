@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // Assets
 import image from '../../assets/images/people-food.jpg';
 
-const LoginImage = styled.div`
+export const LoginImage = styled.div`
 	display: flex;
 	width: 100%;
 	height: 100vh;
@@ -20,4 +20,9 @@ const LoginImage = styled.div`
 	background-size: auto, cover;
 `;
 
-export default LoginImage;
+export const Box = styled.div`
+	width: 200px;
+	height: 200px;
+	background-color: #ffffff;
+	border-radius: ${props => props.theme.radius(4)};
+`;

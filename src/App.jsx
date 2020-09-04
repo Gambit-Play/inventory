@@ -61,8 +61,10 @@ import LoginScreen from './pages/login-page/login-screen.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from './global-mui.theme';
+import theme from './themes/mui.theme';
+import styledComponentsTheme from './themes/styled-components.theme';
 import './App.scss';
 
 const App = props => {
@@ -89,6 +91,7 @@ const App = props => {
 	} = props;
 
 	useEffect(() => {
+		// FIXME: Create a redux-saga for all these 'Start' processes
 		fetchAllUsersStart();
 		removeItemsSearchField();
 		removeItemsOrderBy();
@@ -136,7 +139,7 @@ const App = props => {
 			<CssBaseline />
 			<ThemeProvider theme={theme}>
 				<Switch>
-					<React.Fragment>
+					<StyledThemeProvider theme={styledComponentsTheme}>
 						{currentUser === null ? (
 							<Route
 								exact
@@ -193,7 +196,7 @@ const App = props => {
 								</SideMenu>
 							</MainContainer>
 						)}
-					</React.Fragment>
+					</StyledThemeProvider>
 				</Switch>
 			</ThemeProvider>
 		</StylesProvider>

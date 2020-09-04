@@ -1,10 +1,14 @@
 import React from 'react';
 
 // Components
-import LoginImage from './login-screen.styles';
+import { LoginImage, Box } from './login-screen.styles';
 
 const LoginScreen = () => {
-	return <LoginImage></LoginImage>;
+	return (
+		<LoginImage>
+			<Box></Box>
+		</LoginImage>
+	);
 };
 
 export default LoginScreen;
