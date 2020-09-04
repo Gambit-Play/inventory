@@ -20,6 +20,11 @@ export const fetchAllUsersStart = () => ({
 	type: UsersActionTypes.FETCH_ALL_USERS_START,
 });
 
+export const signUpStart = (email, password, displayName) => ({
+	type: UsersActionTypes.SIGN_UP_START,
+	payload: { email, password, displayName },
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -32,6 +37,11 @@ export const fetchCurrentUserSuccess = user => ({
 export const fetchAllUsersSuccess = users => ({
 	type: UsersActionTypes.FETCH_ALL_USERS_SUCCESS,
 	payload: users,
+});
+
+export const signUpSuccess = ({ user, additionalData }) => ({
+	type: UsersActionTypes.SIGN_UP_SUCCESS,
+	payload: { user, additionalData },
 });
 
 /* ================================================================ */
@@ -55,6 +65,11 @@ export const onAuthStateChangeFailure = errorMessage => ({
 
 export const fetchAllUsersFailure = errorMessage => ({
 	type: UsersActionTypes.FETCH_ALL_USERS_FAILURE,
+	payload: errorMessage,
+});
+
+export const signUpFailure = errorMessage => ({
+	type: UsersActionTypes.SIGN_UP_FAILURE,
 	payload: errorMessage,
 });
 

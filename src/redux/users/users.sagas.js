@@ -117,6 +117,27 @@ export function* signOutFromGoogleStart() {
 	}
 }
 
+export function* signUp({ payload: { email, password, displayName } }) {
+	try {
+		const { user } = yield auth.createUserWithEmailAndPassword(
+			email,
+			password
+		);
+		yield put(
+			UsersActions.signUpSuccess({
+				user,
+				additionalData: { displayName },
+			})
+		);
+	} catch (error) {
+		yield put(UsersActions.signUpFailure(error));
+	}
+}
+
+export function* signInAfterSignUp({ payload: { user, additionalData } }) {
+	yield call(getSnapshotFromUserAuth, user, additionalData);
+}
+
 /* ================================================================ */
 /*  Listeners                                                       */
 /* ================================================================ */
@@ -153,6 +174,14 @@ export function* onFetchAllUsersCollectioStart() {
 	);
 }
 
+export function* onSignUpStart() {
+	yield takeLatest(UsersActionTypes.SIGN_UP_START, signUp);
+}
+
+export function* onSignUpSuccess() {
+	yield takeLatest(UsersActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -164,5 +193,7 @@ export default function* userSagas() {
 		call(onAuthStateChangedStart),
 		call(onRemoveAuthListenerStart),
 		call(onFetchAllUsersCollectioStart),
+		call(onSignUpStart),
+		call(onSignUpSuccess),
 	]);
 }
