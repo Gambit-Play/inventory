@@ -21,8 +21,9 @@ export const LoginImage = styled.div`
 `;
 
 export const Box = styled.div`
-	width: 200px;
-	height: 200px;
+	width: auto;
+	height: auto;
 	background-color: #ffffff;
 	border-radius: ${props => props.theme.radius(4)};
+	padding: ${props => props.theme.spacing(5)};
 `;
