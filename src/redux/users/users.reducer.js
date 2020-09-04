@@ -9,6 +9,10 @@ const INITIAL_STATE = {
 		allUsers: undefined,
 		onAuthStateChange: undefined,
 	},
+	displayName: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
 };
 
 const usersReducer = (state = INITIAL_STATE, action) => {
@@ -26,6 +30,11 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: false,
 				currentUser: action.payload,
+			};
+		case UsersActionTypes.SET_USER_CREDENTIALS:
+			return {
+				...state,
+				[action.payload.inputName]: action.payload.value,
 			};
 		case UsersActionTypes.SIGN_IN_FAILURE:
 		case UsersActionTypes.SIGN_OUT_FAILURE:

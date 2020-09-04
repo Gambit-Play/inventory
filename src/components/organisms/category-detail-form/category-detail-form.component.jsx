@@ -127,7 +127,7 @@ const mapStateToProps = createStructuredSelector({
 	category: selectCategory,
 });
 
-const mapStateToDispatch = dispatch => ({
+const mapDispatchToProps = dispatch => ({
 	removeCategory: () => dispatch(removeCategory()),
 	setCategoryStart: (inputName, value) =>
 		dispatch(setCategoryStart(inputName, value)),
@@ -136,5 +136,5 @@ const mapStateToDispatch = dispatch => ({
 
 export default compose(
 	withRouter,
-	connect(mapStateToProps, mapStateToDispatch)
+	connect(mapStateToProps, mapDispatchToProps)
 )(CategoryDetailForm);
