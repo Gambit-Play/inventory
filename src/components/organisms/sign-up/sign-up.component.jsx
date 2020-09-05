@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -16,14 +16,21 @@ import {
 	selectCurrentUser,
 	selectErrorConfirmPassword,
 	selectErrorDisplayName,
+	selectErrorEmail,
+	selectErrorPassword,
 } from '../../../redux/users/users.selectors';
 import {
 	setUserCredential,
 	signUpStart,
+	clearUserCredentials,
+	clearInputErrors,
 } from '../../../redux/users/users.actions';
 
 // Components
-import { Box } from './sign-up.styles';
+import { Box, GoogleIcon, Text } from './sign-up.styles';
+
+// Icons
+// import { ReactComponent as GoogleIcon } from '../../../assets/svg/google-logo.svg';
 
 // Mui Components
 import TextField from '@material-ui/core/TextField';
@@ -39,8 +46,21 @@ const SignUp = ({
 	signUpStart,
 	errorConfirmPassword,
 	errorDisplayName,
+	errorEmail,
+	errorPassword,
+	clearUserCredentials,
+	clearInputErrors,
 }) => {
 	const history = useHistory();
+
+	useEffect(() => {
+		clearUserCredentials();
+		clearInputErrors();
+		return () => {
+			clearUserCredentials();
+			clearInputErrors();
+		};
+	}, [clearUserCredentials, clearInputErrors]);
 
 	if (selectCurrentUser) return history.push(ROUTES.MENUS_LIST);
 
@@ -73,6 +93,8 @@ const SignUp = ({
 					type='email'
 					onChange={handleChange}
 					className='input'
+					helperText={errorEmail}
+					error={errorEmail ? true : false}
 				/>
 				<TextField
 					id='password'
@@ -82,6 +104,8 @@ const SignUp = ({
 					type='password'
 					onChange={handleChange}
 					className='input'
+					helperText={errorPassword}
+					error={errorPassword ? true : false}
 				/>
 				<TextField
 					id='confirmPassword'
@@ -103,6 +127,19 @@ const SignUp = ({
 				>
 					Sign Up
 				</Button>
+				<Text fontColor='#47525dcc' fontSize={4} className='button'>
+					Or sign up with Google:
+				</Text>
+				<Button
+					variant='outlined'
+					color='primary'
+					size='small'
+					className='button'
+					// onClick={handleSignUp}
+					startIcon={<GoogleIcon />}
+				>
+					Sign Up
+				</Button>
 			</Box>
 		</form>
 	);
@@ -118,6 +155,10 @@ SignUp.propTypes = {
 	signUpStart: PropTypes.func.isRequired,
 	errorConfirmPassword: PropTypes.string.isRequired,
 	errorDisplayName: PropTypes.string.isRequired,
+	errorEmail: PropTypes.string.isRequired,
+	errorPassword: PropTypes.string.isRequired,
+	clearUserCredentials: PropTypes.func.isRequired,
+	clearInputErrors: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -128,12 +169,16 @@ const mapStateToProps = createStructuredSelector({
 	selectCurrentUser: selectCurrentUser,
 	errorConfirmPassword: selectErrorConfirmPassword,
 	errorDisplayName: selectErrorDisplayName,
+	errorEmail: selectErrorEmail,
+	errorPassword: selectErrorPassword,
 });
 
 const mapDispatchToProps = dispatch => ({
 	setUserCredential: (inputName, value) =>
 		dispatch(setUserCredential(inputName, value)),
 	signUpStart: () => dispatch(signUpStart()),
+	clearUserCredentials: () => dispatch(clearUserCredentials()),
+	clearInputErrors: () => dispatch(clearInputErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

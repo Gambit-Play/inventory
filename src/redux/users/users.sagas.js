@@ -139,16 +139,6 @@ export function* signUpStart() {
 		const confirmPassword = yield select(selectConfirmPassword);
 		const displayName = yield select(selectDisplayName);
 
-		const errorEmail = yield select(selectErrorEmail);
-		const errorPassword = yield select(selectErrorPassword);
-		const errorConfirmPassword = yield select(selectErrorConfirmPassword);
-		const errorDisplayName = yield select(selectErrorDisplayName);
-
-		console.log('@@ signUpStart - email:', email);
-		console.log('@@ signUpStart - password:', password);
-		console.log('@@ signUpStart - confirmPassword:', confirmPassword);
-		console.log('@@ signUpStart - displayName:', displayName);
-
 		if (!displayName)
 			return yield put(
 				UsersActions.setInputErrors(
@@ -164,18 +154,39 @@ export function* signUpStart() {
 				)
 			);
 
-		// const { user } = yield auth.createUserWithEmailAndPassword(
-		// 	email,
-		// 	password
-		// );
-		// yield put(
-		// 	UsersActions.signUpSuccess({
-		// 		user,
-		// 		additionalData: { displayName },
-		// 	})
-		// );
+		const { user } = yield auth.createUserWithEmailAndPassword(
+			email,
+			password
+		);
+		yield put(
+			UsersActions.signUpSuccess({
+				user,
+				additionalData: {
+					displayName,
+					firstName: '',
+					lastName: '',
+					avatar: '',
+					company: '',
+					role: '',
+				},
+			})
+		);
 	} catch (error) {
-		yield put(UsersActions.signUpFailure(error));
+		console.log(error);
+		const isEmail = yield error.code.includes('email');
+		const isPassword = yield error.code.includes('password');
+
+		if (isEmail)
+			yield put(
+				UsersActions.signUpFailure(
+					'errorEmail',
+					'Please write a correct email address!'
+				)
+			);
+		if (isPassword)
+			yield put(
+				UsersActions.signUpFailure('errorPassword', error.message)
+			);
 	}
 }
 

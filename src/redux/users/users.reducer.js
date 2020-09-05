@@ -86,6 +86,11 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				isFetching: false,
 				errors: { allUsers: action.payload },
 			};
+		case UsersActionTypes.SIGN_UP_FAILURE:
+			return {
+				...state,
+				[action.payload.inputName]: action.payload.value,
+			};
 		/* ================================================================ */
 		/*  Process Remove                                                  */
 		/* ================================================================ */
@@ -102,6 +107,14 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				errorEmail: '',
 				errorPassword: '',
 				errorConfirmPassword: '',
+			};
+		case UsersActionTypes.CLEAR_USER_CREDENTIALS:
+			return {
+				...state,
+				displayName: '',
+				email: '',
+				password: '',
+				confirmPassword: '',
 			};
 		default:
 			return state;

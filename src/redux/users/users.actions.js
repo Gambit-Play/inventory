@@ -78,9 +78,9 @@ export const fetchAllUsersFailure = errorMessage => ({
 	payload: errorMessage,
 });
 
-export const signUpFailure = errorMessage => ({
+export const signUpFailure = (inputName, value) => ({
 	type: UsersActionTypes.SIGN_UP_FAILURE,
-	payload: errorMessage,
+	payload: { inputName, value },
 });
 
 /* ================================================================ */
@@ -93,4 +93,8 @@ export const removeAuthListenerStart = () => ({
 
 export const clearInputErrors = () => ({
 	type: UsersActionTypes.CLEAR_INPUT_ERRORS,
+});
+
+export const clearUserCredentials = () => ({
+	type: UsersActionTypes.CLEAR_USER_CREDENTIALS,
 });
