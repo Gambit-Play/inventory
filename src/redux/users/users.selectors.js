@@ -37,3 +37,27 @@ export const selectConfirmPassword = createSelector(
 	[selectUsersStore],
 	users => users.confirmPassword
 );
+
+// Selects user.errorDisplayName from the state
+export const selectErrorDisplayName = createSelector(
+	[selectUsersStore],
+	users => users.errorDisplayName
+);
+
+// Selects user.errorEmail from the state
+export const selectErrorEmail = createSelector(
+	[selectUsersStore],
+	users => users.errorEmail
+);
+
+// Selects user.errorPassword from the state
+export const selectErrorPassword = createSelector(
+	[selectUsersStore],
+	users => users.errorPassword
+);
+
+// Selects user.errorConfirmPassword from the state
+export const selectErrorConfirmPassword = createSelector(
+	[selectUsersStore],
+	users => users.errorConfirmPassword
+);

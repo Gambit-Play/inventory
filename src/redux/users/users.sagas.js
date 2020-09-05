@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import { takeLatest, put, all, call, select } from 'redux-saga/effects';
 
 // Utils
 import { convertArrayToObject } from '../../utils/global.utils';
@@ -10,6 +10,18 @@ import UsersActionTypes from './users.types';
 import * as UsersActions from './users.actions';
 import * as ItemsActions from '../items/items.actions';
 import * as MenusActions from '../menus/menus.actions';
+
+// Selectors
+import {
+	selectEmail,
+	selectPassword,
+	selectConfirmPassword,
+	selectDisplayName,
+	selectErrorEmail,
+	selectErrorPassword,
+	selectErrorConfirmPassword,
+	selectErrorDisplayName,
+} from './users.selectors';
 
 // Firebase utils
 import {
@@ -86,8 +98,9 @@ export function* authStateChangedStart() {
 
 export function* fetchAllUsersCollectionAsync() {
 	try {
-		const usersCollection = yield getUsersCollection();
-		const newUsersCollection = yield convertArrayToObject(
+		const usersCollection = yield call(getUsersCollection);
+		const newUsersCollection = yield call(
+			convertArrayToObject,
 			usersCollection,
 			'id'
 		);
@@ -117,18 +130,50 @@ export function* signOutFromGoogleStart() {
 	}
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
+export function* signUpStart() {
 	try {
-		const { user } = yield auth.createUserWithEmailAndPassword(
-			email,
-			password
-		);
-		yield put(
-			UsersActions.signUpSuccess({
-				user,
-				additionalData: { displayName },
-			})
-		);
+		yield put(UsersActions.clearInputErrors());
+
+		const email = yield select(selectEmail);
+		const password = yield select(selectPassword);
+		const confirmPassword = yield select(selectConfirmPassword);
+		const displayName = yield select(selectDisplayName);
+
+		const errorEmail = yield select(selectErrorEmail);
+		const errorPassword = yield select(selectErrorPassword);
+		const errorConfirmPassword = yield select(selectErrorConfirmPassword);
+		const errorDisplayName = yield select(selectErrorDisplayName);
+
+		console.log('@@ signUpStart - email:', email);
+		console.log('@@ signUpStart - password:', password);
+		console.log('@@ signUpStart - confirmPassword:', confirmPassword);
+		console.log('@@ signUpStart - displayName:', displayName);
+
+		if (!displayName)
+			return yield put(
+				UsersActions.setInputErrors(
+					'errorDisplayName',
+					'Please type in your display name!'
+				)
+			);
+		if (confirmPassword !== password)
+			return yield put(
+				UsersActions.setInputErrors(
+					'errorConfirmPassword',
+					'Password does not match!'
+				)
+			);
+
+		// const { user } = yield auth.createUserWithEmailAndPassword(
+		// 	email,
+		// 	password
+		// );
+		// yield put(
+		// 	UsersActions.signUpSuccess({
+		// 		user,
+		// 		additionalData: { displayName },
+		// 	})
+		// );
 	} catch (error) {
 		yield put(UsersActions.signUpFailure(error));
 	}
@@ -175,7 +220,7 @@ export function* onFetchAllUsersCollectioStart() {
 }
 
 export function* onSignUpStart() {
-	yield takeLatest(UsersActionTypes.SIGN_UP_START, signUp);
+	yield takeLatest(UsersActionTypes.SIGN_UP_START, signUpStart);
 }
 
 export function* onSignUpSuccess() {

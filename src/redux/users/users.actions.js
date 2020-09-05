@@ -21,13 +21,17 @@ export const fetchAllUsersStart = () => ({
 });
 
 // FIXME: Maybe remove the payload. Make the saga pull the data.
-export const signUpStart = (email, password, displayName) => ({
+export const signUpStart = () => ({
 	type: UsersActionTypes.SIGN_UP_START,
-	payload: { email, password, displayName },
 });
 
 export const setUserCredential = (inputName, value) => ({
 	type: UsersActionTypes.SET_USER_CREDENTIALS,
+	payload: { inputName, value },
+});
+
+export const setInputErrors = (inputName, value) => ({
+	type: UsersActionTypes.SET_INPUT_ERRORS,
 	payload: { inputName, value },
 });
 
@@ -85,4 +89,8 @@ export const signUpFailure = errorMessage => ({
 
 export const removeAuthListenerStart = () => ({
 	type: UsersActionTypes.REMOVE_USERS_LISTENER,
+});
+
+export const clearInputErrors = () => ({
+	type: UsersActionTypes.CLEAR_INPUT_ERRORS,
 });

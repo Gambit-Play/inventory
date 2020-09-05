@@ -4,14 +4,23 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
+// Routes
+import * as ROUTES from '../../../routes/routes';
+
 // Redux
 import {
 	selectDisplayName,
 	selectEmail,
 	selectPassword,
 	selectConfirmPassword,
+	selectCurrentUser,
+	selectErrorConfirmPassword,
+	selectErrorDisplayName,
 } from '../../../redux/users/users.selectors';
-import { setUserCredential } from '../../../redux/users/users.actions';
+import {
+	setUserCredential,
+	signUpStart,
+} from '../../../redux/users/users.actions';
 
 // Components
 import { Box } from './sign-up.styles';
@@ -26,13 +35,21 @@ const SignUp = ({
 	selectPassword,
 	selectConfirmPassword,
 	setUserCredential,
+	selectCurrentUser,
+	signUpStart,
+	errorConfirmPassword,
+	errorDisplayName,
 }) => {
 	const history = useHistory();
+
+	if (selectCurrentUser) return history.push(ROUTES.MENUS_LIST);
 
 	const handleChange = event => {
 		const { name, value } = event.target;
 		setUserCredential(name, value);
 	};
+
+	const handleSignUp = () => signUpStart();
 
 	return (
 		<form>
@@ -45,6 +62,8 @@ const SignUp = ({
 					type='text'
 					onChange={handleChange}
 					className='input'
+					helperText={errorDisplayName}
+					error={errorDisplayName ? true : false}
 				/>
 				<TextField
 					id='email'
@@ -72,12 +91,15 @@ const SignUp = ({
 					type='password'
 					onChange={handleChange}
 					className='input'
+					helperText={errorConfirmPassword}
+					error={errorConfirmPassword ? true : false}
 				/>
 				<Button
 					variant='contained'
 					color='primary'
 					size='small'
 					className='button'
+					onClick={handleSignUp}
 				>
 					Sign Up
 				</Button>
@@ -92,6 +114,10 @@ SignUp.propTypes = {
 	selectPassword: PropTypes.string.isRequired,
 	selectConfirmPassword: PropTypes.string.isRequired,
 	setUserCredential: PropTypes.func.isRequired,
+	selectCurrentUser: PropTypes.any,
+	signUpStart: PropTypes.func.isRequired,
+	errorConfirmPassword: PropTypes.string.isRequired,
+	errorDisplayName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -99,10 +125,15 @@ const mapStateToProps = createStructuredSelector({
 	selectEmail: selectEmail,
 	selectPassword: selectPassword,
 	selectConfirmPassword: selectConfirmPassword,
+	selectCurrentUser: selectCurrentUser,
+	errorConfirmPassword: selectErrorConfirmPassword,
+	errorDisplayName: selectErrorDisplayName,
 });
+
 const mapDispatchToProps = dispatch => ({
 	setUserCredential: (inputName, value) =>
 		dispatch(setUserCredential(inputName, value)),
+	signUpStart: () => dispatch(signUpStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

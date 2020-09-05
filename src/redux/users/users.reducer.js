@@ -13,6 +13,12 @@ const INITIAL_STATE = {
 	email: '',
 	password: '',
 	confirmPassword: '',
+
+	// Errors
+	errorDisplayName: '',
+	errorEmail: '',
+	errorPassword: '',
+	errorConfirmPassword: '',
 };
 
 const usersReducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +38,11 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				currentUser: action.payload,
 			};
 		case UsersActionTypes.SET_USER_CREDENTIALS:
+			return {
+				...state,
+				[action.payload.inputName]: action.payload.value,
+			};
+		case UsersActionTypes.SET_INPUT_ERRORS:
 			return {
 				...state,
 				[action.payload.inputName]: action.payload.value,
@@ -76,13 +87,21 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				errors: { allUsers: action.payload },
 			};
 		/* ================================================================ */
-		/*  Listeners                                                       */
+		/*  Process Remove                                                  */
 		/* ================================================================ */
 		case UsersActionTypes.AUTH_LISTENER_FAILURE:
 			return {
 				...state,
 				isFetching: false,
 				errors: { onAuthStateChange: action.payload },
+			};
+		case UsersActionTypes.CLEAR_INPUT_ERRORS:
+			return {
+				...state,
+				errorDisplayName: '',
+				errorEmail: '',
+				errorPassword: '',
+				errorConfirmPassword: '',
 			};
 		default:
 			return state;
