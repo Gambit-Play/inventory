@@ -8,6 +8,7 @@ const INITIAL_STATE = {
 		currentUser: undefined,
 		allUsers: undefined,
 		onAuthStateChange: undefined,
+		fetchMainCollections: undefined,
 	},
 
 	// Login & signup
@@ -67,6 +68,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 					currentUser: undefined,
 					allUsers: undefined,
 					onAuthStateChange: undefined,
+					fetchMainCollections: undefined,
 				},
 			};
 		/* ================================================================ */
@@ -88,6 +90,12 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: false,
 				errors: { allUsers: action.payload },
+			};
+		case UsersActionTypes.FETCH_MAIN_COLLECTIONS_FAILURE:
+			return {
+				...state,
+				isFetching: false,
+				errors: { fetchMainCollections: action.payload },
 			};
 		case UsersActionTypes.SIGN_UP_FAILURE:
 			return {

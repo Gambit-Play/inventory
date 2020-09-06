@@ -38,6 +38,10 @@ export const emailSignInStart = () => ({
 	type: UsersActionTypes.EMAIL_SIGN_IN_START,
 });
 
+export const fetchMainCollectionsStart = () => ({
+	type: UsersActionTypes.FETCH_MAIN_COLLECTIONS_START,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
@@ -59,6 +63,10 @@ export const signUpSuccess = ({ user, additionalData }) => ({
 
 export const emailSignInSuccess = () => ({
 	type: UsersActionTypes.EMAIL_SIGN_IN_SUCCESS,
+});
+
+export const fetchMainCollectionsSuccess = () => ({
+	type: UsersActionTypes.FETCH_MAIN_COLLECTIONS_SUCCESS,
 });
 
 /* ================================================================ */
@@ -85,6 +93,11 @@ export const fetchAllUsersFailure = errorMessage => ({
 	payload: errorMessage,
 });
 
+export const fetchMainCollectionsFailure = errorMessage => ({
+	type: UsersActionTypes.FETCH_MAIN_COLLECTIONS_FAILURE,
+	payload: errorMessage,
+});
+
 export const signUpFailure = (inputName, value) => ({
 	type: UsersActionTypes.SIGN_UP_FAILURE,
 	payload: { inputName, value },
@@ -96,6 +109,10 @@ export const signUpFailure = (inputName, value) => ({
 
 export const removeAuthListenerStart = () => ({
 	type: UsersActionTypes.REMOVE_USERS_LISTENER,
+});
+
+export const removeTablesDataStart = () => ({
+	type: UsersActionTypes.REMOVE_TABLES_DATA,
 });
 
 export const clearInputErrors = () => ({

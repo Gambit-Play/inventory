@@ -10,6 +10,26 @@ import UsersActionTypes from './users.types';
 import * as UsersActions from './users.actions';
 import * as ItemsActions from '../items/items.actions';
 import * as MenusActions from '../menus/menus.actions';
+import {
+	removeCategoriesOrderBy,
+	removeCategoriesSearchField,
+} from '../handlers/categories-table/categories-table.actions';
+import {
+	removeTablesOrderBy,
+	removeTablesSearchField,
+} from '../handlers/tables-table/tables-table.actions';
+import {
+	removeMenusOrderBy,
+	removeMenusSearchField,
+} from '../handlers/menus-table/menus-table.actions';
+import {
+	removeItemsOrderBy,
+	removeItemsSearchField,
+} from '../handlers/items-table/items-table.actions';
+import { fetchUnitsStart } from '../units/units.actions';
+import { fetchCategoriesCollectionStart } from '../categories/categories.actions';
+import { fetchOrdersCollectionStart } from '../orders/orders.actions';
+import { fetchTablesCollectionStart } from '../tables/tables.actions';
 
 // Selectors
 import {
@@ -73,8 +93,10 @@ export function* signInWithGoogleStart() {
 			company: '',
 			role: '',
 		};
+
 		yield call(getSnapshotFromUserAuth, user, additionalData);
-		yield authStateChangedStart();
+		yield put(authStateChangedStart());
+		yield put(UsersActions.fetchMainCollectionsStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.signInFailure(error.message));
@@ -90,10 +112,9 @@ export function* signInWithEmail() {
 
 		const { user } = yield auth.signInWithEmailAndPassword(email, password);
 
-		console.log('@@@@@ signInWithEmail - user:', user);
-
 		yield call(getSnapshotFromUserAuth, user);
 		yield put(UsersActions.clearUserCredentials());
+		yield put(UsersActions.fetchMainCollectionsStart());
 	} catch (error) {
 		console.log(error);
 		const userNotExist = yield error.code.includes('user-not-found');
@@ -132,6 +153,10 @@ export function* fetchAllUsersCollectionAsync() {
 		yield put(UsersActions.fetchAllUsersSuccess(newUsersCollection));
 		yield put(ItemsActions.fetchItemsCollectionStart());
 		yield put(MenusActions.fetchMenusCollectionStart());
+		yield put(fetchCategoriesCollectionStart());
+		yield put(fetchOrdersCollectionStart());
+		yield put(fetchTablesCollectionStart());
+		yield put(fetchUnitsStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.fetchAllUsersFailure(error.message));
@@ -219,6 +244,29 @@ export function* signUpStart() {
 
 export function* signInAfterSignUp({ payload: { user, additionalData } }) {
 	yield call(getSnapshotFromUserAuth, user, additionalData);
+	yield put(UsersActions.fetchMainCollectionsStart());
+}
+
+export function* fetchMainCollectionsStart() {
+	try {
+		yield put(UsersActions.removeTablesDataStart());
+		yield put(UsersActions.fetchAllUsersStart());
+		yield put(UsersActions.onAuthStateChangedStart());
+	} catch (error) {
+		console.log(error);
+		yield put(UsersActions.fetchMainCollectionsFailure(error));
+	}
+}
+
+export function* removeTablesData() {
+	yield put(removeCategoriesOrderBy());
+	put(removeCategoriesSearchField());
+	put(removeTablesOrderBy());
+	put(removeTablesSearchField());
+	put(removeMenusOrderBy());
+	put(removeMenusSearchField());
+	put(removeItemsOrderBy());
+	put(removeItemsSearchField());
 }
 
 /* ================================================================ */
@@ -269,6 +317,17 @@ export function* onSignUpSuccess() {
 	yield takeLatest(UsersActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
+export function* onFetchMainCollectionsStart() {
+	yield takeLatest(
+		UsersActionTypes.FETCH_MAIN_COLLECTIONS_START,
+		fetchMainCollectionsStart
+	);
+}
+
+export function* onRemoveTablesData() {
+	yield takeLatest(UsersActionTypes.REMOVE_TABLES_DATA, removeTablesData);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -283,5 +342,7 @@ export default function* userSagas() {
 		call(onSignUpStart),
 		call(onSignUpSuccess),
 		call(onEmailSignInStart),
+		call(onFetchMainCollectionsStart),
+		call(onRemoveTablesData),
 	]);
 }

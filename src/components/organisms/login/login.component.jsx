@@ -25,9 +25,6 @@ import {
 // Components
 import { Box, GoogleIcon, Text } from '../sign-up/sign-up.styles';
 
-// Icons
-// import { ReactComponent as GoogleIcon } from '../../../assets/svg/google-logo.svg';
-
 // Mui Components
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -51,10 +48,9 @@ const Login = ({
 		return () => {
 			clearUserCredentials();
 			clearInputErrors();
+			history.goBack();
 		};
-	}, [clearUserCredentials, clearInputErrors]);
-
-	if (selectCurrentUser) return history.push(ROUTES.MENUS_LIST);
+	}, [clearUserCredentials, clearInputErrors, history]);
 
 	const handleChange = event => {
 		const { name, value } = event.target;

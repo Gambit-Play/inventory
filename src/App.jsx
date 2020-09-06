@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 
@@ -8,41 +8,8 @@ import * as ROUTES from './routes/routes';
 
 // Redux
 import { connect } from 'react-redux';
-import {
-	onAuthStateChangedStart,
-	removeAuthListenerStart,
-	fetchAllUsersStart,
-} from './redux/users/users.actions';
+import { fetchMainCollectionsStart } from './redux/users/users.actions';
 import { selectCurrentUser } from './redux/users/users.selectors';
-import { fetchUnitsStart } from './redux/units/units.actions';
-import {
-	fetchCategoriesCollectionStart,
-	removeCategoriesCollectionListener,
-} from './redux/categories/categories.actions';
-import {
-	fetchOrdersCollectionStart,
-	removeOrdersCollectionListener,
-} from './redux/orders/orders.actions';
-import {
-	fetchTablesCollectionStart,
-	removeTablesCollectionListener,
-} from './redux/tables/tables.actions';
-import {
-	removeCategoriesOrderBy,
-	removeCategoriesSearchField,
-} from './redux/handlers/categories-table/categories-table.actions';
-import {
-	removeTablesOrderBy,
-	removeTablesSearchField,
-} from './redux/handlers/tables-table/tables-table.actions';
-import {
-	removeMenusOrderBy,
-	removeMenusSearchField,
-} from './redux/handlers/menus-table/menus-table.actions';
-import {
-	removeItemsOrderBy,
-	removeItemsSearchField,
-} from './redux/handlers/items-table/items-table.actions';
 
 // Components
 import MainContainer from './components/atoms/main-container/main-container.styles';
@@ -68,44 +35,15 @@ import styledComponentsTheme from './themes/styled-components.theme';
 import './App.scss';
 
 const App = props => {
-	const {
-		onAuthStateChangedStart,
-		removeAuthListenerStart,
-		fetchUnitsStart,
-		fetchAllUsersStart,
-		fetchCategoriesCollectionStart,
-		fetchTablesCollectionStart,
-		fetchOrdersCollectionStart,
-		removeItemsOrderBy,
-		removeItemsSearchField,
-		removeCategoriesOrderBy,
-		removeCategoriesSearchField,
-		removeMenusOrderBy,
-		removeMenusSearchField,
-		removeCategoriesCollectionListener,
-		removeTablesCollectionListener,
-		removeTablesOrderBy,
-		removeTablesSearchField,
-		removeOrdersCollectionListener,
-		currentUser,
-	} = props;
+	const { currentUser, fetchMainCollectionsStart } = props;
+
+	const history = useHistory();
+	const isLoggedOut = currentUser === null;
 
 	useEffect(() => {
-		// FIXME: Create a redux-saga for all these 'Start' processes
-		fetchAllUsersStart();
-		removeItemsSearchField();
-		removeItemsOrderBy();
-		removeCategoriesOrderBy();
-		removeCategoriesSearchField();
-		removeMenusOrderBy();
-		removeMenusSearchField();
-		removeTablesOrderBy();
-		removeTablesSearchField();
-		onAuthStateChangedStart();
-		fetchUnitsStart();
-		fetchCategoriesCollectionStart();
-		fetchTablesCollectionStart();
-		fetchOrdersCollectionStart();
+		if (!isLoggedOut) fetchMainCollectionsStart();
+		if (isLoggedOut) history.push(ROUTES.DASHBOARD);
+
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
@@ -113,26 +51,7 @@ const App = props => {
 			// removeCategoriesCollectionListener();
 			// removeTablesCollectionListener();
 		};
-	}, [
-		onAuthStateChangedStart,
-		// removeAuthListenerStart,
-		fetchUnitsStart,
-		fetchAllUsersStart,
-		fetchCategoriesCollectionStart,
-		fetchTablesCollectionStart,
-		fetchOrdersCollectionStart,
-		removeItemsOrderBy,
-		removeItemsSearchField,
-		removeCategoriesOrderBy,
-		removeCategoriesSearchField,
-		removeMenusOrderBy,
-		removeMenusSearchField,
-		// removeCategoriesCollectionListener,
-		// removeTablesCollectionListener,
-		removeTablesOrderBy,
-		removeTablesSearchField,
-		removeOrdersCollectionListener,
-	]);
+	}, [isLoggedOut, fetchMainCollectionsStart, history]);
 
 	return (
 		<StylesProvider injectFirst>
@@ -140,7 +59,7 @@ const App = props => {
 			<ThemeProvider theme={theme}>
 				<Switch>
 					<StyledThemeProvider theme={styledComponentsTheme}>
-						{currentUser === null ? (
+						{isLoggedOut ? (
 							<Route
 								exact
 								path={ROUTES.DASHBOARD}
@@ -149,6 +68,13 @@ const App = props => {
 						) : (
 							<MainContainer>
 								<SideMenu>
+									{
+										// <Route
+										// exact
+										// path={ROUTES.DASHBOARD}
+										// component={/*-----Component-----*/} // FIXME: Add a tutorial for the Dashboard route
+										// />
+									}
 									<Route
 										exact
 										path={ROUTES.ITEMS_LIST}
@@ -204,24 +130,7 @@ const App = props => {
 };
 
 App.propTypes = {
-	onAuthStateChangedStart: PropTypes.func.isRequired,
-	removeAuthListenerStart: PropTypes.func.isRequired,
-	removeCategoriesCollectionListener: PropTypes.func.isRequired,
-	removeTablesCollectionListener: PropTypes.func.isRequired,
-	fetchUnitsStart: PropTypes.func.isRequired,
-	fetchAllUsersStart: PropTypes.func.isRequired,
-	fetchCategoriesCollectionStart: PropTypes.func.isRequired,
-	fetchTablesCollectionStart: PropTypes.func.isRequired,
-	fetchOrdersCollectionStart: PropTypes.func.isRequired,
-	removeItemsOrderBy: PropTypes.func.isRequired,
-	removeItemsSearchField: PropTypes.func.isRequired,
-	removeCategoriesOrderBy: PropTypes.func.isRequired,
-	removeCategoriesSearchField: PropTypes.func.isRequired,
-	removeMenusOrderBy: PropTypes.func.isRequired,
-	removeMenusSearchField: PropTypes.func.isRequired,
-	removeTablesOrderBy: PropTypes.func.isRequired,
-	removeTablesSearchField: PropTypes.func.isRequired,
-	removeOrdersCollectionListener: PropTypes.func.isRequired,
+	fetchMainCollectionsStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -229,28 +138,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onAuthStateChangedStart: () => dispatch(onAuthStateChangedStart()),
-	removeAuthListenerStart: () => dispatch(removeAuthListenerStart()),
-	removeTablesCollectionListener: () =>
-		dispatch(removeTablesCollectionListener()),
-	fetchUnitsStart: () => dispatch(fetchUnitsStart()),
-	fetchAllUsersStart: () => dispatch(fetchAllUsersStart()),
-	fetchCategoriesCollectionStart: () =>
-		dispatch(fetchCategoriesCollectionStart()),
-	fetchTablesCollectionStart: () => dispatch(fetchTablesCollectionStart()),
-	fetchOrdersCollectionStart: () => dispatch(fetchOrdersCollectionStart()),
-	removeItemsOrderBy: () => dispatch(removeItemsOrderBy()),
-	removeItemsSearchField: () => dispatch(removeItemsSearchField()),
-	removeCategoriesOrderBy: () => dispatch(removeCategoriesOrderBy()),
-	removeCategoriesSearchField: () => dispatch(removeCategoriesSearchField()),
-	removeCategoriesCollectionListener: () =>
-		dispatch(removeCategoriesCollectionListener()),
-	removeMenusOrderBy: () => dispatch(removeMenusOrderBy()),
-	removeMenusSearchField: () => dispatch(removeMenusSearchField()),
-	removeTablesOrderBy: () => dispatch(removeTablesOrderBy()),
-	removeTablesSearchField: () => dispatch(removeTablesSearchField()),
-	removeOrdersCollectionListener: () =>
-		dispatch(removeOrdersCollectionListener()),
+	fetchMainCollectionsStart: () => dispatch(fetchMainCollectionsStart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
