@@ -12,6 +12,7 @@ import UnitsActionTypes from './units.types';
 
 // Action
 import { fetchUnitsSuccess, fetchUnitsFailure } from './units.actions';
+import { fetchItemsCollectionStart } from '../items/items.actions';
 
 /* ================================================================ */
 /*  Actions                                                         */
@@ -25,6 +26,7 @@ export function* fetchUnitsStart() {
 		const newUnits = yield call(convertArrayToObject, units, 'id');
 
 		yield put(fetchUnitsSuccess(newUnits));
+		yield put(fetchItemsCollectionStart());
 	} catch (error) {
 		console.log(error);
 		yield put(fetchUnitsFailure(error));

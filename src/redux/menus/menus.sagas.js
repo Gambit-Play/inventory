@@ -9,6 +9,7 @@ import {
 	fetchMenusCollectionFailure,
 	fetchMenusCollectionUpdate,
 } from './menus.actions';
+import { fetchOrdersCollectionStart } from '../orders/orders.actions';
 import { setFilteredMenusStart } from '../handlers/menus-table/menus-table.actions';
 
 // Firebase utils
@@ -68,6 +69,7 @@ export function* fetchCurrentMenus(data) {
 	if (!data) yield put(fetchMenusCollectionUpdate());
 	if (data) {
 		yield put(fetchMenusCollectionSuccess(data));
+		yield put(fetchOrdersCollectionStart());
 		yield put(setFilteredMenusStart());
 	}
 }

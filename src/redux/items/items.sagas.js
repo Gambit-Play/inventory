@@ -20,6 +20,7 @@ import {
 	fetchItemsCollectionSuccess,
 	fetchItemsCollectionFailure,
 } from './items.actions';
+import { fetchMenusCollectionStart } from '../menus/menus.actions';
 import { setFilteredItemsStart } from '../handlers/items-table/items-table.actions';
 
 /* ================================================================ */
@@ -66,6 +67,7 @@ export function* fetchCurrentItems(data) {
 	if (!data) yield put(fetchItemsCollectionUpdate());
 	if (data) {
 		yield put(fetchItemsCollectionSuccess(data));
+		yield put(fetchMenusCollectionStart());
 		yield put(setFilteredItemsStart());
 	}
 }

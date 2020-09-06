@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
-// Routes
-import * as ROUTES from '../../../routes/routes';
-
 // Redux
 import {
 	selectEmail,

@@ -151,12 +151,8 @@ export function* fetchAllUsersCollectionAsync() {
 			'id'
 		);
 		yield put(UsersActions.fetchAllUsersSuccess(newUsersCollection));
-		yield put(ItemsActions.fetchItemsCollectionStart());
-		yield put(MenusActions.fetchMenusCollectionStart());
 		yield put(fetchCategoriesCollectionStart());
-		yield put(fetchOrdersCollectionStart());
 		yield put(fetchTablesCollectionStart());
-		yield put(fetchUnitsStart());
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.fetchAllUsersFailure(error.message));

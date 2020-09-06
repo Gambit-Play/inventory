@@ -19,6 +19,7 @@ import {
 	fetchCategoriesCollectionFailure,
 	fetchCategoriesCollectionUpdate,
 } from './categories.actions';
+import { fetchUnitsStart } from '../units/units.actions';
 import { setFilteredCategoriesStart } from '../handlers/categories-table/categories-table.actions';
 
 /* ================================================================ */
@@ -65,6 +66,7 @@ export function* fetchCurrentCategories(data) {
 	if (!data) yield put(fetchCategoriesCollectionUpdate());
 	if (data) {
 		yield put(fetchCategoriesCollectionSuccess(data));
+		yield put(fetchUnitsStart());
 		yield put(setFilteredCategoriesStart());
 	}
 }
