@@ -19,6 +19,7 @@ import {
 	setUserCredential,
 	clearUserCredentials,
 	clearInputErrors,
+	emailSignInStart,
 } from '../../../redux/users/users.actions';
 
 // Components
@@ -31,7 +32,7 @@ import { Box, GoogleIcon, Text } from '../sign-up/sign-up.styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const SignIn = ({
+const Login = ({
 	selectEmail,
 	selectPassword,
 	setUserCredential,
@@ -40,6 +41,7 @@ const SignIn = ({
 	errorPassword,
 	clearUserCredentials,
 	clearInputErrors,
+	emailSignInStart,
 }) => {
 	const history = useHistory();
 
@@ -89,7 +91,7 @@ const SignIn = ({
 					color='primary'
 					size='small'
 					className='button'
-					// onClick={signUpStart}
+					onClick={emailSignInStart}
 				>
 					Login
 				</Button>
@@ -111,7 +113,7 @@ const SignIn = ({
 	);
 };
 
-SignIn.propTypes = {
+Login.propTypes = {
 	selectEmail: PropTypes.string.isRequired,
 	selectPassword: PropTypes.string.isRequired,
 	setUserCredential: PropTypes.func.isRequired,
@@ -120,6 +122,7 @@ SignIn.propTypes = {
 	errorPassword: PropTypes.string.isRequired,
 	clearUserCredentials: PropTypes.func.isRequired,
 	clearInputErrors: PropTypes.func.isRequired,
+	emailSignInStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -135,6 +138,7 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(setUserCredential(inputName, value)),
 	clearUserCredentials: () => dispatch(clearUserCredentials()),
 	clearInputErrors: () => dispatch(clearInputErrors()),
+	emailSignInStart: () => dispatch(emailSignInStart()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

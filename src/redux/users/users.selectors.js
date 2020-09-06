@@ -61,3 +61,9 @@ export const selectErrorConfirmPassword = createSelector(
 	[selectUsersStore],
 	users => users.errorConfirmPassword
 );
+
+// Selects user.isNewUser from the state
+export const selectIsNewUser = createSelector(
+	[selectUsersStore],
+	users => users.isNewUser
+);

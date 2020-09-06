@@ -17,10 +17,6 @@ import {
 	selectPassword,
 	selectConfirmPassword,
 	selectDisplayName,
-	selectErrorEmail,
-	selectErrorPassword,
-	selectErrorConfirmPassword,
-	selectErrorDisplayName,
 } from './users.selectors';
 
 // Firebase utils
@@ -82,6 +78,35 @@ export function* signInWithGoogleStart() {
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.signInFailure(error.message));
+	}
+}
+
+export function* signInWithEmail() {
+	try {
+		yield put(UsersActions.clearInputErrors());
+
+		const email = yield select(selectEmail);
+		const password = yield select(selectPassword);
+
+		const { user } = yield auth.signInWithEmailAndPassword(email, password);
+
+		console.log('@@@@@ signInWithEmail - user:', user);
+
+		yield call(getSnapshotFromUserAuth, user);
+		yield put(UsersActions.clearUserCredentials());
+	} catch (error) {
+		console.log(error);
+		const userNotExist = yield error.code.includes('user-not-found');
+
+		if (userNotExist)
+			return yield put(
+				UsersActions.signUpFailure(
+					'errorEmail',
+					'This user does not exist!'
+				)
+			);
+
+		yield put(UsersActions.signInFailure(error));
 	}
 }
 
@@ -158,6 +183,7 @@ export function* signUpStart() {
 			email,
 			password
 		);
+
 		yield put(
 			UsersActions.signUpSuccess({
 				user,
@@ -171,6 +197,7 @@ export function* signUpStart() {
 				},
 			})
 		);
+		yield put(UsersActions.clearUserCredentials());
 	} catch (error) {
 		console.log(error);
 		const isEmail = yield error.code.includes('email');
@@ -207,6 +234,10 @@ export function* onGoogleSignInStart() {
 
 export function* onGoogleSignOutStart() {
 	yield takeLatest(UsersActionTypes.SIGN_OUT_START, signOutFromGoogleStart);
+}
+
+export function* onEmailSignInStart() {
+	yield takeLatest(UsersActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
 export function* onAuthStateChangedStart() {
@@ -251,5 +282,6 @@ export default function* userSagas() {
 		call(onFetchAllUsersCollectioStart),
 		call(onSignUpStart),
 		call(onSignUpSuccess),
+		call(onEmailSignInStart),
 	]);
 }

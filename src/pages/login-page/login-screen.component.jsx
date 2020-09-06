@@ -9,12 +9,12 @@ import { selectIsNewUser } from '../../redux/users/users.selectors';
 // Components
 import { LoginImage, Box } from './login-screen.styles';
 import SignUp from '../../components/organisms/sign-up/sign-up.component';
-import SignIn from '../../components/organisms/sign-in/sign-in.component';
+import Login from '../../components/organisms/login/login.component';
 
 const LoginScreen = ({ isNewUser }) => {
 	return (
 		<LoginImage>
-			<Box>{isNewUser ? <SignUp /> : <SignIn />}</Box>
+			<Box>{isNewUser ? <SignUp /> : <Login />}</Box>
 		</LoginImage>
 	);
 };

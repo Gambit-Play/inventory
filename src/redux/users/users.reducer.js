@@ -9,6 +9,9 @@ const INITIAL_STATE = {
 		allUsers: undefined,
 		onAuthStateChange: undefined,
 	},
+
+	// Login & signup
+	isNewUser: false,
 	displayName: '',
 	email: '',
 	password: '',
