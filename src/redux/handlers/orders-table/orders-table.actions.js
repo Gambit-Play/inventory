@@ -75,3 +75,12 @@ export const setRowsPerPageFailure = errorMessage => ({
 	type: OrdersTableActionTypes.SET_ORDERS_ROWS_PER_PAGE_FAILURE,
 	payload: errorMessage,
 });
+
+/* ================================================================ */
+/*  Process Remove	                                                */
+/* ================================================================ */
+
+export const clearOrdersTable = errorMessage => ({
+	type: OrdersTableActionTypes.CLEAR_ORDERS_TABLE,
+	payload: errorMessage,
+});

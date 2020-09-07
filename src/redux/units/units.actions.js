@@ -25,3 +25,12 @@ export const fetchUnitsFailure = errorMessage => ({
 	type: UnitsActionTypes.FETCH_UNITS_FAILURE,
 	payload: errorMessage,
 });
+
+/* ================================================================ */
+/*  Process Remove	       	                                        */
+/* ================================================================ */
+
+export const clearUnitsCollection = errorMessage => ({
+	type: UnitsActionTypes.CLEAR_UNITS_COLLECTIONS,
+	payload: errorMessage,
+});

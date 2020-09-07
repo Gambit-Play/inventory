@@ -126,3 +126,7 @@ export const removeTablesOrderBy = () => ({
 export const removeTablesSearchField = () => ({
 	type: TablesTableActionTypes.REMOVE_TABLES_SEARCH_FIELD,
 });
+
+export const clearTablesTable = () => ({
+	type: TablesTableActionTypes.CLEAR_TABLES_TABLE,
+});

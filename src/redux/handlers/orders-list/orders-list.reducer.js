@@ -67,6 +67,15 @@ const ordersListReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				errorMessage: action.payload,
 			};
+		case OrdersListActionTypes.CLEAR_ORDERS_LIST:
+			return {
+				...state,
+				currentOrders: [],
+				errorMessage: '',
+				status: '',
+				id: '',
+				isUpdating: false,
+			};
 		default:
 			return state;
 	}

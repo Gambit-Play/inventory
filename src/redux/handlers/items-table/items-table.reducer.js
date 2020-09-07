@@ -83,6 +83,19 @@ const itemsTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				searchField: '',
 			};
+		case ItemsTableActionTypes.CLEAR_ITEMS_TABLE:
+			return {
+				...state,
+				order: 'asc',
+				orderBy: '',
+				selected: [],
+				filteredItems: [],
+				page: 0,
+				dense: false,
+				rowsPerPage: 5,
+				errorMessage: undefined,
+				searchField: '',
+			};
 		default:
 			return state;
 	}

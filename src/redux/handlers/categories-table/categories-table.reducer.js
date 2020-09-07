@@ -83,6 +83,19 @@ const categoriesTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				searchField: '',
 			};
+		case CategoriesTableActionTypes.CLEAR_CATEGORIES_TABLE:
+			return {
+				...state,
+				order: 'asc',
+				orderBy: '',
+				selected: [],
+				filteredCategories: [],
+				page: 0,
+				dense: false,
+				rowsPerPage: 5,
+				errorMessage: undefined,
+				searchField: '',
+			};
 		default:
 			return state;
 	}

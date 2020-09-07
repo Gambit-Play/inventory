@@ -51,6 +51,17 @@ const ordersTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				errorMessage: action.payload,
 			};
+		case OrdersTableActionTypes.CLEAR_ORDERS_TABLE:
+			return {
+				...state,
+				ordersTable: [],
+				order: 'asc',
+				orderBy: '',
+				page: 0,
+				dense: false,
+				rowsPerPage: 5,
+				errorMessage: '',
+			};
 		default:
 			return state;
 	}

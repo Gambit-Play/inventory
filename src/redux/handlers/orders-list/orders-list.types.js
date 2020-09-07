@@ -10,6 +10,8 @@ const OrdersListActionTypes = {
 	SET_ORDER_STATUS: 'SET_ORDER_STATUS',
 
 	REMOVE_ORDER_STATUS: 'REMOVE_ORDER_STATUS',
+
+	CLEAR_ORDERS_LIST: 'CLEAR_ORDERS_LIST',
 };
 
 export default OrdersListActionTypes;

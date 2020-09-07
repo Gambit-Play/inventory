@@ -83,6 +83,19 @@ const menusTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				searchField: '',
 			};
+		case MenusTableActionTypes.CLEAR_MENUS_TABLE:
+			return {
+				...state,
+				order: 'asc',
+				orderBy: '',
+				selected: [],
+				filteredMenus: [],
+				page: 0,
+				dense: false,
+				rowsPerPage: 5,
+				errorMessage: undefined,
+				searchField: '',
+			};
 		default:
 			return state;
 	}

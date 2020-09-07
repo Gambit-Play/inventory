@@ -126,3 +126,7 @@ export const removeCategoriesOrderBy = () => ({
 export const removeCategoriesSearchField = () => ({
 	type: CategoriesTableActionTypes.REMOVE_CATEGORIES_SEARCH_FIELD,
 });
+
+export const clearCategoriesTable = () => ({
+	type: CategoriesTableActionTypes.CLEAR_CATEGORIES_TABLE,
+});

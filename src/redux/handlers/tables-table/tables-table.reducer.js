@@ -83,6 +83,19 @@ const tablesTableReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				searchField: '',
 			};
+		case TablesTableActionTypes.CLEAR_TABLES_TABLE:
+			return {
+				...state,
+				order: 'asc',
+				orderBy: '',
+				selected: [],
+				filteredTables: [],
+				page: 0,
+				dense: false,
+				rowsPerPage: 5,
+				errorMessage: undefined,
+				searchField: '',
+			};
 		default:
 			return state;
 	}

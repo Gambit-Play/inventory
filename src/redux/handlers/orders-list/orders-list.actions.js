@@ -51,3 +51,7 @@ export const updateOrderStatusFailure = errorMessage => ({
 export const removeOrderStatus = () => ({
 	type: OrdersListActionTypes.REMOVE_ORDER_STATUS,
 });
+
+export const clearOrdersList = () => ({
+	type: OrdersListActionTypes.CLEAR_ORDERS_LIST,
+});

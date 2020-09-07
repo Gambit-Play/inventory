@@ -126,3 +126,7 @@ export const removeMenusOrderBy = () => ({
 export const removeMenusSearchField = () => ({
 	type: MenusTableActionTypes.REMOVE_MENUS_SEARCH_FIELD,
 });
+
+export const clearMenusTable = () => ({
+	type: MenusTableActionTypes.CLEAR_MENUS_TABLE,
+});

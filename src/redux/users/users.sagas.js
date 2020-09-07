@@ -8,28 +8,43 @@ import UsersActionTypes from './users.types';
 
 // Actions
 import * as UsersActions from './users.actions';
-import * as ItemsActions from '../items/items.actions';
-import * as MenusActions from '../menus/menus.actions';
+import { clearItemsStart } from '../items/items.actions';
+import { clearMenusStart } from '../menus/menus.actions';
+import { clearOrdersStart } from '../orders/orders.actions';
+import { clearCategoriesStart } from '../categories/categories.actions';
+import {
+	clearTablesStart,
+	fetchTablesCollectionStart,
+} from '../tables/tables.actions';
+import { clearUnitsCollection } from '../units/units.actions';
 import {
 	removeCategoriesOrderBy,
 	removeCategoriesSearchField,
+	clearCategoriesTable,
 } from '../handlers/categories-table/categories-table.actions';
 import {
 	removeTablesOrderBy,
 	removeTablesSearchField,
+	clearTablesTable,
 } from '../handlers/tables-table/tables-table.actions';
 import {
 	removeMenusOrderBy,
 	removeMenusSearchField,
+	clearMenusTable,
 } from '../handlers/menus-table/menus-table.actions';
 import {
 	removeItemsOrderBy,
 	removeItemsSearchField,
+	clearItemsTable,
 } from '../handlers/items-table/items-table.actions';
-import { fetchUnitsStart } from '../units/units.actions';
+import { clearOrderForm } from '../handlers/order-form/order-form.actions';
 import { fetchCategoriesCollectionStart } from '../categories/categories.actions';
-import { fetchOrdersCollectionStart } from '../orders/orders.actions';
-import { fetchTablesCollectionStart } from '../tables/tables.actions';
+import { removeCategory } from '../handlers/category-detail/category-detail.actions';
+import { removeItem } from '../handlers/item-detail/item-detail.actions';
+import { removeMenu } from '../handlers/menu-detail/menu-detail.actions';
+import { clearOrdersList } from '../handlers/orders-list/orders-list.actions';
+import { clearOrdersTable } from '../handlers/orders-table/orders-table.actions';
+import { removeTable } from '../handlers/table-detail/table-detail.actions';
 
 // Selectors
 import {
@@ -169,11 +184,31 @@ export function* removeAuthListenerStart() {
 export function* signOutFromGoogleStart() {
 	try {
 		yield call(signOutFromGoogle);
-		yield put(ItemsActions.clearItemsStart());
+		yield call(clearCollectionsStore);
 	} catch (error) {
 		console.log(error.message);
 		yield put(UsersActions.signOutFailure(error.message));
 	}
+}
+
+export function* clearCollectionsStore() {
+	yield put(clearCategoriesStart());
+	yield put(clearItemsStart());
+	yield put(clearMenusStart());
+	yield put(clearOrdersStart());
+	yield put(clearTablesStart());
+	yield put(clearUnitsCollection());
+	yield put(clearCategoriesTable());
+	yield put(removeCategory());
+	yield put(clearItemsTable());
+	yield put(removeMenu());
+	yield put(removeItem());
+	yield put(clearMenusTable());
+	yield put(clearOrderForm());
+	yield put(clearOrdersList());
+	yield put(clearOrdersTable());
+	yield put(removeTable());
+	yield put(clearTablesTable());
 }
 
 export function* signUpStart() {

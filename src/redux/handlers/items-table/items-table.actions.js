@@ -126,3 +126,7 @@ export const removeItemsOrderBy = () => ({
 export const removeItemsSearchField = () => ({
 	type: ItemsTableActionTypes.REMOVE_ITEMS_SEARCH_FIELD,
 });
+
+export const clearItemsTable = () => ({
+	type: ItemsTableActionTypes.CLEAR_ITEMS_TABLE,
+});

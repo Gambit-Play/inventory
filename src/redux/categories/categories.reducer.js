@@ -48,7 +48,7 @@ const categoriesReducer = (state = INITIAL_STATE, action) => {
 		case CategoriesActionTypes.CLEAR_CATEGORIES_COLLECTIONS:
 			return {
 				...state,
-				currentCategories: [],
+				currentCategories: null,
 				isFetching: false,
 				errorMessage: '',
 			};
