@@ -42,7 +42,7 @@ const PrimaryList = props => {
 				selected={isCurrent(ROUTES.DASHBOARD)}
 				to={ROUTES.DASHBOARD}
 				labelColor={isIconActive(ROUTES.DASHBOARD)}
-				label={'Dashboard'}
+				label={'Tutorial'}
 			>
 				<DashboardIcon color={isIconActive(ROUTES.DASHBOARD)} />
 			</MenuListItem>

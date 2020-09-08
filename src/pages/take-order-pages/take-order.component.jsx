@@ -33,11 +33,11 @@ const TakeOrder = props => {
 				component={OrderForm}
 			/>
 			<Route
-				path={`${path}/${ROUTES.EAT_IN}/:tableId/pay`}
+				path={`${path}/${ROUTES.EAT_IN}/:tableId/${ROUTES.PAYMENT}`}
 				component={PayOrder}
 			/>
 			<Route
-				path={`${path}/${ROUTES.TAKE_AWAY}/pay`}
+				path={`${path}/${ROUTES.TAKE_AWAY}/${ROUTES.PAYMENT}`}
 				component={PayOrder}
 			/>
 		</Switch>

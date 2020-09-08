@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Link, useRouteMatch } from 'react-router-dom';
 
+// Routes
+import * as ROUTES from '../../../routes/routes';
+
 // Redux
 import { selectCurrentCategories } from '../../../redux/categories/categories.selectors';
 import { selectCurrentMenus } from '../../../redux/menus/menus.selectors';
@@ -88,7 +91,7 @@ const OrderForm = props => {
 						disabled={hasError}
 						className={classes.payButton}
 						component={Link}
-						to={`${url}/pay`}
+						to={`${url}/${ROUTES.PAYMENT}`}
 					>
 						Pay
 					</Button>

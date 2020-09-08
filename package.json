@@ -30,7 +30,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"firebase-deploy": "react-scripts build && firebase deploy --only hosting",
+		"firebase-deploy-hosting": "react-scripts build && firebase deploy --only hosting",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
