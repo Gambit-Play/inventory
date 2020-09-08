@@ -20,7 +20,7 @@ import {
 } from '../../../redux/users/users.actions';
 
 // Components
-import { Box, GoogleIcon, Text } from '../sign-up/sign-up.styles';
+import { Box, GoogleIcon, Text, Link } from '../sign-up/sign-up.styles';
 
 // Mui Components
 import TextField from '@material-ui/core/TextField';
@@ -64,7 +64,7 @@ const Login = ({
 					value={selectEmail}
 					type='email'
 					onChange={handleChange}
-					className='input'
+					className='small-padding'
 					helperText={errorEmail}
 					error={errorEmail ? true : false}
 				/>
@@ -75,7 +75,7 @@ const Login = ({
 					value={selectPassword}
 					type='password'
 					onChange={handleChange}
-					className='input'
+					className='medium-padding'
 					helperText={errorPassword}
 					error={errorPassword ? true : false}
 				/>
@@ -83,24 +83,35 @@ const Login = ({
 					variant='contained'
 					color='primary'
 					size='small'
-					className='button'
+					className='small-padding'
 					onClick={emailSignInStart}
 				>
 					Login
 				</Button>
-				<Text fontColor='#47525dcc' fontSize={4} className='button'>
+				<Text
+					fontColor='#47525dcc'
+					fontSize={4}
+					className='small-padding'
+				>
 					Or login with Google:
 				</Text>
 				<Button
 					variant='outlined'
 					color='primary'
 					size='small'
-					className='button'
+					className='medium-padding'
 					// onClick={handleSignUp}
 					startIcon={<GoogleIcon />}
 				>
 					Login
 				</Button>
+				<Link
+					fontSize={4}
+					align='center'
+					// onClick={preventDefault}
+				>
+					Don't have an account?
+				</Link>
 			</Box>
 		</form>
 	);

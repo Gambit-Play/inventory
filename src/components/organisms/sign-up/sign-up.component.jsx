@@ -27,7 +27,7 @@ import {
 } from '../../../redux/users/users.actions';
 
 // Components
-import { Box, GoogleIcon, Text } from './sign-up.styles';
+import { Box, GoogleIcon, Text, Link } from './sign-up.styles';
 
 // Icons
 // import { ReactComponent as GoogleIcon } from '../../../assets/svg/google-logo.svg';
@@ -79,7 +79,7 @@ const SignUp = ({
 					value={selectDisplayName}
 					type='text'
 					onChange={handleChange}
-					className='input'
+					className='small-padding'
 					helperText={errorDisplayName}
 					error={errorDisplayName ? true : false}
 				/>
@@ -90,7 +90,7 @@ const SignUp = ({
 					value={selectEmail}
 					type='email'
 					onChange={handleChange}
-					className='input'
+					className='small-padding'
 					helperText={errorEmail}
 					error={errorEmail ? true : false}
 				/>
@@ -101,7 +101,7 @@ const SignUp = ({
 					value={selectPassword}
 					type='password'
 					onChange={handleChange}
-					className='input'
+					className='small-padding'
 					helperText={errorPassword}
 					error={errorPassword ? true : false}
 				/>
@@ -112,7 +112,7 @@ const SignUp = ({
 					value={selectConfirmPassword}
 					type='password'
 					onChange={handleChange}
-					className='input'
+					className='medium-padding'
 					helperText={errorConfirmPassword}
 					error={errorConfirmPassword ? true : false}
 				/>
@@ -120,24 +120,35 @@ const SignUp = ({
 					variant='contained'
 					color='primary'
 					size='small'
-					className='button'
+					className='small-padding'
 					onClick={signUpStart}
 				>
 					Sign Up
 				</Button>
-				<Text fontColor='#47525dcc' fontSize={4} className='button'>
+				<Text
+					fontColor='#47525dcc'
+					fontSize={4}
+					className='small-padding'
+				>
 					Or sign up with Google:
 				</Text>
 				<Button
 					variant='outlined'
 					color='primary'
 					size='small'
-					className='button'
+					className='medium-padding'
 					// onClick={handleSignUp}
 					startIcon={<GoogleIcon />}
 				>
 					Sign Up
 				</Button>
+				<Link
+					fontSize={4}
+					align='center'
+					// onClick={preventDefault}
+				>
+					Already have an account?
+				</Link>
 			</Box>
 		</form>
 	);
