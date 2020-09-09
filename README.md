@@ -6,7 +6,7 @@ You can take orders with it and it will keep the inventory up to date when that 
 
 ## Build with:
 
--   React
+-   <ins>React</ins>
 -   React-Router-Dom: for routing
 -   Redux: for state management
 -   Redux-Saga: for handling async/side-effect call and for components handlers and logic
