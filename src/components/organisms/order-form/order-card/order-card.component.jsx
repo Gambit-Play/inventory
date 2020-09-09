@@ -13,7 +13,6 @@ const OrderCard = ({ menus }) => {
 					<Fragment key={index}>
 						<h4>{menu.name}</h4>
 						<h4>{parseFloat(menu.price).toFixed(2)}</h4>
-
 						<Divider />
 					</Fragment>
 				))

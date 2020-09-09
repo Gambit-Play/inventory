@@ -1,68 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Food Management App
 
-## Available Scripts
+An app that helps restaurant/fast food owners manage their business easier by automating certain processes.
 
-In the project directory, you can run:
+You can take orders with it and it will keep the inventory up to date when that order has been finished. No more paper tickets which increase the chances of making mistakes. Also, it helps you spend less time doing the administration and focus more on your business.
 
-### `yarn start`
+## Build with:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-   React
+-   React-Router-Dom: for routing
+-   Redux: for state management
+-   Redux-Saga: for handling async/side-effect call and for components handlers and logic
+-   Firebase: for the database (NoSQL)
+-   Lodash: for handling data
+-   Material-UI: for user interface
+-   Styled Components: for user interface and Sass/CSS
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Why I started this project:
 
-### `yarn test`
+My previous project was e-commerce. It was on that project where I was learning React and all other new technologies and concepts. There were certain concepts and libraries that I wanted to learn and experiment more with. These were Redux, Redux-Saga, Firebase, and Styled Components.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+But also creating a CRUD app with authentication from scratch with React on your own, without no one to help you, but the internet, was a very interesting task to take on.
 
-### `yarn build`
+Trying to solve errors that you have never seen before helped me the most, to understand React and other libraries better.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## How I have implemented the libraries:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+One of the interesting parts of this project was experimenting with Redux-Saga by changing and moving all the logic and handlers of a component to Redux-Saga. Which in turn makes my React components cleaner.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Most of my components are just dispatching redux action and providing values if necessary or consuming part of the state from Redux.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+If you are interested in seeing some examples of it and how I have implemented other libraries too? Then click [here](./src/documentation/README_IMPLEMENTATION.md).
