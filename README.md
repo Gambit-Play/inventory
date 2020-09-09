@@ -27,6 +27,6 @@ Trying to solve errors that you have never seen before helped me the most, to un
 
 One of the interesting parts of this project was experimenting with Redux-Saga by changing and moving all the logic and handlers of a component to Redux-Saga. Which in turn makes my React components cleaner.
 
-Most of my components are just dispatching redux action and providing values if necessary or consuming part of the state from Redux.
+Most of my components are just dispatching redux action and providing values if necessary or consuming part of the state from Redux. All the logic are Redux-Sagas.
 
 If you are interested in seeing some examples of it and how I have implemented other libraries too? Then click [here](./src/documentation/README_IMPLEMENTATION.md).
