@@ -7,13 +7,13 @@ You can take orders with it and it will keep the inventory up to date when that 
 ## Build with:
 
 -   <ins>React</ins>
--   React-Router-Dom: for routing
--   Redux: for state management
--   Redux-Saga: for handling async/side-effect call and for components handlers and logic
--   Firebase: for the database (NoSQL)
--   Lodash: for handling data
--   Material-UI: for user interface
--   Styled Components: for user interface and Sass/CSS
+-   <ins>React-Router-Dom</ins>: for routing
+-   <ins>Redux</ins>: for state management
+-   <ins>Redux-Saga</ins>: for handling async/side-effect call and for components handlers and logic
+-   <ins>Firebase</ins>: for the database (NoSQL)
+-   <ins>Lodash</ins>: for handling data
+-   <ins>Material-UI</ins>: for user interface
+-   <ins>Styled Components</ins>: for user interface and Sass/CSS
 
 ## Why I started this project:
 
