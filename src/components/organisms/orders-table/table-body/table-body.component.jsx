@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+// Utils
+import { formatDate } from '../../../../utils/global.utils';
+
 // Routes
 import * as ROUTES from '../../../../routes/routes';
 
@@ -81,7 +84,7 @@ const TableBody = ({ orders, page, rowsPerPage, history }) => {
 							// FIXME: Apply new handler
 							//onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.createdAt}
+							{formatDate(row.createdAt)}
 						</TableCell>
 						<TableCell
 							align='right'
@@ -95,7 +98,7 @@ const TableBody = ({ orders, page, rowsPerPage, history }) => {
 							// FIXME: Apply new handler
 							//onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.updatedAt}
+							{row.updatedAt && formatDate(row.updatedAt)}
 						</TableCell>
 					</TableRow>
 				);

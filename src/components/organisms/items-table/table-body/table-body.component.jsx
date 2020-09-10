@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+// Utils
+import { formatDate } from '../../../../utils/global.utils';
+
 // Redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -115,7 +118,7 @@ const TableBody = props => {
 							align='right'
 							onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.createdAt}
+							{formatDate(row.createdAt)}
 						</TableCell>
 					</TableRow>
 				);

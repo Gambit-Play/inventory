@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
+// Utils
+import { formatDate } from '../../../../utils/global.utils';
+
 // Redux
 import {
 	selectSelected,
@@ -93,7 +96,7 @@ const TableBody = props => {
 							align='right'
 							onClick={event => handleRowClick(event, row.id)}
 						>
-							{row.createdAt}
+							{formatDate(row.createdAt)}
 						</TableCell>
 					</TableRow>
 				);
