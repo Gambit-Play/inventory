@@ -133,12 +133,28 @@ export function* signInWithEmail() {
 	} catch (error) {
 		console.log(error);
 		const userNotExist = yield error.code.includes('user-not-found');
+		const invalidEmail = yield error.code.includes('invalid-email');
+		const invalidPassword = yield error.code.includes('wrong-password');
 
 		if (userNotExist)
 			return yield put(
 				UsersActions.signUpFailure(
 					'errorEmail',
 					'This user does not exist!'
+				)
+			);
+		if (invalidEmail)
+			return yield put(
+				UsersActions.signUpFailure(
+					'errorEmail',
+					'This email is not correct!'
+				)
+			);
+		if (invalidPassword)
+			yield put(
+				UsersActions.signUpFailure(
+					'errorPassword',
+					'This password is not correct!'
 				)
 			);
 
@@ -256,6 +272,7 @@ export function* signUpStart() {
 		yield put(UsersActions.clearUserCredentials());
 	} catch (error) {
 		console.log(error);
+
 		const isEmail = yield error.code.includes('email');
 		const isPassword = yield error.code.includes('password');
 
