@@ -8,13 +8,27 @@ import UsersActionTypes from './users.types';
 
 // Actions
 import * as UsersActions from './users.actions';
-import { clearItemsStart } from '../items/items.actions';
-import { clearMenusStart } from '../menus/menus.actions';
-import { clearOrdersStart } from '../orders/orders.actions';
-import { clearCategoriesStart } from '../categories/categories.actions';
+import {
+	clearItemsStart,
+	removeItemsCollectionListener,
+} from '../items/items.actions';
+import {
+	clearMenusStart,
+	removeMenusCollectionListener,
+} from '../menus/menus.actions';
+import {
+	clearOrdersStart,
+	removeOrdersCollectionListener,
+} from '../orders/orders.actions';
+import {
+	clearCategoriesStart,
+	fetchCategoriesCollectionStart,
+	removeCategoriesCollectionListener,
+} from '../categories/categories.actions';
 import {
 	clearTablesStart,
 	fetchTablesCollectionStart,
+	removeTablesCollectionListener,
 } from '../tables/tables.actions';
 import { clearUnitsCollection } from '../units/units.actions';
 import {
@@ -38,7 +52,6 @@ import {
 	clearItemsTable,
 } from '../handlers/items-table/items-table.actions';
 import { clearOrderForm } from '../handlers/order-form/order-form.actions';
-import { fetchCategoriesCollectionStart } from '../categories/categories.actions';
 import { removeCategory } from '../handlers/category-detail/category-detail.actions';
 import { removeItem } from '../handlers/item-detail/item-detail.actions';
 import { removeMenu } from '../handlers/menu-detail/menu-detail.actions';
@@ -110,7 +123,9 @@ export function* signInWithGoogleStart() {
 		};
 
 		yield call(getSnapshotFromUserAuth, user, additionalData);
-		yield put(authStateChangedStart());
+
+		// TODO: Use this code to create an onAuthStateChanged
+		// yield put(authStateChangedStart());
 		yield put(UsersActions.fetchMainCollectionsStart());
 	} catch (error) {
 		console.log(error.message);
@@ -162,16 +177,17 @@ export function* signInWithEmail() {
 	}
 }
 
-export function* authStateChangedStart() {
-	try {
-		unsubscribe = yield auth.onAuthStateChanged(userAuth => {
-			/* Code for when auth state changes */
-		});
-	} catch (error) {
-		console.log(error.message);
-		yield put(UsersActions.onAuthStateChangeFailure(error.message));
-	}
-}
+// TODO: Use this code to create an onAuthStateChanged
+// export function* authStateChangedStart() {
+// 	try {
+// 		unsubscribe = yield auth.onAuthStateChanged(userAuth => {
+// 			/* Code for when auth state changes */
+// 		});
+// 	} catch (error) {
+// 		console.log(error.message);
+// 		yield put(UsersActions.onAuthStateChangeFailure(error.message));
+// 	}
+// }
 
 export function* fetchAllUsersCollectionAsync() {
 	try {
@@ -200,6 +216,7 @@ export function* removeAuthListenerStart() {
 export function* signOutFromGoogleStart() {
 	try {
 		yield call(signOutFromGoogle);
+		yield put(UsersActions.removeAllListeners());
 		yield call(clearCollectionsStore);
 	} catch (error) {
 		console.log(error.message);
@@ -308,13 +325,21 @@ export function* fetchMainCollectionsStart() {
 
 export function* removeTablesData() {
 	yield put(removeCategoriesOrderBy());
-	put(removeCategoriesSearchField());
-	put(removeTablesOrderBy());
-	put(removeTablesSearchField());
-	put(removeMenusOrderBy());
-	put(removeMenusSearchField());
-	put(removeItemsOrderBy());
-	put(removeItemsSearchField());
+	yield put(removeCategoriesSearchField());
+	yield put(removeTablesOrderBy());
+	yield put(removeTablesSearchField());
+	yield put(removeMenusOrderBy());
+	yield put(removeMenusSearchField());
+	yield put(removeItemsOrderBy());
+	yield put(removeItemsSearchField());
+}
+
+export function* removeAllListeners() {
+	yield put(removeItemsCollectionListener());
+	yield put(removeMenusCollectionListener());
+	yield put(removeOrdersCollectionListener());
+	yield put(removeCategoriesCollectionListener());
+	yield put(removeTablesCollectionListener());
 }
 
 /* ================================================================ */
@@ -336,12 +361,13 @@ export function* onEmailSignInStart() {
 	yield takeLatest(UsersActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
-export function* onAuthStateChangedStart() {
-	yield takeLatest(
-		UsersActionTypes.AUTH_LISTENER_START,
-		authStateChangedStart
-	);
-}
+// TODO: Use this code to create an onAuthStateChanged
+// export function* onAuthStateChangedStart() {
+// 	yield takeLatest(
+// 		UsersActionTypes.AUTH_LISTENER_START,
+// 		authStateChangedStart
+// 	);
+// }
 
 export function* onRemoveAuthListenerStart() {
 	yield takeLatest(
@@ -376,6 +402,10 @@ export function* onRemoveTablesData() {
 	yield takeLatest(UsersActionTypes.REMOVE_TABLES_DATA, removeTablesData);
 }
 
+export function* onRemoveAllListeners() {
+	yield takeLatest(UsersActionTypes.REMOVE_ALL_LISTENERS, removeAllListeners);
+}
+
 /* ================================================================ */
 /*  Root Saga                                                       */
 /* ================================================================ */
@@ -384,7 +414,8 @@ export default function* userSagas() {
 	yield all([
 		call(onGoogleSignInStart),
 		call(onGoogleSignOutStart),
-		call(onAuthStateChangedStart),
+		// TODO: Use this code to create an onAuthStateChanged
+		// call(onAuthStateChangedStart),
 		call(onRemoveAuthListenerStart),
 		call(onFetchAllUsersCollectioStart),
 		call(onSignUpStart),
@@ -392,5 +423,6 @@ export default function* userSagas() {
 		call(onEmailSignInStart),
 		call(onFetchMainCollectionsStart),
 		call(onRemoveTablesData),
+		call(onRemoveAllListeners),
 	]);
 }

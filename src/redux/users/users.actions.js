@@ -126,3 +126,7 @@ export const clearInputErrors = () => ({
 export const clearUserCredentials = () => ({
 	type: UsersActionTypes.CLEAR_USER_CREDENTIALS,
 });
+
+export const removeAllListeners = () => ({
+	type: UsersActionTypes.REMOVE_ALL_LISTENERS,
+});

@@ -47,7 +47,6 @@ const App = props => {
 		return () => {
 			// Cleanup
 			// TODO: Add more actions to remove listeners
-			// removeAuthListenerStart();
 			// removeCategoriesCollectionListener();
 			// removeTablesCollectionListener();
 		};
