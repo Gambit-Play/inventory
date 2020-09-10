@@ -14,7 +14,7 @@ import Login from '../../components/organisms/login/login.component';
 const LoginScreen = ({ isNewUser }) => {
 	return (
 		<LoginImage>
-			<Box>{/* isNewUser */ false ? <SignUp /> : <Login />}</Box>
+			<Box>{isNewUser ? <SignUp /> : <Login />}</Box>
 		</LoginImage>
 	);
 };

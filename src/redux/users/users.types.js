@@ -42,6 +42,8 @@ const UsersActionTypes = {
 	CLEAR_INPUT_ERRORS: 'CLEAR_INPUT_ERRORS',
 
 	REMOVE_TABLES_DATA: 'REMOVE_TABLES_DATA',
+
+	SET_IS_NEW_USER: 'SET_IS_NEW_USER',
 };
 
 export default UsersActionTypes;

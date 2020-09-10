@@ -33,4 +33,5 @@ export const Link = styled.a`
 	color: ${props => props.theme.secondary};
 	text-align: ${props => props.align};
 	text-decoration: underline;
+	cursor: pointer;
 `;

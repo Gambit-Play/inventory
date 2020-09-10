@@ -39,12 +39,18 @@ const usersReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetching: false,
+				isNewUser: false,
 				currentUser: action.payload,
 			};
 		case UsersActionTypes.SET_USER_CREDENTIALS:
 			return {
 				...state,
 				[action.payload.inputName]: action.payload.value,
+			};
+		case UsersActionTypes.SET_IS_NEW_USER:
+			return {
+				...state,
+				isNewUser: !state.isNewUser,
 			};
 		case UsersActionTypes.SET_INPUT_ERRORS:
 			return {

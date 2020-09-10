@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 // Redux
@@ -17,6 +16,8 @@ import {
 	clearUserCredentials,
 	clearInputErrors,
 	emailSignInStart,
+	googleSignInStart,
+	setIsNew,
 } from '../../../redux/users/users.actions';
 
 // Components
@@ -36,19 +37,9 @@ const Login = ({
 	clearUserCredentials,
 	clearInputErrors,
 	emailSignInStart,
+	googleSignInStart,
+	setIsNew,
 }) => {
-	const history = useHistory();
-
-	useEffect(() => {
-		clearUserCredentials();
-		clearInputErrors();
-		return () => {
-			clearUserCredentials();
-			clearInputErrors();
-			history.goBack();
-		};
-	}, [clearUserCredentials, clearInputErrors, history]);
-
 	const handleChange = event => {
 		const { name, value } = event.target;
 		setUserCredential(name, value);
@@ -100,16 +91,12 @@ const Login = ({
 					color='primary'
 					size='small'
 					className='medium-padding'
-					// onClick={handleSignUp}
+					onClick={googleSignInStart}
 					startIcon={<GoogleIcon />}
 				>
 					Login
 				</Button>
-				<Link
-					fontSize={4}
-					align='center'
-					// onClick={preventDefault}
-				>
+				<Link fontSize={4} align='center' onClick={setIsNew}>
 					Don't have an account?
 				</Link>
 			</Box>
@@ -127,6 +114,8 @@ Login.propTypes = {
 	clearUserCredentials: PropTypes.func.isRequired,
 	clearInputErrors: PropTypes.func.isRequired,
 	emailSignInStart: PropTypes.func.isRequired,
+	googleSignInStart: PropTypes.func.isRequired,
+	setIsNew: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -143,6 +132,8 @@ const mapDispatchToProps = dispatch => ({
 	clearUserCredentials: () => dispatch(clearUserCredentials()),
 	clearInputErrors: () => dispatch(clearInputErrors()),
 	emailSignInStart: () => dispatch(emailSignInStart()),
+	googleSignInStart: () => dispatch(googleSignInStart()),
+	setIsNew: () => dispatch(setIsNew()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

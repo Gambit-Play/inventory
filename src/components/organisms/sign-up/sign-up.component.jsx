@@ -24,6 +24,8 @@ import {
 	signUpStart,
 	clearUserCredentials,
 	clearInputErrors,
+	googleSignInStart,
+	setIsNew,
 } from '../../../redux/users/users.actions';
 
 // Components
@@ -50,17 +52,10 @@ const SignUp = ({
 	errorPassword,
 	clearUserCredentials,
 	clearInputErrors,
+	googleSignInStart,
+	setIsNew,
 }) => {
 	const history = useHistory();
-
-	useEffect(() => {
-		clearUserCredentials();
-		clearInputErrors();
-		return () => {
-			clearUserCredentials();
-			clearInputErrors();
-		};
-	}, [clearUserCredentials, clearInputErrors]);
 
 	if (selectCurrentUser) return history.push(ROUTES.MENUS_LIST);
 
@@ -137,16 +132,12 @@ const SignUp = ({
 					color='primary'
 					size='small'
 					className='medium-padding'
-					// onClick={handleSignUp}
+					onClick={googleSignInStart}
 					startIcon={<GoogleIcon />}
 				>
 					Sign Up
 				</Button>
-				<Link
-					fontSize={4}
-					align='center'
-					// onClick={preventDefault}
-				>
+				<Link fontSize={4} align='center' onClick={setIsNew}>
 					Already have an account?
 				</Link>
 			</Box>
@@ -168,6 +159,8 @@ SignUp.propTypes = {
 	errorPassword: PropTypes.string.isRequired,
 	clearUserCredentials: PropTypes.func.isRequired,
 	clearInputErrors: PropTypes.func.isRequired,
+	googleSignInStart: PropTypes.func.isRequired,
+	setIsNew: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -188,6 +181,8 @@ const mapDispatchToProps = dispatch => ({
 	signUpStart: () => dispatch(signUpStart()),
 	clearUserCredentials: () => dispatch(clearUserCredentials()),
 	clearInputErrors: () => dispatch(clearInputErrors()),
+	googleSignInStart: () => dispatch(googleSignInStart()),
+	setIsNew: () => dispatch(setIsNew()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

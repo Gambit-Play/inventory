@@ -42,6 +42,10 @@ export const fetchMainCollectionsStart = () => ({
 	type: UsersActionTypes.FETCH_MAIN_COLLECTIONS_START,
 });
 
+export const setIsNew = () => ({
+	type: UsersActionTypes.SET_IS_NEW_USER,
+});
+
 /* ================================================================ */
 /*  Process Success	                                                */
 /* ================================================================ */
