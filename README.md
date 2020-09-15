@@ -23,10 +23,6 @@ But also creating a CRUD app with authentication from scratch with React on your
 
 Trying to solve errors that you have never seen before helped me the most, to understand React and other libraries better. And also how te be autonomous.
 
-## How I have implemented the libraries:
+## Tutorial:
 
-One of the interesting parts of this project was experimenting with Redux-Saga by changing and moving all the logic and handlers of a component to Redux-Saga. Which in turn makes my React components cleaner.
-
-Most of my components are just dispatching redux action and providing values if necessary or consuming part of the state from Redux. All the logics are now Redux-Sagas.
-
-If you are interested in seeing some examples of it and how I have implemented other libraries too? Then click [here](./src/documentation/README_IMPLEMENTATION.md).
+[Click here](./src/documentation/README_TUTORIALS.md) if you are interested in the tutorial of the app.
