@@ -25,4 +25,4 @@ Trying to solve errors that you have never seen before helped me the most, to un
 
 ## Tutorial:
 
-[Click here](./src/documentation/README_TUTORIALS.md) if you are interested in the tutorial of the app.
+[Click here](./src/documentation/tutorials/README_TUTORIALS.md) for the tutorial of the app.
