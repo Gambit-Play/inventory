@@ -28,6 +28,9 @@ import Button from '@material-ui/core/Button';
 import PaymentIcon from '@material-ui/icons/Payment';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
+// Styles
+import useStyles from './pay-order.styles';
+
 const PayOrder = ({
 	totalPrice,
 	selectedMenus,
@@ -39,6 +42,7 @@ const PayOrder = ({
 	createOrderStart,
 }) => {
 	const history = useHistory();
+	const classes = useStyles();
 
 	const handleClick = () => {
 		history.goBack();
@@ -49,7 +53,12 @@ const PayOrder = ({
 		return (
 			<Fragment>
 				<TotalPrice totalPrice={totalPrice} />
-				<Button variant='contained' onClick={handleClick}>
+				<Button
+					className={classes.button}
+					variant='contained'
+					color='primary'
+					onClick={handleClick}
+				>
 					Payed
 				</Button>
 				<Button variant='outlined' onClick={cancelPayment}>
@@ -63,7 +72,12 @@ const PayOrder = ({
 		return (
 			<Fragment>
 				<TotalPrice totalPrice={totalPrice} />
-				<Button variant='contained' onClick={handleClick}>
+				<Button
+					className={classes.button}
+					variant='contained'
+					color='primary'
+					onClick={handleClick}
+				>
 					Payed
 				</Button>
 				<Button variant='outlined' onClick={cancelPayment}>
@@ -78,6 +92,7 @@ const PayOrder = ({
 			<TotalPrice totalPrice={totalPrice} />
 			<SelectedMenus selectedMenus={selectedMenus} />
 			<Button
+				className={classes.button}
 				variant='contained'
 				color='primary'
 				onClick={isCashPaymentStart}
@@ -86,6 +101,7 @@ const PayOrder = ({
 				Cash
 			</Button>
 			<Button
+				className={classes.button}
 				variant='contained'
 				color='secondary'
 				onClick={isCardPaymentStart}

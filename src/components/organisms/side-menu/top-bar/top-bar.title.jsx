@@ -24,7 +24,7 @@ const TopBarTitle = ({ location }) => {
 	// Main pages
 	if (location.pathname.includes(ROUTES.TABLES_LIST)) return 'Tables';
 	if (location.pathname.includes(ROUTES.MENUS_LIST)) return 'Menus';
-	if (location.pathname.includes(ROUTES.ITEMS_LIST)) return 'Items';
+	if (location.pathname.includes(ROUTES.ITEMS_LIST)) return 'Inventory';
 	if (location.pathname.includes(ROUTES.CATEGORIES_LIST)) return 'Categories';
 
 	return '';

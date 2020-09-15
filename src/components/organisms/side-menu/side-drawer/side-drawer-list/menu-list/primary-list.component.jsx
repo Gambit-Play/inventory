@@ -69,7 +69,7 @@ const PrimaryList = props => {
 				to={ROUTES.ITEMS_LIST}
 				iconColor={isIconActive(ROUTES.ITEMS_LIST)}
 				labelColor={isIconActive(ROUTES.ITEMS_LIST)}
-				label={'Items'}
+				label={'Inventory'}
 			>
 				<BarChartIcon color={isIconActive(ROUTES.ITEMS_LIST)} />
 			</MenuListItem>
