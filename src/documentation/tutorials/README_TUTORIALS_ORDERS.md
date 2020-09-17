@@ -1,12 +1,36 @@
 # Orders
 
 - [Orders](#orders)
-  - [Create a new order](#create-a-new-order)
-  - [Edit a order](#edit-a-order)
-  - [Delete orders](#delete-orders)
+  - [Orders list](#orders-list)
+  - [Current orders](#current-orders)
+  - [All orders](#all-orders)
 
-## Create a new order
+## Orders list
 
-## Edit a order
+![Orders Buttons](../images/orders-images/orders-buttons.png)
 
-## Delete orders
+1. Click here if you want to see the orders.
+
+2. Click on ‘NEW ORDERS’ to see the current orders.
+
+3. Click on ‘ALL ORDERS’ to see all orders that have been made.
+
+---
+
+## Current orders
+
+![Orders Tickets](../images/orders-images/orders-tickets.png)
+
+1. Current order ticket.
+
+2. The status of the order.
+
+3. What has been ordered.
+
+---
+
+## All orders
+
+![Orders Table](../images/orders-images/orders-table.png)
+
+Here is where you can find all orders that have been made.
