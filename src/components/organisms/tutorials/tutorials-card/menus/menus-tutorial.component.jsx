@@ -17,7 +17,7 @@ import { Image, Title, BodyText } from '../tutorials-card.styles';
 // Mui Components
 import Divider from '@material-ui/core/Divider';
 
-const CategoriesTutorial = () => {
+const MenusTutorial = () => {
 	return (
 		<React.Fragment>
 			<Title>Create a new menu</Title>
@@ -82,4 +82,4 @@ const CategoriesTutorial = () => {
 	);
 };
 
-export default CategoriesTutorial;
+export default MenusTutorial;

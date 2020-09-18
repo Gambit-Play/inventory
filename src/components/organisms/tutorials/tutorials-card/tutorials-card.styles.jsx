@@ -24,7 +24,7 @@ export const BodyText = styled.p`
 `;
 
 export const Image = styled.img`
-	width: fit-content;
+	width: ${props => (props.full ? '100%' : 'fit-content')};
 	margin-bottom: ${props => props.theme.spacing(-5)};
 	margin-top: ${props => props.theme.spacing(3)};
 `;
