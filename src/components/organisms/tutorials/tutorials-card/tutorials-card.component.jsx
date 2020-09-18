@@ -8,6 +8,7 @@ import { TYPES } from '../tutorials-buttons/tutorials-buttons.data';
 import { RightColumn } from './tutorials-card.styles';
 import InventoryTutorial from './inventory/inventory-tutorial.component';
 import CategoriesTutorial from './categories/categories-tutorial.component';
+import MenusTutorial from './menus/menus-tutorial.component';
 
 const TutorialCard = ({ currentType }) => {
 	switch (currentType) {
@@ -21,6 +22,12 @@ const TutorialCard = ({ currentType }) => {
 			return (
 				<RightColumn>
 					<CategoriesTutorial />
+				</RightColumn>
+			);
+		case TYPES.MENUS:
+			return (
+				<RightColumn>
+					<MenusTutorial />
 				</RightColumn>
 			);
 		default:
