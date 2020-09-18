@@ -22,6 +22,7 @@ import tableDetailReducer from './handlers/table-detail/table-detail.reducer';
 import orderFormReducer from './handlers/order-form/order-form.reducer';
 import ordersListReducer from './handlers/orders-list/orders-list.reducer';
 import ordersTableReducer from './handlers/orders-table/orders-table.reducer';
+import tutorialsReducer from './handlers/tutorials/tutorials.reducer';
 
 const persistConfig = {
 	key: 'root',
@@ -46,6 +47,7 @@ const persistConfig = {
 		'orders',
 		'ordersList',
 		'ordersTable',
+		'tutorials',
 	],
 };
 
@@ -71,6 +73,7 @@ const rootReducer = combineReducers({
 	orderForm: orderFormReducer,
 	ordersList: ordersListReducer,
 	ordersTable: ordersTableReducer,
+	tutorials: tutorialsReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

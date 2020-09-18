@@ -36,7 +36,7 @@
 
 ![Inventory Table](../images/inventory-images/inventory-table.png)
 
-1. Click on an item if you want to edit.
+1. Click on an item if you want to edit one.
 
 ---
 

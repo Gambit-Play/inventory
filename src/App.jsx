@@ -25,6 +25,7 @@ import TableDetail from './pages/tables-pages/table-detail/table-detail.componen
 import TakeOrder from './pages/take-order-pages/take-order.component';
 import Orders from './pages/orders-pages/orders.component';
 import LoginScreen from './pages/login-page/login-screen.component';
+import TutorialScreen from './pages/tutorial-page/tutorial-screen.component';
 
 // Styles
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
@@ -67,13 +68,11 @@ const App = props => {
 						) : (
 							<MainContainer>
 								<SideMenu>
-									{
-										// <Route
-										// exact
-										// path={ROUTES.DASHBOARD}
-										// component={/*-----Component-----*/} // FIXME: Add a tutorial for the Dashboard route
-										// />
-									}
+									<Route
+										exact
+										path={ROUTES.DASHBOARD}
+										component={TutorialScreen}
+									/>
 									<Route
 										exact
 										path={ROUTES.ITEMS_LIST}
