@@ -15,7 +15,7 @@ const OrdersTutorial = () => {
 	return (
 		<React.Fragment>
 			<Title>Orders list</Title>
-			<Image src={ordersButton} alt='' full />
+			<Image src={ordersButton} alt='' />
 			<BodyText lineHeight>
 				1. Click here if you want to see the orders.
 				<br />
@@ -25,7 +25,7 @@ const OrdersTutorial = () => {
 			</BodyText>
 			<Divider className='divider' />
 			<Title>Current orders</Title>
-			<Image src={ordersTickets} alt='' full />
+			<Image src={ordersTickets} alt='' />
 			<BodyText lineHeight>
 				1. Current order ticket.
 				<br />
@@ -35,7 +35,7 @@ const OrdersTutorial = () => {
 			</BodyText>
 			<Divider className='divider' />
 			<Title>All orders</Title>
-			<Image src={ordersTable} alt='' full />
+			<Image src={ordersTable} alt='' />
 			<BodyText>
 				Here is where you can find all orders that have been made.
 			</BodyText>
