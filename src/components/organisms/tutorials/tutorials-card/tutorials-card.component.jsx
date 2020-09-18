@@ -11,6 +11,7 @@ import CategoriesTutorial from './categories/categories-tutorial.component';
 import MenusTutorial from './menus/menus-tutorial.component';
 import TablesTutorial from './tables/tables-tutorial.component';
 import TakeOrderTutorial from './take-order/take-order-tutorial.component';
+import OrdersTutorial from './orders/orders-tutorial.component';
 
 const TutorialCard = ({ currentType }) => {
 	switch (currentType) {
@@ -42,6 +43,12 @@ const TutorialCard = ({ currentType }) => {
 			return (
 				<RightColumn>
 					<TakeOrderTutorial />
+				</RightColumn>
+			);
+		case TYPES.ORDERS:
+			return (
+				<RightColumn>
+					<OrdersTutorial />
 				</RightColumn>
 			);
 		default:
