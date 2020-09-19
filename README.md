@@ -8,8 +8,6 @@ You can take orders with it and it will keep the inventory up to date when that 
 
 ## Build with:
 
----
-
 -   <ins>React</ins>
 -   <ins>React-Router-Dom</ins>: for routing
 -   <ins>Redux</ins>: for state management
@@ -21,8 +19,6 @@ You can take orders with it and it will keep the inventory up to date when that 
 
 ## Why I started this project:
 
----
-
 My previous project was e-commerce. It was on that project where I was learning React and all other new technologies and concepts. There were certain concepts and libraries that I wanted to learn and experiment more with. These were Redux, Redux-Saga, Firebase, and Styled Components.
 
 But also creating a CRUD app with authentication from scratch with React on your own, without no one to help you, but the internet, was a very interesting task to take on.
@@ -30,7 +26,5 @@ But also creating a CRUD app with authentication from scratch with React on your
 Trying to solve errors that you have never seen before helped me the most, to understand React and other libraries better. And also how te be autonomous.
 
 ## Tutorial:
-
----
 
 [Click here](./src/documentation/tutorials/README_TUTORIALS.md) for the tutorial of the app.
