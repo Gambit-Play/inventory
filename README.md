@@ -15,7 +15,8 @@ You can take orders with it and it will keep the inventory up to date when that 
 -   <ins>Firebase</ins>: for the database (NoSQL)
 -   <ins>Lodash</ins>: for handling data
 -   <ins>Material-UI</ins>: for user interface
--   <ins>Styled Components</ins>: for user interface and Sass/CSS
+-   <ins>Styled Components</ins>: for user interface
+-   <ins>Sass</ins>: for user interface
 
 ## Why I started this project:
 
